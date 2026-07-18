@@ -385,7 +385,22 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
       }, 300);
     }, { passive: true });
   } catch {}
-  botonImprimir?.addEventListener('click', () => print());
+  botonImprimir?.addEventListener('click', async () => {
+    const imagenes = Array.from(
+      document.querySelectorAll<HTMLImageElement>('.texto img[loading="lazy"]')
+    );
+    await Promise.all(
+      imagenes.map((img) => {
+        img.loading = 'eager';
+        if (img.complete) return Promise.resolve();
+        return new Promise<void>((resolve) => {
+          img.addEventListener('load', () => resolve(), { once: true });
+          img.addEventListener('error', () => resolve(), { once: true });
+        });
+      })
+    );
+    print();
+  });
 
   const visor = document.getElementById('visor') as HTMLDialogElement;
   const lienzo = document.getElementById('visor-lienzo') as HTMLElement;

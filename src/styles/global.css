@@ -108,9 +108,73 @@ a:hover { color: var(--oro); }
 
 ::selection { background: color-mix(in srgb, var(--oro) 30%, transparent); }
 
+/* ---------- impresión ---------- */
+
+@page {
+  size: auto;
+  margin: 18mm 16mm;
+}
+
 @media print {
-  html { font-size: 11pt; }
-  body { background: white; color: black; }
-  #cabecera-sitio, #horizonte, #pie-sitio, .herramientas-lectura, dialog { display: none !important; }
-  a { color: black; text-decoration: none; }
+  html {
+    font-size: 11pt !important;
+  }
+
+  body,
+  .capitulo,
+  .epilogo,
+  .travesia,
+  .flota,
+  .edicion,
+  .tapa,
+  .cierre {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Nada de navegación, decoración animada ni superposiciones: solo el texto */
+  #cabecera-sitio,
+  #horizonte,
+  #pie-sitio,
+  .saltar,
+  .herramientas-lectura,
+  .rumbos,
+  dialog,
+  #visor,
+  .abre-visor {
+    display: none !important;
+  }
+
+  /* Las fotos de los capítulos no son botones en papel: se ven, no se pulsan */
+  .texto figure.lamina button.abre-visor {
+    display: block !important;
+    cursor: default;
+  }
+
+  a { color: #000; text-decoration: none; }
+
+  h1, h2, h3, .subtitulo, .etiqueta {
+    color: #000 !important;
+    break-after: avoid-page;
+  }
+
+  .continuara { color: #000 !important; }
+
+  p, li { orphans: 3; widows: 3; }
+
+  blockquote,
+  figure,
+  .aviso-contenido,
+  .ficha {
+    break-inside: avoid;
+  }
+
+  .texto figure.lamina img {
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: 1px solid #999 !important;
+  }
+
+  /* El mapa de la travesía no pagina bien: la cronología de abajo ya cuenta lo mismo en texto */
+  .derrota { display: none !important; }
 }

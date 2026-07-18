@@ -1,0 +1,182 @@
+{
+  "buques/churruca-cartagena.jpg": {
+    "titulo": "Destructor Churruca",
+    "datos": [
+      "Tipo: Destructor de la clase Churruca",
+      "Construcción: astillero de la S.E.C.N. en Cartagena, botado el 20 de agosto de 1929",
+      "Medidas: 101,98 m de eslora, 1.536 t",
+      "Velocidad: 36 nudos",
+      "Armamento: 5 cañones de 120 mm, 1 cañón de 76 mm, torpedos y ametralladoras"
+    ],
+    "historia": "Participó en la Guerra Civil en el bando republicano; en julio de 1936 era buque insignia de la 2.ª Flotilla de Destructores en Cartagena. Fue dado de baja en 1963 y desguazado en 1964. Lleva el nombre de Cosme Damián Churruca, héroe de Trafalgar."
+  },
+  "buques/churruca-gemelo-ciscar-1931.jpg": {
+    "titulo": "Destructor Císcar",
+    "datos": [
+      "Tipo: Destructor de la clase Churruca (2.ª serie)",
+      "Construcción: astillero de la S.E.C.N. en Cartagena, botado el 25 de noviembre de 1932",
+      "Medidas: 101,98 m de eslora, 1.536 t",
+      "Velocidad: 36 nudos",
+      "Armamento: 5 cañones de 120 mm, torpedos y ametralladoras"
+    ],
+    "historia": "Entró en servicio ya empezada la Guerra Civil, en octubre de 1936, en el Cantábrico y en el bando republicano. La aviación nacional lo hundió en Gijón, pero fue reflotado en 1938 y acabó sumándose a la Armada nacional en los últimos meses de la guerra. Quedó varado y se hundió en la ría de Ferrol en 1957. Debe su nombre al marino y científico José de Císcar."
+  },
+  "buques/rey-jaime-i-motonave.jpg": {
+    "titulo": "Motonave Rey Jaime I",
+    "datos": [
+      "Tipo: vapor de pasaje de Trasmediterránea (línea Barcelona-Palma)",
+      "Construcción: astilleros Odero, Sestri Ponente (Génova), botado el 4 de junio de 1911",
+      "Medidas: 96,5 m de eslora, unas 2.300 t",
+      "Velocidad: 17,6 nudos",
+      "Armamento en guerra: 1 cañón de 120 mm, 1 pieza antiaérea de 76 mm y ametralladoras"
+    ],
+    "historia": "Uno de los llamados cisnes del Mediterráneo, cubría la línea Barcelona-Palma cuando en noviembre de 1936 fue requisado y armado como crucero auxiliar, navegando bajo pabellón italiano con el nombre falso de Buccari. Participó en la captura de varios mercantes republicanos. Volvió a su rutina de pasaje tras la guerra y fue desguazado en Valencia en 1968."
+  },
+  "buques/rey-jaime-i-armado-guerra-civil.jpg": {
+    "titulo": "Motonave Rey Jaime I",
+    "datos": [
+      "Tipo: vapor de pasaje de Trasmediterránea (línea Barcelona-Palma)",
+      "Construcción: astilleros Odero, Sestri Ponente (Génova), botado el 4 de junio de 1911",
+      "Medidas: 96,5 m de eslora, unas 2.300 t",
+      "Velocidad: 17,6 nudos",
+      "Armamento en guerra: 1 cañón de 120 mm, 1 pieza antiaérea de 76 mm y ametralladoras"
+    ],
+    "historia": "Uno de los llamados cisnes del Mediterráneo, cubría la línea Barcelona-Palma cuando en noviembre de 1936 fue requisado y armado como crucero auxiliar, navegando bajo pabellón italiano con el nombre falso de Buccari. Participó en la captura de varios mercantes republicanos. Volvió a su rutina de pasaje tras la guerra y fue desguazado en Valencia en 1968."
+  },
+  "buques/jj-sister-armamento-1938.jpg": {
+    "titulo": "Motonave J.J. Sister",
+    "datos": [
+      "Tipo: motonave de pasaje y carga de Trasmediterránea",
+      "Construcción: astillero Odero, Sestri Ponente (Génova), botado en 1896 como vapor Galileo Galilei",
+      "Medidas: 86,35 m de eslora, unas 1.500-2.900 t según carga",
+      "Velocidad: 16,7 nudos (tras convertirse en motonave en 1924)",
+      "Armamento en guerra: piezas de 120 mm y ametralladoras como crucero auxiliar"
+    ],
+    "historia": "Llegó a España en 1910 para la Compañía Valenciana y tomó su nombre de uno de los fundadores de la naviera. Al estallar la Guerra Civil quedó en zona republicana, sirvió de prisión flotante y transporte hasta que el crucero Canarias lo apresó en 1937; ya como crucero auxiliar nacional participó en el desembarco de Ciudadela que puso fin a la ocupación de Menorca en 1939. Volvió a Trasmediterránea y fue desguazado en Valencia en 1965."
+  },
+  "buques/jj-sister-retrato.jpg": {
+    "titulo": "Motonave J.J. Sister",
+    "datos": [
+      "Tipo: motonave de pasaje y carga de Trasmediterránea",
+      "Construcción: astillero Odero, Sestri Ponente (Génova), botado en 1896 como vapor Galileo Galilei",
+      "Medidas: 86,35 m de eslora, unas 1.500-2.900 t según carga",
+      "Velocidad: 16,7 nudos (tras convertirse en motonave en 1924)",
+      "Armamento en guerra: piezas de 120 mm y ametralladoras como crucero auxiliar"
+    ],
+    "historia": "Llegó a España en 1910 para la Compañía Valenciana y tomó su nombre de uno de los fundadores de la naviera. Al estallar la Guerra Civil quedó en zona republicana, sirvió de prisión flotante y transporte hasta que el crucero Canarias lo apresó en 1937; ya como crucero auxiliar nacional participó en el desembarco de Ciudadela que puso fin a la ocupación de Menorca en 1939. Volvió a Trasmediterránea y fue desguazado en Valencia en 1965."
+  },
+  "buques/jose-luis-diez-1930.jpg": {
+    "titulo": "Destructor José Luis Díez",
+    "datos": [
+      "Tipo: Destructor de la clase Churruca",
+      "Construcción: astillero de la S.E.C.N. en Cartagena, botado el 25 de agosto de 1928",
+      "Medidas: 101 m de eslora, 1.536 t",
+      "Velocidad: 36 nudos",
+      "Armamento: 5 cañones de 120 mm, 1 cañón antiaéreo de 76 mm, 6 tubos lanzatorpedos"
+    ],
+    "historia": "Republicano durante toda la guerra, intentó dos veces romper el bloqueo nacional por el Estrecho haciéndose pasar por un destructor británico. En la noche del 29 al 30 de diciembre de 1938 el minador Vulcano lo interceptó frente a Gibraltar; malherido tras el combate, embarrancó en Catalan Bay para no ser hundido ni capturado y su tripulación quedó internada por los británicos. El gobierno de Londres entregó el buque a los nacionales el 25 de marzo de 1939; fue dado de baja en 1965."
+  },
+  "buques/vulcano-cartagena-casau.jpg": {
+    "titulo": "Minador Vulcano",
+    "datos": [
+      "Tipo: cañonero-minador de la clase Júpiter",
+      "Construcción: astillero de la S.E.C.N. en Ferrol, botado el 12 de octubre de 1935",
+      "Medidas: 100 m de eslora, 2.100 t (3.000 a plena carga)",
+      "Velocidad: 18 nudos",
+      "Armamento: 4 cañones de 120 mm, 2 antiaéreos de 76 mm, capacidad para 264 minas"
+    ],
+    "historia": "Entregado a la Armada nacional en agosto de 1937, pasó la Guerra Civil bloqueando puertos republicanos. Su momento de gloria llegó la noche del 29 al 30 de diciembre de 1938, cuando interceptó y averió al destructor José Luis Díez frente a Gibraltar; su dotación recibió la Medalla Naval colectiva por la acción. Siguió en servicio décadas después como buque pontón hasta darse de baja en 1977."
+  },
+  "buques/marte-archivo-armada.jpg": {
+    "titulo": "Minador Marte",
+    "datos": [
+      "Tipo: cañonero-minador de la clase Júpiter",
+      "Construcción: astillero de la S.E.C.N. en Ferrol, botado el 12 de junio de 1937",
+      "Medidas: 100 m de eslora, 2.100 t (3.000 a plena carga)",
+      "Velocidad: 18 nudos",
+      "Armamento: 4 cañones de 120 mm, 2 antiaéreos de 76 mm, capacidad para 264 minas"
+    ],
+    "historia": "Entregado a la Marina nacional en noviembre de 1938, ya en la posguerra quedó destinado en Canarias, donde vigiló la neutralidad española durante la Segunda Guerra Mundial hasta que en febrero de 1947 lo relevaron unos destructores llegados a Tenerife. Pasó luego a la base de Cádiz y no se dio de baja hasta 1971. Comparte nombre con el dios romano de la guerra, como toda su clase de cañoneros."
+  },
+  "buques/miguel-de-cervantes-cartagena-1950.jpg": {
+    "titulo": "Crucero Miguel de Cervantes",
+    "datos": [
+      "Tipo: crucero ligero de la clase Cervera",
+      "Construcción: astillero de la S.E.C.N. en Ferrol, botado el 19 de mayo de 1928",
+      "Medidas: 176,6 m de eslora, 7.975 t",
+      "Velocidad: 33 nudos (35 en pruebas)",
+      "Armamento: 8 cañones de 152 mm, piezas antiaéreas de 101,6 mm y 47 mm, 4 tubos lanzatorpedos triples"
+    ],
+    "historia": "Diseñado por el ingeniero británico Philip Watts inspirándose en los cruceros clase E de la Royal Navy, fue uno de los buques más veloces de su tiempo. Sirvió en la Armada española durante décadas de posguerra, con Cartagena como uno de sus puertos habituales, y lleva el nombre del autor de El Quijote."
+  },
+  "lugares/las-canteras-1925.jpg": {
+    "titulo": "Playa de Las Canteras",
+    "datos": [
+      "Época: fotografía de 1925",
+      "Ubicación: Las Palmas de Gran Canaria",
+      "Rasgo singular: barra de arrecife calcáreo de más de 100.000 años, casi paralela a la orilla en 3.100 m",
+      "Historia: antes llamada Bahía del Arrecife, cantera de piedra usada incluso en la Catedral de Santa Ana"
+    ],
+    "historia": "A principios del siglo XX la playa quedaba a las afueras de la ciudad y había que llegar en coche de caballos cruzando dunas. Su barra natural, un rompeolas de origen coralino, calma siempre las aguas y explica el nacimiento del turismo balneario, sobre todo de ingleses y franceses alojados junto al puerto. El paseo marítimo tal como se conoce hoy no se urbanizó del todo hasta 1936-1937."
+  },
+  "lugares/puerto-de-la-luz-bahia-1920.jpg": {
+    "titulo": "Puerto de La Luz",
+    "datos": [
+      "Época: fotografía de 1920",
+      "Ubicación: Las Palmas de Gran Canaria",
+      "Construcción: primera piedra el 26 de febrero de 1883, obra de la empresa inglesa Swanston y Cía",
+      "Función: estación carbonera y escala atlántica"
+    ],
+    "historia": "Impulsado por el ingeniero Juan de León y Castillo, se convirtió antes incluso de terminarse en un puerto de escala obligado para las navieras inglesas que unían Liverpool y Londres con África occidental y Sudáfrica. En 1902, de los 2.351 barcos que hicieron escala en La Luz, 1.356 eran británicos, muy por delante de los españoles. El carbón para repostar esos vapores hizo despegar la economía de la ciudad."
+  },
+  "lugares/presidio-cuatro-torres-san-fernando-1911.png": {
+    "titulo": "Arsenal de La Carraca",
+    "datos": [
+      "Época: fotografía de 1911",
+      "Ubicación: San Fernando (Cádiz)",
+      "Construcción: obras iniciadas en 1720, impulsadas por decreto de Fernando VI de 1752",
+      "Función: arsenal militar y sede, hasta 1943, de la Escuela Naval Militar"
+    ],
+    "historia": "En su islote se alza el Penal de las Cuatro Torres, una prisión neoclásica de 1765 que llegó a encerrar al héroe revolucionario Francisco de Miranda. Entre 1913 y 1943 San Fernando fue la cuna de los oficiales de la Armada, hasta que ese año la Escuela Naval Militar se trasladó y el edificio pasó a acoger la Escuela de Suboficiales. El arsenal sigue en pie como uno de los rincones más antiguos de la Armada española."
+  },
+  "lugares/madrid-usera-1940.jpg": {
+    "titulo": "Madrid, años 40",
+    "datos": [
+      "Época: fotografías de 1940 y 1941",
+      "Ubicación: Madrid",
+      "Contexto: primera posguerra, cartilla de racionamiento desde mayo de 1939",
+      "Transporte: red de tranvías reducida a 16 líneas al acabar la guerra"
+    ],
+    "historia": "Las colas para conseguir comida eran parte del paisaje diario y los precios se habían disparado un 177 por ciento respecto a 1936; el estraperlo campaba tan fuerte que en 1941 se castigó con la pena de muerte. Los tranvías, maltrechos por la guerra, tardaron años en recuperar sus líneas: en 1943 ya circulaban 35, frente a las 16 de 1939. Una ciudad reconstruyéndose a duras penas entre escombros y cartillas."
+  },
+  "lugares/madrid-calle-1941.jpg": {
+    "titulo": "Madrid, años 40",
+    "datos": [
+      "Época: fotografías de 1940 y 1941",
+      "Ubicación: Madrid",
+      "Contexto: primera posguerra, cartilla de racionamiento desde mayo de 1939",
+      "Transporte: red de tranvías reducida a 16 líneas al acabar la guerra"
+    ],
+    "historia": "Las colas para conseguir comida eran parte del paisaje diario y los precios se habían disparado un 177 por ciento respecto a 1936; el estraperlo campaba tan fuerte que en 1941 se castigó con la pena de muerte. Los tranvías, maltrechos por la guerra, tardaron años en recuperar sus líneas: en 1943 ya circulaban 35, frente a las 16 de 1939. Una ciudad reconstruyéndose a duras penas entre escombros y cartillas."
+  },
+  "familia/reveriano-soutullo-retrato.jpg": {
+    "titulo": "Reveriano Soutullo",
+    "datos": [
+      "Nacimiento: Ponteareas (Pontevedra), 11 de julio de 1880",
+      "Fallecimiento: Madrid, 29 de octubre de 1932",
+      "Oficio: compositor de zarzuelas y pasodobles",
+      "Colaborador habitual: Juan Vert, entre 1919 y 1931"
+    ],
+    "historia": "Estudió composición en el Real Conservatorio de Madrid y con Juan Vert firmó algunos de los grandes títulos de la zarzuela del siglo XX, como La leyenda del beso y La del soto del parral. También compuso en 1929 el pasodoble Puenteareas como homenaje a su pueblo natal. Su música siguió sonando en los escenarios españoles mucho después de su temprana muerte en Madrid."
+  },
+  "familia/fabrica-chocolates-gomez-bosch-1915.jpg": {
+    "titulo": "Chocolates Gómez Bosch",
+    "datos": [
+      "Época: fotografía de 1915",
+      "Ubicación: Las Palmas de Gran Canaria",
+      "Origen: fábrica El Escudo, comprada en 1906 por el murciano Castor Gómez Navarro",
+      "Nombre: Chocolates Gómez Bosch desde 1910"
+    ],
+    "historia": "Castor Gómez Navarro se instaló en Las Palmas y casó con Ana Bosch y Sintes, de familia mallorquina, uniendo así los apellidos que dan nombre a la marca. A su muerte en 1924 tomó las riendas su hijo Tomás Gómez Bosch, que además de empresario fue un fotógrafo notable de la Gran Canaria de su época. La fábrica funcionó como negocio familiar durante varias décadas del siglo XX."
+  }
+}

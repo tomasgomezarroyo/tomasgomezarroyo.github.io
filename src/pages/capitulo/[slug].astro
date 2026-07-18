@@ -148,11 +148,17 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
   }
 
   #visor {
+    position: fixed;
+    inset: 0;
+    margin: auto;
     border: none;
     padding: 0;
     background: transparent;
-    max-width: min(72rem, 94vw);
-    width: auto;
+    width: fit-content;
+    height: fit-content;
+    max-width: 94vw;
+    max-height: 88vh;
+    overflow: visible;
   }
   #visor::backdrop {
     background: rgb(8 14 22 / 0.93);
@@ -160,19 +166,22 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
   #visor-cuerpo {
     display: flex;
     gap: 0;
-    align-items: stretch;
+    align-items: center;
+    max-width: min(72rem, 94vw);
     background: var(--noche);
     border: 1px solid color-mix(in srgb, var(--oro) 45%, transparent);
   }
   #visor-img {
     display: block;
+    flex: 0 1 auto;
+    min-width: 0;
     max-width: min(52rem, 60vw);
     max-height: 82vh;
     width: auto;
     height: auto;
     object-fit: contain;
-    background: #000;
   }
+  #visor-ficha { align-self: stretch; }
   #visor-ficha {
     width: 19rem;
     flex-shrink: 0;

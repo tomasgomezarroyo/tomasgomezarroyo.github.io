@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titulo="Sobre esta edición" descripcion="Cómo se ha preparado la edición familiar de las memorias de Tomás Gómez Arroyo y cómo se distinguen memoria, investigación e imágenes." conBarco={true}>
+  <main class="edicion">
+    <header>
+      <p class="etiqueta">Criterio y procedencia</p>
+      <h1 class="display">Sobre esta edición</h1>
+      <p class="entradilla">Esta web es un proyecto familiar en construcción. Su propósito es conservar y hacer legibles las memorias sin confundir la voz de Tomás con las aportaciones posteriores.</p>
+    </header>
+
+    <section>
+      <h2>El texto</h2>
+      <p>El documento que ha servido para preparar la web es una transcripción familiar de escritos de Tomás Gómez Arroyo; no es el manuscrito ni el original mecanografiado. Por esa razón, una rareza ortográfica o una frase incompleta puede proceder tanto del escrito como de la transcripción.</p>
+      <p>La versión publicada conserva el texto de esa transcripción. Las dudas se registran para cotejarlas, cuando sea posible, con las páginas físicas. No se completan frases ni se atribuyen automáticamente las erratas al autor.</p>
+    </section>
+
+    <section>
+      <h2>Tres voces distintas</h2>
+      <dl>
+        <div><dt>Memoria</dt><dd>El relato en primera persona, escrito por Tomás entre 1991 y 1995.</dd></div>
+        <div><dt>Edición familiar</dt><dd>Títulos, resúmenes, pies de fotografía, navegación y explicaciones que ayudan a recorrer el texto.</dd></div>
+        <div><dt>Investigación</dt><dd>Datos de archivos, documentación oficial, catálogos y bibliografía. Se presentan como referencias y nunca como palabras de Tomás.</dd></div>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Fotografías</h2>
+      <p>Cada imagen debe tener una relación comprobable con el pasaje en que aparece. Las fotografías de un buque gemelo, una maqueta o un lugar usado solo como contexto se identifican expresamente. Las imágenes familiares que lleguen se conservarán primero como archivo, con personas, fecha, lugar, procedencia y autorización, antes de incorporarse a la narración.</p>
+      <p>Las fuentes externas aparecen como referencias de texto no pulsables, para que la lectura no saque accidentalmente al visitante de las memorias.</p>
+    </section>
+
+    <section>
+      <h2>Datos todavía abiertos</h2>
+      <p>La hoja de servicios, los escritos físicos y el archivo familiar permitirán completar destinos, fechas, parentescos y fotografías. También existe una discrepancia sobre las fechas exactas de nacimiento y fallecimiento de Tomás. Hasta que la familia aporte documentación concluyente, esos datos se consideran pendientes de confirmación.</p>
+    </section>
+
+    <section class="referencias">
+      <h2>Referencias documentales empleadas</h2>
+      <ul>
+        <li>Boletín Oficial del Estado: reales decretos de ascensos, destinos, condecoraciones y reserva, 1978–1986.</li>
+        <li>Archivo General de la Armada y catálogos navales consultados para determinadas imágenes.</li>
+        <li>Biblioteca Virtual del Patrimonio Bibliográfico y archivo fotográfico histórico de Canarias para la colección Gómez Bosch.</li>
+        <li>Wikimedia Commons para imágenes de dominio público o con licencias Creative Commons identificadas individualmente.</li>
+        <li>Memoria Digital de Canarias para investigaciones biográficas pendientes de corroboración familiar.</li>
+      </ul>
+    </section>
+
+    <nav class="volver"><a href="/">Volver al índice</a></nav>
+  </main>
+</Base>
+
+<style>
+  .edicion { max-width: var(--medida); margin: 0 auto; padding: 5.5rem 1.4rem 3rem; }
+  header { text-align: center; margin-bottom: 3rem; }
+  h1 { font-size: clamp(2.1rem, 6vw, 3rem); margin-top: 0.5rem; }
+  .entradilla { margin-top: 1.2rem; }
+  section + section { margin-top: 2.7rem; padding-top: 2rem; border-top: 1px solid color-mix(in srgb, var(--oro) 45%, transparent); }
+  h2 { font-family: var(--f-display); color: var(--marino); font-size: 1.65rem; margin-bottom: 0.6rem; }
+  p + p { margin-top: 1em; }
+  dl { display: grid; gap: 1rem; }
+  dl div { padding: 1rem 1.1rem; background: var(--papel-2); border-left: 3px solid var(--oro); }
+  dt { font-weight: 650; color: var(--marino); }
+  dd { margin-top: 0.2rem; }
+  ul { padding-left: 1.3rem; }
+  li + li { margin-top: 0.55rem; }
+  .volver { margin-top: 3rem; text-align: center; }
+  .volver a { min-height: 2.75rem; display: inline-flex; align-items: center; }
+</style>

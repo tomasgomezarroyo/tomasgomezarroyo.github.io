@@ -1,138 +1,58 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const hitos = [
-  { ano: '1978', que: 'Contralmirante', detalle: 'Real Decreto 1536/1978, de 1 de julio.' },
-  { ano: '1980', que: 'Jefe del Mando de Escoltas', detalle: 'Real Decreto 2788/1980, de 22 de diciembre.' },
-  { ano: '1982', que: 'Vicealmirante', detalle: 'Real Decreto 215/1982, de 3 de febrero.' },
-  { ano: '1982', que: 'Almirante Jefe del Arsenal de El Ferrol', detalle: 'Real Decreto 268/1982, de 13 de febrero.' },
-  { ano: '1982', que: 'Gran Cruz del Mérito Naval', detalle: 'Real Decreto 1353/1982, de 23 de junio.' },
-  { ano: '1983', que: 'Gran Cruz de la Real y Militar Orden de San Hermenegildo', detalle: 'Real Decreto 1703/1983, de 22 de junio.' },
-  { ano: '1985', que: 'Reserva activa', detalle: 'Real Decreto 436/1985, de 1 de abril.' },
-  { ano: '1986', que: 'Presidente de la Asociación Benéfica para Huérfanos de los Cuerpos Patentados de la Armada', detalle: 'Real Decreto 652/1986, de 4 de abril.' },
-];
+import { hitosEpilogo } from '../data/carrera';
 ---
-<Base titulo="El resto de la travesía" descripcion="Lo que las memorias no alcanzaron a contar: la carrera de Tomás Gómez Arroyo entre 1954 y 1986, documentada en el Boletín Oficial del Estado." conBarco={true}>
+<Base titulo="El resto de la travesía" descripcion="Hitos documentados de la carrera de Tomás Gómez Arroyo después del punto en que se interrumpen sus memorias." conBarco={true}>
   <main class="epilogo">
     <header>
-      <p class="etiqueta">Epílogo · 1954 – 1986</p>
+      <p class="etiqueta">Epílogo documental · 1954 – 1986</p>
       <h1 class="display">El resto de la travesía</h1>
     </header>
 
     <div class="texto">
-      <p>
-        Las memorias se interrumpen hacia 1954, con su autor recién embarcado en el
-        crucero Miguel de Cervantes y escribiendo contra el tiempo. Lo que vino después
-        no alcanzó a contarlo. Quedó, sin embargo, escrito donde se escriben las
-        carreras de los marinos: en el Boletín Oficial del Estado.
-      </p>
-      <p>
-        Estas líneas no las redactó él. Son el registro oficial de los treinta años
-        que faltan, puestos aquí para que la travesía pueda seguirse entera.
-      </p>
+      <p>Las memorias se interrumpen hacia 1954, con su autor recién embarcado en el crucero Miguel de Cervantes y escribiendo contra el tiempo. Lo que vino después no alcanzó a narrarlo en estas páginas.</p>
+      <p>Estas líneas no las redactó él. Reúnen únicamente los hitos oficiales localizados hasta ahora, sobre todo entre 1978 y 1986. No pretenden rellenar por completo los años que faltan: esa reconstrucción necesitará la hoja de servicios, fotografías y recuerdos de la familia.</p>
     </div>
 
     <ol class="hitos">
-      {hitos.map((h) => (
+      {hitosEpilogo.map((h) => (
         <li>
           <span class="ano">{h.ano}</span>
           <span class="que">
-            <strong>{h.que}</strong>
-            <span class="detalle">{h.detalle}</span>
+            <strong>{h.titulo}</strong>
+            <span class="detalle">{h.referencia}</span>
           </span>
         </li>
       ))}
     </ol>
 
     <div class="texto">
-      <p>
-        Se retiró tras casi medio siglo de servicio: el muchacho que en 1938 no sabía
-        lo que era una estacha terminó mandando arsenales. Pasó sus últimos años entre
-        el recuerdo de Vivi y la escritura de estas páginas, frente a la misma playa
-        donde había nacido.
-      </p>
+      <p>Tras casi medio siglo de servicio, el muchacho que en 1938 no sabía lo que era una estacha llegó a Vicealmirante y estuvo al frente del Arsenal de El Ferrol. La historia personal de esos años permanece abierta a los documentos y fotografías que conserve la familia.</p>
     </div>
 
-    <!-- El cierre: sus últimas palabras escritas, tal como quedaron -->
     <section class="cierre" aria-label="Palabras finales de las memorias">
       <p class="continuara">CONTINUARÁ.....</p>
       <p class="continuara">EN LA OTRA VIDA......</p>
     </section>
 
-    <nav class="volver">
-      <a href="/">Volver a la portada</a>
-    </nav>
+    <nav class="volver"><a href="/">Volver a la portada</a></nav>
   </main>
 </Base>
 
 <style>
-  .epilogo {
-    max-width: var(--medida);
-    margin: 0 auto;
-    padding: 5.5rem 1.4rem 0;
-  }
+  .epilogo { max-width: var(--medida); margin: 0 auto; padding: 5.5rem 1.4rem 0; }
   header { text-align: center; margin-bottom: 2.5rem; }
   h1 { font-size: clamp(2.1rem, 6vw, 3rem); margin-top: 0.5rem; }
   .texto p { margin-bottom: 1.15em; }
-
-  .hitos {
-    list-style: none;
-    margin: 2.4rem 0.4rem;
-    border-left: 1px solid color-mix(in srgb, var(--oro) 45%, transparent);
-    padding-left: 1.6rem;
-  }
-  .hitos li {
-    position: relative;
-    margin-bottom: 1.4rem;
-    display: grid;
-    grid-template-columns: 3.4rem 1fr;
-    gap: 0.9rem;
-  }
-  .hitos li::before {
-    content: "";
-    position: absolute;
-    left: calc(-1.6rem - 3.5px);
-    top: 0.55em;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--oro);
-  }
-  .hitos .ano {
-    font-family: var(--f-display);
-    font-weight: 700;
-    font-size: 1.15rem;
-    color: var(--marino);
-  }
-  .hitos .que { display: flex; flex-direction: column; gap: 0.1rem; }
-  .hitos strong { font-weight: 600; color: var(--marino); }
-  .detalle { font-size: 0.88rem; color: var(--bruma); }
-
-  .cierre {
-    margin: 4.5rem calc(50% - 50vw) 0;
-    padding: 7rem 1.5rem 8rem;
-    background:
-      radial-gradient(ellipse at 50% 20%, rgb(255 255 255 / 0.04), transparent 60%),
-      var(--noche);
-    text-align: center;
-  }
-  .continuara {
-    font-family: var(--f-display);
-    font-weight: 600;
-    font-size: clamp(1.6rem, 5vw, 2.6rem);
-    letter-spacing: 0.12em;
-    color: var(--oro-claro);
-    line-height: 1.9;
-  }
-
-  .volver {
-    text-align: center;
-    padding: 3rem 0 1rem;
-  }
-  .volver a {
-    font-variant-caps: all-small-caps;
-    letter-spacing: 0.16em;
-    text-decoration: none;
-    border-bottom: 1px solid color-mix(in srgb, var(--oro) 50%, transparent);
-    padding-bottom: 0.15rem;
-  }
+  .hitos { list-style: none; margin: 2.4rem 0.4rem; border-left: 1px solid color-mix(in srgb, var(--oro) 55%, transparent); padding-left: 1.6rem; }
+  .hitos li { position: relative; margin-bottom: 1.4rem; display: grid; grid-template-columns: 3.4rem 1fr; gap: 0.9rem; }
+  .hitos li::before { content: ''; position: absolute; left: calc(-1.6rem - 4px); top: 0.55em; width: 7px; height: 7px; border-radius: 50%; background: var(--oro); }
+  .ano { font-family: var(--f-display); font-weight: 700; font-size: 1.15rem; color: var(--marino); }
+  .que { display: flex; flex-direction: column; gap: 0.15rem; }
+  .que strong { font-weight: 600; color: var(--marino); }
+  .detalle { font-size: 0.9rem; color: var(--bruma); }
+  .cierre { margin: 4.5rem calc(50% - 50vw) 0; padding: 7rem 1.5rem 8rem; background: radial-gradient(ellipse at 50% 20%, rgb(255 255 255 / 0.04), transparent 60%), var(--noche); text-align: center; }
+  .continuara { font-family: var(--f-display); font-weight: 600; font-size: clamp(1.6rem, 5vw, 2.6rem); letter-spacing: 0.12em; color: var(--oro-claro); line-height: 1.9; }
+  .volver { text-align: center; padding: 3rem 0 1rem; }
+  .volver a { min-height: 2.75rem; display: inline-flex; align-items: center; font-variant-caps: all-small-caps; letter-spacing: 0.12em; text-decoration: none; border-bottom: 1px solid var(--oro); }
 </style>

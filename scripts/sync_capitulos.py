@@ -2,9 +2,10 @@
 """Genera los fragmentos HTML de los capítulos para el sitio.
 
 Toma cada capítulo desde 02-texto/capitulos-corregidos/*.md si existe;
-si no, cae al original 02-texto/capitulos-original/*.txt (con reunión
-ingenua de líneas). Intercala las figuras definidas en capitulos-meta.json
-y escribe src/generado/<slug>.html más src/generado/indice.json.
+si no, cae al respaldo 02-texto/capitulos-original/*.txt (con reunión
+ingenua de líneas). Estos archivos proceden de una transcripción familiar,
+no del manuscrito del autor. Intercala las figuras definidas en
+capitulos-meta.json y escribe src/generado/<slug>.html más indice.json.
 
 Se puede correr las veces que haga falta: es idempotente.
 """
@@ -12,6 +13,7 @@ import json
 import os
 import re
 import html as htmllib
+from PIL import Image
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 SITIO = os.path.dirname(BASE)
@@ -80,11 +82,42 @@ def inline(texto):
     return t
 
 
+def dimensiones(ruta_relativa):
+    """Ancho/alto reales del archivo, para reservar espacio y evitar saltos de layout."""
+    ruta = os.path.join(SITIO, "public", "fotos", ruta_relativa)
+    with Image.open(ruta) as im:
+        return im.size
+
+
+def preparar_fotos(fotos, bloques, slug):
+    """Resuelve anclas semánticas y valida que cada foto tenga ubicación."""
+    preparadas = []
+    for original in fotos:
+        f = dict(original)
+        ancla = f.get("despues_de")
+        if ancla:
+            coincidencias = [
+                i for i, (_, contenido) in enumerate(bloques)
+                if ancla.casefold() in contenido.casefold()
+            ]
+            if len(coincidencias) != 1:
+                raise ValueError(
+                    f"{slug}: la ancla de foto {ancla!r} produjo "
+                    f"{len(coincidencias)} coincidencias; debe producir una"
+                )
+            f["pos"] = coincidencias[0] + 1
+        if "pos" not in f:
+            raise ValueError(f"{slug}: foto sin 'despues_de' ni 'pos': {f.get('archivo')}")
+        preparadas.append(f)
+    return sorted(preparadas, key=lambda f: f["pos"])
+
+
 def figura(f):
     src = "/fotos/" + f["archivo"].replace("\\", "/")
     pie = htmllib.escape(f["pie"], quote=False)
     credito = htmllib.escape(f["credito"], quote=False)
     alt = htmllib.escape(f["pie"].split(".")[0], quote=True)
+    ancho, alto = dimensiones(f["archivo"])
     ficha = FICHAS.get(f["archivo"])
     attr_ficha = ""
     if ficha:
@@ -93,8 +126,8 @@ def figura(f):
         attr_ficha = ' data-ficha="' + htmllib.escape(json.dumps(carga, ensure_ascii=False), quote=True) + '"'
     return (
         f'<figure class="lamina"{attr_ficha}>'
-        f'<button type="button" class="abre-visor" aria-label="Ampliar fotografía">'
-        f'<img src="{src}" alt="{alt}" loading="lazy" decoding="async" />'
+        f'<button type="button" class="abre-visor" aria-label="Ampliar fotografía: {alt}">'
+        f'<img src="{src}" width="{ancho}" height="{alto}" alt="{alt}" loading="lazy" decoding="async" />'
         f"</button>"
         f'<figcaption>{pie} <span class="credito">{credito}</span></figcaption>'
         f"</figure>"
@@ -113,7 +146,7 @@ for meta in META:
         md, es_corregido = desde_original(original)
 
     bloques = md_a_bloques(md)
-    fotos = sorted(meta.get("fotos", []), key=lambda f: f.get("pos", 999))
+    fotos = preparar_fotos(meta.get("fotos", []), bloques, meta["slug"])
 
     # repartir fotos: en su posición pedida (índice de párrafo) o al final
     piezas = []
@@ -137,6 +170,7 @@ for meta in META:
         "periodo": meta["periodo"],
         "lugares": meta["lugares"],
         "resumen": meta["resumen"],
+        "aviso": meta.get("aviso", ""),
         "corregido": es_corregido,
         "parrafos": len(bloques),
         "fotos": len(fotos),

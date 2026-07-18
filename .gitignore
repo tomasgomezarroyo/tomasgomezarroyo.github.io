@@ -1,5 +1,7 @@
 node_modules/
 dist/
 .astro/
+.wrangler/
 scripts/qa/
 scripts/qa-server.log
+paquete-publicacion-*.zip

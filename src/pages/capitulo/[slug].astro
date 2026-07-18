@@ -20,13 +20,21 @@ const fragmentos = import.meta.glob('../../generado/*.html', {
 const cuerpo = fragmentos[`../../generado/${slug}.html`];
 ---
 <Base titulo={cap.titulo} descripcion={cap.resumen} conBarco={true}>
-  <article class="capitulo">
+  <main class="capitulo">
+    <nav class="herramientas-lectura" aria-label="Herramientas de lectura">
+      <a href="/">Índice</a>
+      <span class="posicion">Parte {i + 1} de {indice.length}</span>
+      <button type="button" id="continuar-lectura" hidden>Continuar donde me quedé</button>
+      <button type="button" id="imprimir-capitulo">Imprimir</button>
+    </nav>
     <header>
       <p class="etiqueta">{cap.periodo} · {cap.lugares}</p>
       <h1 class="display">{cap.titulo}</h1>
       {cap.subtitulo && <p class="subtitulo">{cap.subtitulo}</p>}
       <div class="filete-ancla" aria-hidden="true">⚓</div>
     </header>
+
+    {cap.aviso && <aside class="aviso-contenido" aria-label="Aviso sobre el contenido">{cap.aviso}</aside>}
 
     <div class="texto" set:html={cuerpo} />
 
@@ -35,7 +43,7 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
       <div id="visor-cuerpo">
         <div id="visor-lienzo">
           <img id="visor-img" src="" alt="" draggable="false" />
-          <p id="visor-ayuda">Toca la foto para acercarte. Arrastra para moverte.</p>
+          <p id="visor-ayuda">Haz clic o toca la foto para acercarte. Arrastra para moverte.</p>
           <div id="visor-zoom" role="group" aria-label="Acercar o alejar la fotografía">
             <button type="button" id="zoom-menos" aria-label="Alejar">−</button>
             <button type="button" id="zoom-reset" aria-label="Volver al tamaño original">⤢</button>
@@ -60,7 +68,7 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
         ? <a rel="next" href={`/capitulo/${siguiente.slug}`}><span class="etiqueta">Siguiente</span><span>{siguiente.titulo}</span></a>
         : <a rel="next" href="/epilogo"><span class="etiqueta">Siguiente</span><span>El resto de la travesía</span></a>}
     </nav>
-  </article>
+  </main>
 </Base>
 
 <style>
@@ -68,6 +76,41 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     max-width: var(--medida);
     margin: 0 auto;
     padding: 5.5rem 1.4rem 3rem;
+  }
+  .herramientas-lectura {
+    position: sticky;
+    top: 3.7rem;
+    z-index: 40;
+    margin: 0 auto 2rem;
+    padding: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.6rem;
+    background: color-mix(in srgb, var(--papel) 94%, transparent);
+    border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.06);
+    backdrop-filter: blur(8px);
+  }
+  .herramientas-lectura a,
+  .herramientas-lectura button {
+    min-height: 2.6rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.65rem;
+    border: none;
+    background: transparent;
+    color: var(--marino);
+    text-decoration: underline;
+    text-decoration-color: var(--oro);
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+    font-size: 0.88rem;
+  }
+  .herramientas-lectura .posicion {
+    color: var(--bruma);
+    font-size: 0.84rem;
   }
   header { text-align: center; margin-bottom: 2.5rem; }
   h1 { font-size: clamp(2.1rem, 6vw, 3.1rem); margin-top: 0.6rem; }
@@ -77,6 +120,14 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     font-size: 1.25rem;
     color: var(--bruma);
     margin-top: 0.4rem;
+  }
+  .aviso-contenido {
+    margin: 0 0 2rem;
+    padding: 0.9rem 1.1rem;
+    border-left: 3px solid var(--oro);
+    background: var(--papel-2);
+    color: var(--tinta);
+    font-size: 0.94rem;
   }
 
   .texto :global(p) {
@@ -137,6 +188,7 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     padding-top: 1.6rem;
   }
   .rumbos a {
+    min-height: 3.6rem;
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
@@ -289,6 +341,9 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
   }
 
   @media (max-width: 860px) {
+    .herramientas-lectura {
+      position: static;
+    }
     #visor-cuerpo { flex-direction: column; }
     #visor-ficha { width: auto; max-height: 34vh; }
     #visor-zoom button { font-size: 0.95rem; }
@@ -304,6 +359,29 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
 </style>
 
 <script>
+  const botonContinuar = document.getElementById('continuar-lectura') as HTMLButtonElement | null;
+  const botonImprimir = document.getElementById('imprimir-capitulo') as HTMLButtonElement | null;
+  const clavePosicion = 'memorias-posicion:' + location.pathname;
+
+  try {
+    const guardada = Number(localStorage.getItem(clavePosicion) || 0);
+    if (botonContinuar && guardada > 250) {
+      botonContinuar.hidden = false;
+      botonContinuar.addEventListener('click', () => {
+        scrollTo({ top: guardada, behavior: 'smooth' });
+        botonContinuar.hidden = true;
+      }, { once: true });
+    }
+    let demora: number | undefined;
+    addEventListener('scroll', () => {
+      clearTimeout(demora);
+      demora = window.setTimeout(() => {
+        if (scrollY > 100) localStorage.setItem(clavePosicion, String(Math.round(scrollY)));
+      }, 300);
+    }, { passive: true });
+  } catch {}
+  botonImprimir?.addEventListener('click', () => print());
+
   const visor = document.getElementById('visor') as HTMLDialogElement;
   const lienzo = document.getElementById('visor-lienzo') as HTMLElement;
   const vimg = document.getElementById('visor-img') as HTMLImageElement;

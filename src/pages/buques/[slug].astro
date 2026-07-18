@@ -1,0 +1,250 @@
+---
+import Base from '../../layouts/Base.astro';
+import { buques } from '../../data/buques';
+
+export function getStaticPaths() {
+  return buques.map((buque) => ({ params: { slug: buque.slug }, props: { buque } }));
+}
+const { buque } = Astro.props;
+---
+<Base titulo={buque.nombre} descripcion={`Galería histórica del ${buque.nombre}, relacionado con las memorias de Tomás Gómez Arroyo.`} conBarco={true}>
+  <main class="detalle-buque">
+    <nav class="migas" aria-label="Ruta"><a href="/buques">Todos los buques</a></nav>
+    <header>
+      <p class="etiqueta">{buque.tipo} · {buque.anos}</p>
+      <h1 class="display">{buque.nombre}</h1>
+      <p>{buque.nota}</p>
+    </header>
+
+    {buque.imagenes.length ? (
+      <section class="galeria" aria-label={`Galería del ${buque.nombre}`} data-galeria>
+        <button class="imagen-principal" type="button" aria-label={`Ampliar la fotografía del ${buque.nombre}`} data-ampliar>
+          <img src={buque.imagenes[0].src} alt={buque.imagenes[0].alt} data-principal />
+          <span class="abrir-lupa">Ampliar fotografía</span>
+        </button>
+        <div class="pie-activo" aria-live="polite">
+          <p class="contador" data-contador>Fotografía 1 de {buque.imagenes.length}</p>
+          <p data-pie>{buque.imagenes[0].pie}</p>
+          <p class="referencia" data-referencia>{buque.imagenes[0].referencia}</p>
+        </div>
+        {buque.imagenes.length > 1 && (
+          <nav class="pasos-galeria" aria-label="Cambiar fotografía">
+            <button type="button" data-anterior>← Anterior</button>
+            <button type="button" data-siguiente>Siguiente →</button>
+          </nav>
+        )}
+        <div class="miniaturas" role="list" aria-label="Seleccionar fotografía">
+          {buque.imagenes.map((img, i) => (
+            <button
+              type="button"
+              role="listitem"
+              class={i === 0 ? 'activa' : ''}
+              aria-label={`Mostrar imagen ${i + 1} de ${buque.imagenes.length}: ${img.alt}`}
+              data-miniatura
+              data-src={img.src}
+              data-alt={img.alt}
+              data-pie={img.pie}
+              data-referencia={img.referencia}
+            ><img src={img.src} alt="" loading="lazy" /><span>Foto {i + 1}</span></button>
+          ))}
+        </div>
+        <p class="ayuda">Elija una foto y pulse «Ampliar fotografía». Dentro de la lupa puede acercarse hasta cinco veces y arrastrar la imagen para recorrer sus detalles.</p>
+
+        <dialog data-visor aria-label={`Fotografía ampliada del ${buque.nombre}`}>
+          <button class="cerrar" type="button" aria-label="Cerrar la fotografía ampliada" data-cerrar>Cerrar ✕</button>
+          <div class="lienzo" data-lienzo><img src="" alt="" data-visor-img draggable="false" /></div>
+          <div class="controles" role="group" aria-label="Controles de ampliación">
+            <button type="button" data-menos aria-label="Alejar">− Alejar</button>
+            <button type="button" data-restablecer aria-label="Restablecer ampliación">Tamaño original</button>
+            <output data-zoom aria-live="polite">100 %</output>
+            <button type="button" data-mas aria-label="Acercar">+ Acercar</button>
+          </div>
+        </dialog>
+      </section>
+    ) : (
+      <section class="pendiente" aria-labelledby="titulo-pendiente">
+        <h2 id="titulo-pendiente">Espacio reservado para el archivo familiar</h2>
+        <p>Aún no se ha identificado una fotografía publicable del buque. La ficha queda preparada para incorporar las imágenes familiares o de archivo cuando se verifiquen identidad, fecha y derechos.</p>
+      </section>
+    )}
+
+    <nav class="acciones" aria-label="Continuar leyendo">
+      <a href={`/capitulo/${buque.cap}`}>Leer el episodio relacionado</a>
+      <a href="/buques">Volver a todos los buques</a>
+    </nav>
+  </main>
+</Base>
+
+<style>
+  .detalle-buque { max-width: 54rem; margin: 0 auto; padding: 5.8rem 1.4rem 3rem; }
+  .migas a, .acciones a { min-height: 2.75rem; display: inline-flex; align-items: center; }
+  header { text-align: center; max-width: 40rem; margin: 1.2rem auto 2.2rem; }
+  h1 { font-size: clamp(2.2rem, 7vw, 3.5rem); margin: 0.3rem 0 0.8rem; }
+  .galeria { max-width: 48rem; margin: 0 auto; }
+  .imagen-principal { position: relative; width: 100%; padding: 7px; border: 1px solid var(--oro); background: var(--papel-2); cursor: zoom-in; }
+  .imagen-principal img { display: block; width: 100%; max-height: 62vh; object-fit: contain; background: #101820; }
+  .abrir-lupa {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--oro-claro);
+    background: rgb(14 26 40 / 0.92);
+    color: var(--papel);
+    font: 600 0.86rem/1.2 var(--f-cuerpo);
+  }
+  .pie-activo { margin: 0.8rem auto 1rem; text-align: center; max-width: 42rem; }
+  .contador { margin-bottom: 0.25rem; font-weight: 700; color: var(--marino); }
+  .referencia { margin-top: 0.25rem; font-size: 0.9rem; color: var(--bruma); }
+  .pasos-galeria { display: flex; justify-content: space-between; gap: 1rem; margin: 0.7rem 0; }
+  .pasos-galeria button {
+    min-width: 8rem;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--marino);
+    background: var(--papel);
+    color: var(--marino);
+    cursor: pointer;
+  }
+  .miniaturas { display: flex; gap: 0.65rem; overflow-x: auto; padding: 0.4rem 0.2rem 0.8rem; }
+  .miniaturas button { flex: 0 0 7rem; min-height: 6.1rem; padding: 4px; border: 2px solid transparent; background: var(--papel-2); color: var(--marino); cursor: pointer; }
+  .miniaturas button.activa { border-color: var(--oro); }
+  .miniaturas img { display: block; width: 100%; height: 4.5rem; object-fit: cover; }
+  .miniaturas span { display: block; padding-top: 0.15rem; font-size: 0.78rem; font-weight: 700; }
+  .ayuda { font-size: 0.92rem; color: var(--bruma); text-align: center; }
+  .pendiente { margin: 2rem auto; max-width: 38rem; padding: 2rem; border: 1px solid var(--oro); background: var(--papel-2); }
+  .pendiente h2 { font-family: var(--f-display); color: var(--marino); margin-bottom: 0.6rem; }
+  .acciones { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--oro); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.8rem 1.4rem; }
+
+  dialog { width: min(94vw, 70rem); max-height: 90vh; margin: auto; border: 1px solid var(--oro); background: #05080c; overflow: hidden; }
+  dialog::backdrop { background: rgb(8 14 22 / 0.94); }
+  .lienzo { height: min(78vh, 48rem); overflow: hidden; touch-action: none; display: grid; place-items: center; }
+  .lienzo img { max-width: 100%; max-height: 100%; transform-origin: center; user-select: none; cursor: zoom-in; will-change: transform; }
+  .lienzo img.ampliada { cursor: grab; }
+  .lienzo img.arrastrando { cursor: grabbing; }
+  .cerrar { position: absolute; right: 0.6rem; top: 0.6rem; z-index: 3; min-width: 5.6rem; height: 3rem; padding: 0 0.75rem; border: 1px solid var(--oro-claro); border-radius: 2rem; background: var(--noche); color: var(--papel); cursor: pointer; }
+  .controles { position: absolute; left: 50%; bottom: 0.8rem; transform: translateX(-50%); display: flex; gap: 0.6rem; }
+  .controles button { min-width: 6rem; height: 3rem; padding: 0 0.75rem; border-radius: 2rem; border: 1px solid var(--oro-claro); background: var(--noche); color: var(--papel); cursor: pointer; }
+  .controles output { min-width: 4.4rem; height: 3rem; display: inline-flex; align-items: center; justify-content: center; color: var(--papel); font-weight: 700; }
+
+  @media (max-width: 620px) {
+    .abrir-lupa { inset: auto 0.7rem 0.7rem auto; }
+    .controles { width: calc(100% - 1rem); justify-content: center; gap: 0.3rem; }
+    .controles button { min-width: 0; flex: 1 1 auto; padding-inline: 0.4rem; font-size: 0.78rem; }
+    .controles output { min-width: 3.5rem; font-size: 0.8rem; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-galeria]').forEach((galeria) => {
+    const principal = galeria.querySelector('[data-principal]') as HTMLImageElement;
+    const pie = galeria.querySelector('[data-pie]') as HTMLElement;
+    const referencia = galeria.querySelector('[data-referencia]') as HTMLElement;
+    const contador = galeria.querySelector('[data-contador]') as HTMLElement;
+    const miniaturas = Array.from(galeria.querySelectorAll('[data-miniatura]')) as HTMLButtonElement[];
+    const visor = galeria.querySelector('[data-visor]') as HTMLDialogElement;
+    const lienzo = galeria.querySelector('[data-lienzo]') as HTMLElement;
+    const visorImg = galeria.querySelector('[data-visor-img]') as HTMLImageElement;
+    const salidaZoom = galeria.querySelector('[data-zoom]') as HTMLOutputElement;
+    let indiceActivo = 0;
+    let escala = 1;
+    let desplazamientoX = 0;
+    let desplazamientoY = 0;
+    let arrastrando = false;
+    let inicioX = 0;
+    let inicioY = 0;
+
+    const limitarDesplazamiento = () => {
+      const maxX = lienzo.clientWidth * Math.max(0, escala - 1) / 2;
+      const maxY = lienzo.clientHeight * Math.max(0, escala - 1) / 2;
+      desplazamientoX = Math.max(-maxX, Math.min(maxX, desplazamientoX));
+      desplazamientoY = Math.max(-maxY, Math.min(maxY, desplazamientoY));
+    };
+
+    const aplicar = () => {
+      if (escala <= 1) {
+        escala = 1;
+        desplazamientoX = 0;
+        desplazamientoY = 0;
+      }
+      limitarDesplazamiento();
+      visorImg.style.transform = `translate3d(${desplazamientoX}px, ${desplazamientoY}px, 0) scale(${escala})`;
+      visorImg.classList.toggle('ampliada', escala > 1);
+      salidaZoom.textContent = `${Math.round(escala * 100)} %`;
+    };
+
+    const restablecer = () => {
+      escala = 1;
+      desplazamientoX = 0;
+      desplazamientoY = 0;
+      aplicar();
+    };
+
+    const activar = (indice: number) => {
+      if (!miniaturas.length) return;
+      indiceActivo = (indice + miniaturas.length) % miniaturas.length;
+      const boton = miniaturas[indiceActivo];
+      miniaturas.forEach((b) => b.classList.remove('activa'));
+      boton.classList.add('activa');
+      principal.src = boton.dataset.src || '';
+      principal.alt = boton.dataset.alt || '';
+      pie.textContent = boton.dataset.pie || '';
+      referencia.textContent = boton.dataset.referencia || '';
+      contador.textContent = `Fotografía ${indiceActivo + 1} de ${miniaturas.length}`;
+    };
+
+    miniaturas.forEach((boton, indice) => boton.addEventListener('click', () => activar(indice)));
+    galeria.querySelector('[data-anterior]')?.addEventListener('click', () => activar(indiceActivo - 1));
+    galeria.querySelector('[data-siguiente]')?.addEventListener('click', () => activar(indiceActivo + 1));
+
+    galeria.querySelector('[data-ampliar]')?.addEventListener('click', () => {
+      visorImg.src = principal.src;
+      visorImg.alt = principal.alt;
+      restablecer();
+      visor.showModal();
+    });
+    galeria.querySelector('[data-cerrar]')?.addEventListener('click', () => visor.close());
+    galeria.querySelector('[data-mas]')?.addEventListener('click', () => { escala = Math.min(5, escala * 1.5); aplicar(); });
+    galeria.querySelector('[data-menos]')?.addEventListener('click', () => { escala = Math.max(1, escala / 1.5); aplicar(); });
+    galeria.querySelector('[data-restablecer]')?.addEventListener('click', restablecer);
+    visor.addEventListener('click', (e) => { if (e.target === visor) visor.close(); });
+    visor.addEventListener('keydown', (e) => {
+      if (e.key === '+' || e.key === '=') { escala = Math.min(5, escala * 1.5); aplicar(); }
+      if (e.key === '-') { escala = Math.max(1, escala / 1.5); aplicar(); }
+      if (e.key === '0') restablecer();
+    });
+
+    lienzo.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      escala = Math.max(1, Math.min(5, escala * (e.deltaY < 0 ? 1.2 : 1 / 1.2)));
+      aplicar();
+    }, { passive: false });
+
+    visorImg.addEventListener('dblclick', () => {
+      escala = escala > 1 ? 1 : 2;
+      aplicar();
+    });
+    visorImg.addEventListener('pointerdown', (e) => {
+      if (escala <= 1) return;
+      arrastrando = true;
+      inicioX = e.clientX - desplazamientoX;
+      inicioY = e.clientY - desplazamientoY;
+      visorImg.classList.add('arrastrando');
+      visorImg.setPointerCapture(e.pointerId);
+    });
+    visorImg.addEventListener('pointermove', (e) => {
+      if (!arrastrando) return;
+      desplazamientoX = e.clientX - inicioX;
+      desplazamientoY = e.clientY - inicioY;
+      aplicar();
+    });
+    const terminarArrastre = () => {
+      arrastrando = false;
+      visorImg.classList.remove('arrastrando');
+    };
+    visorImg.addEventListener('pointerup', terminarArrastre);
+    visorImg.addEventListener('pointercancel', terminarArrastre);
+  });
+</script>

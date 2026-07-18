@@ -30,6 +30,20 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
 
     <div class="texto" set:html={cuerpo} />
 
+    <dialog id="visor" aria-label="Fotografía ampliada">
+      <button type="button" id="visor-cerrar" aria-label="Cerrar">✕</button>
+      <div id="visor-cuerpo">
+        <img id="visor-img" src="" alt="" />
+        <aside id="visor-ficha" hidden>
+          <p class="etiqueta">Ficha</p>
+          <h2 id="ficha-titulo"></h2>
+          <ul id="ficha-datos"></ul>
+          <p id="ficha-historia"></p>
+          <p id="ficha-credito" class="credito"></p>
+        </aside>
+      </div>
+    </dialog>
+
     <nav class="rumbos" aria-label="Capítulos vecinos">
       {anterior
         ? <a rel="prev" href={`/capitulo/${anterior.slug}`}><span class="etiqueta">Anterior</span><span>{anterior.titulo}</span></a>
@@ -123,4 +137,143 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     max-width: 46%;
   }
   .rumbos a[rel="next"] { text-align: right; margin-left: auto; }
+
+  .texto :global(.abre-visor) {
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: zoom-in;
+  }
+
+  #visor {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: min(72rem, 94vw);
+    width: auto;
+  }
+  #visor::backdrop {
+    background: rgb(8 14 22 / 0.93);
+  }
+  #visor-cuerpo {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    background: var(--noche);
+    border: 1px solid color-mix(in srgb, var(--oro) 45%, transparent);
+  }
+  #visor-img {
+    display: block;
+    max-width: min(52rem, 60vw);
+    max-height: 82vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    background: #000;
+  }
+  #visor-ficha {
+    width: 19rem;
+    flex-shrink: 0;
+    padding: 1.6rem 1.5rem;
+    background: var(--papel);
+    overflow-y: auto;
+    max-height: 82vh;
+  }
+  #visor-ficha h2 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.45rem;
+    color: var(--marino);
+    margin: 0.2rem 0 0.8rem;
+    line-height: 1.2;
+  }
+  #ficha-datos {
+    list-style: none;
+    padding: 0.8rem 0;
+    margin: 0 0 0.9rem;
+    border-top: 1px solid color-mix(in srgb, var(--oro) 45%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--oro) 45%, transparent);
+  }
+  #ficha-datos li {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    padding: 0.22rem 0;
+  }
+  #ficha-datos li strong { color: var(--marino); font-weight: 600; }
+  #ficha-historia { font-size: 0.94rem; line-height: 1.6; }
+  #ficha-credito { margin-top: 0.9rem; font-size: 0.76rem; color: var(--bruma); }
+  #visor-cerrar {
+    position: absolute;
+    top: -0.2rem;
+    right: 0;
+    transform: translateY(-100%);
+    background: none;
+    border: none;
+    color: var(--papel);
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0.4rem;
+  }
+
+  @media (max-width: 860px) {
+    #visor-cuerpo { flex-direction: column; }
+    #visor-img { max-width: 94vw; max-height: 55vh; }
+    #visor-ficha { width: auto; max-height: 34vh; }
+  }
 </style>
+
+<script>
+  const visor = document.getElementById('visor') as HTMLDialogElement;
+  const vimg = document.getElementById('visor-img') as HTMLImageElement;
+  const panel = document.getElementById('visor-ficha');
+  const ftitulo = document.getElementById('ficha-titulo');
+  const fdatos = document.getElementById('ficha-datos');
+  const fhistoria = document.getElementById('ficha-historia');
+  const fcredito = document.getElementById('ficha-credito');
+
+  document.querySelectorAll('figure.lamina .abre-visor').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const fig = btn.closest('figure');
+      const img = btn.querySelector('img');
+      if (!fig || !img || !visor) return;
+      vimg.src = img.src;
+      vimg.alt = img.alt;
+      const cruda = fig.getAttribute('data-ficha');
+      if (cruda && panel && ftitulo && fdatos && fhistoria && fcredito) {
+        try {
+          const ficha = JSON.parse(cruda);
+          ftitulo.textContent = ficha.titulo || '';
+          fdatos.innerHTML = '';
+          (ficha.datos || []).forEach((d: string) => {
+            const li = document.createElement('li');
+            const sep = d.indexOf(':');
+            if (sep > 0) {
+              const b = document.createElement('strong');
+              b.textContent = d.slice(0, sep) + ': ';
+              li.appendChild(b);
+              li.appendChild(document.createTextNode(d.slice(sep + 1).trim()));
+            } else {
+              li.textContent = d;
+            }
+            fdatos.appendChild(li);
+          });
+          fhistoria.textContent = ficha.historia || '';
+          fcredito.textContent = ficha.credito || '';
+          panel.hidden = false;
+        } catch {
+          panel.hidden = true;
+        }
+      } else if (panel) {
+        panel.hidden = true;
+      }
+      visor.showModal();
+    });
+  });
+
+  document.getElementById('visor-cerrar')?.addEventListener('click', () => visor.close());
+  visor?.addEventListener('click', (e) => {
+    if (e.target === visor) visor.close();
+  });
+</script>

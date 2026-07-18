@@ -24,6 +24,12 @@ os.makedirs(SALIDA, exist_ok=True)
 with open(os.path.join(BASE, "capitulos-meta.json"), encoding="utf-8") as f:
     META = json.load(f)["capitulos"]
 
+FICHAS = {}
+ruta_fichas = os.path.join(BASE, "fichas.json")
+if os.path.exists(ruta_fichas):
+    with open(ruta_fichas, encoding="utf-8") as f:
+        FICHAS = json.load(f)
+
 
 def desde_original(path):
     """Reunión ingenua de líneas duras del PDF: cada bloque en un párrafo."""
@@ -79,9 +85,17 @@ def figura(f):
     pie = htmllib.escape(f["pie"], quote=False)
     credito = htmllib.escape(f["credito"], quote=False)
     alt = htmllib.escape(f["pie"].split(".")[0], quote=True)
+    ficha = FICHAS.get(f["archivo"])
+    attr_ficha = ""
+    if ficha:
+        carga = dict(ficha)
+        carga["credito"] = f["credito"]
+        attr_ficha = ' data-ficha="' + htmllib.escape(json.dumps(carga, ensure_ascii=False), quote=True) + '"'
     return (
-        f'<figure class="lamina">'
+        f'<figure class="lamina"{attr_ficha}>'
+        f'<button type="button" class="abre-visor" aria-label="Ampliar fotografía">'
         f'<img src="{src}" alt="{alt}" loading="lazy" decoding="async" />'
+        f"</button>"
         f'<figcaption>{pie} <span class="credito">{credito}</span></figcaption>'
         f"</figure>"
     )

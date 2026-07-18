@@ -17,8 +17,8 @@
     "periodo": "1921 – 1939",
     "lugares": "Las Palmas, Cádiz, Ceuta, Estrecho de Gibraltar",
     "resumen": "Infancia en Las Palmas, el bachillerato interrumpido por la guerra y el alistamiento como marinero voluntario a los diecisiete años. El crucero auxiliar Rey Jaime I y las patrullas por el Estrecho.",
-    "corregido": false,
-    "parrafos": 34,
+    "corregido": true,
+    "parrafos": 66,
     "fotos": 6
   },
   {
@@ -28,8 +28,8 @@
     "periodo": "1939 – 1941",
     "lugares": "San Fernando, Cádiz",
     "resumen": "Los primeros días traumáticos en la Escuela Naval Militar de San Fernando, los toques de corneta y los instructores alemanes que no pasaban una.",
-    "corregido": false,
-    "parrafos": 29,
+    "corregido": true,
+    "parrafos": 55,
     "fotos": 1
   },
   {
@@ -72,8 +72,8 @@
     "periodo": "1946",
     "lugares": "Las Palmas, Madrid",
     "resumen": "El regreso al hogar paterno con noticias de noviazgo, y el destino al minador Marte con base en Las Palmas.",
-    "corregido": false,
-    "parrafos": 32,
+    "corregido": true,
+    "parrafos": 103,
     "fotos": 4
   },
   {

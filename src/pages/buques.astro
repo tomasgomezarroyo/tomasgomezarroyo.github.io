@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+
+const buques = [
+  {
+    nombre: 'Rey Jaime I',
+    tipo: 'Crucero auxiliar',
+    anos: '1938 – 1939',
+    foto: '/fotos/buques/rey-jaime-i-armado-guerra-civil.jpg',
+    credito: 'Fotografía: Todoavante.es.',
+    nota: 'Correo de la Trasmediterránea convertido en buque de guerra con un cañón y dos ametralladoras. Su primer embarque, de marinero voluntario, patrullando el Estrecho.',
+    cap: 'capitulo-primero',
+  },
+  {
+    nombre: 'J.J. Sister',
+    tipo: 'Motonave',
+    anos: '1938',
+    foto: '/fotos/buques/jj-sister-retrato.jpg',
+    credito: 'Fotografía: Todoavante.es.',
+    nota: 'El buque que lo llevó de Las Palmas a Cádiz al alistarse, en un camarote de primera que el brisote canario le impidió disfrutar.',
+    cap: 'capitulo-primero',
+  },
+  {
+    nombre: 'Marte',
+    tipo: 'Minador',
+    anos: '1946 – 1948',
+    foto: '/fotos/buques/marte-archivo-armada.jpg',
+    credito: 'Archivo General de la Armada, vía Todoavante.es.',
+    nota: 'Su destino en Las Palmas al obtener la especialidad de Artillería y Tiro Naval, en los años del noviazgo con Vivi.',
+    cap: 'capitulo-sexto',
+  },
+  {
+    nombre: 'Churruca',
+    tipo: 'Destructor',
+    anos: '1948 – 1951',
+    foto: '/fotos/buques/churruca-cartagena.jpg',
+    credito: 'Fotografía: Todoavante.es.',
+    nota: 'La División Naval del Mediterráneo, un comandante de reconocida fama de malas pulgas, y la familia recién estrenada esperando en tierra.',
+    cap: 'capitulo-octavo',
+  },
+  {
+    nombre: 'RR 28',
+    tipo: 'Patrullero',
+    anos: '1951 – 1952',
+    foto: null,
+    credito: '',
+    nota: 'Su primer mando. De este pequeño patrullero no se conserva fotografía en los archivos públicos consultados.',
+    cap: 'capitulo-decimo',
+  },
+  {
+    nombre: 'Miguel de Cervantes',
+    tipo: 'Crucero',
+    anos: '1954 – 1956',
+    foto: '/fotos/buques/miguel-de-cervantes-cartagena-1950.jpg',
+    credito: 'Vía Wikimedia Commons, CC BY-SA 3.0.',
+    nota: 'El último buque que alcanzan a contar las memorias, fotografiado en Cartagena en los años exactos en que sirvió a bordo.',
+    cap: 'capitulo-decimo',
+  },
+];
+---
+<Base titulo="Los buques" descripcion="Los buques en los que sirvió Tomás Gómez Arroyo, con sus fotografías históricas. Otra manera de navegar sus memorias." conBarco={true}>
+  <main class="flota">
+    <header>
+      <p class="etiqueta">La flota de una vida</p>
+      <h1 class="display">Los buques</h1>
+      <p class="intro">Cada barco lleva a los capítulos donde navega. Otra manera de recorrer las memorias.</p>
+    </header>
+
+    <div class="fichas">
+      {buques.map((b) => (
+        <article class="ficha">
+          {b.foto
+            ? <a href={`/capitulo/${b.cap}`} class="marco-foto"><img src={b.foto} alt={`${b.tipo} ${b.nombre}`} loading="lazy" decoding="async" /></a>
+            : <div class="marco-foto sin-foto" aria-hidden="true"><span>Sin fotografía<br />conocida</span></div>}
+          <h2><a href={`/capitulo/${b.cap}`}>{b.nombre}</a></h2>
+          <p class="tipo etiqueta">{b.tipo} · {b.anos}</p>
+          <p class="nota">{b.nota}</p>
+          {b.credito && <p class="credito">{b.credito}</p>}
+        </article>
+      ))}
+    </div>
+  </main>
+</Base>
+
+<style>
+  .flota {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: 5.5rem 1.4rem 3rem;
+  }
+  header { text-align: center; margin-bottom: 3rem; }
+  h1 { font-size: clamp(2.1rem, 6vw, 3rem); margin-top: 0.5rem; }
+  .intro {
+    max-width: 34rem;
+    margin: 1.2rem auto 0;
+    color: color-mix(in srgb, var(--tinta) 80%, var(--bruma));
+  }
+
+  .fichas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: 2.6rem 2.2rem;
+  }
+  .ficha { display: flex; flex-direction: column; }
+  .marco-foto {
+    display: block;
+    border: 1px solid color-mix(in srgb, var(--oro) 40%, transparent);
+    padding: 6px;
+    background: var(--papel-2);
+    box-shadow: 0 1px 8px rgb(0 0 0 / 0.07);
+  }
+  .marco-foto img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .sin-foto {
+    aspect-ratio: 3 / 2;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: var(--bruma);
+    font-family: var(--f-display);
+    font-style: italic;
+    background:
+      repeating-linear-gradient(45deg, transparent 0 10px, rgb(0 0 0 / 0.02) 10px 20px),
+      var(--papel-2);
+  }
+  h2 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.55rem;
+    margin-top: 0.9rem;
+  }
+  h2 a { text-decoration: none; color: var(--marino); }
+  h2 a:hover { color: var(--oro); }
+  .tipo { margin-top: 0.1rem; }
+  .nota { margin-top: 0.5rem; font-size: 0.98rem; }
+  .credito { margin-top: 0.4rem; font-size: 0.78rem; color: var(--bruma); }
+</style>

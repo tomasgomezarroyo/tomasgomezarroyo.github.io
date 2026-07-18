@@ -1,0 +1,134 @@
+{
+  "capitulos": [
+    {
+      "slug": "prologo",
+      "archivo": "00-prologo",
+      "titulo": "Prólogo",
+      "subtitulo": "en el que el autor explica las razones de su osadía",
+      "periodo": "1991",
+      "lugares": "Playa de Las Canteras, Las Palmas",
+      "resumen": "A los setenta años, recién viudo, el autor decide por fin empezar a escribir. Dedica estas páginas a la memoria de Vivi.",
+      "fotos": [
+        { "archivo": "lugares/las-canteras-1925.jpg", "pie": "La Playa de Las Canteras hacia 1925. Aquí empieza y termina esta historia: el autor nació frente a esta playa y frente a ella escribió estas memorias.", "credito": "Fotografía anónima. Dominio público, vía Wikimedia Commons.", "pos": 2 }
+      ]
+    },
+    {
+      "slug": "capitulo-primero",
+      "archivo": "01-capitulo",
+      "titulo": "Capítulo Primero",
+      "subtitulo": "De Las Canteras a la guerra",
+      "periodo": "1921 – 1939",
+      "lugares": "Las Palmas, Cádiz, Ceuta, Estrecho de Gibraltar",
+      "resumen": "Infancia en Las Palmas, el bachillerato interrumpido por la guerra y el alistamiento como marinero voluntario a los diecisiete años. El crucero auxiliar Rey Jaime I y las patrullas por el Estrecho.",
+      "fotos": [
+        { "archivo": "lugares/puerto-de-la-luz-bahia-1920.jpg", "pie": "La bahía y el Puerto de La Luz en los años veinte, el paisaje de su infancia.", "credito": "Dominio público, vía Wikimedia Commons.", "pos": 2 },
+        { "archivo": "buques/jj-sister-armamento-1938.jpg", "pie": "La motonave J.J. Sister, en la que embarcó rumbo a Cádiz en mayo de 1938, con el armamento que recibió aquel mismo año.", "credito": "Fotografía: Todoavante.es.", "pos": 6 },
+        { "archivo": "buques/rey-jaime-i-motonave.jpg", "pie": "El correo Rey Jaime I de la Compañía Trasmediterránea, que cubría la línea Barcelona – Palma antes de la guerra.", "credito": "Fotografía: Todoavante.es.", "pos": 10 },
+        { "archivo": "buques/rey-jaime-i-armado-guerra-civil.jpg", "pie": "El Rey Jaime I convertido en crucero auxiliar: un cañón y dos ametralladoras antiaéreas sobre un buque de pasaje.", "credito": "Fotografía: Todoavante.es.", "pos": 14 },
+        { "archivo": "buques/jose-luis-diez-1930.jpg", "pie": "El destructor José Luis Díez hacia 1930. Su intento de cruzar el Estrecho en 1938 terminó varado en la playa de Levante del Peñón.", "credito": "Dominio público, vía Wikimedia Commons.", "pos": 18 },
+        { "archivo": "buques/vulcano-cartagena-casau.jpg", "pie": "El minador Vulcano, que combatió al José Luis Díez frente a Punta Europa y recibió por ello la Medalla Naval.", "credito": "Fotografía: Casaú, vía Todoavante.es.", "pos": 20 }
+      ]
+    },
+    {
+      "slug": "capitulo-segundo",
+      "archivo": "02-capitulo",
+      "titulo": "Capítulo Segundo",
+      "subtitulo": "La Escuela Naval",
+      "periodo": "1939 – 1941",
+      "lugares": "San Fernando, Cádiz",
+      "resumen": "Los primeros días traumáticos en la Escuela Naval Militar de San Fernando, los toques de corneta y los instructores alemanes que no pasaban una.",
+      "fotos": []
+    },
+    {
+      "slug": "capitulo-tercero",
+      "archivo": "03-capitulo",
+      "titulo": "Capítulo Tercero",
+      "subtitulo": "Guardiamarina",
+      "periodo": "1941 – 1943",
+      "lugares": "San Fernando, Cádiz",
+      "resumen": "El ascenso a Guardiamarina de Segunda, las dos anclas cruzadas bajo la corona, y la cómoda zona templada de la promoción.",
+      "fotos": []
+    },
+    {
+      "slug": "capitulo-cuarto",
+      "archivo": "04-capitulo",
+      "titulo": "Capítulo Cuarto",
+      "subtitulo": "Alférez de Navío",
+      "periodo": "1943",
+      "lugares": "Marín, Pontevedra",
+      "resumen": "La entrega de despachos en la nueva Escuela Naval de Marín, el 15 de agosto de 1943, tras una borrascosa noche de viejos camaradas.",
+      "fotos": []
+    },
+    {
+      "slug": "capitulo-quinto",
+      "archivo": "05-capitulo",
+      "titulo": "Capítulo Quinto",
+      "subtitulo": "La Escuela de Tiro Naval",
+      "periodo": "1944 – 1945",
+      "lugares": "Portugalete, Marín",
+      "resumen": "Un invierno de nieve en Portugalete con el barco apagado por falta de combustible, y el curso de Tiro Naval junto al cuarteto de la camareta.",
+      "fotos": []
+    },
+    {
+      "slug": "capitulo-sexto",
+      "archivo": "06-capitulo",
+      "titulo": "Capítulo Sexto",
+      "subtitulo": "El Marte y el noviazgo",
+      "periodo": "1946",
+      "lugares": "Las Palmas, Madrid",
+      "resumen": "El regreso al hogar paterno con noticias de noviazgo, y el destino al minador Marte con base en Las Palmas.",
+      "fotos": [
+        { "archivo": "buques/marte-archivo-armada.jpg", "pie": "El minador Marte, su destino en Las Palmas al obtener la especialidad.", "credito": "Archivo General de la Armada, vía Todoavante.es.", "pos": 4 },
+        { "archivo": "familia/fabrica-chocolates-gomez-bosch-1915.jpg", "pie": "La fábrica de Chocolates Gómez Bosch en Las Palmas, hacia 1915. El negocio familiar fundado por su abuelo Cástor.", "credito": "Colección Néstor Gómez Arroyo, FEDAC. CC BY 4.0.", "pos": 8 },
+        { "archivo": "familia/castor-y-nestor-gomez-arroyo-1944.jpg", "pie": "Sus hermanos Cástor y Néstor en 1944, retratados por su padre, el pintor y fotógrafo Tomás Gómez Bosch.", "credito": "Colección Néstor Gómez Arroyo, FEDAC. CC BY 4.0.", "pos": 12 }
+      ]
+    },
+    {
+      "slug": "capitulo-septimo",
+      "archivo": "07-capitulo",
+      "titulo": "Capítulo Séptimo",
+      "subtitulo": "La España de aquellos años",
+      "periodo": "1946 – 1947",
+      "lugares": "Las Palmas, Madrid",
+      "resumen": "Las quinielas a dos pesetas, los manifiestos de Don Juan de Borbón y la vida cotidiana de la España de posguerra.",
+      "fotos": [
+        { "archivo": "lugares/madrid-usera-1940.jpg", "pie": "Madrid a comienzos de los años cuarenta, la ciudad del noviazgo.", "credito": "Dominio público, vía Wikimedia Commons.", "pos": 5 }
+      ]
+    },
+    {
+      "slug": "capitulo-octavo",
+      "archivo": "08-capitulo",
+      "titulo": "Capítulo Octavo",
+      "subtitulo": "Una familia y un destructor",
+      "periodo": "1948 – 1949",
+      "lugares": "Las Palmas, Palma de Mallorca, Cartagena",
+      "resumen": "El nacimiento de Nena, el traslado a la División Naval del Mediterráneo y el temido comandante del destructor Churruca.",
+      "fotos": [
+        { "archivo": "buques/churruca-gemelo-ciscar-1931.jpg", "pie": "El destructor Císcar, gemelo de clase del Churruca, en 1931. De la misma serie y silueta que el buque en que sirvió.", "credito": "Dominio público, vía Wikimedia Commons.", "pos": 4 },
+        { "archivo": "buques/churruca-cartagena.jpg", "pie": "El destructor Churruca en Cartagena.", "credito": "Fotografía: Todoavante.es.", "pos": 9 }
+      ]
+    },
+    {
+      "slug": "capitulo-noveno",
+      "archivo": "09-capitulo",
+      "titulo": "Capítulo Noveno",
+      "subtitulo": "Los años difíciles",
+      "periodo": "1949 – 1951",
+      "lugares": "Cartagena, Madrid",
+      "resumen": "Los problemas que amargaron una buena parte de sus vidas, contados sin rodeos, y un verano de reposo en Madrid.",
+      "fotos": []
+    },
+    {
+      "slug": "capitulo-decimo",
+      "archivo": "10-capitulo",
+      "titulo": "Capítulo Décimo",
+      "subtitulo": "Capitán de Corbeta",
+      "periodo": "1952 – 1954",
+      "lugares": "Cartagena",
+      "resumen": "Escrito ya contra el tiempo. El mando del patrullero RR 28, el Cuartel de Instrucción, el pleito de los pabellones y el crucero Miguel de Cervantes.",
+      "fotos": [
+        { "archivo": "buques/miguel-de-cervantes-cartagena-1950.jpg", "pie": "El crucero Miguel de Cervantes en Cartagena, hacia 1950, en los años exactos de estas páginas.", "credito": "Vía Wikimedia Commons, CC BY-SA 3.0.", "pos": 3 }
+      ]
+    }
+  ]
+}

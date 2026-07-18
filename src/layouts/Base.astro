@@ -1,0 +1,139 @@
+---
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/600.css';
+import '@fontsource/cormorant-garamond/700.css';
+import '@fontsource-variable/literata';
+import '../styles/global.css';
+
+interface Props {
+  titulo?: string;
+  descripcion?: string;
+  /** Muestra la línea de horizonte con el barco de progreso de lectura */
+  conBarco?: boolean;
+  claseBody?: string;
+}
+
+const {
+  titulo = 'Memorias de Tomás Gómez Arroyo',
+  descripcion = 'Las memorias de Tomás Gómez Arroyo, marino de la Armada Española (1921-2001), escritas por él mismo entre 1991 y 1995.',
+  conBarco = false,
+  claseBody = '',
+} = Astro.props;
+
+const tituloCompleto = titulo === 'Memorias de Tomás Gómez Arroyo'
+  ? titulo
+  : `${titulo} · Memorias de Tomás Gómez Arroyo`;
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{tituloCompleto}</title>
+  <meta name="description" content={descripcion} />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta property="og:title" content={tituloCompleto} />
+  <meta property="og:description" content={descripcion} />
+  <meta property="og:type" content="book" />
+</head>
+<body class={claseBody}>
+  {conBarco && (
+    <div id="horizonte" aria-hidden="true">
+      <svg id="barco" viewBox="0 0 48 28" width="34" height="20">
+        <!-- silueta de buque de época: casco, superestructura, dos palos, humo -->
+        <g fill="currentColor">
+          <path d="M2 20 L46 20 L42 26 L7 26 Z" />
+          <rect x="17" y="14" width="14" height="6" rx="0.5" />
+          <rect x="21" y="10" width="4" height="4" />
+          <rect x="12" y="6" width="1.4" height="14" />
+          <rect x="34" y="6" width="1.4" height="14" />
+          <path d="M22 4 q3 -3 6 -1 q-2 2 -6 1 Z" opacity="0.5" />
+        </g>
+      </svg>
+    </div>
+  )}
+
+  <slot />
+
+  <footer id="pie-sitio">
+    <hr class="filete" />
+    <nav aria-label="Secciones">
+      <a href="/">Portada</a>
+      <a href="/travesia">La travesía</a>
+      <a href="/buques">Los buques</a>
+      <a href="/epilogo">Epílogo</a>
+    </nav>
+    <p class="etiqueta">Memorias de Tomás Gómez Arroyo · 1921 – 2001</p>
+  </footer>
+
+  {conBarco && (
+    <script>
+      const barco = document.getElementById('barco');
+      const actualizar = () => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        const p = total > 0 ? window.scrollY / total : 0;
+        const margen = 34; /* ancho del barco */
+        const x = p * (window.innerWidth - margen);
+        if (barco) barco.style.transform = `translateX(${x}px)`;
+      };
+      addEventListener('scroll', actualizar, { passive: true });
+      addEventListener('resize', actualizar);
+      actualizar();
+    </script>
+  )}
+</body>
+</html>
+
+<style>
+  #horizonte {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 34px;
+    z-index: 50;
+    color: var(--marino);
+    pointer-events: none;
+    /* la línea del horizonte */
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--papel) 88%, transparent) 0 26px,
+      transparent 26px
+    );
+  }
+  #horizonte::after {
+    content: "";
+    position: absolute;
+    top: 26px; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent,
+      color-mix(in srgb, var(--marino) 45%, transparent) 12%,
+      color-mix(in srgb, var(--marino) 45%, transparent) 88%,
+      transparent);
+  }
+  #barco {
+    position: absolute;
+    top: 7px;
+    left: 0;
+    transition: transform 120ms linear;
+    will-change: transform;
+  }
+
+  #pie-sitio {
+    padding: 3.5rem 1.5rem 3rem;
+    text-align: center;
+  }
+  #pie-sitio nav {
+    margin: 1.8rem 0 1rem;
+    display: flex;
+    gap: 1.8rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  #pie-sitio nav a {
+    font-family: var(--f-cuerpo);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.14em;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+</style>

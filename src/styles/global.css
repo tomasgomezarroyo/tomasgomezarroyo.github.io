@@ -1,0 +1,120 @@
+/* ============================================================
+   Memorias de Tomás Gómez Arroyo
+   Sistema de diseño: libro naval encuadernado.
+   Tapa: tela azul marino con oro estampado.
+   Interior: papel marfil, tinta azulada, filetes dorados.
+   ============================================================ */
+
+@font-face { font-display: swap; }
+
+:root {
+  /* Paleta */
+  --noche:   #0e1a28;  /* tela de la tapa, fondos oscuros */
+  --marino:  #1e3d5c;  /* títulos y estructura */
+  --papel:   #f2ecdf;  /* fondo de lectura */
+  --papel-2: #ebe3d1;  /* papel sombreado (asides, figuras) */
+  --tinta:   #262f38;  /* cuerpo de texto */
+  --oro:     #a3823e;  /* filetes, detalles, letras de tapa */
+  --oro-claro: #c9ad6b;
+  --bruma:   #6d7f8b;  /* pies de foto, metadatos */
+
+  /* Tipografía */
+  --f-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --f-cuerpo: 'Literata Variable', Georgia, serif;
+
+  --medida: 41rem;      /* ancho de columna de lectura */
+  --ritmo: 1.75;        /* interlineado de lectura */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--f-cuerpo);
+  font-size: 1.125rem;
+  line-height: var(--ritmo);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- utilidades tipográficas ---------- */
+
+.etiqueta {
+  font-family: var(--f-cuerpo);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.18em;
+  font-size: 0.85rem;
+  color: var(--oro);
+}
+
+.display {
+  font-family: var(--f-display);
+  font-weight: 600;
+  color: var(--marino);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+/* ---------- enlaces ---------- */
+
+a {
+  color: var(--marino);
+  text-decoration-color: color-mix(in srgb, var(--oro) 55%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 160ms ease;
+}
+a:hover { color: var(--oro); }
+
+:focus-visible {
+  outline: 2px solid var(--oro);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* ---------- filete dorado (separador clásico) ---------- */
+
+.filete {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--oro) 20%, var(--oro) 80%, transparent);
+  margin: 0 auto;
+  width: min(14rem, 60%);
+}
+
+.filete-ancla {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  color: var(--oro);
+  margin: 2.5rem 0;
+}
+.filete-ancla::before,
+.filete-ancla::after {
+  content: "";
+  height: 1px;
+  width: min(9rem, 26vw);
+  background: linear-gradient(to right, transparent, var(--oro));
+}
+.filete-ancla::after {
+  background: linear-gradient(to left, transparent, var(--oro));
+}
+
+/* ---------- selección ---------- */
+::selection { background: color-mix(in srgb, var(--oro) 30%, transparent); }

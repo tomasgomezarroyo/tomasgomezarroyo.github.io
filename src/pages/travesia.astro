@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+
+const hitos = [
+  { ano: '1921', texto: 'Nace en Las Palmas de Gran Canaria, frente a la Playa de Las Canteras.', cap: 'capitulo-primero' },
+  { ano: '1938', texto: 'Se alista como marinero voluntario a los diecisiete años. Crucero auxiliar Rey Jaime I, patrullas por el Estrecho de Gibraltar.', cap: 'capitulo-primero' },
+  { ano: '1939', texto: 'Ingresa en la Escuela Naval Militar de San Fernando.', cap: 'capitulo-segundo' },
+  { ano: '1943', texto: 'Recibe el despacho de Alférez de Navío en la nueva Escuela Naval de Marín, el 15 de agosto.', cap: 'capitulo-cuarto' },
+  { ano: '1945', texto: 'Curso de la Escuela de Tiro Naval en Marín, tras un invierno de nieve en Portugalete.', cap: 'capitulo-quinto' },
+  { ano: '1946', texto: 'Destino al minador Marte, con base en Las Palmas. El noviazgo con Vivi.', cap: 'capitulo-sexto' },
+  { ano: '1948', texto: 'Nace su hija. Destino al destructor Churruca, en la División Naval del Mediterráneo.', cap: 'capitulo-octavo' },
+  { ano: '1952', texto: 'Asciende a Capitán de Corbeta. Mando del patrullero RR 28 y destino en el Cuartel de Instrucción de Cartagena.', cap: 'capitulo-decimo' },
+  { ano: '1954', texto: 'Embarca en el crucero Miguel de Cervantes. Aquí se interrumpen las memorias.', cap: 'capitulo-decimo' },
+  { ano: '1978', texto: 'Asciende a Contralmirante (Real Decreto 1536/1978, de 1 de julio).', cap: null },
+  { ano: '1980', texto: 'Nombrado Jefe del Mando de Escoltas (Real Decreto 2788/1980).', cap: null },
+  { ano: '1982', texto: 'Asciende a Vicealmirante y es nombrado Almirante Jefe del Arsenal de El Ferrol. Recibe la Gran Cruz del Mérito Naval.', cap: null },
+  { ano: '1983', texto: 'Gran Cruz de la Real y Militar Orden de San Hermenegildo.', cap: null },
+  { ano: '1985', texto: 'Pasa a la reserva activa tras casi medio siglo de servicio.', cap: null },
+  { ano: '1991', texto: 'Viudo de Vivi, comienza a escribir estas memorias en la Playa de Las Canteras.', cap: 'prologo' },
+];
+
+const puertos = [
+  { nombre: 'Las Palmas', anos: '1921', x: 45 },
+  { nombre: 'Cádiz', anos: '1938', x: 155 },
+  { nombre: 'Ceuta', anos: '1938', x: 255 },
+  { nombre: 'San Fernando', anos: '1939', x: 370 },
+  { nombre: 'Marín', anos: '1943', x: 485 },
+  { nombre: 'Portugalete', anos: '1944', x: 595 },
+  { nombre: 'Cartagena', anos: '1948', x: 715 },
+  { nombre: 'El Ferrol', anos: '1982', x: 825 },
+];
+
+const derrota = `M ${puertos[0].x} 78 ` + puertos
+  .slice(1)
+  .map((p, i) => `Q ${(puertos[i].x + p.x) / 2} ${i % 2 ? 60 : 96} ${p.x} 78`)
+  .join(' ');
+---
+<Base titulo="La travesía" descripcion="La carrera naval de Tomás Gómez Arroyo, de marinero voluntario en 1938 a Vicealmirante de la Armada Española." conBarco={true}>
+  <main class="travesia">
+    <header>
+      <p class="etiqueta">1921 – 1991</p>
+      <h1 class="display">La travesía</h1>
+      <p class="intro">
+        De marinero voluntario a Vicealmirante de la Armada. Lo que va de 1938 a 1954
+        lo cuenta él mismo en estas memorias; el resto quedó escrito en el Boletín
+        Oficial del Estado.
+      </p>
+    </header>
+
+    <figure class="derrota" aria-label="Los puertos de su vida, en orden de travesía">
+      <svg viewBox="0 0 870 120" role="img">
+        <path d={derrota} fill="none" stroke="var(--oro)" stroke-width="1.4" stroke-dasharray="1 7" stroke-linecap="round" />
+        {puertos.map((p) => (
+          <>
+            <circle cx={p.x} cy="78" r="3.2" fill="var(--marino)" />
+            <text x={p.x} y="58" text-anchor="middle" class="puerto">{p.nombre}</text>
+            <text x={p.x} y="104" text-anchor="middle" class="anosvg">{p.anos}</text>
+          </>
+        ))}
+      </svg>
+    </figure>
+
+    <ol class="linea">
+      {hitos.map((h) => (
+        <li>
+          <span class="ano">{h.ano}</span>
+          <span class="que">
+            {h.texto}
+            {h.cap && <a class="ircap" href={`/capitulo/${h.cap}`}>Leer</a>}
+          </span>
+        </li>
+      ))}
+    </ol>
+  </main>
+</Base>
+
+<style>
+  .travesia {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 5.5rem 1.4rem 3rem;
+  }
+  header { text-align: center; margin-bottom: 2.8rem; }
+  h1 { font-size: clamp(2.1rem, 6vw, 3rem); margin-top: 0.5rem; }
+  .intro {
+    max-width: 34rem;
+    margin: 1.2rem auto 0;
+    color: color-mix(in srgb, var(--tinta) 80%, var(--bruma));
+  }
+
+  .derrota {
+    margin: 2.5rem -0.5rem 3.2rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  .derrota svg { min-width: 700px; width: 100%; height: auto; display: block; }
+  .puerto {
+    font-family: var(--f-display);
+    font-size: 15px;
+    font-weight: 600;
+    fill: var(--marino);
+  }
+  .anosvg { font-size: 12px; fill: var(--bruma); }
+
+  .linea {
+    list-style: none;
+    border-left: 1px solid color-mix(in srgb, var(--oro) 45%, transparent);
+    padding-left: 1.6rem;
+    margin-left: 0.4rem;
+  }
+  .linea li {
+    position: relative;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 3.4rem 1fr;
+    gap: 0.9rem;
+  }
+  .linea li::before {
+    content: "";
+    position: absolute;
+    left: calc(-1.6rem - 3.5px);
+    top: 0.55em;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--oro);
+  }
+  .linea .ano {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--marino);
+  }
+  .linea .que { color: var(--tinta); }
+  .ircap {
+    margin-left: 0.55rem;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.12em;
+    font-size: 0.9rem;
+  }
+</style>

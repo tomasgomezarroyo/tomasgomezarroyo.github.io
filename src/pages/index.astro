@@ -1,0 +1,194 @@
+---
+import Base from '../layouts/Base.astro';
+import indice from '../generado/indice.json';
+---
+<Base claseBody="portada">
+  <!-- La tapa: tela azul marino, letras doradas estampadas -->
+  <section class="tapa">
+    <div class="marco">
+      <p class="sello">1921 · 2001</p>
+      <h1>Memorias<br />de<br />Tomás Gómez Arroyo</h1>
+      <div class="filete-ancla" aria-hidden="true">⚓</div>
+      <p class="oficio">Marino de la Armada Española</p>
+      <blockquote>
+        «Estoy seguro de que el ejercitar mi memoria contribuirá a revivir
+        dulces recuerdos, no siempre felices, y que son como el debe y haber
+        de esta cuenta corriente que es la vida de cada uno.»
+      </blockquote>
+      <a class="abrir" href="/capitulo/prologo">Abrir el libro</a>
+    </div>
+  </section>
+
+  <!-- El índice: papel -->
+  <section class="indice">
+    <h2 class="etiqueta">Índice</h2>
+    <ol>
+      {indice.map((c) => (
+        <li>
+          <a href={`/capitulo/${c.slug}`}>
+            <span class="tit">
+              <span class="nombre">{c.titulo}</span>
+              {c.subtitulo && <span class="sub">{c.subtitulo}</span>}
+            </span>
+            <span class="puntos" aria-hidden="true"></span>
+            <span class="anos">{c.periodo}</span>
+          </a>
+        </li>
+      ))}
+      <li class="extra">
+        <a href="/epilogo">
+          <span class="tit"><span class="nombre">El resto de la travesía</span><span class="sub">epílogo documental</span></span>
+          <span class="puntos" aria-hidden="true"></span>
+          <span class="anos">1954 – 1986</span>
+        </a>
+      </li>
+    </ol>
+
+    <div class="secciones">
+      <a href="/travesia">La travesía</a>
+      <a href="/buques">Los buques</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  :global(body.portada) { background: var(--noche); }
+
+  .tapa {
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: 2rem 1.2rem;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgb(255 255 255 / 0.045), transparent 60%),
+      var(--noche);
+    color: var(--oro-claro);
+  }
+  .marco {
+    max-width: 44rem;
+    width: 100%;
+    text-align: center;
+    border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
+    outline: 1px solid color-mix(in srgb, var(--oro) 25%, transparent);
+    outline-offset: 6px;
+    padding: clamp(2.5rem, 7vw, 5rem) clamp(1.2rem, 5vw, 4rem);
+  }
+  .sello {
+    font-family: var(--f-cuerpo);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.35em;
+    font-size: 0.95rem;
+    color: color-mix(in srgb, var(--oro) 75%, transparent);
+  }
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: clamp(2.4rem, 8vw, 4.2rem);
+    line-height: 1.08;
+    margin: 1.4rem 0 0.4rem;
+    color: var(--oro-claro);
+    text-wrap: balance;
+  }
+  .filete-ancla { color: var(--oro); }
+  .oficio {
+    font-family: var(--f-cuerpo);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.22em;
+    font-size: 1.05rem;
+    color: color-mix(in srgb, var(--oro-claro) 80%, white);
+  }
+  blockquote {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+    line-height: 1.6;
+    color: rgb(242 236 223 / 0.82);
+    max-width: 34rem;
+    margin: 2.2rem auto;
+  }
+  .abrir {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.85rem 2.4rem;
+    border: 1px solid var(--oro);
+    color: var(--oro-claro);
+    font-family: var(--f-cuerpo);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.2em;
+    font-size: 1.05rem;
+    text-decoration: none;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  .abrir:hover {
+    background: var(--oro);
+    color: var(--noche);
+  }
+
+  .indice {
+    background: var(--papel);
+    padding: 4.5rem 1.4rem 3rem;
+  }
+  .indice h2 {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 2.4rem;
+  }
+  ol {
+    list-style: none;
+    max-width: 38rem;
+    margin: 0 auto;
+  }
+  li + li { margin-top: 1.05rem; }
+  li.extra {
+    margin-top: 1.8rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid color-mix(in srgb, var(--oro) 35%, transparent);
+  }
+  ol a {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    text-decoration: none;
+  }
+  .tit { display: flex; flex-direction: column; min-width: 0; }
+  .nombre {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--marino);
+  }
+  .sub {
+    font-size: 0.92rem;
+    font-style: italic;
+    color: var(--bruma);
+  }
+  .puntos {
+    flex: 1;
+    border-bottom: 1px dotted color-mix(in srgb, var(--bruma) 55%, transparent);
+    transform: translateY(-0.35rem);
+    min-width: 2rem;
+  }
+  .anos {
+    font-variant-numeric: oldstyle-nums;
+    color: var(--bruma);
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+  ol a:hover .nombre { color: var(--oro); }
+
+  .secciones {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 2.2rem;
+  }
+  .secciones a {
+    font-family: var(--f-cuerpo);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.16em;
+    font-size: 1rem;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--oro) 50%, transparent);
+    padding-bottom: 0.15rem;
+  }
+</style>

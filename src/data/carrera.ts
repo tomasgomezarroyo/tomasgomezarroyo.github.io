@@ -27,7 +27,7 @@ export const carrera: HitoCarrera[] = [
   { ano: '1983', titulo: 'Gran Cruz de la Orden del Mérito Militar', texto: 'Recibe la Gran Cruz de la Orden del Mérito Militar, con distintivo blanco.', oficial: true, epilogo: true, referencia: 'Real Decreto 1703/1983, de 22 de junio; BOE núm. 150, 24 de junio de 1983, pág. 17755.' },
   { ano: '1985', titulo: 'Reserva activa', texto: 'Pasa a la reserva activa.', oficial: true, epilogo: true, referencia: 'Real Decreto 436/1985, de 1 de abril; BOE.' },
   { ano: '1986', titulo: 'Presidencia de la asociación de huérfanos', texto: 'Es designado para continuar como presidente de la Asociación Benéfica para Huérfanos de los Cuerpos Patentados de la Armada.', oficial: true, epilogo: true, referencia: 'Real Decreto 652/1986, de 4 de abril; BOE.' },
-  { ano: '1991', texto: 'Viudo de Vivi, comienza a escribir estas memorias en la Playa de Las Canteras.', cap: 'prologo' },
+  { ano: '1991', texto: 'Vivi fallece el 31 de marzo, Domingo de Resurrección. Meses después, viudo, comienza a escribir estas memorias en la Playa de Las Canteras.', cap: 'prologo' },
   { ano: '1995', texto: 'Tras el diagnóstico de una grave enfermedad, vuelve a estas páginas y escribe el capítulo final.', cap: 'capitulo-decimo' },
   { ano: '1996', titulo: 'Fallecimiento', texto: 'Fallece el 22 de febrero de 1996.', epilogo: true, referencia: 'Fecha confirmada por la familia; coincide con la biografía de Memoria Digital de Canarias.' },
 ];

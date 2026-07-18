@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { carrera } from '../data/carrera';
 
 const puertos = [
-  { nombre: 'Las Palmas', anos: '1921', x: 45 },
+  { nombre: 'Las Palmas', anos: '1920', x: 45 },
   { nombre: 'Cádiz', anos: '1938', x: 155 },
   { nombre: 'Ceuta', anos: '1938', x: 255 },
   { nombre: 'San Fernando', anos: '1939', x: 370 },
@@ -17,7 +17,7 @@ const derrota = `M ${puertos[0].x} 78 ` + puertos.slice(1).map((p, i) => `Q ${(p
 <Base titulo="La travesía" descripcion="La trayectoria de Tomás Gómez Arroyo, narrada en sus memorias y completada con hitos documentales de su carrera naval." conBarco={true}>
   <main class="travesia">
     <header>
-      <p class="etiqueta">ca. 1921 – 1996</p>
+      <p class="etiqueta">1920 – 1996</p>
       <h1 class="display">La travesía</h1>
       <p class="intro">De marinero voluntario a Vicealmirante de la Armada. Los años de 1938 a 1954 los cuenta él mismo; los hitos posteriores proceden de documentación oficial y del archivo familiar, y todavía no forman una biografía completa.</p>
     </header>

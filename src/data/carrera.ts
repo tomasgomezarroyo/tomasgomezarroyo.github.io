@@ -9,7 +9,7 @@ export interface HitoCarrera {
 }
 
 export const carrera: HitoCarrera[] = [
-  { ano: 'ca. 1921', texto: 'Nace en Las Palmas de Gran Canaria, frente a la Playa de Las Canteras. La fecha exacta está pendiente de confirmación documental.', cap: 'capitulo-primero' },
+  { ano: '1920', texto: 'Nace en Las Palmas de Gran Canaria, frente a la Playa de Las Canteras, el 12 de diciembre. Fecha confirmada por la familia.', cap: 'capitulo-primero' },
   { ano: '1938', texto: 'Se alista como marinero voluntario a los diecisiete años. Crucero auxiliar Rey Jaime I y patrullas por el Estrecho de Gibraltar.', cap: 'capitulo-primero' },
   { ano: '1939', texto: 'Ingresa en la Escuela Naval Militar de San Fernando.', cap: 'capitulo-segundo' },
   { ano: '1943', texto: 'Recibe el despacho de Alférez de Navío en la nueva Escuela Naval de Marín, el 15 de agosto.', cap: 'capitulo-cuarto' },

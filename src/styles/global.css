@@ -111,7 +111,7 @@ a:hover { color: var(--oro); }
 /* ---------- impresión ---------- */
 
 @page {
-  size: auto;
+  size: portrait;
   margin: 18mm 16mm;
 }
 

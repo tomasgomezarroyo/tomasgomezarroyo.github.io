@@ -23,12 +23,15 @@
   --f-cuerpo: 'Literata Variable', Georgia, serif;
 
   --medida: 41rem;      /* ancho de columna de lectura */
-  --ritmo: 1.75;        /* interlineado de lectura */
+  --ritmo: 1.8;         /* interlineado de lectura */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
+  /* Letra más grande en todo el sitio: la mayoría de los lectores
+     de estas memorias tienen 60 años o más. */
+  font-size: 120%;
   scroll-behavior: smooth;
 }
 

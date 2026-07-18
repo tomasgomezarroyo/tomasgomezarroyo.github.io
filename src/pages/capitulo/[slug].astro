@@ -33,7 +33,15 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     <dialog id="visor" aria-label="Fotografía ampliada">
       <button type="button" id="visor-cerrar" aria-label="Cerrar">✕</button>
       <div id="visor-cuerpo">
-        <img id="visor-img" src="" alt="" />
+        <div id="visor-lienzo">
+          <img id="visor-img" src="" alt="" draggable="false" />
+          <p id="visor-ayuda">Toca la foto para acercarte. Arrastra para moverte.</p>
+          <div id="visor-zoom" role="group" aria-label="Acercar o alejar la fotografía">
+            <button type="button" id="zoom-menos" aria-label="Alejar">−</button>
+            <button type="button" id="zoom-reset" aria-label="Volver al tamaño original">⤢</button>
+            <button type="button" id="zoom-mas" aria-label="Acercar">+</button>
+          </div>
+        </div>
         <aside id="visor-ficha" hidden>
           <p class="etiqueta">Ficha</p>
           <h2 id="ficha-titulo"></h2>
@@ -114,9 +122,9 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
   }
   .texto :global(.credito) {
     display: block;
-    font-size: 0.78rem;
-    opacity: 0.75;
-    margin-top: 0.15em;
+    font-size: 0.86rem;
+    opacity: 0.8;
+    margin-top: 0.2em;
   }
 
   .rumbos {
@@ -171,16 +179,69 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     background: var(--noche);
     border: 1px solid color-mix(in srgb, var(--oro) 45%, transparent);
   }
-  #visor-img {
-    display: block;
-    flex: 0 1 auto;
-    min-width: 0;
-    max-width: min(52rem, 60vw);
-    max-height: 82vh;
-    width: auto;
-    height: auto;
-    object-fit: contain;
+  #visor-lienzo {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    touch-action: none;
+    flex: 0 0 auto;
+    min-width: 280px;
+    min-height: 200px;
   }
+  #visor-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 0;
+    cursor: zoom-in;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  #visor-img.zoom-activo { cursor: grab; }
+  #visor-img.arrastrando { cursor: grabbing; }
+
+  #visor-ayuda {
+    position: absolute;
+    left: 0.8rem;
+    bottom: 0.8rem;
+    z-index: 2;
+    max-width: 14rem;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: var(--papel);
+    background: rgb(14 26 40 / 0.72);
+    border: 1px solid color-mix(in srgb, var(--oro) 40%, transparent);
+    transition: opacity 400ms ease;
+    pointer-events: none;
+  }
+  #visor-ayuda.oculta { opacity: 0; }
+
+  #visor-zoom {
+    position: absolute;
+    right: 0.8rem;
+    bottom: 0.8rem;
+    z-index: 2;
+    display: flex;
+    gap: 0.5rem;
+  }
+  #visor-zoom button {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
+    background: rgb(14 26 40 / 0.82);
+    color: var(--oro-claro);
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+  #visor-zoom button:hover { background: var(--noche); color: var(--oro); }
+
   #visor-ficha { align-self: stretch; }
   #visor-ficha {
     width: 19rem;
@@ -212,7 +273,7 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
   }
   #ficha-datos li strong { color: var(--marino); font-weight: 600; }
   #ficha-historia { font-size: 0.94rem; line-height: 1.6; }
-  #ficha-credito { margin-top: 0.9rem; font-size: 0.76rem; color: var(--bruma); }
+  #ficha-credito { margin-top: 0.9rem; font-size: 0.85rem; color: var(--bruma); }
   #visor-cerrar {
     position: absolute;
     top: -0.2rem;
@@ -228,19 +289,183 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
 
   @media (max-width: 860px) {
     #visor-cuerpo { flex-direction: column; }
-    #visor-img { max-width: 94vw; max-height: 55vh; }
     #visor-ficha { width: auto; max-height: 34vh; }
+    #visor-zoom button { font-size: 0.95rem; }
+    #visor-ayuda {
+      left: 0.6rem;
+      right: 0.6rem;
+      bottom: auto;
+      top: 0.6rem;
+      max-width: none;
+      font-size: 0.8rem;
+    }
   }
 </style>
 
 <script>
   const visor = document.getElementById('visor') as HTMLDialogElement;
+  const lienzo = document.getElementById('visor-lienzo') as HTMLElement;
   const vimg = document.getElementById('visor-img') as HTMLImageElement;
+  const ayuda = document.getElementById('visor-ayuda') as HTMLElement;
   const panel = document.getElementById('visor-ficha');
   const ftitulo = document.getElementById('ficha-titulo');
   const fdatos = document.getElementById('ficha-datos');
   const fhistoria = document.getElementById('ficha-historia');
   const fcredito = document.getElementById('ficha-credito');
+
+  // ---- Lupa: acercar, arrastrar, pellizcar ----
+  let escala = 1;
+  let tx = 0;
+  let ty = 0;
+  let anchoLienzo = 0;
+  let altoLienzo = 0;
+  const ESCALA_MIN = 1;
+  const ESCALA_MAX = 5;
+
+  function limites() {
+    const movil = window.innerWidth <= 860;
+    return movil
+      ? { maxW: window.innerWidth * 0.94, maxH: window.innerHeight * 0.55 }
+      : { maxW: Math.min(window.innerWidth * 0.6, 52 * 16), maxH: window.innerHeight * 0.82 };
+  }
+
+  function aplicar() {
+    vimg.style.transform = `translate(${tx}px, ${ty}px) scale(${escala})`;
+    vimg.classList.toggle('zoom-activo', escala > 1.001);
+  }
+
+  function sujetar() {
+    if (escala <= 1) { tx = 0; ty = 0; return; }
+    const minTx = anchoLienzo * (1 - escala);
+    const minTy = altoLienzo * (1 - escala);
+    tx = Math.min(0, Math.max(minTx, tx));
+    ty = Math.min(0, Math.max(minTy, ty));
+  }
+
+  function fijarZoom(nuevaEscala: number, clientX: number, clientY: number) {
+    nuevaEscala = Math.min(ESCALA_MAX, Math.max(ESCALA_MIN, nuevaEscala));
+    const rect = lienzo.getBoundingClientRect();
+    const mx = clientX - rect.left;
+    const my = clientY - rect.top;
+    const ux = (mx - tx) / escala;
+    const uy = (my - ty) / escala;
+    escala = nuevaEscala;
+    tx = mx - ux * escala;
+    ty = my - uy * escala;
+    sujetar();
+    aplicar();
+  }
+
+  function resetZoom() {
+    escala = 1;
+    tx = 0;
+    ty = 0;
+    aplicar();
+  }
+
+  function ajustarLienzo() {
+    if (!vimg.naturalWidth) {
+      vimg.addEventListener('load', ajustarLienzo, { once: true });
+      return;
+    }
+    const { maxW, maxH } = limites();
+    const factor = Math.min(maxW / vimg.naturalWidth, maxH / vimg.naturalHeight, 1);
+    anchoLienzo = Math.max(1, Math.round(vimg.naturalWidth * factor));
+    altoLienzo = Math.max(1, Math.round(vimg.naturalHeight * factor));
+    lienzo.style.width = anchoLienzo + 'px';
+    lienzo.style.height = altoLienzo + 'px';
+    resetZoom();
+    ayuda.classList.remove('oculta');
+    setTimeout(() => ayuda.classList.add('oculta'), 3200);
+  }
+
+  window.addEventListener('resize', () => {
+    if (visor.open) ajustarLienzo();
+  });
+
+  lienzo.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const factor = e.deltaY < 0 ? 1.2 : 1 / 1.2;
+    fijarZoom(escala * factor, e.clientX, e.clientY);
+  }, { passive: false });
+
+  lienzo.addEventListener('dblclick', (e) => e.preventDefault());
+
+  const punteros = new Map<number, { x: number; y: number }>();
+  let inicioPinch: { dist: number; escala: number } | null = null;
+  let arrastre: { x: number; y: number; tx: number; ty: number; movio: boolean } | null = null;
+
+  lienzo.addEventListener('pointerdown', (e) => {
+    if ((e.target as HTMLElement).closest('#visor-zoom')) return;
+    lienzo.setPointerCapture(e.pointerId);
+    punteros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    ayuda.classList.add('oculta');
+    if (punteros.size === 1) {
+      arrastre = { x: e.clientX, y: e.clientY, tx, ty, movio: false };
+    } else if (punteros.size === 2) {
+      const pts = [...punteros.values()];
+      inicioPinch = { dist: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y), escala };
+      arrastre = null;
+    }
+  });
+
+  lienzo.addEventListener('pointermove', (e) => {
+    if (!punteros.has(e.pointerId)) return;
+    punteros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (punteros.size === 2 && inicioPinch) {
+      const pts = [...punteros.values()];
+      const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+      const midX = (pts[0].x + pts[1].x) / 2;
+      const midY = (pts[0].y + pts[1].y) / 2;
+      fijarZoom(inicioPinch.escala * (dist / inicioPinch.dist), midX, midY);
+      return;
+    }
+
+    if (arrastre) {
+      const dx = e.clientX - arrastre.x;
+      const dy = e.clientY - arrastre.y;
+      if (Math.hypot(dx, dy) > 5) arrastre.movio = true;
+      if (escala > 1) {
+        tx = arrastre.tx + dx;
+        ty = arrastre.ty + dy;
+        sujetar();
+        aplicar();
+        vimg.classList.add('arrastrando');
+      }
+    }
+  });
+
+  function finPuntero(e: PointerEvent) {
+    punteros.delete(e.pointerId);
+    vimg.classList.remove('arrastrando');
+    if (punteros.size < 2) inicioPinch = null;
+    if (punteros.size === 0 && arrastre) {
+      if (!arrastre.movio) {
+        if (escala > 1.001) resetZoom();
+        else fijarZoom(2.2, e.clientX, e.clientY);
+      }
+      arrastre = null;
+    }
+  }
+  lienzo.addEventListener('pointerup', finPuntero);
+  lienzo.addEventListener('pointercancel', finPuntero);
+
+  document.getElementById('zoom-mas')?.addEventListener('click', () => {
+    const r = lienzo.getBoundingClientRect();
+    fijarZoom(escala * 1.5, r.left + r.width / 2, r.top + r.height / 2);
+  });
+  document.getElementById('zoom-menos')?.addEventListener('click', () => {
+    const r = lienzo.getBoundingClientRect();
+    fijarZoom(escala / 1.5, r.left + r.width / 2, r.top + r.height / 2);
+  });
+  document.getElementById('zoom-reset')?.addEventListener('click', resetZoom);
+
+  visor?.addEventListener('close', () => {
+    punteros.clear();
+    inicioPinch = null;
+    arrastre = null;
+  });
 
   document.querySelectorAll('figure.lamina .abre-visor').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -249,6 +474,7 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
       if (!fig || !img || !visor) return;
       vimg.src = img.src;
       vimg.alt = img.alt;
+      ajustarLienzo();
       const cruda = fig.getAttribute('data-ficha');
       if (cruda && panel && ftitulo && fdatos && fhistoria && fcredito) {
         try {

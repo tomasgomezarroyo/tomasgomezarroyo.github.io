@@ -37,7 +37,9 @@
       "periodo": "1939 – 1941",
       "lugares": "San Fernando, Cádiz",
       "resumen": "Los primeros días traumáticos en la Escuela Naval Militar de San Fernando, los toques de corneta y los instructores alemanes que no pasaban una.",
-      "fotos": []
+      "fotos": [
+        { "archivo": "lugares/presidio-cuatro-torres-san-fernando-1911.png", "pie": "El arsenal de La Carraca, en San Fernando, a comienzos de siglo. En este entorno de piedra vieja y salitre funcionaba la Escuela Naval de sus años de cadete.", "credito": "Dominio público, vía Wikimedia Commons.", "pos": 3 }
+      ]
     },
     {
       "slug": "capitulo-tercero",
@@ -80,7 +82,8 @@
       "fotos": [
         { "archivo": "buques/marte-archivo-armada.jpg", "pie": "El minador Marte, su destino en Las Palmas al obtener la especialidad.", "credito": "Archivo General de la Armada, vía Todoavante.es.", "pos": 4 },
         { "archivo": "familia/fabrica-chocolates-gomez-bosch-1915.jpg", "pie": "La fábrica de Chocolates Gómez Bosch en Las Palmas, hacia 1915. El negocio familiar fundado por su abuelo Cástor.", "credito": "Colección Néstor Gómez Arroyo, FEDAC. CC BY 4.0.", "pos": 8 },
-        { "archivo": "familia/castor-y-nestor-gomez-arroyo-1944.jpg", "pie": "Sus hermanos Cástor y Néstor en 1944, retratados por su padre, el pintor y fotógrafo Tomás Gómez Bosch.", "credito": "Colección Néstor Gómez Arroyo, FEDAC. CC BY 4.0.", "pos": 12 }
+        { "archivo": "familia/castor-y-nestor-gomez-arroyo-1944.jpg", "pie": "Sus hermanos Cástor y Néstor en 1944, retratados por su padre, el pintor y fotógrafo Tomás Gómez Bosch.", "credito": "Colección Néstor Gómez Arroyo, FEDAC. CC BY 4.0.", "pos": 12 },
+        { "archivo": "familia/reveriano-soutullo-retrato.jpg", "pie": "El compositor Reveriano Soutullo, autor de La leyenda del beso y La del Soto del Parral. Vivi, la novia de estas páginas, era su hija.", "credito": "Dominio público, vía Wikimedia Commons.", "pos": 16 }
       ]
     },
     {
@@ -92,7 +95,8 @@
       "lugares": "Las Palmas, Madrid",
       "resumen": "Las quinielas a dos pesetas, los manifiestos de Don Juan de Borbón y la vida cotidiana de la España de posguerra.",
       "fotos": [
-        { "archivo": "lugares/madrid-usera-1940.jpg", "pie": "Madrid a comienzos de los años cuarenta, la ciudad del noviazgo.", "credito": "Dominio público, vía Wikimedia Commons.", "pos": 5 }
+        { "archivo": "lugares/madrid-usera-1940.jpg", "pie": "Madrid a comienzos de los años cuarenta, la ciudad del noviazgo.", "credito": "Dominio público, vía Wikimedia Commons.", "pos": 5 },
+        { "archivo": "lugares/madrid-calle-1941.jpg", "pie": "Una calle de Madrid en 1941, la España cotidiana de aquellos años.", "credito": "Dominio público, vía Wikimedia Commons.", "pos": 10 }
       ]
     },
     {

@@ -6,8 +6,8 @@
     "periodo": "1991",
     "lugares": "Playa de Las Canteras, Las Palmas",
     "resumen": "A los setenta años, recién viudo, el autor decide por fin empezar a escribir. Dedica estas páginas a la memoria de Vivi.",
-    "corregido": false,
-    "parrafos": 3,
+    "corregido": true,
+    "parrafos": 5,
     "fotos": 1
   },
   {
@@ -30,7 +30,7 @@
     "resumen": "Los primeros días traumáticos en la Escuela Naval Militar de San Fernando, los toques de corneta y los instructores alemanes que no pasaban una.",
     "corregido": false,
     "parrafos": 29,
-    "fotos": 0
+    "fotos": 1
   },
   {
     "slug": "capitulo-tercero",
@@ -50,8 +50,8 @@
     "periodo": "1943",
     "lugares": "Marín, Pontevedra",
     "resumen": "La entrega de despachos en la nueva Escuela Naval de Marín, el 15 de agosto de 1943, tras una borrascosa noche de viejos camaradas.",
-    "corregido": false,
-    "parrafos": 27,
+    "corregido": true,
+    "parrafos": 59,
     "fotos": 0
   },
   {
@@ -74,7 +74,7 @@
     "resumen": "El regreso al hogar paterno con noticias de noviazgo, y el destino al minador Marte con base en Las Palmas.",
     "corregido": false,
     "parrafos": 32,
-    "fotos": 3
+    "fotos": 4
   },
   {
     "slug": "capitulo-septimo",
@@ -83,9 +83,9 @@
     "periodo": "1946 – 1947",
     "lugares": "Las Palmas, Madrid",
     "resumen": "Las quinielas a dos pesetas, los manifiestos de Don Juan de Borbón y la vida cotidiana de la España de posguerra.",
-    "corregido": false,
-    "parrafos": 20,
-    "fotos": 1
+    "corregido": true,
+    "parrafos": 66,
+    "fotos": 2
   },
   {
     "slug": "capitulo-octavo",

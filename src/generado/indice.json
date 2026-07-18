@@ -6,6 +6,7 @@
     "periodo": "1991",
     "lugares": "Playa de Las Canteras, Las Palmas",
     "resumen": "A los setenta años, recién viudo, el autor decide por fin empezar a escribir. Dedica estas páginas a la memoria de Vivi.",
+    "aviso": "",
     "corregido": true,
     "parrafos": 5,
     "fotos": 1
@@ -17,6 +18,7 @@
     "periodo": "1921 – 1939",
     "lugares": "Las Palmas, Cádiz, Ceuta, Estrecho de Gibraltar",
     "resumen": "Infancia en Las Palmas, el bachillerato interrumpido por la guerra y el alistamiento como marinero voluntario a los diecisiete años. El crucero auxiliar Rey Jaime I y las patrullas por el Estrecho.",
+    "aviso": "",
     "corregido": true,
     "parrafos": 66,
     "fotos": 6
@@ -28,6 +30,7 @@
     "periodo": "1939 – 1941",
     "lugares": "San Fernando, Cádiz",
     "resumen": "Los primeros días traumáticos en la Escuela Naval Militar de San Fernando, los toques de corneta y los instructores alemanes que no pasaban una.",
+    "aviso": "",
     "corregido": true,
     "parrafos": 55,
     "fotos": 1
@@ -39,6 +42,7 @@
     "periodo": "1941 – 1943",
     "lugares": "San Fernando, Cádiz",
     "resumen": "El ascenso a Guardiamarina de Segunda, las dos anclas cruzadas bajo la corona, y la cómoda zona templada de la promoción.",
+    "aviso": "",
     "corregido": true,
     "parrafos": 69,
     "fotos": 0
@@ -50,6 +54,7 @@
     "periodo": "1943",
     "lugares": "Marín, Pontevedra",
     "resumen": "La entrega de despachos en la nueva Escuela Naval de Marín, el 15 de agosto de 1943, tras una borrascosa noche de viejos camaradas.",
+    "aviso": "",
     "corregido": true,
     "parrafos": 59,
     "fotos": 0
@@ -61,6 +66,7 @@
     "periodo": "1944 – 1945",
     "lugares": "Portugalete, Marín",
     "resumen": "Un invierno de nieve en Portugalete con el barco apagado por falta de combustible, y el curso de Tiro Naval junto al cuarteto de la camareta.",
+    "aviso": "",
     "corregido": true,
     "parrafos": 98,
     "fotos": 0
@@ -72,6 +78,7 @@
     "periodo": "1946",
     "lugares": "Las Palmas, Madrid",
     "resumen": "El regreso al hogar paterno con noticias de noviazgo, y el destino al minador Marte con base en Las Palmas.",
+    "aviso": "",
     "corregido": true,
     "parrafos": 103,
     "fotos": 4
@@ -83,6 +90,7 @@
     "periodo": "1946 – 1947",
     "lugares": "Las Palmas, Madrid",
     "resumen": "Las quinielas a dos pesetas, los manifiestos de Don Juan de Borbón y la vida cotidiana de la España de posguerra.",
+    "aviso": "",
     "corregido": true,
     "parrafos": 66,
     "fotos": 2
@@ -94,6 +102,7 @@
     "periodo": "1948 – 1949",
     "lugares": "Las Palmas, Palma de Mallorca, Cartagena",
     "resumen": "El nacimiento de Nena, el traslado a la División Naval del Mediterráneo y el temido comandante del destructor Churruca.",
+    "aviso": "",
     "corregido": true,
     "parrafos": 69,
     "fotos": 2
@@ -117,6 +126,7 @@
     "periodo": "1952 – 1954",
     "lugares": "Cartagena",
     "resumen": "Escrito ya contra el tiempo. El ascenso a Capitán de Corbeta, el Cuartel de Instrucción, el pleito de los pabellones y el crucero Miguel de Cervantes.",
+    "aviso": "",
     "corregido": true,
     "parrafos": 10,
     "fotos": 1

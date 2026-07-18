@@ -55,9 +55,10 @@ const { buque } = Astro.props;
           <div class="lienzo" data-lienzo><img src="" alt="" data-visor-img draggable="false" /></div>
           <div class="controles" role="group" aria-label="Controles de ampliación">
             <button type="button" data-menos aria-label="Alejar">− Alejar</button>
-            <button type="button" data-restablecer aria-label="Restablecer ampliación">Tamaño original</button>
+            <button type="button" data-restablecer aria-label="Ajustar el zoom al tamaño de pantalla">Ajustar</button>
             <output data-zoom aria-live="polite">100 %</output>
             <button type="button" data-mas aria-label="Acercar">+ Acercar</button>
+            <a data-original href={buque.imagenes[0]?.src} target="_blank" rel="noopener" aria-label="Ver la fotografía a tamaño original en una pestaña nueva">↗ Tamaño original</a>
           </div>
         </dialog>
       </section>
@@ -125,14 +126,16 @@ const { buque } = Astro.props;
   .lienzo img.ampliada { cursor: grab; }
   .lienzo img.arrastrando { cursor: grabbing; }
   .cerrar { position: absolute; right: 0.6rem; top: 0.6rem; z-index: 3; min-width: 5.6rem; height: 3rem; padding: 0 0.75rem; border: 1px solid var(--oro-claro); border-radius: 2rem; background: var(--noche); color: var(--papel); cursor: pointer; }
-  .controles { position: absolute; left: 50%; bottom: 0.8rem; transform: translateX(-50%); display: flex; gap: 0.6rem; }
-  .controles button { min-width: 6rem; height: 3rem; padding: 0 0.75rem; border-radius: 2rem; border: 1px solid var(--oro-claro); background: var(--noche); color: var(--papel); cursor: pointer; }
+  .controles { position: absolute; left: 50%; bottom: 0.8rem; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
+  .controles button,
+  .controles a { min-width: 6rem; height: 3rem; padding: 0 0.75rem; border-radius: 2rem; border: 1px solid var(--oro-claro); background: var(--noche); color: var(--papel); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.86rem; }
   .controles output { min-width: 4.4rem; height: 3rem; display: inline-flex; align-items: center; justify-content: center; color: var(--papel); font-weight: 700; }
 
   @media (max-width: 620px) {
     .abrir-lupa { inset: auto 0.7rem 0.7rem auto; }
     .controles { width: calc(100% - 1rem); justify-content: center; gap: 0.3rem; }
-    .controles button { min-width: 0; flex: 1 1 auto; padding-inline: 0.4rem; font-size: 0.78rem; }
+    .controles button,
+    .controles a { min-width: 0; flex: 1 1 auto; padding-inline: 0.4rem; font-size: 0.78rem; }
     .controles output { min-width: 3.5rem; font-size: 0.8rem; }
   }
 </style>
@@ -148,6 +151,7 @@ const { buque } = Astro.props;
     const lienzo = galeria.querySelector('[data-lienzo]') as HTMLElement;
     const visorImg = galeria.querySelector('[data-visor-img]') as HTMLImageElement;
     const salidaZoom = galeria.querySelector('[data-zoom]') as HTMLOutputElement;
+    const original = galeria.querySelector('[data-original]') as HTMLAnchorElement;
     let indiceActivo = 0;
     let escala = 1;
     let desplazamientoX = 0;
@@ -193,6 +197,7 @@ const { buque } = Astro.props;
       pie.textContent = boton.dataset.pie || '';
       referencia.textContent = boton.dataset.referencia || '';
       contador.textContent = `Fotografía ${indiceActivo + 1} de ${miniaturas.length}`;
+      original.href = boton.dataset.src || '';
     };
 
     miniaturas.forEach((boton, indice) => boton.addEventListener('click', () => activar(indice)));
@@ -202,6 +207,7 @@ const { buque } = Astro.props;
     galeria.querySelector('[data-ampliar]')?.addEventListener('click', () => {
       visorImg.src = principal.src;
       visorImg.alt = principal.alt;
+      original.href = principal.src;
       restablecer();
       visor.showModal();
     });

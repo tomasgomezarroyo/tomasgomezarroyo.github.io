@@ -46,8 +46,9 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
           <p id="visor-ayuda">Haz clic o toca la foto para acercarte. Arrastra para moverte.</p>
           <div id="visor-zoom" role="group" aria-label="Acercar o alejar la fotografía">
             <button type="button" id="zoom-menos" aria-label="Alejar">−</button>
-            <button type="button" id="zoom-reset" aria-label="Volver al tamaño original">⤢</button>
+            <button type="button" id="zoom-reset" aria-label="Ajustar el zoom al tamaño de pantalla">⤢</button>
             <button type="button" id="zoom-mas" aria-label="Acercar">+</button>
+            <a href="#" target="_blank" rel="noopener" id="visor-original" aria-label="Ver la fotografía a tamaño original en una pestaña nueva">↗</a>
           </div>
         </div>
         <aside id="visor-ficha" hidden>
@@ -280,7 +281,8 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     display: flex;
     gap: 0.5rem;
   }
-  #visor-zoom button {
+  #visor-zoom button,
+  #visor-zoom a {
     width: 2.75rem;
     height: 2.75rem;
     border-radius: 50%;
@@ -292,8 +294,10 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     cursor: pointer;
     display: grid;
     place-items: center;
+    text-decoration: none;
   }
-  #visor-zoom button:hover { background: var(--noche); color: var(--oro); }
+  #visor-zoom button:hover,
+  #visor-zoom a:hover { background: var(--noche); color: var(--oro); }
 
   #visor-ficha { align-self: stretch; }
   #visor-ficha {
@@ -346,7 +350,8 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     }
     #visor-cuerpo { flex-direction: column; }
     #visor-ficha { width: auto; max-height: 34vh; }
-    #visor-zoom button { font-size: 0.95rem; }
+    #visor-zoom button,
+    #visor-zoom a { font-size: 0.95rem; }
     #visor-ayuda {
       left: 0.6rem;
       right: 0.6rem;
@@ -386,6 +391,7 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
   const lienzo = document.getElementById('visor-lienzo') as HTMLElement;
   const vimg = document.getElementById('visor-img') as HTMLImageElement;
   const ayuda = document.getElementById('visor-ayuda') as HTMLElement;
+  const original = document.getElementById('visor-original') as HTMLAnchorElement;
   const panel = document.getElementById('visor-ficha');
   const ftitulo = document.getElementById('ficha-titulo');
   const fdatos = document.getElementById('ficha-datos');
@@ -553,6 +559,7 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
       if (!fig || !img || !visor) return;
       vimg.src = img.src;
       vimg.alt = img.alt;
+      original.href = img.src;
       ajustarLienzo();
       const cruda = fig.getAttribute('data-ficha');
       if (cruda && panel && ftitulo && fdatos && fhistoria && fcredito) {

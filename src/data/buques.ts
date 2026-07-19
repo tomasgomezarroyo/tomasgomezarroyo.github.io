@@ -60,6 +60,30 @@ export const buques: Buque[] = [
         pie: 'Plano de cubiertas, camarotes por clase y ficha técnica del buque (eslora, manga, potencia, velocidad), publicado en agosto de 1947. No es una fotografía.',
         referencia: 'Referencia: archivo Manuel Rodríguez Barrientos, vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
+      {
+        src: '/fotos/buques/rey-jaime-i-plano-camaras-1926.jpg',
+        alt: 'Plano de las cámaras del Rey Jaime I, 1926',
+        pie: 'Plano de distribución de cámaras y camarotes por clase, año 1926, veintiún años antes del plano técnico de 1947 ya incluido. No es una fotografía.',
+        referencia: 'Referencia: archivo Jaime Cifré Sánchez, vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/rey-jaime-i-postal-interiores.jpg',
+        alt: 'Postal con vistas interiores del Rey Jaime I: vestíbulo, cubierta, fumador y comedor',
+        pie: 'Postal corporativa de época con vistas del interior: vestíbulo, cubierta, salón fumador y comedor de primera clase.',
+        referencia: 'Referencia: archivo LGF, vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/rey-jaime-i-torre-jaime-i-panoramica.jpg',
+        alt: 'Rey Jaime I atracado en Barcelona, junto a la Torre Jaime I del puerto',
+        pie: 'El buque atracado en el puerto de Barcelona, a los pies de la Torre Jaime I del teleférico portuario.',
+        referencia: 'Referencia: fondo documental del Museu Marítim de Barcelona, vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/rey-jaime-i-cubierta-proa-puente.jpg',
+        alt: 'Vista de la cubierta de proa del Rey Jaime I desde el puente, con mar gruesa',
+        pie: 'La cubierta de proa vista desde el puente de mando, con mar gruesa rompiendo sobre la roda.',
+        referencia: 'Referencia: fotografía de Juan Vera Quiñones, vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
     ],
   },
   {
@@ -111,6 +135,18 @@ export const buques: Buque[] = [
         alt: 'El buque como Galileo Galilei, bajo bandera italiana, en Nápoles',
         pie: 'El mismo casco en su vida anterior, como Galileo Galilei bajo bandera italiana, en Nápoles.',
         referencia: 'Referencia: simplonpc.co.uk, vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/jj-sister-comedor-primera-clase.jpg',
+        alt: 'Comedor de primera clase del J.J. Sister',
+        pie: 'El comedor de primera clase, una de las pocas vistas de interiores localizadas del buque.',
+        referencia: 'Referencia: libro corporativo "Trasmediterránea. Hacia el nuevo milenio", vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/jj-sister-plano-sala-maquinas.jpg',
+        alt: 'Plano de la sala de máquinas del J.J. Sister tras su conversión a motonave',
+        pie: 'Plano de distribución de la sala de máquinas, tras la conversión de vapor a motonave en 1924. No es una fotografía.',
+        referencia: 'Referencia: revista "The Motor Ship" (mayo 1924), vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
       {
         src: '/fotos/buques/jj-sister-maqueta-museu-maritim.jpg',
@@ -220,6 +256,12 @@ export const buques: Buque[] = [
         pie: 'El Marte atracado en Santander, en 1969, ya en una etapa posterior de su servicio.',
         referencia: 'Referencia: reproducida en un blog de historia naval; autor y procedencia original no identificados.',
       },
+      {
+        src: '/fotos/buques/marte-monumento-almuradiel-1975.jpg',
+        alt: 'Monumento al cañonero-minador Marte en Almuradiel, 1975',
+        pie: 'El palo de mesana del Marte, convertido en monumento en Almuradiel (Ciudad Real), 1975, tras darse de baja el buque. No es una fotografía del buque en servicio.',
+        referencia: 'Referencia: publicación pública en Facebook; autor no identificado en la publicación.',
+      },
     ],
   },
   {
@@ -247,6 +289,18 @@ export const buques: Buque[] = [
         alt: 'Destructor Císcar, buque gemelo del Churruca',
         pie: 'El Císcar, buque gemelo de la clase Churruca. Imagen comparativa, no es el barco exacto de Tomás.',
         referencia: 'Fotografía de dominio público, vía Wikimedia Commons.',
+      },
+      {
+        src: '/fotos/buques/churruca-gemelo-miranda-tripulacion.jpg',
+        alt: 'Tripulación formada en cubierta del destructor Almirante Miranda, buque gemelo del Churruca',
+        pie: 'La tripulación formada en cubierta del Almirante Miranda, buque gemelo de la clase Churruca. Imagen comparativa, no es el barco exacto de Tomás.',
+        referencia: 'Referencia: amigosdelamili.com; derechos particulares del sitio, pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/churruca-gemelo-miranda-oficiales.jpg',
+        alt: 'Oficiales del destructor Almirante Miranda, buque gemelo del Churruca',
+        pie: 'Grupo de oficiales del Almirante Miranda, buque gemelo de la clase Churruca. Imagen comparativa, no es el barco exacto de Tomás.',
+        referencia: 'Referencia: amigosdelamili.com; derechos particulares del sitio, pendientes de confirmación.',
       },
     ],
   },

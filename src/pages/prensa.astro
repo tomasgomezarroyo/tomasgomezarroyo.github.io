@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import { publicaciones } from '../data/prensa';
+---
+<Base titulo="Prensa" descripcion="Apariciones de Tomás Gómez Arroyo en publicaciones oficiales y de prensa, con la página original y el documento completo." conBarco={true}>
+  <main class="flota">
+    <header>
+      <p class="etiqueta">Su nombre en letra impresa</p>
+      <h1 class="display">Prensa</h1>
+      <p class="intro">Publicaciones oficiales donde aparece nombrado o retratado, confirmadas por la familia. Se muestra la página exacta donde aparece — no el boletín completo — con un enlace a la fuente original y la posibilidad de descargar el documento íntegro.</p>
+    </header>
+
+    <div class="fichas">
+      {publicaciones.map((p) => (
+        <article class="ficha">
+          <a href={`/prensa/${p.slug}`} class="marco-foto" aria-label={`Abrir ${p.titulo}`}>
+            <img src={p.paginas[0].src} alt={p.paginas[0].alt} loading="lazy" decoding="async" />
+            <span class="cantidad">{p.paginas.length} {p.paginas.length === 1 ? 'página' : 'páginas'}</span>
+          </a>
+          <h2><a href={`/prensa/${p.slug}`}>{p.titulo}</a></h2>
+          <p class="fecha">{p.fecha}</p>
+          <p class="nota">{p.resumen}</p>
+          <p class="acciones">
+            <a class="boton-ficha" href={`/prensa/${p.slug}`}>Ver la página y ampliar</a>
+          </p>
+        </article>
+      ))}
+    </div>
+  </main>
+</Base>
+
+<style>
+  .flota { max-width: 62rem; margin: 0 auto; padding: 5.5rem 1.4rem 3rem; }
+  header { text-align: center; margin-bottom: 3rem; }
+  h1 { font-size: clamp(2.1rem, 6vw, 3rem); margin-top: 0.5rem; }
+  .intro { max-width: 40rem; margin: 1.2rem auto 0; color: var(--tinta); }
+  .fichas { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 2.8rem 2.2rem; }
+  .ficha { display: flex; flex-direction: column; }
+  .marco-foto {
+    position: relative;
+    display: block;
+    border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
+    padding: 6px;
+    background: var(--papel-2);
+    box-shadow: 0 1px 8px rgb(0 0 0 / 0.08);
+  }
+  .cantidad {
+    position: absolute;
+    right: 0.65rem;
+    bottom: 0.65rem;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--oro-claro);
+    border-radius: 2rem;
+    background: rgb(14 26 40 / 0.9);
+    color: var(--papel);
+    font: 600 0.78rem/1.2 var(--f-cuerpo);
+  }
+  .marco-foto img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: top; }
+  h2 { font-family: var(--f-display); font-weight: 600; font-size: 1.4rem; margin-top: 0.9rem; }
+  h2 a { text-decoration: none; }
+  .fecha { margin-top: 0.2rem; font-weight: 600; color: var(--marino); font-size: 0.92rem; }
+  .nota { margin-top: 0.5rem; font-size: 0.98rem; }
+  .acciones { margin-top: auto; padding-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; }
+  .acciones a { min-height: 2.75rem; display: inline-flex; align-items: center; font-size: 0.92rem; }
+  .acciones .boton-ficha {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--marino);
+    background: var(--marino);
+    color: var(--papel);
+    text-decoration: none;
+  }
+  .acciones .boton-ficha:hover { background: var(--oro); border-color: var(--oro); color: var(--papel); }
+</style>

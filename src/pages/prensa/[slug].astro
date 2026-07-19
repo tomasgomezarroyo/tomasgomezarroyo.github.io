@@ -1,0 +1,309 @@
+---
+import Base from '../../layouts/Base.astro';
+import { publicaciones } from '../../data/prensa';
+
+export function getStaticPaths() {
+  return publicaciones.map((p) => ({ params: { slug: p.slug }, props: { publicacion: p } }));
+}
+const { publicacion } = Astro.props;
+---
+<Base titulo={publicacion.titulo} descripcion={`${publicacion.titulo}, ${publicacion.fecha} — aparición de Tomás Gómez Arroyo en prensa oficial.`} conBarco={true}>
+  <main class="detalle-buque">
+    <nav class="migas" aria-label="Ruta">
+      <a href="/prensa">Toda la prensa</a>
+    </nav>
+    <header>
+      <h1 class="display">{publicacion.titulo}</h1>
+      <p class="fecha-cabecera">{publicacion.fecha}</p>
+      <p>{publicacion.resumen}</p>
+    </header>
+
+    <section class="galeria" aria-label={`Páginas de ${publicacion.titulo}`} data-galeria>
+      <div class="marco-imagen">
+        <button class="imagen-principal" type="button" aria-label={`Ampliar la página de ${publicacion.titulo}`} data-ampliar>
+          <img src={publicacion.paginas[0].src} alt={publicacion.paginas[0].alt} data-principal />
+          <span class="abrir-lupa">Ampliar página</span>
+        </button>
+        {publicacion.paginas.length > 1 && (
+          <>
+            <button type="button" class="flecha flecha-izq" data-anterior aria-label="Página anterior">‹</button>
+            <button type="button" class="flecha flecha-der" data-siguiente aria-label="Página siguiente">›</button>
+          </>
+        )}
+      </div>
+      <div class="pie-activo" aria-live="polite">
+        <p class="contador" data-contador>Página 1 de {publicacion.paginas.length}</p>
+        <p data-pie>{publicacion.paginas[0].pie}</p>
+      </div>
+      {publicacion.paginas.length > 1 && (
+        <div class="miniaturas" role="list" aria-label="Seleccionar página">
+          {publicacion.paginas.map((pag, i) => (
+            <button
+              type="button"
+              role="listitem"
+              class={i === 0 ? 'activa' : ''}
+              aria-label={`Mostrar página ${i + 1} de ${publicacion.paginas.length}: ${pag.alt}`}
+              data-miniatura
+              data-src={pag.src}
+              data-alt={pag.alt}
+              data-pie={pag.pie}
+            ><img src={pag.src} alt="" loading="lazy" /><span>Pág. {i + 1}</span></button>
+          ))}
+        </div>
+      )}
+      <p class="ayuda">Pulse «Ampliar página» para leer el texto de cerca. Dentro de la lupa puede acercarse hasta cinco veces y arrastrar la imagen para recorrer sus detalles.</p>
+
+      <dialog data-visor aria-label={`Página ampliada de ${publicacion.titulo}`}>
+        <button class="cerrar" type="button" aria-label="Cerrar la página ampliada" data-cerrar>Cerrar ✕</button>
+        {publicacion.paginas.length > 1 && (
+          <>
+            <button type="button" class="flecha flecha-visor flecha-izq" data-visor-anterior aria-label="Página anterior">‹</button>
+            <button type="button" class="flecha flecha-visor flecha-der" data-visor-siguiente aria-label="Página siguiente">›</button>
+          </>
+        )}
+        <div class="lienzo" data-lienzo><img src="" alt="" data-visor-img draggable="false" /></div>
+        <div class="controles" role="group" aria-label="Controles de ampliación">
+          <button type="button" data-menos aria-label="Alejar">− Alejar</button>
+          <button type="button" data-restablecer aria-label="Ajustar el zoom al tamaño de pantalla">Ajustar</button>
+          <output data-zoom aria-live="polite">100 %</output>
+          <button type="button" data-mas aria-label="Acercar">+ Acercar</button>
+          <a data-original href={publicacion.paginas[0].src} target="_blank" rel="noopener" aria-label="Ver la página a tamaño original en una pestaña nueva">↗ Tamaño original</a>
+        </div>
+      </dialog>
+    </section>
+
+    <section class="fuente" aria-labelledby="titulo-fuente">
+      <h2 id="titulo-fuente">Fuente y documento completo</h2>
+      <p>Publicado por {publicacion.fuenteTexto}. Reutilización autorizada citando la fuente, según el aviso legal de Publicaciones Defensa.</p>
+      <p class="botones-fuente">
+        <a class="boton-externo" href={publicacion.fuenteUrl} target="_blank" rel="noopener">📖 Ver la publicación original ↗</a>
+        <a class="boton-descarga" href={publicacion.documentoUrl} download>⬇ Descargar el boletín completo ({publicacion.documentoTamano})</a>
+      </p>
+      <p class="nota-enlace">Esta ficha es una excepción deliberada: en el resto del sitio las fuentes se citan como texto, sin enlaces — aquí, por tratarse de prensa, el enlace y la descarga son el propio contenido.</p>
+    </section>
+
+    <nav class="acciones" aria-label="Continuar">
+      <a href="/prensa">Volver a toda la prensa</a>
+    </nav>
+  </main>
+</Base>
+
+<style>
+  .detalle-buque { max-width: 54rem; margin: 0 auto; padding: 5.8rem 1.4rem 3rem; }
+  .migas { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem 1rem; }
+  .migas a, .acciones a { min-height: 2.75rem; display: inline-flex; align-items: center; }
+  header { text-align: center; max-width: 40rem; margin: 1.2rem auto 2.2rem; }
+  h1 { font-size: clamp(1.9rem, 6vw, 2.9rem); margin: 0.3rem 0 0.4rem; }
+  .fecha-cabecera { font-weight: 700; color: var(--marino); margin-bottom: 0.6rem; }
+  .galeria { max-width: 48rem; margin: 0 auto; }
+  .marco-imagen { position: relative; }
+  .imagen-principal { position: relative; width: 100%; padding: 7px; border: 1px solid var(--oro); background: var(--papel-2); cursor: zoom-in; }
+  .imagen-principal img { display: block; width: 100%; max-height: 68vh; object-fit: contain; background: #101820; }
+  .abrir-lupa {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--oro-claro);
+    background: rgb(14 26 40 / 0.92);
+    color: var(--papel);
+    font: 600 0.86rem/1.2 var(--f-cuerpo);
+  }
+  .flecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 3rem;
+    height: 3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--oro-claro);
+    border-radius: 50%;
+    background: rgb(14 26 40 / 0.85);
+    color: var(--papel);
+    font-size: 1.7rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .flecha:hover, .flecha:focus-visible { background: rgb(14 26 40 / 0.98); }
+  .flecha-izq { left: 0.5rem; }
+  .flecha-der { right: 0.5rem; }
+  .pie-activo { margin: 0.8rem auto 1rem; text-align: center; max-width: 42rem; }
+  .contador { margin-bottom: 0.25rem; font-weight: 700; color: var(--marino); }
+  .miniaturas { display: flex; gap: 0.65rem; overflow-x: auto; padding: 0.4rem 0.2rem 0.8rem; }
+  .miniaturas button { flex: 0 0 7rem; min-height: 6.1rem; padding: 4px; border: 2px solid transparent; background: var(--papel-2); color: var(--marino); cursor: pointer; }
+  .miniaturas button.activa { border-color: var(--oro); }
+  .miniaturas img { display: block; width: 100%; height: 4.5rem; object-fit: cover; object-position: top; }
+  .miniaturas span { display: block; padding-top: 0.15rem; font-size: 0.78rem; font-weight: 700; }
+  .ayuda { font-size: 0.92rem; color: var(--bruma); text-align: center; }
+
+  .fuente { margin: 3rem auto 0; max-width: 42rem; padding: 1.6rem; border: 1px solid var(--oro); background: var(--papel-2); text-align: center; }
+  .fuente h2 { font-family: var(--f-display); color: var(--marino); margin-bottom: 0.5rem; font-size: 1.3rem; }
+  .botones-fuente { margin-top: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
+  .botones-fuente a {
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--marino);
+    background: var(--marino);
+    color: var(--papel);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .botones-fuente a:hover { background: var(--oro); border-color: var(--oro); }
+  .nota-enlace { margin-top: 1rem; font-size: 0.86rem; color: var(--bruma); }
+
+  .acciones { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid var(--oro); display: flex; justify-content: center; }
+
+  dialog { width: min(94vw, 70rem); max-height: 90vh; margin: auto; border: 1px solid var(--oro); background: #05080c; overflow: hidden; }
+  dialog::backdrop { background: rgb(8 14 22 / 0.94); }
+  .lienzo { height: min(78vh, 48rem); overflow: hidden; touch-action: none; display: grid; place-items: center; }
+  .lienzo img { max-width: 100%; max-height: 100%; transform-origin: center; user-select: none; cursor: zoom-in; will-change: transform; }
+  .lienzo img.ampliada { cursor: grab; }
+  .lienzo img.arrastrando { cursor: grabbing; }
+  .cerrar { position: absolute; right: 0.6rem; top: 0.6rem; z-index: 3; min-width: 5.6rem; height: 3rem; padding: 0 0.75rem; border: 1px solid var(--oro-claro); border-radius: 2rem; background: var(--noche); color: var(--papel); cursor: pointer; }
+  .controles { position: absolute; left: 50%; bottom: 0.8rem; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
+  .controles button,
+  .controles a { min-width: 6rem; height: 3rem; padding: 0 0.75rem; border-radius: 2rem; border: 1px solid var(--oro-claro); background: var(--noche); color: var(--papel); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.86rem; }
+  .controles output { min-width: 4.4rem; height: 3rem; display: inline-flex; align-items: center; justify-content: center; color: var(--papel); font-weight: 700; }
+
+  @media (max-width: 620px) {
+    .abrir-lupa { inset: auto 0.7rem 0.7rem auto; }
+    .flecha { width: 2.75rem; height: 2.75rem; font-size: 1.5rem; }
+    .flecha-izq { left: 0.3rem; }
+    .flecha-der { right: 0.3rem; }
+    .controles { width: calc(100% - 1rem); justify-content: center; gap: 0.3rem; }
+    .controles button,
+    .controles a { min-width: 0; flex: 1 1 auto; padding-inline: 0.4rem; font-size: 0.78rem; }
+    .controles output { min-width: 3.5rem; font-size: 0.8rem; }
+    .botones-fuente { flex-direction: column; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-galeria]').forEach((galeria) => {
+    const principal = galeria.querySelector('[data-principal]') as HTMLImageElement;
+    const pie = galeria.querySelector('[data-pie]') as HTMLElement;
+    const contador = galeria.querySelector('[data-contador]') as HTMLElement;
+    const miniaturas = Array.from(galeria.querySelectorAll('[data-miniatura]')) as HTMLButtonElement[];
+    const visor = galeria.querySelector('[data-visor]') as HTMLDialogElement;
+    const lienzo = galeria.querySelector('[data-lienzo]') as HTMLElement;
+    const visorImg = galeria.querySelector('[data-visor-img]') as HTMLImageElement;
+    const salidaZoom = galeria.querySelector('[data-zoom]') as HTMLOutputElement;
+    const original = galeria.querySelector('[data-original]') as HTMLAnchorElement;
+    let indiceActivo = 0;
+    let escala = 1;
+    let desplazamientoX = 0;
+    let desplazamientoY = 0;
+    let arrastrando = false;
+    let inicioX = 0;
+    let inicioY = 0;
+
+    const limitarDesplazamiento = () => {
+      const maxX = lienzo.clientWidth * Math.max(0, escala - 1) / 2;
+      const maxY = lienzo.clientHeight * Math.max(0, escala - 1) / 2;
+      desplazamientoX = Math.max(-maxX, Math.min(maxX, desplazamientoX));
+      desplazamientoY = Math.max(-maxY, Math.min(maxY, desplazamientoY));
+    };
+
+    const aplicar = () => {
+      if (escala <= 1) {
+        escala = 1;
+        desplazamientoX = 0;
+        desplazamientoY = 0;
+      }
+      limitarDesplazamiento();
+      visorImg.style.transform = `translate3d(${desplazamientoX}px, ${desplazamientoY}px, 0) scale(${escala})`;
+      visorImg.classList.toggle('ampliada', escala > 1);
+      salidaZoom.textContent = `${Math.round(escala * 100)} %`;
+    };
+
+    const restablecer = () => {
+      escala = 1;
+      desplazamientoX = 0;
+      desplazamientoY = 0;
+      aplicar();
+    };
+
+    const activar = (indice: number) => {
+      if (!miniaturas.length) return;
+      indiceActivo = (indice + miniaturas.length) % miniaturas.length;
+      const boton = miniaturas[indiceActivo];
+      miniaturas.forEach((b) => b.classList.remove('activa'));
+      boton.classList.add('activa');
+      principal.src = boton.dataset.src || '';
+      principal.alt = boton.dataset.alt || '';
+      pie.textContent = boton.dataset.pie || '';
+      contador.textContent = `Página ${indiceActivo + 1} de ${miniaturas.length}`;
+      original.href = boton.dataset.src || '';
+      if (visor.open) {
+        visorImg.src = boton.dataset.src || '';
+        visorImg.alt = boton.dataset.alt || '';
+        restablecer();
+      }
+    };
+
+    miniaturas.forEach((boton, indice) => boton.addEventListener('click', () => activar(indice)));
+    galeria.querySelector('[data-anterior]')?.addEventListener('click', () => activar(indiceActivo - 1));
+    galeria.querySelector('[data-siguiente]')?.addEventListener('click', () => activar(indiceActivo + 1));
+    galeria.querySelector('[data-visor-anterior]')?.addEventListener('click', () => activar(indiceActivo - 1));
+    galeria.querySelector('[data-visor-siguiente]')?.addEventListener('click', () => activar(indiceActivo + 1));
+
+    galeria.querySelector('[data-ampliar]')?.addEventListener('click', () => {
+      visorImg.src = principal.src;
+      visorImg.alt = principal.alt;
+      original.href = principal.src;
+      restablecer();
+      visor.showModal();
+    });
+    galeria.querySelector('[data-cerrar]')?.addEventListener('click', () => visor.close());
+    galeria.querySelector('[data-mas]')?.addEventListener('click', () => { escala = Math.min(5, escala * 1.5); aplicar(); });
+    galeria.querySelector('[data-menos]')?.addEventListener('click', () => { escala = Math.max(1, escala / 1.5); aplicar(); });
+    galeria.querySelector('[data-restablecer]')?.addEventListener('click', restablecer);
+    visor.addEventListener('click', (e) => { if (e.target === visor) visor.close(); });
+    visor.addEventListener('keydown', (e) => {
+      if (e.key === '+' || e.key === '=') { escala = Math.min(5, escala * 1.5); aplicar(); }
+      if (e.key === '-') { escala = Math.max(1, escala / 1.5); aplicar(); }
+      if (e.key === '0') restablecer();
+      if (e.key === 'ArrowLeft') activar(indiceActivo - 1);
+      if (e.key === 'ArrowRight') activar(indiceActivo + 1);
+    });
+
+    lienzo.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      escala = Math.max(1, Math.min(5, escala * (e.deltaY < 0 ? 1.2 : 1 / 1.2)));
+      aplicar();
+    }, { passive: false });
+
+    visorImg.addEventListener('dblclick', () => {
+      escala = escala > 1 ? 1 : 2;
+      aplicar();
+    });
+    visorImg.addEventListener('pointerdown', (e) => {
+      if (escala <= 1) return;
+      arrastrando = true;
+      inicioX = e.clientX - desplazamientoX;
+      inicioY = e.clientY - desplazamientoY;
+      visorImg.classList.add('arrastrando');
+      visorImg.setPointerCapture(e.pointerId);
+    });
+    visorImg.addEventListener('pointermove', (e) => {
+      if (!arrastrando) return;
+      desplazamientoX = e.clientX - inicioX;
+      desplazamientoY = e.clientY - inicioY;
+      aplicar();
+    });
+    const terminarArrastre = () => {
+      arrastrando = false;
+      visorImg.classList.remove('arrastrando');
+    };
+    visorImg.addEventListener('pointerup', terminarArrastre);
+    visorImg.addEventListener('pointercancel', terminarArrastre);
+  });
+</script>

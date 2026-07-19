@@ -156,6 +156,29 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
         try { return localStorage.getItem('memorias-musica') === 'apagada'; } catch { return false; }
       };
 
+      // El sitio es multipágina (cada clic recarga la página, no es una app de
+      // una sola página): el <audio> se destruye y se vuelve a crear en cada
+      // navegación. Para que no vuelva a sonar desde 0:00, se guarda el punto
+      // exacto donde iba y se retoma ahí al cargar la página siguiente.
+      const guardarPosicion = () => {
+        if (audio.currentTime > 0) {
+          try { localStorage.setItem('memorias-posicion', String(audio.currentTime)); } catch {}
+        }
+      };
+      const posicionGuardada = (() => {
+        try { return Number(localStorage.getItem('memorias-posicion') || '0'); } catch { return 0; }
+      })();
+      if (posicionGuardada > 0 && posicionGuardada < audio.duration) {
+        audio.currentTime = posicionGuardada;
+      } else if (posicionGuardada > 0) {
+        // La duración aún no está disponible al primer intento; se aplica en cuanto se conozca.
+        audio.addEventListener('loadedmetadata', () => {
+          if (posicionGuardada < audio.duration) audio.currentTime = posicionGuardada;
+        }, { once: true });
+      }
+      audio.addEventListener('timeupdate', guardarPosicion);
+      addEventListener('pagehide', guardarPosicion);
+
       audio.addEventListener('play', marcarSonando);
       audio.addEventListener('pause', marcarSilenciada);
 

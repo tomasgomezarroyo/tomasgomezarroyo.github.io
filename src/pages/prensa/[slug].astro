@@ -72,6 +72,21 @@ const { publicacion } = Astro.props;
       </dialog>
     </section>
 
+    <section class="documentacion" aria-labelledby="titulo-documentacion">
+      <h2 id="titulo-documentacion">Ficha documental</h2>
+      <dl>
+        <div><dt>Tipo de documento</dt><dd>{publicacion.tipoDocumento}</dd></div>
+        <div><dt>Localización exacta</dt><dd>{publicacion.referenciaPaginas}</dd></div>
+        <div><dt>Contexto</dt><dd>{publicacion.contexto}</dd></div>
+        <div><dt>Personas documentadas</dt><dd><ul>{publicacion.personas.map((persona) => <li>{persona}</li>)}</ul></dd></div>
+        <div><dt>Cómo se identificó</dt><dd>{publicacion.identificacion}</dd></div>
+        <div><dt>Evidencia conservada</dt><dd>{publicacion.evidencia}</dd></div>
+        <div><dt>Crédito</dt><dd>{publicacion.credito}</dd></div>
+        <div><dt>Derechos y uso</dt><dd>{publicacion.derechos}</dd></div>
+        <div><dt>Fecha de consulta</dt><dd>{publicacion.fechaConsulta}</dd></div>
+      </dl>
+    </section>
+
     <section class="fuente" aria-labelledby="titulo-fuente">
       <h2 id="titulo-fuente">Fuente y documento completo</h2>
       <p>Publicado por {publicacion.fuenteTexto}. Reutilización autorizada citando la fuente, según el aviso legal de Publicaciones Defensa.</p>
@@ -142,6 +157,14 @@ const { publicacion } = Astro.props;
   .miniaturas span { display: block; padding-top: 0.15rem; font-size: 0.78rem; font-weight: 700; }
   .ayuda { font-size: 0.92rem; color: var(--bruma); text-align: center; }
 
+  .documentacion { margin: 3rem auto 0; max-width: 46rem; }
+  .documentacion h2 { font-family: var(--f-display); color: var(--marino); text-align: center; font-size: 1.55rem; margin-bottom: 1rem; }
+  .documentacion dl { border-top: 1px solid var(--oro); }
+  .documentacion dl > div { display: grid; grid-template-columns: minmax(10rem, 0.8fr) minmax(0, 2fr); gap: 1rem 1.4rem; padding: 0.9rem 0; border-bottom: 1px solid color-mix(in srgb, var(--oro) 45%, transparent); }
+  .documentacion dt { font-weight: 700; color: var(--marino); }
+  .documentacion dd { margin: 0; }
+  .documentacion ul { margin: 0; padding-left: 1.2rem; }
+
   .fuente { margin: 3rem auto 0; max-width: 42rem; padding: 1.6rem; border: 1px solid var(--oro); background: var(--papel-2); text-align: center; }
   .fuente h2 { font-family: var(--f-display); color: var(--marino); margin-bottom: 0.5rem; font-size: 1.3rem; }
   .botones-fuente { margin-top: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
@@ -174,6 +197,7 @@ const { publicacion } = Astro.props;
   .controles output { min-width: 4.4rem; height: 3rem; display: inline-flex; align-items: center; justify-content: center; color: var(--papel); font-weight: 700; }
 
   @media (max-width: 620px) {
+    .documentacion dl > div { grid-template-columns: 1fr; gap: 0.25rem; }
     .abrir-lupa { inset: auto 0.7rem 0.7rem auto; }
     .flecha { width: 2.75rem; height: 2.75rem; font-size: 1.5rem; }
     .flecha-izq { left: 0.3rem; }

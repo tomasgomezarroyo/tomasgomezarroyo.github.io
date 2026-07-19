@@ -102,6 +102,62 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
     actualizarTamanoGlobal();
   </script>
 
+  <div id="musica-fondo">
+    <audio id="audio-fondo" src="/audio/leyenda-del-beso-intermedio-1930.mp3" loop preload="auto"></audio>
+    <button type="button" id="boton-musica" aria-pressed="false" aria-label="Reproducir música de fondo: La leyenda del beso">
+      <span aria-hidden="true" data-icono>🎵</span>
+      <span data-texto>Música</span>
+    </button>
+  </div>
+
+  <script>
+    (() => {
+      const audio = document.getElementById('audio-fondo') as HTMLAudioElement | null;
+      const boton = document.getElementById('boton-musica') as HTMLButtonElement | null;
+      if (!audio || !boton) return;
+      const icono = boton.querySelector('[data-icono]') as HTMLElement;
+      const texto = boton.querySelector('[data-texto]') as HTMLElement;
+
+      const marcarSonando = () => {
+        boton.setAttribute('aria-pressed', 'true');
+        boton.setAttribute('aria-label', 'Silenciar la música de fondo: La leyenda del beso');
+        icono.textContent = '🔊';
+        texto.textContent = 'Silenciar';
+      };
+      const marcarSilenciada = () => {
+        boton.setAttribute('aria-pressed', 'false');
+        boton.setAttribute('aria-label', 'Reproducir música de fondo: La leyenda del beso');
+        icono.textContent = '🎵';
+        texto.textContent = 'Música';
+      };
+
+      const detenidaPorElVisitante = () => {
+        try { return localStorage.getItem('memorias-musica') === 'apagada'; } catch { return false; }
+      };
+
+      audio.addEventListener('play', marcarSonando);
+      audio.addEventListener('pause', marcarSilenciada);
+
+      boton.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play().catch(() => {});
+          try { localStorage.setItem('memorias-musica', 'sonando'); } catch {}
+        } else {
+          audio.pause();
+          try { localStorage.setItem('memorias-musica', 'apagada'); } catch {}
+        }
+      });
+
+      if (!detenidaPorElVisitante()) {
+        audio.play().catch(() => {
+          // El navegador bloqueó el autoplay con sonido (política estándar hasta que
+          // haya una interacción del visitante en este sitio). Queda el botón visible.
+          marcarSilenciada();
+        });
+      }
+    })();
+  </script>
+
   <div id="contenido" tabindex="-1"><slot /></div>
 
   <footer id="pie-sitio">
@@ -148,6 +204,41 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
     transform: translateY(-150%);
   }
   .saltar:focus { transform: translateY(0); }
+
+  #musica-fondo {
+    position: fixed;
+    right: 0.9rem;
+    bottom: 0.9rem;
+    z-index: 200;
+  }
+  #boton-musica {
+    min-height: 2.9rem;
+    min-width: 2.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0 0.9rem;
+    border: 1px solid var(--oro-claro);
+    border-radius: 2rem;
+    background: color-mix(in srgb, var(--papel) 94%, transparent);
+    color: var(--marino);
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.18);
+    backdrop-filter: blur(6px);
+    font: 600 0.88rem/1.1 var(--f-cuerpo);
+    cursor: pointer;
+  }
+  #boton-musica:hover,
+  #boton-musica:focus-visible { background: var(--papel); }
+  #boton-musica[aria-pressed='true'] {
+    background: var(--marino);
+    color: var(--papel);
+    border-color: var(--marino);
+  }
+  #boton-musica [data-icono] { font-size: 1.05rem; }
+  @media (max-width: 480px) {
+    #musica-fondo { right: 0.6rem; bottom: 0.6rem; }
+    #boton-musica { padding: 0 0.7rem; font-size: 0.82rem; }
+  }
 
   #cabecera-sitio {
     position: fixed;

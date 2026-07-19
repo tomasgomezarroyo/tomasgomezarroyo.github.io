@@ -117,7 +117,15 @@
       "periodo": "1944 – 1945",
       "lugares": "Portugalete, Marín",
       "resumen": "Un invierno de nieve en Portugalete con el barco apagado por falta de combustible, y el curso de Tiro Naval junto al cuarteto de la camareta.",
-      "fotos": []
+      "fotos": [
+        {
+          "archivo": "lugares/portugalete-puente-colgante-1943.jpg",
+          "pie": "El puente colgante de Portugalete, visto desde la otra orilla de la ría, 1943 — el mismo paraje donde quedó amarrado el destructor Tritón.",
+          "credito": "Foto: Vicente Martín (Photo Carte), Kutxa Fundazioa Fototeka, CC BY-NC 4.0.",
+          "galeria": "lugares/portugalete",
+          "pos": 3
+        }
+      ]
     },
     {
       "slug": "capitulo-sexto",
@@ -209,6 +217,13 @@
           "credito": "Foto cortesía de Miquel Rosselló, vía Balearspotting.",
           "galeria": "buques/churruca",
           "pos": 9
+        },
+        {
+          "archivo": "lugares/cartagena-puerto-buques-monumento.jpg",
+          "pie": "El puerto de Cartagena, con buques de guerra fondeados, visto desde los jardines junto al monumento a los Héroes de Cavite.",
+          "credito": "Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com).",
+          "galeria": "lugares/cartagena",
+          "pos": 12
         }
       ]
     },
@@ -218,9 +233,17 @@
       "titulo": "Capítulo Noveno",
       "subtitulo": "Los años difíciles",
       "periodo": "1949 – 1952",
-      "lugares": "Cartagena, Madrid",
+      "lugares": "Cartagena, Ceuta, Málaga, Madrid",
       "resumen": "Los problemas que amargaron una parte de sus vidas, el primer mando del patrullero RR 28 en Ceuta y las pérdidas familiares que marcaron aquellos años.",
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "lugares/malaga-puerto-gibralfaro-1959.jpg",
+          "pie": "El puerto de Málaga y, en lo alto, el castillo de Gibralfaro — otra de las bases del patrullero RR 28 en estos años.",
+          "credito": "Foto: Estudio Fotográfico Arenas, Archivo Histórico Fotográfico CTI, Universidad de Málaga (AHUMA), CC0.",
+          "galeria": "lugares/malaga",
+          "pos": 2
+        }
+      ],
       "aviso": "Este capítulo contiene recuerdos de pérdidas gestacionales y neonatales, además de detalles médicos y familiares."
     },
     {

@@ -144,7 +144,20 @@ export const lugares: Lugar[] = [
     nombre: 'Portugalete',
     descripcion: 'El destructor Tritón permaneció amarrado aquí de julio de 1944 a enero de 1945 por escasez de combustible; vida social con amigos bilbaínos y el puente colgante sobre la ría.',
     caps: ['capitulo-cuarto', 'capitulo-quinto'],
-    imagenes: [],
+    imagenes: [
+      {
+        src: '/fotos/lugares/portugalete-puente-colgante-1943.jpg',
+        alt: 'Puente colgante de Portugalete visto desde la otra orilla de la ría, 1943',
+        pie: 'El puente colgante (transbordador de Vizcaya) visto desde la otra orilla de la ría, con el caserío de Portugalete al fondo, 1943 — un año antes de la estancia de Tomás.',
+        referencia: 'Foto: Vicente Martín (Photo Carte), Kutxa Fundazioa Fototeka, CC BY-NC 4.0.',
+      },
+      {
+        src: '/fotos/lugares/portugalete-monumento-churruca-1943.jpg',
+        alt: 'Monumento a la Cofradía de Churruca con el puente colgante al fondo, 1943',
+        pie: 'El monumento a la Cofradía de Churruca (Getxo/Algorta), con la torre y los cables del puente colgante visibles al fondo, 1943.',
+        referencia: 'Foto: Vicente Martín (Photo Carte), Kutxa Fundazioa Fototeka, CC BY-NC 4.0.',
+      },
+    ],
   },
   {
     slug: 'palma-de-mallorca',
@@ -165,13 +178,51 @@ export const lugares: Lugar[] = [
     nombre: 'Cartagena',
     descripcion: 'Destino del Churruca desde noviembre de 1948, con la pérdida de su primer hijo en enero de 1950; regresó en 1952 como Ayudante Mayor del Cuartel de Instrucción, y años después sirvió allí a bordo del Miguel de Cervantes.',
     caps: ['capitulo-octavo', 'capitulo-noveno', 'capitulo-decimo'],
-    imagenes: [],
+    imagenes: [
+      {
+        src: '/fotos/lugares/cartagena-puerto-buques-monumento.jpg',
+        alt: 'Puerto de Cartagena con buques de guerra fondeados y el monumento a los Héroes de Cavite en primer plano',
+        pie: 'El puerto de Cartagena con varios buques de guerra fondeados, visto desde los jardines junto al monumento a los Héroes de Cavite. Sin fecha exacta.',
+        referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
+      },
+      {
+        src: '/fotos/lugares/cartagena-calle-mayor-bar-americano.jpg',
+        alt: 'Calle Mayor de Cartagena, con el Bar Americano y el Banco de Bilbao, gente en terrazas',
+        pie: 'La Calle Mayor de Cartagena, con el Bar Americano y el Banco de Bilbao, y vecinos sentados en las terrazas. Sin fecha exacta.',
+        referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
+      },
+      {
+        src: '/fotos/lugares/cartagena-muelles-embarcaciones.jpg',
+        alt: 'Muelles de Cartagena con embarcaciones menores',
+        pie: 'Los muelles de Cartagena, con embarcaciones menores y un cobertizo portuario. Sin fecha exacta.',
+        referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
+      },
+      {
+        src: '/fotos/lugares/cartagena-plaza-espana-jardines.jpg',
+        alt: 'Jardines con un kiosco de música en Cartagena',
+        pie: 'Un jardín público con kiosco, en el entorno de la Plaza de España de Cartagena. Sin fecha exacta.',
+        referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
+      },
+      {
+        src: '/fotos/lugares/cartagena-postal-collage.jpg',
+        alt: 'Collage de postales con vistas antiguas de Cartagena: velero, estación, muelle y ría',
+        pie: 'Postal collage con cuatro vistas antiguas de Cartagena: un velero en dique, una estación de tren, un muelle con pescadores y una vista del puerto. Sin fecha exacta.',
+        referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
+      },
+    ],
   },
   {
     slug: 'malaga',
     nombre: 'Málaga',
     descripcion: 'Base del patrullero RR 28 desde julio de 1951; allí nació y murió su tercer hijo a finales de diciembre de 1951, y el barco realizó misiones de abastecimiento a la isla de Alborán.',
     caps: ['capitulo-noveno'],
-    imagenes: [],
+    imagenes: [
+      {
+        src: '/fotos/lugares/malaga-puerto-gibralfaro-1959.jpg',
+        alt: 'Puerto de Málaga con el silo de grano y el castillo de Gibralfaro al fondo, 1959',
+        pie: 'El puerto de Málaga, con el silo de grano y, en lo alto de la colina, el castillo de Gibralfaro. Julio de 1959, ocho años después de la estancia de Tomás, pero el mismo paisaje.',
+        referencia: 'Foto: Estudio Fotográfico Arenas, Archivo Histórico Fotográfico CTI, Universidad de Málaga (AHUMA), CC0 - Dominio público, vía Wikimedia Commons.',
+      },
+    ],
   },
 ];

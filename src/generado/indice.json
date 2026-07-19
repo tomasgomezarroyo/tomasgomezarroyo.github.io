@@ -69,7 +69,7 @@
     "aviso": "",
     "corregido": true,
     "parrafos": 98,
-    "fotos": 0
+    "fotos": 1
   },
   {
     "slug": "capitulo-sexto",
@@ -105,19 +105,19 @@
     "aviso": "",
     "corregido": true,
     "parrafos": 69,
-    "fotos": 2
+    "fotos": 3
   },
   {
     "slug": "capitulo-noveno",
     "titulo": "Capítulo Noveno",
     "subtitulo": "Los años difíciles",
     "periodo": "1949 – 1952",
-    "lugares": "Cartagena, Madrid",
+    "lugares": "Cartagena, Ceuta, Málaga, Madrid",
     "resumen": "Los problemas que amargaron una parte de sus vidas, el primer mando del patrullero RR 28 en Ceuta y las pérdidas familiares que marcaron aquellos años.",
     "aviso": "Este capítulo contiene recuerdos de pérdidas gestacionales y neonatales, además de detalles médicos y familiares.",
     "corregido": true,
     "parrafos": 94,
-    "fotos": 0
+    "fotos": 1
   },
   {
     "slug": "capitulo-decimo",

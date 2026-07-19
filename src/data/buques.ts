@@ -33,7 +33,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/rey-jaime-i-motonave.jpg',
         alt: 'Motonave de pasaje Rey Jaime I vista de costado',
-        pie: 'El mismo buque en su configuración civil de motonave correo.',
+        pie: 'El mismo buque en su configuración civil de motonave correo, años 1910-1930 aprox.',
         referencia: 'Referencia: Historia Naval de España / Todoavante; autor no identificado.',
       },
       {
@@ -51,7 +51,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/rey-jaime-i-palma-mallorca-1910s.jpg',
         alt: 'Rey Jaime I atracado en el puerto de Palma de Mallorca',
-        pie: 'El buque atracado en Palma de Mallorca, en su etapa civil de entreguerras.',
+        pie: 'El buque atracado en Palma de Mallorca, en su etapa civil de entreguerras, años 1910-1920 aprox.',
         referencia: 'Referencia: fondo documental del Museu Marítim de Barcelona, vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
       {
@@ -69,19 +69,19 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/rey-jaime-i-postal-interiores.jpg',
         alt: 'Postal con vistas interiores del Rey Jaime I: vestíbulo, cubierta, fumador y comedor',
-        pie: 'Postal corporativa de época con vistas del interior: vestíbulo, cubierta, salón fumador y comedor de primera clase.',
+        pie: 'Postal corporativa de época con vistas del interior: vestíbulo, cubierta, salón fumador y comedor de primera clase. Sin fecha exacta; probablemente años 1920-1930 por el estilo.',
         referencia: 'Referencia: archivo LGF, vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
       {
         src: '/fotos/buques/rey-jaime-i-torre-jaime-i-panoramica.jpg',
         alt: 'Rey Jaime I atracado en Barcelona, junto a la Torre Jaime I del puerto',
-        pie: 'El buque atracado en el puerto de Barcelona, a los pies de la Torre Jaime I del teleférico portuario.',
+        pie: 'El buque atracado en el puerto de Barcelona, a los pies de la Torre Jaime I del teleférico portuario. Sin fecha exacta; forzosamente posterior a 1931, cuando se inauguró la torre.',
         referencia: 'Referencia: fondo documental del Museu Marítim de Barcelona, vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
       {
         src: '/fotos/buques/rey-jaime-i-cubierta-proa-puente.jpg',
         alt: 'Vista de la cubierta de proa del Rey Jaime I desde el puente, con mar gruesa',
-        pie: 'La cubierta de proa vista desde el puente de mando, con mar gruesa rompiendo sobre la roda.',
+        pie: 'La cubierta de proa vista desde el puente de mando, con mar gruesa rompiendo sobre la roda. Sin fecha exacta.',
         referencia: 'Referencia: fotografía de Juan Vera Quiñones, vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
     ],
@@ -103,7 +103,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/jj-sister-retrato.jpg',
         alt: 'Motonave J.J. Sister navegando',
-        pie: 'Vista general de la motonave J.J. Sister.',
+        pie: 'Vista general de la motonave J.J. Sister, años 1920-1930 aprox.',
         referencia: 'Referencia: Todoavante; autor no identificado, licencia general CC BY-NC 3.0 del sitio.',
       },
       {
@@ -121,7 +121,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/jj-sister-perfil-babor.jpg',
         alt: 'Perfil de babor del J.J. Sister',
-        pie: 'Perfil de babor del buque, en su etapa civil de entreguerras.',
+        pie: 'Perfil de babor del buque, en su etapa civil de entreguerras, años 1920-1930 aprox.',
         referencia: 'Referencia: fondo documental del Museu Marítim de Barcelona, vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
       {
@@ -133,13 +133,13 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/jj-sister-galileo-galilei-napoles.jpg',
         alt: 'El buque como Galileo Galilei, bajo bandera italiana, en Nápoles',
-        pie: 'El mismo casco en su vida anterior, como Galileo Galilei bajo bandera italiana, en Nápoles.',
+        pie: 'El mismo casco en su vida anterior, como Galileo Galilei bajo bandera italiana, en Nápoles, entre 1896 y 1916.',
         referencia: 'Referencia: simplonpc.co.uk, vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
       {
         src: '/fotos/buques/jj-sister-comedor-primera-clase.jpg',
         alt: 'Comedor de primera clase del J.J. Sister',
-        pie: 'El comedor de primera clase, una de las pocas vistas de interiores localizadas del buque.',
+        pie: 'El comedor de primera clase, una de las pocas vistas de interiores localizadas del buque. Sin fecha exacta.',
         referencia: 'Referencia: libro corporativo "Trasmediterránea. Hacia el nuevo milenio", vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
       {
@@ -151,7 +151,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/jj-sister-maqueta-museu-maritim.jpg',
         alt: 'Maqueta del J.J. Sister en el Museu Marítim de Barcelona',
-        pie: 'Maqueta del J.J. Sister. No es una fotografía histórica del buque real.',
+        pie: 'Maqueta del J.J. Sister, fotografiada en 2017. No es una fotografía histórica del buque real.',
         referencia: 'Foto: Jordiferrer, Wikimedia Commons, CC BY-SA 4.0.',
       },
     ],
@@ -197,19 +197,19 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/jose-luis-diez-cubierta-tripulacion-bne.jpg',
         alt: 'El José Luis Díez con la tripulación formada en cubierta y embarcaciones menores al costado',
-        pie: 'El buque con la tripulación formada en cubierta y varias embarcaciones menores atracadas al costado.',
+        pie: 'El buque con la tripulación formada en cubierta y varias embarcaciones menores atracadas al costado. Sin fecha exacta, probablemente diciembre de 1938, el mismo episodio que las demás fotos de este lote.',
         referencia: 'Foto: Biblioteca Nacional de España, vía infogibraltar.com (portal oficial del Gobierno de Gibraltar); la BNE declara CC BY 4.0 para material en acceso abierto, pendiente de confirmar la condición exacta de este ítem en bnedigital.bne.es.',
       },
       {
         src: '/fotos/buques/jose-luis-diez-gibraltar-sepia.jpg',
         alt: 'El José Luis Díez atracado al pie del Peñón de Gibraltar, con lonas de camuflaje',
-        pie: 'El buque atracado al pie del Peñón de Gibraltar, con lonas de camuflaje sobre la proa y embarcaciones menores alrededor.',
+        pie: 'El buque atracado al pie del Peñón de Gibraltar, con lonas de camuflaje sobre la proa y embarcaciones menores alrededor. Sin fecha exacta, probablemente diciembre de 1938.',
         referencia: 'Referencia: archivo personal de Francis Silva (coautor de "Red Ship & Red Tape: The Jose Luis Diez Remembered"), vía infogibraltar.com; derechos pendientes de confirmación.',
       },
       {
         src: '/fotos/buques/jose-luis-diez-encallado-levante-penon.jpg',
         alt: 'El José Luis Díez encallado en la zona de Levante del Peñón de Gibraltar',
-        pie: 'El buque encallado en la zona de Levante del Peñón, con el pueblo de Catalan Bay al fondo.',
+        pie: 'El buque encallado en la zona de Levante del Peñón, con el pueblo de Catalan Bay al fondo, diciembre de 1938.',
         referencia: 'Foto: Biblioteca Nacional de España, vía infogibraltar.com; CC BY 4.0 declarado por la BNE para material en acceso abierto, pendiente de confirmar la condición exacta de este ítem.',
       },
       {
@@ -231,13 +231,13 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/vulcano-cartagena-casau.jpg',
         alt: 'Cañonero-minador Vulcano en Cartagena',
-        pie: 'El Vulcano modernizado, fotografiado en Cartagena.',
+        pie: 'El Vulcano modernizado, fotografiado en Cartagena, años 1940-1950 aprox.',
         referencia: 'Foto: Casaú; referencia consultada en Todoavante, licencia general CC BY-NC 3.0 del sitio.',
       },
       {
         src: '/fotos/buques/vulcano-maqueta-museo-naval.jpg',
         alt: 'Maqueta del Vulcano en el Museo Naval de Ferrol',
-        pie: 'Maqueta del Vulcano. Sirve para observar la silueta y distribución; no es una foto de época.',
+        pie: 'Maqueta del Vulcano, fotografiada en 2012. Sirve para observar la silueta y distribución; no es una foto de época.',
         referencia: 'Foto: Oilisab, Wikimedia Commons, CC BY-SA 4.0.',
       },
       {
@@ -261,7 +261,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/vulcano-en-puerto.jpg',
         alt: 'Cañonero-minador Vulcano atracado en puerto, con ciudad de fondo',
-        pie: 'El Vulcano (numeral F-12 visible en la proa) atracado en un muelle, con la ciudad y colinas urbanizadas al fondo.',
+        pie: 'El Vulcano (numeral F-12 visible en la proa) atracado en un muelle, con la ciudad y colinas urbanizadas al fondo. Sin fecha exacta.',
         referencia: 'Referencia: amigosdelamili.com; derechos particulares del sitio, pendientes de confirmación.',
       },
     ],
@@ -277,7 +277,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/marte-archivo-armada.jpg',
         alt: 'Minador Marte visto de costado',
-        pie: 'El minador Marte, de la clase Júpiter.',
+        pie: 'El minador Marte, de la clase Júpiter, años 1940-1950 aprox.',
         referencia: 'Referencia: Archivo General de la Armada, reproducida por Todoavante; permiso de reproducción pendiente de confirmar.',
       },
       {
@@ -311,25 +311,25 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/churruca-alta-resolucion.jpg',
         alt: 'Destructor Churruca, vista de mayor detalle',
-        pie: 'El Churruca en otra ocasión, con mayor detalle de su silueta.',
+        pie: 'El Churruca en otra ocasión, con mayor detalle de su silueta. Sin fecha exacta, posiblemente octubre de 1955.',
         referencia: 'Foto cortesía de Miquel Rosselló, vía Balearspotting; permiso de reproducción pendiente de confirmar.',
       },
       {
         src: '/fotos/buques/churruca-gemelo-ciscar-1931.jpg',
         alt: 'Destructor Císcar, buque gemelo del Churruca',
-        pie: 'El Císcar, buque gemelo de la clase Churruca. Imagen comparativa, no es el barco exacto de Tomás.',
+        pie: 'El Císcar, buque gemelo de la clase Churruca, hacia 1931. Imagen comparativa, no es el barco exacto de Tomás.',
         referencia: 'Fotografía de dominio público, vía Wikimedia Commons.',
       },
       {
         src: '/fotos/buques/churruca-gemelo-miranda-tripulacion.jpg',
         alt: 'Tripulación formada en cubierta del destructor Almirante Miranda, buque gemelo del Churruca',
-        pie: 'La tripulación formada en cubierta del Almirante Miranda, buque gemelo de la clase Churruca. Imagen comparativa, no es el barco exacto de Tomás.',
+        pie: 'La tripulación formada en cubierta del Almirante Miranda, buque gemelo de la clase Churruca, años 1940-1950 aprox. Imagen comparativa, no es el barco exacto de Tomás.',
         referencia: 'Referencia: amigosdelamili.com; derechos particulares del sitio, pendientes de confirmación.',
       },
       {
         src: '/fotos/buques/churruca-gemelo-miranda-oficiales.jpg',
         alt: 'Oficiales del destructor Almirante Miranda, buque gemelo del Churruca',
-        pie: 'Grupo de oficiales del Almirante Miranda, buque gemelo de la clase Churruca. Imagen comparativa, no es el barco exacto de Tomás.',
+        pie: 'Grupo de oficiales del Almirante Miranda, buque gemelo de la clase Churruca, años 1940-1950 aprox. Imagen comparativa, no es el barco exacto de Tomás.',
         referencia: 'Referencia: amigosdelamili.com; derechos particulares del sitio, pendientes de confirmación.',
       },
     ],

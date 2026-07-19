@@ -124,12 +124,22 @@ def figura(f):
         carga = dict(ficha)
         carga["credito"] = f["credito"]
         attr_ficha = ' data-ficha="' + htmllib.escape(json.dumps(carga, ensure_ascii=False), quote=True) + '"'
+    galeria_html = ""
+    galeria = f.get("galeria")
+    if galeria:
+        href = "/" + galeria.strip("/")
+        sustantivo = "este buque" if galeria.startswith("buques/") else "este lugar"
+        galeria_html = (
+            f'<a class="ver-galeria" href="{htmllib.escape(href, quote=True)}">'
+            f"Ver más fotografías de {sustantivo} &rarr;</a>"
+        )
     return (
         f'<figure class="lamina"{attr_ficha}>'
         f'<button type="button" class="abre-visor" aria-label="Ampliar fotografía: {alt}">'
         f'<img src="{src}" width="{ancho}" height="{alto}" alt="{alt}" loading="lazy" decoding="async" />'
         f"</button>"
         f'<figcaption>{pie} <span class="credito">{credito}</span></figcaption>'
+        f"{galeria_html}"
         f"</figure>"
     )
 

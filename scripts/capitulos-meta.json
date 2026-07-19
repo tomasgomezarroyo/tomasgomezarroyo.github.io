@@ -13,6 +13,7 @@
           "archivo": "lugares/las-canteras-1925.jpg",
           "pie": "La Playa de Las Canteras hacia 1925. Aquí empieza y termina esta historia: el autor nació frente a esta playa y frente a ella escribió estas memorias.",
           "credito": "Fotografía anónima. Dominio público, vía Wikimedia Commons.",
+          "galeria": "lugares/las-palmas-de-gran-canaria",
           "pos": 2
         }
       ]
@@ -30,36 +31,42 @@
           "archivo": "lugares/puerto-de-la-luz-bahia-1920.jpg",
           "pie": "La bahía y el Puerto de La Luz en los años veinte, el paisaje de su infancia.",
           "credito": "Dominio público, vía Wikimedia Commons.",
+          "galeria": "lugares/las-palmas-de-gran-canaria",
           "pos": 2
         },
         {
           "archivo": "buques/jj-sister-armamento-1938.jpg",
           "pie": "La motonave J.J. Sister, en la que embarcó rumbo a Cádiz en mayo de 1938, con el armamento que recibió aquel mismo año.",
           "credito": "Fotografía: Todoavante.es.",
+          "galeria": "buques/jj-sister",
           "pos": 6
         },
         {
           "archivo": "buques/rey-jaime-i-motonave.jpg",
           "pie": "El correo Rey Jaime I de la Compañía Trasmediterránea, que cubría la línea Barcelona – Palma antes de la guerra.",
           "credito": "Fotografía: Todoavante.es.",
+          "galeria": "buques/rey-jaime-i",
           "pos": 10
         },
         {
-          "archivo": "buques/rey-jaime-i-armado-guerra-civil.jpg",
+          "archivo": "buques/rey-jaime-i-armado-guerra-civil-hd.jpg",
           "pie": "El Rey Jaime I convertido en crucero auxiliar: un cañón y dos ametralladoras antiaéreas sobre un buque de pasaje.",
-          "credito": "Fotografía: Todoavante.es.",
+          "credito": "Archivo Manuel Rodríguez Aguilar, vía Trasmeships.",
+          "galeria": "buques/rey-jaime-i",
           "pos": 14
         },
         {
           "archivo": "buques/jose-luis-diez-1930.jpg",
           "pie": "El destructor José Luis Díez hacia 1930. Su intento de cruzar el Estrecho en 1938 terminó varado en la playa de Levante del Peñón.",
           "credito": "Dominio público, vía Wikimedia Commons.",
+          "galeria": "buques/jose-luis-diez",
           "pos": 18
         },
         {
           "archivo": "buques/vulcano-cartagena-casau.jpg",
           "pie": "El minador Vulcano, que combatió al José Luis Díez frente a Punta Europa y recibió por ello la Medalla Naval.",
           "credito": "Fotografía: Casaú, vía Todoavante.es.",
+          "galeria": "buques/vulcano",
           "pos": 20
         }
       ]
@@ -77,6 +84,7 @@
           "archivo": "lugares/presidio-cuatro-torres-san-fernando-1911.png",
           "pie": "El arsenal de La Carraca, en San Fernando, a comienzos de siglo. En este entorno de piedra vieja y salitre funcionaba la Escuela Naval de sus años de cadete.",
           "credito": "Dominio público, vía Wikimedia Commons.",
+          "galeria": "lugares/san-fernando-arsenal-carraca",
           "pos": 3
         }
       ]
@@ -124,7 +132,15 @@
           "archivo": "buques/marte-archivo-armada.jpg",
           "pie": "El minador Marte, su destino en Las Palmas al obtener la especialidad.",
           "credito": "Archivo General de la Armada, vía Todoavante.es.",
+          "galeria": "buques/marte",
           "pos": 4
+        },
+        {
+          "archivo": "lugares/castillo-santa-catalina-1920-1922.jpg",
+          "pie": "El Castillo de Santa Catalina, junto al Puerto de la Luz, hacia 1920-1922. Las Palmas vuelve a ser escenario de estas páginas, ahora con el noviazgo con Vivi.",
+          "credito": "Fotografía de dominio público, vía Wikimedia Commons.",
+          "galeria": "lugares/las-palmas-de-gran-canaria",
+          "pos": 6
         },
         {
           "archivo": "familia/fabrica-chocolates-gomez-bosch-1915.jpg",
@@ -159,12 +175,14 @@
           "archivo": "lugares/madrid-usera-1940.jpg",
           "pie": "Madrid a comienzos de los años cuarenta, la ciudad del noviazgo.",
           "credito": "Dominio público, vía Wikimedia Commons.",
+          "galeria": "lugares/madrid",
           "pos": 5
         },
         {
           "archivo": "lugares/madrid-calle-1941.jpg",
           "pie": "Una calle de Madrid en 1941, la España cotidiana de aquellos años.",
           "credito": "Dominio público, vía Wikimedia Commons.",
+          "galeria": "lugares/madrid",
           "pos": 10
         }
       ]
@@ -182,12 +200,14 @@
           "archivo": "buques/churruca-gemelo-ciscar-1931.jpg",
           "pie": "El destructor Císcar, gemelo de clase del Churruca, en 1931. De la misma serie y silueta que el buque en que sirvió.",
           "credito": "Dominio público, vía Wikimedia Commons.",
+          "galeria": "buques/churruca",
           "pos": 4
         },
         {
-          "archivo": "buques/churruca-cartagena.jpg",
-          "pie": "El destructor Churruca en Cartagena.",
-          "credito": "Fotografía: Todoavante.es.",
+          "archivo": "buques/churruca-principios-1950s.jpg",
+          "pie": "El Churruca, probablemente a principios de los años 50 — los mismos años en que sirvió a bordo.",
+          "credito": "Foto cortesía de Miquel Rosselló, vía Balearspotting.",
+          "galeria": "buques/churruca",
           "pos": 9
         }
       ]
@@ -216,6 +236,7 @@
           "archivo": "buques/miguel-de-cervantes-cartagena-1950.jpg",
           "pie": "El crucero Miguel de Cervantes en Cartagena, hacia 1950, en los años exactos de estas páginas.",
           "credito": "Vía Wikimedia Commons, CC BY-SA 3.0.",
+          "galeria": "buques/miguel-de-cervantes",
           "pos": 3
         }
       ]

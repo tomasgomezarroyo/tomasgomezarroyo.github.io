@@ -179,6 +179,21 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     opacity: 0.8;
     margin-top: 0.2em;
   }
+  .texto :global(.ver-galeria) {
+    display: block;
+    margin: 0.6em auto 0;
+    width: fit-content;
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 0.8rem;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--marino);
+    text-decoration: none;
+    border-bottom: 1px solid var(--oro);
+  }
+  .texto :global(.ver-galeria:hover) { color: var(--oro); }
 
   .rumbos {
     margin-top: 4rem;

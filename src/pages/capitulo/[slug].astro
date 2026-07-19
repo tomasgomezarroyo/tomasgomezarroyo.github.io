@@ -18,6 +18,7 @@ const fragmentos = import.meta.glob('../../generado/*.html', {
   eager: true,
 });
 const cuerpo = fragmentos[`../../generado/${slug}.html`];
+const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
 ---
 <Base titulo={cap.titulo} descripcion={cap.resumen} conBarco={true}>
   <main class="capitulo">
@@ -35,6 +36,10 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     </header>
 
     {cap.aviso && <aside class="aviso-contenido" aria-label="Aviso sobre el contenido">{cap.aviso}</aside>}
+
+    {tieneEnlacesDeTexto && (
+      <p class="ayuda-enlaces">Las palabras marcadas así <span class="icono-foto" aria-hidden="true">📷</span> se pueden pulsar: abren una fotografía sin cambiar de página.</p>
+    )}
 
     <div class="texto" set:html={cuerpo} />
 
@@ -127,6 +132,14 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
     margin: 0 0 2rem;
     padding: 0.9rem 1.1rem;
     border-left: 3px solid var(--oro);
+    background: var(--papel-2);
+    color: var(--tinta);
+    font-size: 0.94rem;
+  }
+  .ayuda-enlaces {
+    margin: 0 0 2rem;
+    padding: 0.75rem 1.1rem;
+    border-left: 3px solid var(--marino);
     background: var(--papel-2);
     color: var(--tinta);
     font-size: 0.94rem;
@@ -359,21 +372,30 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
   #ficha-galeria { display: inline-block; margin-top: 0.7rem; font-size: 0.88rem; font-weight: 600; }
   .texto :global(.enlace-foto) {
     font: inherit;
-    color: inherit;
-    background: none;
+    color: var(--marino);
+    background: color-mix(in srgb, var(--oro-claro) 18%, transparent);
     border: none;
-    padding: 0;
-    margin: 0;
+    border-radius: 0.2rem;
+    padding: 0.05em 0.2em;
+    margin: 0 0.05em;
     cursor: pointer;
     text-decoration: underline;
     text-decoration-color: var(--oro);
     text-decoration-thickness: 2px;
     text-underline-offset: 0.15em;
+    font-weight: 600;
+  }
+  .texto :global(.enlace-foto .icono-foto) {
+    display: inline-block;
+    margin-left: 0.2em;
+    font-size: 0.85em;
+    text-decoration: none;
   }
   .texto :global(.enlace-foto:hover),
   .texto :global(.enlace-foto:focus-visible) {
-    color: var(--marino);
-    text-decoration-color: var(--marino);
+    color: var(--papel);
+    background: var(--marino);
+    text-decoration-color: var(--oro-claro);
   }
   #visor-cerrar {
     position: absolute;

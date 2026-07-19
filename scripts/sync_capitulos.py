@@ -97,9 +97,13 @@ def envolver_enlace(html_parrafo, enlace):
         src = htmllib.escape("/fotos/" + enlace["archivo"].replace("\\", "/"), quote=True)
         galeria = enlace.get("galeria")
         attr_galeria = f' data-galeria="/{htmllib.escape(galeria.strip("/"), quote=True)}"' if galeria else ""
+        # El ícono y el título son deliberados: para lectores de 60 años o más, un
+        # simple subrayado de color puede pasar por énfasis tipográfico y no por
+        # algo pinchable. La señal tiene que ser explícita, no sutil.
         return (
-            f'<button type="button" class="enlace-foto" data-src="{src}" data-alt="{alt}" '
-            f'data-pie="{pie}" data-credito="{credito}"{attr_galeria}>{m.group(0)}</button>'
+            f'<button type="button" class="enlace-foto" title="Ver fotografía: {alt}" '
+            f'data-src="{src}" data-alt="{alt}" data-pie="{pie}" data-credito="{credito}"'
+            f'{attr_galeria}>{m.group(0)}<span class="icono-foto" aria-hidden="true">📷</span></button>'
         )
 
     nuevo, n = patron.subn(reemplazo, html_parrafo, count=1)

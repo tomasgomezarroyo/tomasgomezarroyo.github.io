@@ -54,6 +54,12 @@ export const buques: Buque[] = [
         pie: 'El buque atracado en Palma de Mallorca, en su etapa civil de entreguerras.',
         referencia: 'Referencia: fondo documental del Museu Marítim de Barcelona, vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
+      {
+        src: '/fotos/buques/rey-jaime-i-pauta-1947.jpg',
+        alt: 'Plano de camarotes y características técnicas del Rey Jaime I, 1947',
+        pie: 'Plano de cubiertas, camarotes por clase y ficha técnica del buque (eslora, manga, potencia, velocidad), publicado en agosto de 1947. No es una fotografía.',
+        referencia: 'Referencia: archivo Manuel Rodríguez Barrientos, vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
     ],
   },
   {

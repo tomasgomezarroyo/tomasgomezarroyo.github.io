@@ -104,26 +104,20 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
 
   <div id="musica-fondo">
     <audio id="audio-fondo" src="/audio/leyenda-del-beso-intermedio-1930.mp3" preload="auto"></audio>
-    <button type="button" id="boton-musica" aria-pressed="false" aria-label="Reproducir música de fondo: La leyenda del beso">
-      <span aria-hidden="true" data-icono>🎵</span>
-      <span data-texto>Música</span>
-    </button>
-    <label id="control-volumen">
-      <span aria-hidden="true">🔉</span>
-      <span class="texto-volumen">Volumen</span>
-      <input type="range" id="volumen-musica" min="0" max="100" step="5" value="60" aria-label="Volumen de la música de fondo" />
-    </label>
+    <button type="button" id="boton-play" aria-pressed="false" aria-label="Reproducir música de fondo: La leyenda del beso" title="Reproducir música de fondo">▶</button>
+    <button type="button" id="boton-mute" aria-pressed="false" aria-label="Silenciar la música de fondo" title="Silenciar">🔊</button>
+    <input type="range" id="volumen-musica" min="0" max="100" step="5" value="60" aria-label="Volumen de la música de fondo" title="Volumen" />
   </div>
 
   <script>
     (() => {
       const audio = document.getElementById('audio-fondo') as HTMLAudioElement | null;
-      const boton = document.getElementById('boton-musica') as HTMLButtonElement | null;
+      const botonPlay = document.getElementById('boton-play') as HTMLButtonElement | null;
+      const botonMute = document.getElementById('boton-mute') as HTMLButtonElement | null;
       const deslizador = document.getElementById('volumen-musica') as HTMLInputElement | null;
-      if (!audio || !boton) return;
-      const icono = boton.querySelector('[data-icono]') as HTMLElement;
-      const texto = boton.querySelector('[data-texto]') as HTMLElement;
+      if (!audio || !botonPlay || !botonMute) return;
 
+      // Volumen: se guarda y se restaura entre páginas.
       let volumenGuardado = 60;
       try {
         const guardado = localStorage.getItem('memorias-volumen');
@@ -136,20 +130,40 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
           const valor = Number(deslizador.value);
           audio.volume = valor / 100;
           try { localStorage.setItem('memorias-volumen', String(valor)); } catch {}
+          if (audio.muted && valor > 0) audio.muted = false; // mover el volumen desmutea
         });
       }
 
-      const marcarSonando = () => {
-        boton.setAttribute('aria-pressed', 'true');
-        boton.setAttribute('aria-label', 'Silenciar la música de fondo: La leyenda del beso');
-        icono.textContent = '🔊';
-        texto.textContent = 'Silenciar';
+      // Silenciar (el "parlantito"): apaga el sonido sin pausar la reproducción,
+      // independiente del botón de reproducir/pausar.
+      let mutedGuardado = false;
+      try { mutedGuardado = localStorage.getItem('memorias-silenciada') === 'si'; } catch {}
+      audio.muted = mutedGuardado;
+      const actualizarMute = () => {
+        botonMute.setAttribute('aria-pressed', String(audio.muted));
+        botonMute.setAttribute('aria-label', audio.muted ? 'Activar el sonido' : 'Silenciar la música de fondo');
+        botonMute.title = audio.muted ? 'Activar el sonido' : 'Silenciar';
+        botonMute.textContent = audio.muted ? '🔇' : '🔊';
       };
-      const marcarSilenciada = () => {
-        boton.setAttribute('aria-pressed', 'false');
-        boton.setAttribute('aria-label', 'Reproducir música de fondo: La leyenda del beso');
-        icono.textContent = '🎵';
-        texto.textContent = 'Música';
+      actualizarMute();
+      botonMute.addEventListener('click', () => {
+        audio.muted = !audio.muted;
+        try { localStorage.setItem('memorias-silenciada', audio.muted ? 'si' : 'no'); } catch {}
+        actualizarMute();
+      });
+
+      // Reproducir / pausar.
+      const marcarSonando = () => {
+        botonPlay.setAttribute('aria-pressed', 'true');
+        botonPlay.setAttribute('aria-label', 'Pausar la música de fondo: La leyenda del beso');
+        botonPlay.title = 'Pausar';
+        botonPlay.textContent = '⏸';
+      };
+      const marcarPausada = () => {
+        botonPlay.setAttribute('aria-pressed', 'false');
+        botonPlay.setAttribute('aria-label', 'Reproducir música de fondo: La leyenda del beso');
+        botonPlay.title = 'Reproducir música de fondo';
+        botonPlay.textContent = '▶';
       };
 
       const detenidaPorElVisitante = () => {
@@ -180,7 +194,7 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
       addEventListener('pagehide', guardarPosicion);
 
       audio.addEventListener('play', marcarSonando);
-      audio.addEventListener('pause', marcarSilenciada);
+      audio.addEventListener('pause', marcarPausada);
 
       // Sin loop: suena una vez y se detiene. Si terminó, no hay que retomarla
       // al entrar a otra página; y si el visitante vuelve a pulsar «Reproducir»,
@@ -192,7 +206,7 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
         } catch {}
       });
 
-      boton.addEventListener('click', () => {
+      botonPlay.addEventListener('click', () => {
         if (audio.paused) {
           if (audio.ended || audio.currentTime >= audio.duration - 0.25) audio.currentTime = 0;
           audio.play().catch(() => {});
@@ -207,7 +221,7 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
         audio.play().catch(() => {
           // El navegador bloqueó el autoplay con sonido (política estándar hasta que
           // haya una interacción del visitante en este sitio). Queda el botón visible.
-          marcarSilenciada();
+          marcarPausada();
         });
       }
     })();
@@ -266,61 +280,46 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
     bottom: 0.9rem;
     z-index: 200;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--oro-claro);
+    border-radius: 2.5rem;
+    background: color-mix(in srgb, var(--papel) 94%, transparent);
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.18);
+    backdrop-filter: blur(6px);
   }
-  #boton-musica {
+  #boton-play,
+  #boton-mute {
     min-height: 2.9rem;
     min-width: 2.9rem;
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0 0.9rem;
-    border: 1px solid var(--oro-claro);
-    border-radius: 2rem;
-    background: color-mix(in srgb, var(--papel) 94%, transparent);
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background: transparent;
     color: var(--marino);
-    box-shadow: 0 2px 10px rgb(0 0 0 / 0.18);
-    backdrop-filter: blur(6px);
-    font: 600 0.88rem/1.1 var(--f-cuerpo);
+    font-size: 1.15rem;
+    line-height: 1;
     cursor: pointer;
   }
-  #boton-musica:hover,
-  #boton-musica:focus-visible { background: var(--papel); }
-  #boton-musica[aria-pressed='true'] {
-    background: var(--marino);
-    color: var(--papel);
-    border-color: var(--marino);
+  #boton-play:hover, #boton-play:focus-visible,
+  #boton-mute:hover, #boton-mute:focus-visible {
+    background: color-mix(in srgb, var(--oro-claro) 35%, transparent);
   }
-  #boton-musica [data-icono] { font-size: 1.05rem; }
-  #control-volumen {
-    min-height: 2.9rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0 0.9rem;
-    border: 1px solid var(--oro-claro);
-    border-radius: 2rem;
-    background: color-mix(in srgb, var(--papel) 94%, transparent);
-    color: var(--marino);
-    box-shadow: 0 2px 10px rgb(0 0 0 / 0.18);
-    backdrop-filter: blur(6px);
-    font: 600 0.82rem/1.1 var(--f-cuerpo);
-  }
-  #control-volumen .texto-volumen { white-space: nowrap; }
+  #boton-play[aria-pressed='true'] { background: var(--marino); color: var(--papel); }
+  #boton-mute[aria-pressed='true'] { color: var(--bruma); }
   #volumen-musica {
-    width: 6.5rem;
-    height: 2rem;
+    width: 5.5rem;
+    height: 2.9rem;
     accent-color: var(--marino);
     cursor: pointer;
   }
   @media (max-width: 480px) {
-    #musica-fondo { right: 0.6rem; bottom: 0.6rem; }
-    #boton-musica { padding: 0 0.7rem; font-size: 0.82rem; }
-    #control-volumen { padding: 0 0.7rem; font-size: 0.76rem; }
-    #control-volumen .texto-volumen { display: none; }
-    #volumen-musica { width: 5rem; }
+    #musica-fondo { right: 0.6rem; bottom: 0.6rem; padding: 0.3rem 0.5rem; gap: 0.15rem; }
+    #boton-play, #boton-mute { min-height: 2.6rem; min-width: 2.6rem; font-size: 1.05rem; }
+    #volumen-musica { width: 4.2rem; }
   }
 
   #cabecera-sitio {

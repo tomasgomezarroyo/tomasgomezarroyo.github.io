@@ -25,16 +25,34 @@ export const buques: Buque[] = [
     cap: 'capitulo-primero',
     imagenes: [
       {
-        src: '/fotos/buques/rey-jaime-i-armado-guerra-civil.jpg',
+        src: '/fotos/buques/rey-jaime-i-armado-guerra-civil-hd.jpg',
         alt: 'Rey Jaime I armado como crucero auxiliar durante la Guerra Civil',
         pie: 'El Rey Jaime I armado como crucero auxiliar, configuración relacionada con el servicio narrado en 1938.',
-        referencia: 'Referencia: colección de Trasmeships; derechos individuales pendientes de confirmación.',
+        referencia: 'Referencia: Archivo Manuel Rodríguez Aguilar, vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
       {
         src: '/fotos/buques/rey-jaime-i-motonave.jpg',
         alt: 'Motonave de pasaje Rey Jaime I vista de costado',
         pie: 'El mismo buque en su configuración civil de motonave correo.',
         referencia: 'Referencia: Historia Naval de España / Todoavante; autor no identificado.',
+      },
+      {
+        src: '/fotos/buques/rey-jaime-i-islena-maritima-1918.jpg',
+        alt: 'Rey Jaime I bajo bandera de la Isleña Marítima',
+        pie: 'El buque en sus primeros años, bajo bandera de la Isleña Marítima, antes de integrarse en Trasmediterránea en 1918.',
+        referencia: 'Referencia: archivo LGF, vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/rey-jaime-i-barcelona-posguerra-1939.jpg',
+        alt: 'Puerto de Barcelona al terminar la Guerra Civil, con el Rey Jaime I',
+        pie: 'El puerto de Barcelona nada más terminar la guerra, en 1939, poco después del servicio narrado.',
+        referencia: 'Referencia: colección de la Comisión de la Armada para salvamento de buques, vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/rey-jaime-i-palma-mallorca-1910s.jpg',
+        alt: 'Rey Jaime I atracado en el puerto de Palma de Mallorca',
+        pie: 'El buque atracado en Palma de Mallorca, en su etapa civil de entreguerras.',
+        referencia: 'Referencia: fondo documental del Museu Marítim de Barcelona, vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
     ],
   },
@@ -47,16 +65,46 @@ export const buques: Buque[] = [
     cap: 'capitulo-primero',
     imagenes: [
       {
-        src: '/fotos/buques/jj-sister-armamento-1938.jpg',
+        src: '/fotos/buques/jj-sister-canon-popa-1938-comparar.jpg',
         alt: 'J.J. Sister con armamento añadido en 1938',
         pie: 'El J.J. Sister con el armamento añadido en 1938, el año del viaje narrado.',
-        referencia: 'Referencia: Todoavante; autor no identificado, licencia general CC BY-NC 3.0 del sitio.',
+        referencia: 'Referencia: "Astilleros del ayer al hoy. 1877-1991", vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
       {
         src: '/fotos/buques/jj-sister-retrato.jpg',
         alt: 'Motonave J.J. Sister navegando',
         pie: 'Vista general de la motonave J.J. Sister.',
         referencia: 'Referencia: Todoavante; autor no identificado, licencia general CC BY-NC 3.0 del sitio.',
+      },
+      {
+        src: '/fotos/buques/jj-sister-carraca-1938.jpg',
+        alt: 'Obras de transformación del J.J. Sister en La Carraca, 1938',
+        pie: 'Las obras de transformación en crucero auxiliar, en el arsenal de La Carraca (Cádiz), 1938.',
+        referencia: 'Referencia: Rafael González Echegaray, "La Marina Mercante y el tráfico marítimo en la guerra civil", vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/jj-sister-desembarco-menorca-1939.jpg',
+        alt: 'Flota nacional en el desembarco de Menorca, febrero de 1939',
+        pie: 'Parte de la flota nacional en el desembarco de Menorca, febrero de 1939; el J.J. Sister participó en operaciones de este tipo.',
+        referencia: 'Referencia: Biblioteca Nacional de España, vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/jj-sister-perfil-babor.jpg',
+        alt: 'Perfil de babor del J.J. Sister',
+        pie: 'Perfil de babor del buque, en su etapa civil de entreguerras.',
+        referencia: 'Referencia: fondo documental del Museu Marítim de Barcelona, vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/jj-sister-melilla.jpg',
+        alt: 'J.J. Sister atracando en Melilla',
+        pie: 'El buque atracando en Melilla, en los años treinta.',
+        referencia: 'Referencia: archivo Jaume Cifré Sánchez, vía Trasmeships; derechos individuales pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/jj-sister-galileo-galilei-napoles.jpg',
+        alt: 'El buque como Galileo Galilei, bajo bandera italiana, en Nápoles',
+        pie: 'El mismo casco en su vida anterior, como Galileo Galilei bajo bandera italiana, en Nápoles.',
+        referencia: 'Referencia: simplonpc.co.uk, vía Trasmeships; derechos individuales pendientes de confirmación.',
       },
       {
         src: '/fotos/buques/jj-sister-maqueta-museu-maritim.jpg',
@@ -86,6 +134,24 @@ export const buques: Buque[] = [
         pie: 'Bandera republicana del buque conservada en Gibraltar; fotografía de la pieza expuesta en 2015.',
         referencia: 'Foto: infogibraltar, Wikimedia Commons, CC BY 2.0.',
       },
+      {
+        src: '/fotos/buques/jose-luis-diez-catalan-bay-1938.jpg',
+        alt: 'José Luis Díez varado en Catalan Bay, Gibraltar',
+        pie: 'El destructor varado en Catalan Bay (Playa de los Catalanes), Gibraltar, diciembre de 1938, tras el combate narrado.',
+        referencia: 'Referencia: Casa de la Memoria La Sauceda (asociación de memoria histórica); derechos pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/jose-luis-diez-antes-1938.jpg',
+        alt: 'El José Luis Díez antes del combate de 1938',
+        pie: 'El buque en puerto, en una imagen anterior a los hechos de diciembre de 1938.',
+        referencia: 'Referencia: Casa de la Memoria La Sauceda (asociación de memoria histórica); derechos pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/jose-luis-diez-croquis-combate-1938.jpg',
+        alt: 'Ilustración del combate entre el José Luis Díez y el Vulcano',
+        pie: 'Ilustración pintada del combate entre el José Luis Díez y el Vulcano, la noche del 30 de diciembre de 1938, frente a Punta Europa. No es una fotografía.',
+        referencia: 'Referencia: documento de un archivo familiar publicado en blog de historia naval; derechos pendientes de confirmación.',
+      },
     ],
   },
   {
@@ -108,6 +174,24 @@ export const buques: Buque[] = [
         pie: 'Maqueta del Vulcano. Sirve para observar la silueta y distribución; no es una foto de época.',
         referencia: 'Foto: Oilisab, Wikimedia Commons, CC BY-SA 4.0.',
       },
+      {
+        src: '/fotos/buques/vulcano-palma-mallorca-feb1938-a.jpg',
+        alt: 'Cubierta del Vulcano en Palma de Mallorca, febrero de 1938',
+        pie: 'La cubierta del Vulcano en Palma de Mallorca, el 3 de febrero de 1938, meses antes del combate narrado.',
+        referencia: 'Referencia: álbum familiar publicado en blog de historia naval; derechos pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/vulcano-palma-mallorca-feb1938-b.jpg',
+        alt: 'Tripulantes del Vulcano junto a un cañón, Palma de Mallorca, 1938',
+        pie: 'Tripulantes del Vulcano frente a un cañón, en Palma de Mallorca, el 26 de febrero de 1938.',
+        referencia: 'Referencia: álbum familiar publicado en blog de historia naval; derechos pendientes de confirmación.',
+      },
+      {
+        src: '/fotos/buques/vulcano-tanger-1940.jpg',
+        alt: 'El Vulcano en Tánger, 1940',
+        pie: 'El Vulcano en Tánger, ya terminada la Guerra Civil, en 1940.',
+        referencia: 'Referencia: álbum familiar publicado en blog de historia naval; derechos pendientes de confirmación.',
+      },
     ],
   },
   {
@@ -117,12 +201,20 @@ export const buques: Buque[] = [
     anos: '1946 – 1948',
     nota: 'Destino en Las Palmas tras obtener la especialidad de Artillería y Tiro Naval, durante los años del noviazgo con Vivi.',
     cap: 'capitulo-sexto',
-    imagenes: [{
-      src: '/fotos/buques/marte-archivo-armada.jpg',
-      alt: 'Minador Marte visto de costado',
-      pie: 'El minador Marte, de la clase Júpiter.',
-      referencia: 'Referencia: Archivo General de la Armada, reproducida por Todoavante; permiso de reproducción pendiente de confirmar.',
-    }],
+    imagenes: [
+      {
+        src: '/fotos/buques/marte-archivo-armada.jpg',
+        alt: 'Minador Marte visto de costado',
+        pie: 'El minador Marte, de la clase Júpiter.',
+        referencia: 'Referencia: Archivo General de la Armada, reproducida por Todoavante; permiso de reproducción pendiente de confirmar.',
+      },
+      {
+        src: '/fotos/buques/marte-santander-1969.jpg',
+        alt: 'Minador Marte en el puerto de Santander, 1969',
+        pie: 'El Marte atracado en Santander, en 1969, ya en una etapa posterior de su servicio.',
+        referencia: 'Referencia: reproducida en un blog de historia naval; autor y procedencia original no identificados.',
+      },
+    ],
   },
   {
     slug: 'churruca',
@@ -133,10 +225,16 @@ export const buques: Buque[] = [
     cap: 'capitulo-octavo',
     imagenes: [
       {
-        src: '/fotos/buques/churruca-cartagena.jpg',
-        alt: 'Destructor Churruca en Cartagena',
-        pie: 'El destructor Churruca en Cartagena.',
-        referencia: 'Referencia: Todoavante; autor individual no identificado, licencia general CC BY-NC 3.0 del sitio.',
+        src: '/fotos/buques/churruca-principios-1950s.jpg',
+        alt: 'Destructor Churruca a principios de los años 50',
+        pie: 'El Churruca, probablemente a principios de los años 50 — los mismos años en que Tomás sirvió a bordo.',
+        referencia: 'Foto cortesía de Miquel Rosselló, vía Balearspotting; permiso de reproducción pendiente de confirmar.',
+      },
+      {
+        src: '/fotos/buques/churruca-alta-resolucion.jpg',
+        alt: 'Destructor Churruca, vista de mayor detalle',
+        pie: 'El Churruca en otra ocasión, con mayor detalle de su silueta.',
+        referencia: 'Foto cortesía de Miquel Rosselló, vía Balearspotting; permiso de reproducción pendiente de confirmar.',
       },
       {
         src: '/fotos/buques/churruca-gemelo-ciscar-1931.jpg',
@@ -162,11 +260,25 @@ export const buques: Buque[] = [
     anos: '1954 – 1956',
     nota: 'El último buque alcanzado por las memorias, fotografiado en Cartagena en el mismo periodo de su servicio a bordo.',
     cap: 'capitulo-decimo',
-    imagenes: [{
-      src: '/fotos/buques/miguel-de-cervantes-cartagena-1950.jpg',
-      alt: 'Crucero Miguel de Cervantes en Cartagena hacia 1950',
-      pie: 'El crucero Miguel de Cervantes en Cartagena, hacia 1950.',
-      referencia: 'Foto: Francisco Martínez Asuar, Wikimedia Commons, CC BY-SA 3.0.',
-    }],
+    imagenes: [
+      {
+        src: '/fotos/buques/miguel-de-cervantes-cartagena-1950.jpg',
+        alt: 'Crucero Miguel de Cervantes en Cartagena hacia 1950',
+        pie: 'El crucero Miguel de Cervantes en Cartagena, hacia 1950.',
+        referencia: 'Foto: Francisco Martínez Asuar, Wikimedia Commons, CC BY-SA 3.0.',
+      },
+      {
+        src: '/fotos/buques/miguel-de-cervantes-san-sebastian-1949.jpg',
+        alt: 'Miguel de Cervantes en el Muelle de San Sebastián, 1949',
+        pie: 'El crucero atracado en el Muelle de San Sebastián, el 24 de agosto de 1949.',
+        referencia: 'Foto: Vicente Martín (Estudio Photo Carte), Kutxa Fototeka, CC BY-NC 4.0.',
+      },
+      {
+        src: '/fotos/buques/miguel-de-cervantes-gibraltar-1936.jpg',
+        alt: 'Miguel de Cervantes cerca de Gibraltar, 1936',
+        pie: 'El buque en 1936, durante la Guerra Civil, en su etapa republicana anterior al servicio de Tomás.',
+        referencia: 'Foto: colección del Australian War Memorial, dominio público, vía Wikimedia Commons.',
+      },
+    ],
   },
 ];

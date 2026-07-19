@@ -103,7 +103,7 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
   </script>
 
   <div id="musica-fondo">
-    <audio id="audio-fondo" src="/audio/leyenda-del-beso-intermedio-1930.mp3" loop preload="auto"></audio>
+    <audio id="audio-fondo" src="/audio/leyenda-del-beso-intermedio-1930.mp3" preload="auto"></audio>
     <button type="button" id="boton-musica" aria-pressed="false" aria-label="Reproducir música de fondo: La leyenda del beso">
       <span aria-hidden="true" data-icono>🎵</span>
       <span data-texto>Música</span>
@@ -182,8 +182,19 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
       audio.addEventListener('play', marcarSonando);
       audio.addEventListener('pause', marcarSilenciada);
 
+      // Sin loop: suena una vez y se detiene. Si terminó, no hay que retomarla
+      // al entrar a otra página; y si el visitante vuelve a pulsar «Reproducir»,
+      // empieza de nuevo desde el principio, no se queda congelada al final.
+      audio.addEventListener('ended', () => {
+        try {
+          localStorage.setItem('memorias-musica', 'apagada');
+          localStorage.setItem('memorias-posicion', '0');
+        } catch {}
+      });
+
       boton.addEventListener('click', () => {
         if (audio.paused) {
+          if (audio.ended || audio.currentTime >= audio.duration - 0.25) audio.currentTime = 0;
           audio.play().catch(() => {});
           try { localStorage.setItem('memorias-musica', 'sonando'); } catch {}
         } else {

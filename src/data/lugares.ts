@@ -109,7 +109,14 @@ export const lugares: Lugar[] = [
     nombre: 'El Ferrol',
     descripcion: 'Primera visita en un crucero de instrucción en 1941; después, alférez en 1943-44 supervisando la construcción del destructor Tritón en los astilleros de Bazán, con vida social en la calle Real; regresó en 1948, ya casado con Vivi, para las obras del buque.',
     caps: ['capitulo-tercero', 'capitulo-cuarto', 'capitulo-septimo'],
-    imagenes: [],
+    imagenes: [
+      {
+        src: '/fotos/lugares/el-ferrol-astillero-acorazados-1910-1920.jpg',
+        alt: 'Astillero de Ferrol con acorazados en construcción, hacia 1910-1920',
+        pie: 'El astillero de Ferrol, con acorazados en construcción. Años 1910-1920 aprox. — dos o tres décadas antes de la estancia de Tomás, pero el mismo paraje industrial que él conoció ya como Sociedad Española de Construcción Naval.',
+        referencia: 'Dominio público, Biblioteca de Galicia (Galiciana).',
+      },
+    ],
   },
   {
     slug: 'marin',
@@ -137,7 +144,20 @@ export const lugares: Lugar[] = [
     nombre: 'Redondela',
     descripcion: 'Lugar de veraneo de la familia de Vivi, escenario de los viajes de noviazgo en los veranos de 1946 y 1947.',
     caps: ['capitulo-quinto', 'capitulo-sexto'],
-    imagenes: [],
+    imagenes: [
+      {
+        src: '/fotos/lugares/redondela-pleamar-viaducto.jpg',
+        alt: 'Redondela: pleamar y viaducto ferroviario hacia Pontevedra, postal de época',
+        pie: 'Redondela, con la pleamar y el viaducto ferroviario hacia Pontevedra. Postal sin fecha exacta, primera mitad del siglo XX.',
+        referencia: 'Editor E. Sánchez, fabricación Fototipia Thomas (Barcelona). Dominio público, Biblioteca de Galicia (Galiciana).',
+      },
+      {
+        src: '/fotos/lugares/redondela-viaducto-fournier.jpg',
+        alt: 'Panorámica del viaducto de Redondela sobre la ría, postal de época',
+        pie: 'Panorámica del viaducto sobre la ría, con vista de Redondela. Postal sin fecha exacta, primera mitad del siglo XX.',
+        referencia: 'Huecograbado Fournier (Vitoria). Dominio público, Biblioteca de Galicia (Galiciana).',
+      },
+    ],
   },
   {
     slug: 'portugalete',
@@ -164,14 +184,40 @@ export const lugares: Lugar[] = [
     nombre: 'Palma de Mallorca',
     descripcion: 'Escala en 1939 tras la recuperación de buques republicanos en Bizerta, con una función de zarzuela en el Teatro El Borme; años después, base del Churruca entre noviembre de 1948 y 1950.',
     caps: ['capitulo-primero', 'capitulo-segundo', 'capitulo-octavo'],
-    imagenes: [],
+    imagenes: [
+      {
+        src: '/fotos/lugares/palma-de-mallorca-puerto-1920.jpg',
+        alt: 'Puerto de Palma de Mallorca, 1920',
+        pie: 'El puerto de Palma de Mallorca, 1920 — casi veinte años antes de la escala del Rey Jaime I en 1939, pero el mismo puerto.',
+        referencia: 'Foto: Archiu del Consell de Mallorca, vía blog "Fotos Antiguas de Mallorca"; pendiente de confirmar condiciones exactas de reproducción.',
+      },
+    ],
   },
   {
     slug: 'ceuta',
     nombre: 'Ceuta',
     descripcion: 'Base del Rey Jaime I patrullando el Estrecho en 1938-39; años después, mando del patrullero RR 28 (mayo 1950 - julio 1951), con la pérdida de su segundo hijo en noviembre de 1950.',
     caps: ['capitulo-primero', 'capitulo-noveno'],
-    imagenes: [],
+    imagenes: [
+      {
+        src: '/fotos/lugares/ceuta-puerto-1925.jpg',
+        alt: 'Puerto de Ceuta con buque de guerra entrando, 1925',
+        pie: 'El puerto de Ceuta, con un buque de guerra entrando entre columnas de humo, observado desde el espigón. 1925 — trece años antes de la primera estancia de Tomás.',
+        referencia: 'Vía OldPik (oldpik.com), citando fuente original.',
+      },
+      {
+        src: '/fotos/lugares/ceuta-fabrica-africa-estar-1940-aprox.jpg',
+        alt: 'Fábrica de cerveza Africa Estar, Ceuta, hacia 1940',
+        pie: 'La fábrica de cerveza "Africa Estar", en Ceuta. Hacia 1940 aprox.',
+        referencia: 'Vía OldPik (oldpik.com), citando fuente original.',
+      },
+      {
+        src: '/fotos/lugares/ceuta-puente-virgen-africa-chorrillo-1945.jpg',
+        alt: 'Puente Virgen de África y carretera nueva junto a la playa del Chorrillo, Ceuta, 1945',
+        pie: 'El puente Virgen de África y la entrada de la carretera nueva, junto a la playa del Chorrillo. 1945.',
+        referencia: 'Foto: Fotografía Calatayud, Archivo General de Ceuta. Acceso libre; reproducción para fines culturales o de investigación.',
+      },
+    ],
   },
   {
     slug: 'cartagena',

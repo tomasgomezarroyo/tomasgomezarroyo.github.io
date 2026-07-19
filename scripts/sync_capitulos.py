@@ -112,7 +112,13 @@ def preparar_fotos(fotos, bloques, slug):
     return sorted(preparadas, key=lambda f: f["pos"])
 
 
-def figura(f):
+def slug_foto(archivo):
+    """Identificador estable para una foto, a partir de su nombre de archivo."""
+    base = os.path.splitext(os.path.basename(archivo.replace("\\", "/")))[0]
+    return re.sub(r"[^a-z0-9-]+", "-", base.lower()).strip("-")
+
+
+def figura(f, capitulo_slug):
     src = "/fotos/" + f["archivo"].replace("\\", "/")
     pie = htmllib.escape(f["pie"], quote=False)
     credito = htmllib.escape(f["credito"], quote=False)
@@ -124,17 +130,21 @@ def figura(f):
         carga = dict(ficha)
         carga["credito"] = f["credito"]
         attr_ficha = ' data-ficha="' + htmllib.escape(json.dumps(carga, ensure_ascii=False), quote=True) + '"'
+    foto_id = "foto-" + slug_foto(f["archivo"])
     galeria_html = ""
     galeria = f.get("galeria")
     if galeria:
         href = "/" + galeria.strip("/")
         sustantivo = "este buque" if galeria.startswith("buques/") else "este lugar"
+        # "volver" y "foto" le dicen a la página de galería adónde regresar exactamente
+        # (el capítulo y la foto concreta), para que el lector no pierda su sitio.
+        query = f"?volver={capitulo_slug}&foto={foto_id}"
         galeria_html = (
-            f'<a class="ver-galeria" href="{htmllib.escape(href, quote=True)}">'
+            f'<a class="ver-galeria" href="{htmllib.escape(href + query, quote=True)}">'
             f"Ver más fotografías de {sustantivo} &rarr;</a>"
         )
     return (
-        f'<figure class="lamina"{attr_ficha}>'
+        f'<figure class="lamina" id="{foto_id}"{attr_ficha}>'
         f'<button type="button" class="abre-visor" aria-label="Ampliar fotografía: {alt}">'
         f'<img src="{src}" width="{ancho}" height="{alto}" alt="{alt}" loading="lazy" decoding="async" />'
         f"</button>"
@@ -163,11 +173,11 @@ for meta in META:
     fot_idx = 0
     for i, (tag, contenido) in enumerate(bloques):
         while fot_idx < len(fotos) and fotos[fot_idx].get("pos", 999) <= i:
-            piezas.append(figura(fotos[fot_idx]))
+            piezas.append(figura(fotos[fot_idx], meta["slug"]))
             fot_idx += 1
         piezas.append(f"<{tag}>{inline(contenido)}</{tag}>")
     while fot_idx < len(fotos):
-        piezas.append(figura(fotos[fot_idx]))
+        piezas.append(figura(fotos[fot_idx], meta["slug"]))
         fot_idx += 1
 
     with open(os.path.join(SALIDA, meta["slug"] + ".html"), "w", encoding="utf-8") as f:

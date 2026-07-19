@@ -155,6 +155,14 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
 
   .texto :global(figure.lamina) {
     margin: 2.6em auto;
+    scroll-margin-top: 7.5rem;
+  }
+  .texto :global(figure.lamina:target img) {
+    animation: destacar-foto 2.5s ease;
+  }
+  @keyframes destacar-foto {
+    0%, 100% { box-shadow: 0 1px 8px rgb(0 0 0 / 0.07); }
+    15%, 65% { box-shadow: 0 0 0 4px var(--oro); }
   }
   .texto :global(figure.lamina img) {
     display: block;
@@ -379,13 +387,28 @@ const cuerpo = fragmentos[`../../generado/${slug}.html`];
 </style>
 
 <script>
+  // Al volver desde una galería (enlace "Ver más fotografías"), llegar exactamente
+  // a esa foto. No basta con el desplazamiento automático del navegador al cargar
+  // la página: con textos tan largos y tipografías que cargan después, el salto
+  // nativo a veces no llega o se desvía. Se reintenta varias veces por seguridad.
+  if (location.hash) {
+    const objetivo = document.querySelector(location.hash);
+    if (objetivo) {
+      const irAlObjetivo = () => objetivo.scrollIntoView({ block: 'start' });
+      irAlObjetivo();
+      requestAnimationFrame(irAlObjetivo);
+      (document as any).fonts?.ready?.then(irAlObjetivo);
+      setTimeout(irAlObjetivo, 350);
+    }
+  }
+
   const botonContinuar = document.getElementById('continuar-lectura') as HTMLButtonElement | null;
   const botonImprimir = document.getElementById('imprimir-capitulo') as HTMLButtonElement | null;
   const clavePosicion = 'memorias-posicion:' + location.pathname;
 
   try {
     const guardada = Number(localStorage.getItem(clavePosicion) || 0);
-    if (botonContinuar && guardada > 250) {
+    if (botonContinuar && guardada > 250 && !location.hash) {
       botonContinuar.hidden = false;
       botonContinuar.addEventListener('click', () => {
         scrollTo({ top: guardada, behavior: 'smooth' });

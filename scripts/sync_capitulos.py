@@ -75,11 +75,57 @@ def md_a_bloques(md):
     return bloques
 
 
-def inline(texto):
+def inline(texto, enlaces_bloque=None):
     t = htmllib.escape(texto, quote=False)
     t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
     t = re.sub(r"\*(.+?)\*", r"<em>\1</em>", t)
+    for enlace in enlaces_bloque or []:
+        t = envolver_enlace(t, enlace)
     return t
+
+
+def envolver_enlace(html_parrafo, enlace):
+    """Envuelve, dentro del HTML ya escapado de un párrafo, la primera aparición
+    de la frase buscada en un botón que abre la foto en el visor — sin insertar
+    una lámina aparte ni tocar el texto fuente de las memorias."""
+    patron = re.compile(re.escape(enlace["buscar"]), re.IGNORECASE)
+
+    def reemplazo(m):
+        alt = htmllib.escape(enlace["pie"].split(".")[0], quote=True)
+        pie = htmllib.escape(enlace["pie"], quote=True)
+        credito = htmllib.escape(enlace["credito"], quote=True)
+        src = htmllib.escape("/fotos/" + enlace["archivo"].replace("\\", "/"), quote=True)
+        galeria = enlace.get("galeria")
+        attr_galeria = f' data-galeria="/{htmllib.escape(galeria.strip("/"), quote=True)}"' if galeria else ""
+        return (
+            f'<button type="button" class="enlace-foto" data-src="{src}" data-alt="{alt}" '
+            f'data-pie="{pie}" data-credito="{credito}"{attr_galeria}>{m.group(0)}</button>'
+        )
+
+    nuevo, n = patron.subn(reemplazo, html_parrafo, count=1)
+    if n == 0:
+        raise ValueError(f"enlace de texto {enlace['buscar']!r} no se encontró en el párrafo esperado")
+    return nuevo
+
+
+def preparar_enlaces(enlaces, bloques, slug):
+    """Verifica que cada frase buscada aparezca exactamente una vez en todo el
+    capítulo, y anota en qué bloque de párrafo está para aplicarla ahí."""
+    por_bloque = {}
+    for enlace in enlaces or []:
+        buscar = enlace["buscar"]
+        coincidencias = [
+            i for i, (_, contenido) in enumerate(bloques)
+            if contenido.casefold().count(buscar.casefold()) >= 1
+        ]
+        total = sum(contenido.casefold().count(buscar.casefold()) for _, contenido in bloques)
+        if total != 1:
+            raise ValueError(
+                f"{slug}: el enlace de texto {buscar!r} produjo {total} coincidencias "
+                f"en el capítulo; debe producir exactamente una"
+            )
+        por_bloque.setdefault(coincidencias[0], []).append(enlace)
+    return por_bloque
 
 
 def dimensiones(ruta_relativa):
@@ -167,6 +213,7 @@ for meta in META:
 
     bloques = md_a_bloques(md)
     fotos = preparar_fotos(meta.get("fotos", []), bloques, meta["slug"])
+    enlaces_por_bloque = preparar_enlaces(meta.get("enlaces", []), bloques, meta["slug"])
 
     # repartir fotos: en su posición pedida (índice de párrafo) o al final
     piezas = []
@@ -175,7 +222,7 @@ for meta in META:
         while fot_idx < len(fotos) and fotos[fot_idx].get("pos", 999) <= i:
             piezas.append(figura(fotos[fot_idx], meta["slug"]))
             fot_idx += 1
-        piezas.append(f"<{tag}>{inline(contenido)}</{tag}>")
+        piezas.append(f"<{tag}>{inline(contenido, enlaces_por_bloque.get(i))}</{tag}>")
     while fot_idx < len(fotos):
         piezas.append(figura(fotos[fot_idx], meta["slug"]))
         fot_idx += 1

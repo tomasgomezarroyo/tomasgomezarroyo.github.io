@@ -97,7 +97,16 @@
       "periodo": "1941 – 1943",
       "lugares": "San Fernando, Cádiz",
       "resumen": "El ascenso a Guardiamarina de Segunda, las dos anclas cruzadas bajo la corona, y la cómoda zona templada de la promoción.",
-      "fotos": []
+      "fotos": [],
+      "enlaces": [
+        {
+          "buscar": "se cerró definitivamente las antiguas instalaciones de San Fernando",
+          "archivo": "lugares/presidio-cuatro-torres-san-fernando-1911.png",
+          "pie": "El arsenal de La Carraca, en San Fernando, donde funcionó la Escuela Naval hasta este cierre.",
+          "credito": "Dominio público, vía Wikimedia Commons.",
+          "galeria": "lugares/san-fernando-arsenal-carraca"
+        }
+      ]
     },
     {
       "slug": "capitulo-cuarto",
@@ -124,6 +133,15 @@
           "credito": "Foto: Vicente Martín (Photo Carte), Kutxa Fundazioa Fototeka, CC BY-NC 4.0.",
           "galeria": "lugares/portugalete",
           "pos": 3
+        }
+      ],
+      "enlaces": [
+        {
+          "buscar": "Navidades y Año Nuevo en Portugalete",
+          "archivo": "lugares/portugalete-monumento-churruca-1943.jpg",
+          "pie": "El monumento a la Cofradía de Churruca, con el puente colgante de Portugalete al fondo, 1943.",
+          "credito": "Foto: Vicente Martín (Photo Carte), Kutxa Fundazioa Fototeka, CC BY-NC 4.0.",
+          "galeria": "lugares/portugalete"
         }
       ]
     },
@@ -224,6 +242,15 @@
           "credito": "Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com).",
           "galeria": "lugares/cartagena",
           "pos": 12
+        }
+      ],
+      "enlaces": [
+        {
+          "buscar": "Cartagena era una ciudad encantadora",
+          "archivo": "lugares/cartagena-calle-mayor-bar-americano.jpg",
+          "pie": "La Calle Mayor de Cartagena, con vecinos en las terrazas — la ciudad pequeña y alegre de la que habla.",
+          "credito": "Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com).",
+          "galeria": "lugares/cartagena"
         }
       ]
     },

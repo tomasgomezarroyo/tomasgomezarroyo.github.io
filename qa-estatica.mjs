@@ -1,7 +1,8 @@
 import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const raiz = new URL('./dist/', import.meta.url).pathname;
+const raiz = fileURLToPath(new URL('./dist/', import.meta.url));
 const paginas = [
   'index.html',
   'travesia.html',

@@ -123,21 +123,54 @@ export const lugares: Lugar[] = [
     nombre: 'Marín',
     descripcion: 'Sede de la nueva Escuela Naval Militar, inaugurada el 15 de agosto de 1943 con entrega de despachos; Tomás volvió en 1945 para el curso de Tiro Naval en la Escuela "Janer", alojado en el Hospital de la Escuela.',
     caps: ['capitulo-tercero', 'capitulo-cuarto', 'capitulo-quinto'],
-    imagenes: [],
+    imagenes: [
+      {
+        src: '/fotos/lugares/marin-escuela-naval-darsena.jpg',
+        alt: 'La Escuela Naval Militar de Marín vista desde la dársena, con veleros amarrados',
+        pie: 'La Escuela Naval Militar de Marín, vista desde la dársena. Postal de Estudios Ocaña, hacia 1940.',
+        referencia: 'Fondos gráficos del Servicio de Patrimonio Documental y Bibliográfico de la Deputación de Pontevedra.',
+      },
+    ],
   },
   {
     slug: 'playa-de-portocello',
     nombre: 'Playa de Portocello',
     descripcion: 'En esta playa, cerca de Marín, Tomás conoció a Vivi en la primavera de 1945 — el episodio sentimental más importante de las memorias.',
     caps: ['capitulo-cuarto', 'capitulo-quinto'],
-    imagenes: [],
+    imagenes: [
+      {
+        src: '/fotos/lugares/portocelo-playa-panoramica-1.jpg',
+        alt: 'Vista panorámica de la playa de Portocelo, con edificios sobre la colina',
+        pie: 'La playa de Portocelo, con el arbolado y las edificaciones de la colina al fondo. Postal sin fecha exacta, mediados del siglo XX.',
+        referencia: 'Fondos gráficos del Servicio de Patrimonio Documental y Bibliográfico de la Deputación de Pontevedra.',
+      },
+      {
+        src: '/fotos/lugares/portocelo-playa-panoramica-2.jpg',
+        alt: 'Vista de la playa de Portocelo desde otro ángulo, con pinos en primer plano',
+        pie: 'Otra vista de la playa de Portocelo, con pinos en primer plano. Postal sin fecha exacta, mediados del siglo XX.',
+        referencia: 'Fondos gráficos del Servicio de Patrimonio Documental y Bibliográfico de la Deputación de Pontevedra.',
+      },
+      {
+        src: '/fotos/lugares/portocelo-playa-banistas.jpg',
+        alt: 'La playa de Portocelo llena de bañistas en verano',
+        pie: 'La playa de Portocelo en un día concurrido de verano. Postal sin fecha exacta, mediados del siglo XX.',
+        referencia: 'Fondos gráficos del Servicio de Patrimonio Documental y Bibliográfico de la Deputación de Pontevedra.',
+      },
+    ],
   },
   {
     slug: 'pontevedra',
     nombre: 'Pontevedra',
     descripcion: 'Ciudad del noviazgo con Vivi en 1945: el Casino, el café-bar "Urquín" donde le pidió relaciones formales, y la Diputación Provincial donde ella trabajaba.',
     caps: ['capitulo-quinto'],
-    imagenes: [],
+    imagenes: [
+      {
+        src: '/fotos/lugares/pontevedra-alameda-diputacion.jpg',
+        alt: 'Avenida de la Alameda de Pontevedra, con el Palacio de la Diputación al fondo',
+        pie: 'La Alameda de Pontevedra, con el Palacio de la Diputación Provincial al fondo — donde trabajaba Vivi. Postal de José Bellver, años 1930-1940.',
+        referencia: 'Fondos gráficos del Servicio de Patrimonio Documental y Bibliográfico de la Deputación de Pontevedra.',
+      },
+    ],
   },
   {
     slug: 'redondela',

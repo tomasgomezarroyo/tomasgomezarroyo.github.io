@@ -89,10 +89,10 @@ const { publicacion } = Astro.props;
 
     <section class="fuente" aria-labelledby="titulo-fuente">
       <h2 id="titulo-fuente">Fuente y documento completo</h2>
-      <p>Publicado por {publicacion.fuenteTexto}. Reutilización autorizada citando la fuente, según el aviso legal de Publicaciones Defensa.</p>
+      <p>Publicado por {publicacion.fuenteTexto}. Condiciones de reutilización detalladas en «Derechos y uso», arriba.</p>
       <p class="botones-fuente">
         <a class="boton-externo" href={publicacion.fuenteUrl} target="_blank" rel="noopener">📖 Ver la publicación original ↗</a>
-        <a class="boton-descarga" href={publicacion.documentoUrl} download>⬇ Descargar el boletín completo ({publicacion.documentoTamano})</a>
+        <a class="boton-descarga" href={publicacion.documentoUrl} download>⬇ Descargar el documento completo ({publicacion.documentoTamano})</a>
       </p>
       <p class="nota-enlace">Esta ficha es una excepción deliberada: en el resto del sitio las fuentes se citan como texto, sin enlaces — aquí, por tratarse de prensa, el enlace y la descarga son el propio contenido.</p>
     </section>

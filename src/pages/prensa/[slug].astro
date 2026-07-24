@@ -7,7 +7,7 @@ export function getStaticPaths() {
 }
 const { publicacion } = Astro.props;
 ---
-<Base titulo={publicacion.titulo} descripcion={`${publicacion.titulo}, ${publicacion.fecha} — aparición de Tomás Gómez Arroyo en prensa oficial.`} conBarco={true}>
+<Base titulo={publicacion.titulo} descripcion={`${publicacion.titulo}, ${publicacion.fecha}: aparición de Tomás Gómez Arroyo en prensa oficial.`} conBarco={true}>
   <main class="detalle-buque">
     <nav class="migas" aria-label="Ruta">
       <a href="/prensa">Toda la prensa</a>
@@ -94,7 +94,7 @@ const { publicacion } = Astro.props;
         <a class="boton-externo" href={publicacion.fuenteUrl} target="_blank" rel="noopener">📖 Ver la publicación original ↗</a>
         <a class="boton-descarga" href={publicacion.documentoUrl} download>⬇ Descargar el documento completo ({publicacion.documentoTamano})</a>
       </p>
-      <p class="nota-enlace">Esta ficha es una excepción deliberada: en el resto del sitio las fuentes se citan como texto, sin enlaces — aquí, por tratarse de prensa, el enlace y la descarga son el propio contenido.</p>
+      <p class="nota-enlace">Esta ficha es una excepción deliberada: en el resto del sitio las fuentes se citan como texto, sin enlaces. Aquí, por tratarse de prensa, el enlace y la descarga son el propio contenido.</p>
     </section>
 
     <nav class="acciones" aria-label="Continuar">

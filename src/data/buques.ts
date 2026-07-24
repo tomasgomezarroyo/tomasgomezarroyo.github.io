@@ -257,7 +257,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/jose-luis-diez-casau-varando.jpg',
         alt: 'El José Luis Díez embarrancando junto a una costa rocosa, con gente observando desde la orilla',
-        pie: 'El buque embarrancando junto a una costa rocosa, levantando ola de proa, con curiosos observando desde tierra — posiblemente el propio episodio de diciembre de 1938. Sin fecha exacta confirmada.',
+        pie: 'El buque embarrancando junto a una costa rocosa, levantando ola de proa, con curiosos observando desde tierra, posiblemente el propio episodio de diciembre de 1938. Sin fecha exacta confirmada.',
         referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
       },
       {
@@ -269,13 +269,13 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/jose-luis-diez-casau-navegando.jpg',
         alt: 'El José Luis Díez navegando, levantando ola de proa',
-        pie: 'El buque navegando en mar abierta, levantando ola de proa — a diferencia de las demás fotos, aquí está en movimiento, no fondeado. Sin fecha exacta.',
+        pie: 'El buque navegando en mar abierta, levantando ola de proa. A diferencia de las demás fotos, aquí está en movimiento, no fondeado. Sin fecha exacta.',
         referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
       },
       {
         src: '/fotos/buques/jose-luis-diez-casau-fortaleza.jpg',
         alt: 'El José Luis Díez fondeado ante una costa con una fortaleza en lo alto',
-        pie: 'El buque fondeado ante una costa con una fortaleza o castillo en lo alto de la colina — puerto no identificado con certeza. Sin fecha exacta.',
+        pie: 'El buque fondeado ante una costa con una fortaleza o castillo en lo alto de la colina; puerto no identificado con certeza. Sin fecha exacta.',
         referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
       },
       {
@@ -287,7 +287,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/jose-luis-diez-revista-naval.jpg',
         alt: 'El José Luis Díez navegando con toda la tripulación formada en la borda, uniforme de gala',
-        pie: 'El buque navegando con toda la tripulación formada a lo largo de la borda en uniforme blanco de gala — una revista naval, escena distinta a todas las demás fotos de este buque. Sin fecha exacta.',
+        pie: 'El buque navegando con toda la tripulación formada a lo largo de la borda en uniforme blanco de gala: una revista naval, escena distinta a todas las demás fotos de este buque. Sin fecha exacta.',
         referencia: 'Referencia: blog cosasdehistoriayarte.blogspot.com; derechos pendientes de confirmación.',
       },
       {
@@ -357,7 +357,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/vulcano-casau-fortaleza.jpg',
         alt: 'El Vulcano fondeado ante una costa rocosa con una fortaleza en lo alto',
-        pie: 'El Vulcano fondeado ante una costa rocosa con una fortaleza en lo alto de la colina — puerto no identificado con certeza. Sin fecha exacta.',
+        pie: 'El Vulcano fondeado ante una costa rocosa con una fortaleza en lo alto de la colina; puerto no identificado con certeza. Sin fecha exacta.',
         referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
       },
       {
@@ -407,7 +407,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/churruca-principios-1950s.jpg',
         alt: 'Destructor Churruca a principios de los años 50',
-        pie: 'El Churruca, probablemente a principios de los años 50 — los mismos años en que Tomás sirvió a bordo.',
+        pie: 'El Churruca, probablemente a principios de los años 50, los mismos años en que Tomás sirvió a bordo.',
         referencia: 'Foto cortesía de Miquel Rosselló, vía Balearspotting; permiso de reproducción pendiente de confirmar.',
       },
       {
@@ -437,7 +437,7 @@ export const buques: Buque[] = [
       {
         src: '/fotos/buques/churruca-casau-ch-proa.jpg',
         alt: 'El Churruca navegando con las siglas "CH" pintadas en el casco',
-        pie: 'El buque navegando con las siglas "CH" pintadas en el casco — la marca anterior al numeral D-61 asignado en 1959, es decir, más cercana a los años en que Tomás sirvió a bordo (1948-1951) que el resto de fotos de este lote.',
+        pie: 'El buque navegando con las siglas "CH" pintadas en el casco: la marca anterior al numeral D-61 asignado en 1959, es decir, más cercana a los años en que Tomás sirvió a bordo (1948-1951) que el resto de fotos de este lote.',
         referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
       },
       {

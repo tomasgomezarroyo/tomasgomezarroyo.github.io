@@ -73,7 +73,7 @@ export const lugares: Lugar[] = [
       {
         src: '/fotos/lugares/presidio-cuatro-torres-san-fernando-1911.png',
         alt: 'Presidio de las Cuatro Torres, San Fernando (Cádiz), 1911',
-        pie: 'El Presidio de las Cuatro Torres, en San Fernando, en el entorno del Arsenal de La Carraca, 1911 — treinta años antes de la etapa de Tomás como cadete, pero el mismo paraje.',
+        pie: 'El Presidio de las Cuatro Torres, en San Fernando, en el entorno del Arsenal de La Carraca, 1911, treinta años antes de la etapa de Tomás como cadete, pero el mismo paraje.',
         referencia: 'Imagen: revista Caras y Caretas (1911), dominio público, vía Wikimedia Commons.',
       },
     ],
@@ -113,7 +113,7 @@ export const lugares: Lugar[] = [
       {
         src: '/fotos/lugares/el-ferrol-astillero-acorazados-1910-1920.jpg',
         alt: 'Astillero de Ferrol con acorazados en construcción, hacia 1910-1920',
-        pie: 'El astillero de Ferrol, con acorazados en construcción. Años 1910-1920 aprox. — dos o tres décadas antes de la estancia de Tomás, pero el mismo paraje industrial que él conoció ya como Sociedad Española de Construcción Naval.',
+        pie: 'El astillero de Ferrol, con acorazados en construcción. Años 1910-1920 aprox., dos o tres décadas antes de la estancia de Tomás, pero el mismo paraje industrial que él conoció ya como Sociedad Española de Construcción Naval.',
         referencia: 'Dominio público, Biblioteca de Galicia (Galiciana).',
       },
     ],
@@ -135,7 +135,7 @@ export const lugares: Lugar[] = [
   {
     slug: 'playa-de-portocello',
     nombre: 'Playa de Portocello',
-    descripcion: 'En esta playa, cerca de Marín, Tomás conoció a Vivi en la primavera de 1945 — el episodio sentimental más importante de las memorias.',
+    descripcion: 'En esta playa, cerca de Marín, Tomás conoció a Vivi en la primavera de 1945, el episodio sentimental más importante de las memorias.',
     caps: ['capitulo-cuarto', 'capitulo-quinto'],
     imagenes: [
       {
@@ -167,7 +167,7 @@ export const lugares: Lugar[] = [
       {
         src: '/fotos/lugares/pontevedra-alameda-diputacion.jpg',
         alt: 'Avenida de la Alameda de Pontevedra, con el Palacio de la Diputación al fondo',
-        pie: 'La Alameda de Pontevedra, con el Palacio de la Diputación Provincial al fondo — donde trabajaba Vivi. Postal de José Bellver, años 1930-1940.',
+        pie: 'La Alameda de Pontevedra, con el Palacio de la Diputación Provincial al fondo, donde trabajaba Vivi. Postal de José Bellver, años 1930-1940.',
         referencia: 'Fondos gráficos del Servicio de Patrimonio Documental y Bibliográfico de la Diputación de Pontevedra.',
       },
     ],
@@ -201,7 +201,7 @@ export const lugares: Lugar[] = [
       {
         src: '/fotos/lugares/portugalete-puente-colgante-1943.jpg',
         alt: 'Puente colgante de Portugalete visto desde la otra orilla de la ría, 1943',
-        pie: 'El puente colgante (transbordador de Vizcaya) visto desde la otra orilla de la ría, con el caserío de Portugalete al fondo, 1943 — un año antes de la estancia de Tomás.',
+        pie: 'El puente colgante (transbordador de Vizcaya) visto desde la otra orilla de la ría, con el caserío de Portugalete al fondo, 1943, un año antes de la estancia de Tomás.',
         referencia: 'Foto: Vicente Martín (Photo Carte), Kutxa Fundazioa Fototeka, CC BY-NC 4.0.',
       },
       {
@@ -221,7 +221,7 @@ export const lugares: Lugar[] = [
       {
         src: '/fotos/lugares/palma-de-mallorca-puerto-1920.jpg',
         alt: 'Puerto de Palma de Mallorca, 1920',
-        pie: 'El puerto de Palma de Mallorca, 1920 — casi veinte años antes de la escala del Rey Jaime I en 1939, pero el mismo puerto.',
+        pie: 'El puerto de Palma de Mallorca, 1920, casi veinte años antes de la escala del Rey Jaime I en 1939, pero el mismo puerto.',
         referencia: 'Foto: Archiu del Consell de Mallorca, vía blog "Fotos Antiguas de Mallorca"; pendiente de confirmar condiciones exactas de reproducción.',
       },
     ],
@@ -235,7 +235,7 @@ export const lugares: Lugar[] = [
       {
         src: '/fotos/lugares/ceuta-puerto-1925.jpg',
         alt: 'Puerto de Ceuta con buque de guerra entrando, 1925',
-        pie: 'El puerto de Ceuta, con un buque de guerra entrando entre columnas de humo, observado desde el espigón. 1925 — trece años antes de la primera estancia de Tomás.',
+        pie: 'El puerto de Ceuta, con un buque de guerra entrando entre columnas de humo, observado desde el espigón. 1925, trece años antes de la primera estancia de Tomás.',
         referencia: 'Vía OldPik (oldpik.com), citando fuente original.',
       },
       {

@@ -92,7 +92,7 @@ export const publicaciones: Publicacion[] = [
       {
         src: '/fotos/prensa/mdc-gomez-bosch-pagina-7.jpg',
         alt: 'Página 7 del recopilatorio sobre Tomás Gómez Bosch, con fotografía familiar colectiva',
-        pie: 'Fotografía familiar colectiva de la familia Gómez Bosch. Un nieto directo de Tomás Gómez Arroyo confirmó que su abuelo aparece en ella — es la única fotografía de las 717 páginas del libro donde la familia lo reconoció. No se documenta una posición exacta dentro de la foto.',
+        pie: 'Fotografía familiar colectiva de la familia Gómez Bosch. Confirmado por la familia que Tomás Gómez Arroyo aparece en ella — es la única fotografía de las 717 páginas del libro donde se le reconoció. No se documenta una posición exacta dentro de la foto.',
       },
       {
         src: '/fotos/prensa/mdc-gomez-arroyo-carta-pagina-144.jpg',
@@ -108,7 +108,7 @@ export const publicaciones: Publicacion[] = [
     referenciaPaginas: 'PDF pp. 7 y 144',
     contexto: 'Página 7: biografía de Tomás Gómez Bosch (1883-?), padre de Tomás Gómez Arroyo, con una fotografía familiar colectiva. Página 144: carta al director en Canarias 7 (23-jul-1987) donde Tomás Gómez Arroyo, ya en voz propia, corrige una información sobre el origen de la cervecería Tropical y defiende la memoria y honorabilidad de la familia Gómez Bosch.',
     personas: ['Tomás Gómez Arroyo', 'Tomás Gómez Bosch (padre)', 'familia Gómez Bosch', 'familia Bosch y Sintes'],
-    identificacion: 'Fotografía de la página 7 confirmada directamente por la familia (un nieto directo); autoría de la carta de la página 144 acreditada por la firma impresa en la propia publicación.',
+    identificacion: 'Fotografía de la página 7 confirmada por la familia; autoría de la carta de la página 144 acreditada por la firma impresa en la propia publicación.',
     evidencia: 'La fotografía de la página 7 no lleva pie nominal propio: la identificación de Tomás Gómez Arroyo dentro de la imagen colectiva es un reconocimiento familiar directo, no un dato impreso en la fuente — se distingue así de la carta de la página 144, cuya autoría consta impresa (firma «Tomás Gómez Arroyo» al pie del texto).',
     credito: 'Vicente González Rosales / Biblioteca Universitaria de la ULPGC / Memoria Digital de Canarias.',
     derechos: 'El aviso legal de la Biblioteca Universitaria de la ULPGC (biblioteca.ulpgc.es/avisomdc) autoriza el uso de mdC solo para lectura, estudio e investigación, y reserva expresamente la reproducción y la comunicación pública de sus contenidos salvo permiso escrito de la ULPGC o de los autores — no es una licencia abierta como la de la BNE o Publicaciones Defensa usadas en otras fichas de esta sección. Esta ficha documenta la procedencia con honestidad; no se ha solicitado ni obtenido todavía autorización escrita para la publicación pública de estas dos páginas.',

@@ -104,22 +104,23 @@ const titulosCapitulos = Object.fromEntries(indice.map((c) => [c.slug, c.titulo]
     position: absolute;
     right: 1rem;
     bottom: 1rem;
-    min-height: 2.75rem;
+    min-height: 44px;
     display: inline-flex;
     align-items: center;
-    padding: 0.35rem 0.8rem;
+    padding: 6px 12px;
     border: 1px solid var(--oro-claro);
     background: rgb(14 26 40 / 0.92);
     color: var(--papel);
-    font: 600 0.86rem/1.2 var(--f-cuerpo);
+    font: 600 13px/1.2 var(--f-cuerpo);
   }
   .flecha {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     z-index: 2;
-    width: 3rem;
-    height: 3rem;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -127,7 +128,7 @@ const titulosCapitulos = Object.fromEntries(indice.map((c) => [c.slug, c.titulo]
     border-radius: 50%;
     background: rgb(14 26 40 / 0.85);
     color: var(--papel);
-    font-size: 1.7rem;
+    font-size: 22px;
     line-height: 1;
     cursor: pointer;
   }
@@ -139,10 +140,10 @@ const titulosCapitulos = Object.fromEntries(indice.map((c) => [c.slug, c.titulo]
   .contador { margin-bottom: 0.25rem; font-weight: 700; color: var(--marino); }
   .referencia { margin-top: 0.25rem; font-size: 0.9rem; color: var(--bruma); }
   .miniaturas { display: flex; gap: 0.65rem; overflow-x: auto; padding: 0.4rem 0.2rem 0.8rem; }
-  .miniaturas button { flex: 0 0 7rem; min-height: 6.1rem; padding: 4px; border: 2px solid transparent; background: var(--papel-2); color: var(--marino); cursor: pointer; }
+  .miniaturas button { flex: 0 0 104px; min-height: 92px; padding: 4px; border: 2px solid transparent; background: var(--papel-2); color: var(--marino); cursor: pointer; }
   .miniaturas button.activa { border-color: var(--oro); }
-  .miniaturas img { display: block; width: 100%; height: 4.5rem; object-fit: cover; }
-  .miniaturas span { display: block; padding-top: 0.15rem; font-size: 0.78rem; font-weight: 700; }
+  .miniaturas img { display: block; width: 100%; height: 68px; object-fit: cover; }
+  .miniaturas span { display: block; padding-top: 0.15rem; font-size: 12px; font-weight: 700; }
   .ayuda { font-size: 0.92rem; color: var(--bruma); text-align: center; }
   .pendiente { margin: 2rem auto; max-width: 38rem; padding: 2rem; border: 1px solid var(--oro); background: var(--papel-2); }
   .pendiente h2 { font-family: var(--f-display); color: var(--marino); margin-bottom: 0.6rem; }
@@ -154,21 +155,21 @@ const titulosCapitulos = Object.fromEntries(indice.map((c) => [c.slug, c.titulo]
   .lienzo img { max-width: 100%; max-height: 100%; transform-origin: center; user-select: none; cursor: zoom-in; will-change: transform; }
   .lienzo img.ampliada { cursor: grab; }
   .lienzo img.arrastrando { cursor: grabbing; }
-  .cerrar { position: absolute; right: 0.6rem; top: 0.6rem; z-index: 3; min-width: 5.6rem; height: 3rem; padding: 0 0.75rem; border: 1px solid var(--oro-claro); border-radius: 2rem; background: var(--noche); color: var(--papel); cursor: pointer; }
+  .cerrar { position: absolute; right: 0.6rem; top: 0.6rem; z-index: 3; min-width: 84px; height: 44px; min-height: 44px; font-size: 14px; padding: 0 0.75rem; border: 1px solid var(--oro-claro); border-radius: 2rem; background: var(--noche); color: var(--papel); cursor: pointer; }
   .controles { position: absolute; left: 50%; bottom: 0.8rem; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
   .controles button,
-  .controles a { min-width: 6rem; height: 3rem; padding: 0 0.75rem; border-radius: 2rem; border: 1px solid var(--oro-claro); background: var(--noche); color: var(--papel); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.86rem; }
-  .controles output { min-width: 4.4rem; height: 3rem; display: inline-flex; align-items: center; justify-content: center; color: var(--papel); font-weight: 700; }
+  .controles a { min-width: 88px; height: 44px; min-height: 44px; padding: 0 12px; border-radius: 22px; border: 1px solid var(--oro-claro); background: var(--noche); color: var(--papel); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 13px; }
+  .controles output { min-width: 64px; height: 44px; min-height: 44px; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; color: var(--papel); font-weight: 700; }
 
   @media (max-width: 620px) {
     .abrir-lupa { inset: auto 0.7rem 0.7rem auto; }
-    .flecha { width: 2.75rem; height: 2.75rem; font-size: 1.5rem; }
+    .flecha { width: 40px; height: 40px; min-height: 40px; font-size: 20px; }
     .flecha-izq { left: 0.3rem; }
     .flecha-der { right: 0.3rem; }
     .controles { width: calc(100% - 1rem); justify-content: center; gap: 0.3rem; }
     .controles button,
-    .controles a { min-width: 0; flex: 1 1 auto; padding-inline: 0.4rem; font-size: 0.78rem; }
-    .controles output { min-width: 3.5rem; font-size: 0.8rem; }
+    .controles a { min-width: 0; flex: 1 1 auto; padding-inline: 6px; font-size: 12px; }
+    .controles output { min-width: 52px; font-size: 13px; }
   }
 </style>
 

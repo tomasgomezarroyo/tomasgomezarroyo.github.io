@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  titulo="Revisión privada"
+  descripcion="Revisión privada de una colaboración recibida."
+  conBarco={false}
+  claseBody="pagina-administracion"
+>
+  <main class="administracion" data-administracion aria-labelledby="titulo-administracion">
+    <header class="cabecera-revision">
+      <p class="etiqueta">Archivo familiar · acceso privado</p>
+      <h1 class="display" id="titulo-administracion">Revisión de una colaboración</h1>
+      <p>Desde aquí puedes consultar el aporte completo y decidir si debe permanecer visible en el Libro de visitas.</p>
+    </header>
+
+    <section class="panel-carga" data-panel-carga aria-live="polite">
+      <span aria-hidden="true">⚓</span>
+      <p>Cargando la colaboración privada…</p>
+    </section>
+
+    <section class="panel-error" data-panel-error hidden aria-labelledby="titulo-error" tabindex="-1">
+      <p class="etiqueta">Enlace no disponible</p>
+      <h2 class="display" id="titulo-error">No se pudo abrir esta revisión</h2>
+      <p data-texto-error>Comprueba que has abierto el enlace completo del correo. Si el problema continúa, solicita un nuevo aviso.</p>
+    </section>
+
+    <article class="ficha-revision" data-ficha-publicacion hidden>
+      <header class="cabecera-ficha">
+        <div>
+          <p class="etiqueta" data-tipo-publicacion>Colaboración</p>
+          <h2 class="display" data-nombre-publicacion></h2>
+          <p class="fecha-registro" data-fecha-registro></p>
+        </div>
+        <span class="estado-publicacion" data-estado-publicacion></span>
+      </header>
+
+      <div class="cuerpo-ficha">
+        <section class="bloque comentario" data-bloque-comentario hidden>
+          <h3>Mensaje recibido</h3>
+          <p data-comentario-publicacion></p>
+        </section>
+
+        <figure class="foto-privada" data-bloque-foto hidden>
+          <img data-foto-privada alt="Fotografía aportada para revisión privada" />
+          <figcaption data-pie-foto></figcaption>
+        </figure>
+
+        <section class="datos-aporte" aria-labelledby="titulo-datos">
+          <h3 id="titulo-datos">Datos del aporte</h3>
+          <dl data-datos-publicacion></dl>
+        </section>
+
+        <section class="respuestas" data-bloque-respuestas hidden aria-labelledby="titulo-respuestas">
+          <h3 id="titulo-respuestas">Respuestas</h3>
+          <ol data-lista-respuestas></ol>
+        </section>
+      </div>
+
+      <footer class="decision">
+        <div>
+          <p class="etiqueta">Decisión de archivo</p>
+          <p data-explicacion-estado></p>
+          <p class="nota-archivo">Retirar una publicación la oculta del sitio público, pero no borra el aporte ni sus datos del archivo.</p>
+        </div>
+        <button class="boton-accion" type="button" data-cambiar-estado></button>
+      </footer>
+      <p class="estado-accion" data-estado-accion role="status" aria-live="polite"></p>
+    </article>
+  </main>
+
+  <script type="module" src="/js/administracion.js"></script>
+</Base>
+
+<style>
+  .administracion { width: min(66rem, calc(100% - 2.5rem)); margin: 0 auto; padding: 7.5rem 0 4rem; }
+  .cabecera-revision { max-width: 44rem; padding: 0 0 2.6rem 2rem; border-left: 1px solid var(--oro); }
+  .cabecera-revision h1 { margin: 0.35rem 0 0.8rem; font-size: clamp(2.7rem, 7vw, 5rem); letter-spacing: -0.025em; }
+  .cabecera-revision > p:last-child { color: var(--bruma); }
+  .panel-carga, .panel-error { margin-top: 2rem; padding: clamp(1.6rem, 5vw, 3.4rem); border: 1px solid var(--oro-claro); background: color-mix(in srgb, var(--papel-2) 72%, transparent); }
+  .panel-carga { display: flex; gap: 0.8rem; align-items: center; color: var(--bruma); }
+  .panel-carga span { color: var(--oro); font-size: 1.5rem; }
+  .panel-error { max-width: 45rem; }
+  .panel-error h2 { margin: 0.35rem 0 0.5rem; font-size: clamp(1.9rem, 4vw, 2.8rem); }
+  .ficha-revision { margin-top: 2rem; border-top: 2px solid var(--marino); box-shadow: 0 1.2rem 3rem rgb(14 26 40 / 0.08); background: color-mix(in srgb, #fff 24%, var(--papel)); }
+  .cabecera-ficha { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; padding: clamp(1.4rem, 4vw, 2.6rem); border-bottom: 1px solid color-mix(in srgb, var(--oro) 48%, transparent); }
+  .cabecera-ficha h2 { margin: 0.25rem 0; font-size: clamp(2rem, 5vw, 3.4rem); }
+  .fecha-registro { color: var(--bruma); font-size: 0.86rem; }
+  .estado-publicacion { flex: 0 0 auto; padding: 0.28rem 0.6rem; border: 1px solid var(--oro-claro); color: var(--marino); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .estado-publicacion[data-estado='retirada'] { border-color: #9b685e; color: #7a3931; background: #f6e5df; }
+  .cuerpo-ficha { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(14rem, 0.75fr); gap: clamp(1.4rem, 4vw, 3rem); padding: clamp(1.4rem, 4vw, 2.6rem); }
+  .bloque, .foto-privada, .datos-aporte, .respuestas { min-width: 0; }
+  .bloque h3, .datos-aporte h3, .respuestas h3 { margin-bottom: 0.65rem; color: var(--marino); font: 600 1.45rem/1.2 var(--f-display); }
+  .comentario { grid-column: 1; }
+  .comentario p { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .foto-privada { grid-column: 1; margin: 0; padding: 0.7rem; border: 1px solid color-mix(in srgb, var(--oro) 48%, transparent); background: var(--papel-2); }
+  .foto-privada img { display: block; width: 100%; max-height: 38rem; object-fit: contain; background: var(--noche); }
+  .foto-privada figcaption { margin-top: 0.7rem; font-size: 0.9rem; font-style: italic; }
+  .datos-aporte { grid-column: 2; grid-row: 1 / span 2; padding-left: 1.25rem; border-left: 1px solid color-mix(in srgb, var(--oro) 48%, transparent); }
+  .datos-aporte dl { display: grid; gap: 0.9rem; }
+  .datos-aporte div { display: grid; gap: 0.12rem; }
+  .datos-aporte dt { color: var(--oro); font-size: 0.73rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; }
+  .datos-aporte dd { margin: 0; overflow-wrap: anywhere; font-size: 0.92rem; line-height: 1.55; }
+  .respuestas { grid-column: 1 / -1; padding-top: 1.5rem; border-top: 1px solid color-mix(in srgb, var(--oro) 38%, transparent); }
+  .respuestas ol { display: grid; gap: 0.8rem; margin: 0; padding: 0; list-style: none; }
+  .respuestas li { padding: 0.75rem 0.9rem; border-left: 2px solid var(--oro-claro); background: color-mix(in srgb, var(--papel-2) 55%, transparent); }
+  .respuestas strong { color: var(--marino); }
+  .respuestas time { margin-left: 0.4rem; color: var(--bruma); font-size: 0.76rem; }
+  .respuestas p { margin-top: 0.25rem; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.92rem; }
+  .respuesta-oculta { color: var(--bruma); font-style: italic; }
+  .decision { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: clamp(1.4rem, 4vw, 2.3rem); border-top: 1px solid var(--oro); background: var(--noche); color: var(--papel); }
+  .decision .etiqueta { color: var(--oro-claro); }
+  .decision > div > p:not(.etiqueta) { max-width: 38rem; margin-top: 0.3rem; }
+  .nota-archivo { color: color-mix(in srgb, var(--papel) 74%, transparent); font-size: 0.82rem; line-height: 1.45; }
+  .boton-accion { min-width: 9.5rem; min-height: 3rem; padding: 0.6rem 1rem; border: 1px solid var(--oro-claro); background: var(--papel); color: var(--marino); font: 700 0.86rem/1.2 var(--f-cuerpo); cursor: pointer; }
+  .boton-accion[data-accion='retirar'] { border-color: #e1b1a6; background: transparent; color: #fff; }
+  .boton-accion:hover { background: var(--oro-claro); color: var(--noche); }
+  .boton-accion:disabled { opacity: 0.65; cursor: wait; }
+  .estado-accion { min-height: 1.5rem; padding: 0.5rem clamp(1.4rem, 4vw, 2.3rem); color: var(--bruma); font-size: 0.84rem; }
+  .estado-accion.error { color: #8b2f27; }
+  .estado-accion.exito { color: #355c45; }
+  @media (max-width: 680px) { .administracion { width: min(100% - 1.4rem, 66rem); padding-top: 6rem; } .cabecera-revision { padding-left: 1.1rem; } .cabecera-ficha, .decision { align-items: stretch; flex-direction: column; } .cuerpo-ficha { grid-template-columns: 1fr; } .comentario, .foto-privada, .datos-aporte, .respuestas { grid-column: 1; grid-row: auto; } .datos-aporte { padding: 1.4rem 0 0; border-top: 1px solid color-mix(in srgb, var(--oro) 48%, transparent); border-left: 0; } .boton-accion { width: 100%; } }
+</style>

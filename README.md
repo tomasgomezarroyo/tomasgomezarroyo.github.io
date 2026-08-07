@@ -55,6 +55,19 @@ npx wrangler pages deploy dist
 
 La publicación es un paso separado y requiere autorización. Este proyecto no tiene actualmente un remoto Git configurado.
 
+## Administración de denuncias
+
+Los enlaces de aviso contienen `id`, `token` y `exp`. `exp` es un vencimiento Unix
+firmado y el enlace deja de servir a los 45 días. El JavaScript de
+`/administracion` debe conservar esos tres parámetros:
+
+- al consultar una publicación: `GET /api/administracion/publicacion/:id?token=...&exp=...`;
+- al cambiar su estado: `POST /api/administracion/publicacion/:id/estado` con JSON
+  `{ token, exp, accion }`.
+
+Las acciones admitidas son `restaurar` (solo `oculta` a `visible`) y `retirar`
+(solo `visible` u `oculta` a `retirada`).
+
 ## Archivos generados
 
 No editar a mano:

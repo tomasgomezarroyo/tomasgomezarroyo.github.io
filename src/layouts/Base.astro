@@ -55,11 +55,12 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
     </a>
     <nav aria-label="Navegación principal">
       <a href="/">Inicio</a>
-      <a href="/#titulo-indice">Índice</a>
+      <a class="enlace-indice" href="/#titulo-indice">Índice</a>
       <a href="/buques">Buques</a>
       <a href="/lugares">Lugares</a>
       <a href="/prensa">Prensa</a>
       <a href="/archivo">Archivo</a>
+      <a href="/libro-de-visitas" aria-label="Libro de visitas y colaboraciones">Libro de visitas</a>
       <button type="button" data-tamano-global aria-pressed="false" aria-label="Activar letra grande">
         <span aria-hidden="true">A+</span>
         <span class="texto-boton">Letra</span>
@@ -239,6 +240,7 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
       <a href="/lugares">Los lugares</a>
       <a href="/prensa">Prensa</a>
       <a href="/archivo">Archivo</a>
+      <a href="/libro-de-visitas">Libro de visitas</a>
       <a href="/epilogo">Epílogo</a>
       <a href="/sobre-esta-edicion">Sobre esta edición</a>
     </nav>
@@ -428,6 +430,7 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
     #cabecera-sitio { justify-content: center; }
     .marca-sitio { display: none; }
     #cabecera-sitio nav { width: 100%; justify-content: space-between; }
+    #cabecera-sitio nav .enlace-indice { display: none; }
     /* En px, no rem: el botón de letra grande no debe inflar la propia navegación
        hasta desbordar la pantalla (misma regla que los controles de galería). */
     #cabecera-sitio nav a,

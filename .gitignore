@@ -1,5 +1,8 @@
 node_modules/
 dist/
+.dev.vars
+.env
+.env.*
 .astro/
 .wrangler/
 scripts/qa/

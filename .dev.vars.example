@@ -1,0 +1,6 @@
+ENTORNO=local
+TURNSTILE_SECRET=
+BREVO_API_KEY=
+ADMIN_SECRET=cambia-esto-en-produccion
+ADMIN_EMAIL=tomgomezf@gmail.com
+EMAIL_FROM=hola@tomcontable.cl

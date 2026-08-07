@@ -1,0 +1,377 @@
+---
+import Base from '../layouts/Base.astro';
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEJN8XA8m68gWA9w';
+---
+<Base
+  titulo="Libro de visitas y colaboraciones"
+  descripcion="Un espacio para dejar mensajes, recuerdos, agradecimientos y fotografías relacionadas con la vida de Tomás Gómez Arroyo."
+  conBarco={true}
+  claseBody="pagina-libro-visitas"
+>
+  <main class="libro" data-libro-visitas data-turnstile-sitekey={turnstileSiteKey}>
+    <header class="portada-libro">
+      <p class="etiqueta">Una memoria que continúa</p>
+      <h1 class="display">Libro de visitas</h1>
+      <p class="introduccion">Este archivo familiar también se construye con quienes lo visitan. Aquí puedes dejar un mensaje, compartir un recuerdo, aportar información o una fotografía, señalar una corrección o expresar tu agradecimiento a quienes conservaron y transmitieron esta historia.</p>
+      <p class="introduccion secundaria">Cada comentario y cada colaboración ayudan a mantener viva la memoria y a enriquecerla para quienes lleguen después.</p>
+      <div class="acciones-portada">
+        <a class="boton primario" href="#dejar-mensaje">Dejar un mensaje</a>
+        <button class="boton secundario" type="button" data-abrir-foto>Aportar una fotografía</button>
+      </div>
+    </header>
+
+    <section class="mesa-escritura" id="dejar-mensaje" aria-labelledby="titulo-mensaje">
+      <div class="encabezado-seccion">
+        <p class="etiqueta">Escribir en el libro</p>
+        <h2 class="display" id="titulo-mensaje">Deja unas palabras</h2>
+        <p>Un recuerdo, una opinión, una corrección o simplemente un agradecimiento.</p>
+      </div>
+
+      <form class="formulario-mensaje" data-form-mensaje>
+        <div class="campo campo-nombre">
+          <label for="mensaje-nombre">Tu nombre</label>
+          <input id="mensaje-nombre" name="nombre" type="text" maxlength="80" autocomplete="name" required />
+        </div>
+        <div class="campo campo-texto">
+          <label for="mensaje-texto">Tu mensaje</label>
+          <textarea id="mensaje-texto" name="comentario" rows="5" maxlength="3000" required placeholder="Escribe aquí con libertad y respeto..."></textarea>
+          <span class="ayuda">Tu mensaje aparecerá inmediatamente.</span>
+        </div>
+        <div class="campo-trampa" aria-hidden="true">
+          <label for="mensaje-web">No completar</label>
+          <input id="mensaje-web" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+        <div class="verificacion">
+          <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light"></div>
+        </div>
+        <div class="pie-formulario">
+          <p class="estado-formulario" data-estado-mensaje role="status"></p>
+          <button class="boton primario" type="submit">Publicar mensaje</button>
+        </div>
+      </form>
+
+      <div class="aporte-alternativo">
+        <span class="marca-foto" aria-hidden="true">▣</span>
+        <div>
+          <h3>¿Tienes una fotografía?</h3>
+          <p>Puedes publicarla ahora y acompañarla con fecha, lugar y contexto.</p>
+        </div>
+        <button class="enlace-accion" type="button" data-abrir-foto>Aportar una fotografía</button>
+      </div>
+    </section>
+
+    <section class="participaciones" aria-labelledby="titulo-participaciones">
+      <header class="encabezado-participaciones">
+        <div>
+          <p class="etiqueta">Páginas compartidas</p>
+          <h2 class="display" id="titulo-participaciones">Mensajes y recuerdos</h2>
+        </div>
+        <p class="contador" data-contador aria-live="polite"></p>
+      </header>
+
+      <div class="avisos-restauracion" data-avisos-restauracion></div>
+      <div class="verificacion-acciones" data-verificacion-acciones>
+        <div>
+          <strong>Verificación para conversar</strong>
+          <span>Completa este control antes de responder o denunciar una publicación.</span>
+        </div>
+        <div class="cf-turnstile" data-turnstile-acciones data-sitekey={turnstileSiteKey} data-theme="light"></div>
+      </div>
+      <p class="cargando" data-estado-lista role="status">Abriendo el libro de visitas...</p>
+      <div class="lista-participaciones" data-lista></div>
+      <div class="estado-vacio" data-vacio hidden>
+        <span aria-hidden="true">✦</span>
+        <h3>La primera página está en blanco</h3>
+        <p>Puedes ser la primera persona en dejar unas palabras.</p>
+        <a class="boton secundario" href="#dejar-mensaje">Escribir el primer mensaje</a>
+      </div>
+    </section>
+
+    <aside class="otros-documentos">
+      <p class="etiqueta">Otros materiales</p>
+      <h2 class="display">¿Quieres compartir una carta, un audio o un documento?</h2>
+      <p>Por seguridad, el Libro de visitas recibe únicamente fotografías. Para aportar otro tipo de material, escríbenos y cuéntanos brevemente qué deseas compartir.</p>
+      <a class="boton primario" href="mailto:tomgomezf@gmail.com?subject=Aporte%20para%20el%20archivo%20familiar">Escribir a tomgomezf@gmail.com</a>
+    </aside>
+  </main>
+
+  <dialog class="dialogo-foto" data-dialogo-foto aria-labelledby="titulo-aporte-foto">
+    <form method="dialog" class="barra-dialogo">
+      <p class="etiqueta">Ficha de catalogación</p>
+      <button type="submit" class="cerrar-dialogo" aria-label="Cerrar">×</button>
+    </form>
+    <form class="formulario-foto" data-form-foto>
+      <header>
+        <h2 class="display" id="titulo-aporte-foto">Aportar una fotografía</h2>
+        <p>Lo que sepas ayuda. Solo la fotografía, el pie de foto y tu nombre son obligatorios.</p>
+      </header>
+
+      <div class="selector-foto" data-selector-foto>
+        <input id="archivo-foto" name="archivo" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" required />
+        <label for="archivo-foto">
+          <span class="icono-selector" aria-hidden="true">＋</span>
+          <strong>Seleccionar una fotografía</strong>
+          <small>JPEG, PNG, WebP o HEIC. Si supera 15 MB, la reduciremos automáticamente.</small>
+        </label>
+        <figure class="vista-previa" data-vista-previa hidden>
+          <img data-imagen-previa alt="Vista previa de la fotografía seleccionada" />
+          <figcaption data-datos-archivo></figcaption>
+        </figure>
+        <p class="estado-optimizacion" data-estado-optimizacion role="status"></p>
+      </div>
+
+      <div class="rejilla-campos">
+        <div class="campo ancho-completo">
+          <label for="foto-pie">Pie de foto <span>obligatorio</span></label>
+          <textarea id="foto-pie" name="pieFoto" rows="3" maxlength="500" required placeholder="¿Qué vemos en esta fotografía?"></textarea>
+        </div>
+        <div class="campo">
+          <label for="foto-fecha">Fecha o época</label>
+          <input id="foto-fecha" name="fechaFoto" type="text" maxlength="100" placeholder="1973, aproximadamente" />
+        </div>
+        <div class="campo">
+          <label for="foto-lugar">Lugar</label>
+          <input id="foto-lugar" name="lugar" type="text" maxlength="160" placeholder="Newport, Rhode Island" />
+        </div>
+      </div>
+
+      <details class="contexto-adicional">
+        <summary>Añadir más información histórica</summary>
+        <div class="rejilla-campos">
+          <div class="campo ancho-completo">
+            <label for="foto-personas">Personas que aparecen</label>
+            <input id="foto-personas" name="personas" type="text" maxlength="500" placeholder="Nombres, de izquierda a derecha, si los conoces" />
+          </div>
+          <div class="campo ancho-completo">
+            <label for="foto-contexto">Contexto o dato histórico</label>
+            <textarea id="foto-contexto" name="contexto" rows="4" maxlength="1500" placeholder="Una anécdota, el motivo del encuentro o cualquier detalle que ayude a comprenderla"></textarea>
+          </div>
+          <div class="campo ancho-completo">
+            <label for="foto-procedencia">Procedencia</label>
+            <input id="foto-procedencia" name="procedencia" type="text" maxlength="300" placeholder="Álbum familiar, archivo personal, autor desconocido..." />
+          </div>
+        </div>
+      </details>
+
+      <div class="rejilla-campos identidad-aporte">
+        <div class="campo">
+          <label for="foto-nombre">Tu nombre <span>obligatorio</span></label>
+          <input id="foto-nombre" name="nombre" type="text" maxlength="80" autocomplete="name" required />
+        </div>
+        <div class="campo">
+          <label for="foto-email">Tu correo <span>privado y opcional</span></label>
+          <input id="foto-email" name="email" type="email" maxlength="160" autocomplete="email" />
+        </div>
+        <div class="campo ancho-completo">
+          <label for="foto-comentario">Mensaje que acompaña el aporte <span>opcional</span></label>
+          <textarea id="foto-comentario" name="comentario" rows="3" maxlength="3000"></textarea>
+        </div>
+      </div>
+
+      <label class="autorizacion">
+        <input type="checkbox" name="autorizacion" required />
+        <span>Confirmo que puedo compartir esta fotografía y autorizo su publicación en este archivo familiar.</span>
+      </label>
+      <div class="campo-trampa" aria-hidden="true">
+        <label for="foto-web">No completar</label>
+        <input id="foto-web" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+      <div class="verificacion">
+        <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light"></div>
+      </div>
+      <footer class="pie-formulario pie-foto">
+        <p class="estado-formulario" data-estado-foto role="status"></p>
+        <button type="button" class="boton secundario" data-cancelar-foto>Cancelar</button>
+        <button type="submit" class="boton primario" data-publicar-foto>Publicar fotografía</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <dialog class="visor-aporte" data-visor-foto>
+    <button type="button" class="cerrar-dialogo" data-cerrar-visor aria-label="Cerrar fotografía">×</button>
+    <img data-visor-imagen alt="" />
+    <p data-visor-pie></p>
+  </dialog>
+
+  <template data-plantilla-error>
+    <p>No pudimos abrir el Libro de visitas. Comprueba tu conexión y vuelve a intentarlo.</p>
+  </template>
+
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script is:inline type="module" src="/js/libro-visitas.js"></script>
+</Base>
+
+<style>
+  .libro { max-width: 70rem; margin: 0 auto; padding: 6.5rem 1.35rem 4rem; }
+  .portada-libro { text-align: center; padding: 0 0 2.6rem; margin-bottom: 3rem; border-bottom: 1px solid var(--oro); }
+  h1 { font-size: clamp(2.1rem, 6vw, 3rem); margin: 0.5rem 0 1.2rem; }
+  .introduccion { max-width: 40rem; margin: 0 auto; font-size: 1.02rem; line-height: 1.7; }
+  .introduccion.secundaria { margin-top: 0.9rem; color: var(--bruma); font-size: 0.96rem; }
+  .acciones-portada { margin-top: 1.8rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; }
+  .boton { min-height: 2.9rem; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--marino); border-radius: 0; padding: 0.55rem 1rem; font: 650 0.86rem/1.2 var(--f-cuerpo); text-decoration: none; cursor: pointer; }
+  .boton.primario { background: var(--marino); color: var(--papel); }
+  .boton.primario:hover { background: var(--oro); border-color: var(--oro); color: var(--papel); }
+  .boton.secundario { background: transparent; color: var(--marino); }
+  .boton.secundario:hover { background: var(--papel-2); color: var(--oro); border-color: var(--oro); }
+
+  .mesa-escritura { display: grid; grid-template-columns: minmax(14rem, 0.55fr) minmax(0, 1.45fr); gap: clamp(2rem, 6vw, 5rem); padding: 5.5rem clamp(1rem, 4vw, 3.2rem); }
+  .encabezado-seccion { align-self: start; position: sticky; top: 6rem; }
+  .encabezado-seccion h2, .encabezado-participaciones h2 { font-size: clamp(2.1rem, 5vw, 3.4rem); margin: 0.35rem 0 0.8rem; }
+  .encabezado-seccion > p:last-child { color: var(--bruma); font-size: 0.96rem; }
+  .formulario-mensaje { padding: clamp(1.2rem, 3vw, 2rem); border: 1px solid color-mix(in srgb, var(--oro) 50%, transparent); background: color-mix(in srgb, #fff 30%, var(--papel)); box-shadow: 0 1.4rem 3rem rgb(14 26 40 / 0.06); }
+  .campo { display: grid; gap: 0.35rem; }
+  .campo + .campo { margin-top: 1rem; }
+  .campo label { color: var(--marino); font-weight: 700; font-size: 0.87rem; }
+  .campo label span { color: var(--bruma); font-weight: 500; font-size: 0.76rem; }
+  input, textarea { width: 100%; border: 1px solid color-mix(in srgb, var(--marino) 35%, transparent); border-radius: 0; background: #fffdf7; color: var(--tinta); padding: 0.72rem 0.78rem; line-height: 1.5; }
+  textarea { resize: vertical; }
+  input:focus, textarea:focus { border-color: var(--oro); outline: 3px solid color-mix(in srgb, var(--oro-claro) 42%, transparent); outline-offset: 0; }
+  .campo-texto { margin-top: 1rem; }
+  .ayuda { color: var(--bruma); font-size: 0.76rem; }
+  .campo-trampa { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  .verificacion { min-height: 4rem; margin-top: 1rem; }
+  .pie-formulario { border-top: 1px solid color-mix(in srgb, var(--oro) 30%, transparent); margin-top: 0.8rem; padding-top: 1rem; display: flex; align-items: center; justify-content: flex-end; gap: 1rem; }
+  .estado-formulario { margin-right: auto; color: var(--bruma); font-size: 0.82rem; line-height: 1.45; }
+  .estado-formulario.error { color: #8b2f27; }
+  .estado-formulario.exito { color: #355c45; }
+  .aporte-alternativo { grid-column: 2; display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; padding: 1.2rem 1.4rem; border: 1px solid color-mix(in srgb, var(--oro) 35%, transparent); border-top: 0; }
+  .marca-foto { font-size: 1.8rem; color: var(--oro); }
+  .aporte-alternativo h3 { font: 600 1.25rem/1.2 var(--f-display); color: var(--marino); }
+  .aporte-alternativo p { color: var(--bruma); font-size: 0.83rem; }
+  .enlace-accion { border: 0; background: none; color: var(--marino); font: 700 0.82rem var(--f-cuerpo); text-decoration: underline; text-underline-offset: 0.25em; cursor: pointer; }
+
+  .participaciones { padding: 4.5rem clamp(1rem, 4vw, 3.2rem); border-top: 1px solid color-mix(in srgb, var(--oro) 45%, transparent); }
+  .encabezado-participaciones { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2.6rem; }
+  .contador { color: var(--oro); font-variant-numeric: tabular-nums; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .cargando { color: var(--bruma); }
+  .lista-participaciones { display: grid; gap: 1.2rem; }
+  .estado-vacio { text-align: center; border: 1px dashed var(--oro-claro); padding: 3.5rem 1.5rem; }
+  .estado-vacio > span { color: var(--oro); font-size: 2.4rem; }
+  .estado-vacio h3 { font: 600 1.8rem var(--f-display); color: var(--marino); margin: 0.4rem 0; }
+  .estado-vacio p { color: var(--bruma); margin-bottom: 1.2rem; }
+  :global(.entrada-libro) { display: flex; gap: 0.9rem; align-items: flex-start; border-top: 1px solid color-mix(in srgb, var(--oro) 48%, transparent); padding-top: 1.5rem; }
+  :global(.entrada-avatar) {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--oro);
+    border-radius: 50%;
+    background: var(--papel-2);
+    color: var(--marino);
+    font: 600 20px/1 var(--f-display);
+  }
+  :global(.entrada-cuerpo) { min-width: 0; flex: 1 1 auto; }
+  :global(.entrada-cabecera) { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.7rem; }
+  :global(.entrada-autor) { font: 600 1.18rem/1.3 var(--f-display); color: var(--marino); }
+  :global(.entrada-fecha) { color: var(--bruma); font-size: 0.78rem; }
+  :global(.entrada-tipo) { padding: 0.1rem 0.45rem; border: 1px solid var(--oro-claro); border-radius: 2rem; color: var(--oro); font-size: 0.68rem; font-variant-caps: all-small-caps; letter-spacing: 0.09em; }
+  :global(.entrada-texto) { margin-top: 0.45rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+  :global(.foto-aporte) { margin: 1rem 0 0; }
+  :global(.foto-aporte button) { display: block; width: 100%; border: 0; padding: 0; background: var(--papel-2); cursor: zoom-in; }
+  :global(.foto-aporte img) { display: block; width: 100%; max-height: 38rem; object-fit: contain; background: var(--noche); }
+  :global(.foto-aporte figcaption) { padding: 0.8rem 0 0; font-size: 0.94rem; font-style: italic; }
+  :global(.metadatos-foto) { display: flex; flex-wrap: wrap; gap: 0.35rem 1.2rem; margin-top: 0.6rem; color: var(--bruma); font-size: 0.78rem; }
+  :global(.contexto-foto) { margin-top: 0.8rem; padding: 0.7rem 0.9rem; border-left: 2px solid var(--oro-claro); background: color-mix(in srgb, var(--papel-2) 60%, transparent); font-size: 0.88rem; }
+  :global(.acciones-entrada) { display: flex; gap: 1rem; margin-top: 1rem; }
+  :global(.accion-texto) { min-height: 2.5rem; border: 0; background: none; color: var(--marino); font: 700 0.75rem var(--f-cuerpo); text-decoration: underline; text-underline-offset: 0.25em; cursor: pointer; }
+  :global(.accion-texto.denunciar) { color: #73514c; margin-left: auto; }
+  :global(.respuestas) { margin-top: 1.1rem; padding-left: clamp(0.9rem, 3vw, 1.6rem); border-left: 2px solid color-mix(in srgb, var(--oro-claro) 65%, transparent); display: grid; gap: 1.1rem; }
+  :global(.respuesta) { display: flex; gap: 0.7rem; align-items: flex-start; }
+  :global(.respuesta-avatar) {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
+    border-radius: 50%;
+    background: var(--papel-2);
+    color: var(--marino);
+    font: 600 15px/1 var(--f-display);
+  }
+  :global(.respuesta-cabecera) { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.6rem; }
+  :global(.respuesta-autor) { font: 600 1rem/1.3 var(--f-display); color: var(--marino); }
+  :global(.respuesta-fecha) { color: var(--bruma); font-size: 0.72rem; }
+  :global(.respuesta-texto) { margin-top: 0.25rem; font-size: 0.92rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+  :global(.form-respuesta) { display: grid; grid-template-columns: minmax(8rem, 0.35fr) 1fr auto; gap: 0.5rem; margin-top: 0.8rem; padding-left: clamp(0.9rem, 3vw, 1.6rem); }
+  :global(.form-respuesta[hidden]) { display: none; }
+  :global(.form-respuesta input) { min-width: 0; }
+  :global(.form-respuesta button) { min-height: 2.75rem; padding: 0.4rem 0.8rem; border: 1px solid var(--marino); background: var(--marino); color: var(--papel); cursor: pointer; }
+  :global(.publicacion-oculta) { padding: 1.2rem; border: 1px dashed var(--oro); background: var(--papel-2); }
+  :global(.publicacion-oculta p) { margin-bottom: 0.7rem; }
+  .avisos-restauracion { display: grid; gap: 0.6rem; margin-bottom: 1rem; }
+  :global(.aviso-restaurar) { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.8rem 1rem; border: 1px solid var(--oro-claro); background: var(--papel-2); font-size: 0.82rem; }
+  .verificacion-acciones { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0 0 1.5rem; padding: 0.75rem 1rem; border: 1px solid color-mix(in srgb, var(--oro-claro) 70%, transparent); background: color-mix(in srgb, var(--papel-2) 62%, transparent); }
+  .verificacion-acciones > div:first-child { display: grid; gap: 0.15rem; }
+  .verificacion-acciones strong { color: var(--marino); font-size: 0.82rem; }
+  .verificacion-acciones span { color: var(--bruma); font-size: 0.75rem; }
+
+  .otros-documentos { margin: 3rem clamp(1rem, 4vw, 3.2rem) 0; padding: clamp(1.6rem, 4vw, 3rem); border: 1px solid var(--oro); text-align: center; background: var(--noche); color: var(--papel); }
+  .otros-documentos h2 { color: var(--papel); font-size: clamp(1.8rem, 4vw, 2.8rem); margin: 0.4rem auto 0.8rem; max-width: 48rem; }
+  .otros-documentos > p:not(.etiqueta) { max-width: 43rem; margin: 0 auto 1.3rem; color: color-mix(in srgb, var(--papel) 82%, transparent); }
+  .otros-documentos .boton { border-color: var(--oro-claro); background: var(--papel); color: var(--marino); }
+
+  dialog { color: var(--tinta); }
+  dialog::backdrop { background: rgb(14 26 40 / 0.74); backdrop-filter: blur(3px); }
+  .dialogo-foto { width: min(54rem, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); margin: auto; border: 1px solid var(--oro); background: var(--papel); padding: 0; }
+  .barra-dialogo { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 0.65rem 1rem; border-bottom: 1px solid var(--oro-claro); background: color-mix(in srgb, var(--papel) 96%, transparent); }
+  .cerrar-dialogo { width: 2.75rem; min-width: 2.75rem; border: 0; background: transparent; color: var(--marino); font-size: 1.8rem; cursor: pointer; }
+  .formulario-foto { padding: clamp(1.2rem, 4vw, 2.5rem); }
+  .formulario-foto > header h2 { font-size: clamp(2rem, 5vw, 3rem); }
+  .formulario-foto > header p { color: var(--bruma); margin-top: 0.3rem; }
+  .selector-foto { margin: 1.6rem 0; padding: 1rem; border: 1px dashed var(--oro); text-align: center; background: color-mix(in srgb, var(--papel-2) 65%, transparent); }
+  .selector-foto input { position: absolute; opacity: 0; pointer-events: none; width: 1px; height: 1px; }
+  .selector-foto > label { min-height: 7rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.25rem; cursor: pointer; }
+  .selector-foto > label small { color: var(--bruma); }
+  .icono-selector { font-size: 2rem; color: var(--oro); }
+  .vista-previa { margin-top: 0.8rem; }
+  .vista-previa img { display: block; max-width: 100%; max-height: 26rem; margin: 0 auto; object-fit: contain; }
+  .vista-previa figcaption, .estado-optimizacion { margin-top: 0.5rem; color: var(--bruma); font-size: 0.76rem; }
+  .estado-optimizacion.exito { color: #355c45; }
+  .estado-optimizacion.error { color: #8b2f27; }
+  .rejilla-campos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .rejilla-campos .campo + .campo { margin-top: 0; }
+  .ancho-completo { grid-column: 1 / -1; }
+  .contexto-adicional { margin: 1.2rem 0; border-block: 1px solid color-mix(in srgb, var(--oro) 35%, transparent); padding: 0.8rem 0; }
+  .contexto-adicional summary { color: var(--marino); font-weight: 700; cursor: pointer; }
+  .contexto-adicional[open] summary { margin-bottom: 1rem; }
+  .identidad-aporte { padding-top: 0.4rem; }
+  .autorizacion { display: flex; gap: 0.65rem; align-items: flex-start; margin-top: 1.2rem; font-size: 0.8rem; color: var(--bruma); cursor: pointer; }
+  .autorizacion input { width: auto; margin-top: 0.25rem; }
+  .pie-foto { flex-wrap: wrap; }
+  .visor-aporte { max-width: min(70rem, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); margin: auto; border: 1px solid var(--oro); background: var(--noche); color: var(--papel); padding: 1rem; }
+  .visor-aporte .cerrar-dialogo { position: absolute; right: 0.4rem; top: 0.3rem; color: var(--papel); background: rgb(14 26 40 / 0.7); }
+  .visor-aporte img { display: block; max-width: 100%; max-height: calc(100vh - 8rem); margin: auto; }
+  .visor-aporte p { max-width: 50rem; margin: 0.8rem auto 0; font-style: italic; text-align: center; }
+
+  @media (max-width: 760px) {
+    .libro { padding-inline: 0; }
+    .portada-libro { padding-inline: 1.2rem; }
+    .mesa-escritura { grid-template-columns: 1fr; padding-inline: 1.2rem; }
+    .encabezado-seccion { position: static; }
+    .aporte-alternativo { grid-column: 1; grid-template-columns: auto 1fr; }
+    .aporte-alternativo .enlace-accion { grid-column: 2; justify-self: start; }
+    .participaciones { padding-inline: 1.2rem; }
+    .verificacion-acciones { align-items: start; flex-direction: column; }
+    :global(.entrada-libro) { gap: 0.65rem; }
+    :global(.entrada-avatar) { width: 38px; height: 38px; font-size: 17px; }
+    :global(.form-respuesta) { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 520px) {
+    h1 { font-size: clamp(2.7rem, 15vw, 4.1rem); }
+    .encabezado-participaciones { display: block; }
+    .contador { margin-top: 0.5rem; }
+    .pie-formulario { align-items: stretch; flex-direction: column; }
+    .pie-formulario .estado-formulario { margin: 0; }
+    .rejilla-campos { grid-template-columns: 1fr; }
+    .ancho-completo { grid-column: 1; }
+    .aporte-alternativo { grid-template-columns: 1fr; text-align: center; }
+    .aporte-alternativo .enlace-accion { grid-column: 1; justify-self: center; }
+    .dialogo-foto { width: 100vw; max-height: 100vh; height: 100vh; border: 0; }
+    :global(.aviso-restaurar) { align-items: stretch; flex-direction: column; }
+  }
+</style>

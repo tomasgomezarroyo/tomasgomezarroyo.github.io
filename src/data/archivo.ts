@@ -1,18 +1,14 @@
-export interface PaginaArchivo {
-  src: string;
-  alt: string;
-  pie: string;
-}
-
 export interface NotaLectura {
   texto: string;
   fuenteTexto?: string;
   fuenteUrl?: string;
 }
 
-export interface SeccionTexto {
-  paginaRef: number; // índice 1-based dentro del array `paginas` de ESTE documento al que corresponde esta sección de texto
+export interface PaginaArchivo {
+  src: string;
+  alt: string;
   titulo: string;
+  referencia: string;
   original: string;
   traduccion: string;
   notas: NotaLectura[];
@@ -26,7 +22,6 @@ export interface DocumentoArchivo {
   fechaOrden: string; // YYYY-MM-DD para ordenar, aproximar si hace falta (ej. día 01 si el original solo da mes)
   resumen: string;
   paginas: PaginaArchivo[];
-  secciones: SeccionTexto[];
   tipoDocumento: string;
   contexto: string;
   personas: string[];
@@ -34,155 +29,16 @@ export interface DocumentoArchivo {
   derechos: string;
   fechaConsulta: string;
   fuenteTexto: string;
-  documentoUrl: string;
-  documentoTamano: string;
 }
 
 const CREDITO = 'U.S. Naval War College, Newport, Rhode Island. Copia digital cedida a la familia por su archivo institucional.';
 const DERECHOS = 'Documento de archivo institucional estadounidense, cedido directamente a la familia por la archivista del U.S. Naval War College para uso personal y familiar. No es un documento de acceso público general.';
 const FUENTE_TEXTO = 'U.S. Naval War College, Command Records Manager/Archivist Lauren Legault';
-const DOCUMENTO_URL = '/documentos/archivo/U.S.-Naval-War-College-1972-1973.pdf';
-const DOCUMENTO_TAMANO = '9,4 MB';
 const FECHA_CONSULTA = '6 de agosto de 2026';
 const TIPO_CORRESPONDENCIA = 'Correspondencia personal, expediente del U.S. Naval War College';
 const TIPO_ENSAYO = 'Ensayo académico de estudiante, U.S. Naval War College';
 
 export const documentos: DocumentoArchivo[] = [
-  {
-    slug: 'carta-bienvenida-1972',
-    titulo: 'Carta de bienvenida del Naval Command College',
-    pieza: 'Carta de bienvenida de 1972',
-    fecha: '30 de junio de 1972',
-    fechaOrden: '1972-06-30',
-    resumen: 'Carta oficial del director del Naval Command College dando la bienvenida a Tomás como miembro de la promoción 1973 y explicando los preparativos para la mudanza familiar a Newport.',
-    tipoDocumento: TIPO_CORRESPONDENCIA,
-    contexto: 'Primer documento cronológico del expediente: la carta con la que el Naval Command College recibe formalmente a Tomás como alumno de la promoción 1972-73, firmada por su director T. H. Nugent Jr. Marca el punto de partida de la relación de Tomás con Newport y de la extensa red de compañeros que mantendría por correspondencia durante casi una década.',
-    personas: ['Tomás Gómez Arroyo', 'T. H. Nugent Jr.', 'K. L. Wright'],
-    credito: CREDITO,
-    derechos: DERECHOS,
-    fechaConsulta: FECHA_CONSULTA,
-    fuenteTexto: FUENTE_TEXTO,
-    documentoUrl: DOCUMENTO_URL,
-    documentoTamano: DOCUMENTO_TAMANO,
-    paginas: [
-      {
-        src: '/fotos/archivo/pagina-07.jpg',
-        alt: 'Primera página de la carta de bienvenida del director del Naval Command College a Tomás',
-        pie: 'Página 1 de 2: carta de bienvenida del director del Naval Command College',
-      },
-      {
-        src: '/fotos/archivo/pagina-08.jpg',
-        alt: 'Segunda página de la carta, firmada por el capitán T. H. Nugent Jr.',
-        pie: 'Página 2 de 2: cierre y firma de la carta de bienvenida',
-      },
-    ],
-    secciones: [
-      {
-        paginaRef: 1,
-        titulo: 'Carta de bienvenida del Naval Command College, página 1',
-        original: `30 JUN 1972
-
-Dear Commander Arroyo,
-
-     It is my pleasure as Director of the Naval Command College
-to welcome you as a member of the NCC Class of 1973. Enclosed
-is a General Information pamphlet concerning the College that
-I hope will prove to be useful in planning for your visit to
-the United States. A copy of the Curriculum and several
-brochures will be sent to you when they become available. They
-will be more specific and will be helpful in acquainting you
-with the nature of the studies you will pursue while you are
-here at NCC.
-
-     We hope that circumstances will permit your family to be
-with you this coming year in Newport. Our experience has
-shown that officers who have their families with them have a
-much more enjoyable visit in the United States. We realize
-that housing will be a major concern to you and your bring
-your family. No unusual difficulty is anticipated in obtaining
-permanent housing for you, although temporary housing may have
-to be utilized until the popular Newport summer season is over
-about 4 September. Since temporary housing is expensive and
-in short supply, you might wish to consider having your family
-join you shortly after classes begin. In any event, please do
-not let housing arrangements discourage you from bringing your
-family as we look forward to having them with us.
-
-     Commander K. L. Wright, a member of my staff, has been
-assigned as your Military Sponsor. He will soon write to you
-and will be prepared to aid you in all possible ways, both in
-preparing for your trip and after your arrival in Newport.
-Please let him know of any problems or unanswered questions,
-no matter how small they may seem.`,
-        traduccion: `30 JUN 1972
-
-Estimado comandante Arroyo:
-
-     Me complace, como Director del Naval Command College, darle la bienvenida
-como miembro de la promoción NCC de 1973. Se adjunta un folleto de Información
-General sobre el College que espero resulte útil para planificar su visita a los
-Estados Unidos. Le serán enviados un ejemplar del plan de estudios y varios
-folletos cuando estén disponibles. Serán más específicos y le ayudarán a
-familiarizarse con la naturaleza de los estudios que realizará mientras esté
-aquí, en el NCC.
-
-     Esperamos que las circunstancias permitan a su familia estar con usted el
-próximo año en Newport. Nuestra experiencia ha demostrado que los oficiales que
-tienen a sus familias consigo disfrutan mucho más de su estancia en los Estados
-Unidos. Somos conscientes de que el alojamiento será una preocupación importante
-para usted y para que traiga a su familia. No se prevé dificultad inusual para
-conseguir alojamiento permanente, aunque quizá haya que utilizar alojamiento
-temporal hasta que termine la concurrida temporada de verano de Newport, hacia
-el 4 de septiembre. Dado que es caro y escaso, quizá desee que su familia se
-reúna con usted poco después de comenzar las clases. En cualquier caso, no
-permita que el alojamiento lo disuada de traer a su familia, pues esperamos con ilusión tenerlos con nosotros.
-
-     El comandante K. L. Wright ha sido designado como su patrocinador militar.
-Le escribirá pronto y estará preparado para ayudarle antes del viaje y tras su
-llegada a Newport. Hágale saber cualquier problema o pregunta que haya quedado sin respuesta, por pequeño que pueda parecer.`,
-        notas: [
-          { texto: 'Lectura del original. La frase sobre alojamiento es defectuosa en el original.' },
-        ],
-      },
-      {
-        paginaRef: 2,
-        titulo: 'Carta de bienvenida del Naval Command College, página 2',
-        original: `I am looking forward to welcoming you to Newport in person. In
-the meantime, please feel free to write to me or your sponsor.
-
-                         Sincerely,
-                         T. H. NUGENT, JR.
-                         Captain, U. S. Navy
-                         Director, Naval Command College
-
-Enclosure
-
-Commander Tomas Gomez ARROYO, Spanish Navy
-c/o Chief, Navy Section
-Joint U. S. Military Group -
-Military Assistance Advisory Group
-APO New York 09285`,
-        traduccion: `Espero darle personalmente la bienvenida a Newport. Mientras tanto, no
-dude en escribirme a mí o a su patrocinador.
-
-                         Atentamente,
-                         T. H. NUGENT, JR.
-                         Capitán, Armada de los EE. UU.
-                         Director, Naval Command College
-
-Adjunto
-
-Comandante Tomas Gomez ARROYO, Armada Española
-a/c del Jefe de la Sección Naval
-Grupo Militar Conjunto de los EE. UU. -
-Grupo Asesor de Asistencia Militar
-APO New York 09285`,
-        notas: [
-          { texto: 'Continuidad entre páginas. El número impreso 2 confirma continuidad.' },
-        ],
-      },
-    ],
-  },
   {
     slug: 'ensayo-espana',
     titulo: 'Country Essay: España',
@@ -197,35 +53,12 @@ APO New York 09285`,
     derechos: DERECHOS,
     fechaConsulta: FECHA_CONSULTA,
     fuenteTexto: FUENTE_TEXTO,
-    documentoUrl: DOCUMENTO_URL,
-    documentoTamano: DOCUMENTO_TAMANO,
     paginas: [
-      { src: '/fotos/archivo/pagina-13.jpg', alt: 'Portada del ensayo sobre España, con el título y la cláusula sobre autoría y reproducción', pie: 'Página 1 de 21: portada institucional del country essay' },
-      { src: '/fotos/archivo/pagina-14.jpg', alt: 'Segunda portada del ensayo, con espacio en blanco para firma y fecha del autor', pie: 'Página 2 de 21: portada con la cláusula de opiniones personales' },
-      { src: '/fotos/archivo/pagina-15.jpg', alt: 'Índice del ensayo con los diez capítulos y la conclusión', pie: 'Página 3 de 21: índice del country essay' },
-      { src: '/fotos/archivo/pagina-16.jpg', alt: 'Prólogo del ensayo describiendo a España como un continente en miniatura', pie: 'Página 4 de 21: prólogo' },
-      { src: '/fotos/archivo/pagina-17.jpg', alt: 'Capítulo I, sobre la geografía de España y la península ibérica', pie: 'Página 5 de 21: capítulo I, Geografía' },
-      { src: '/fotos/archivo/pagina-18.jpg', alt: 'Capítulo II, sobre la orografía y las playas de España', pie: 'Página 6 de 21: capítulo II, Orografía' },
-      { src: '/fotos/archivo/pagina-19.jpg', alt: 'Capítulo III, sobre el clima de las distintas regiones españolas', pie: 'Página 7 de 21: capítulo III, Clima' },
-      { src: '/fotos/archivo/pagina-20.jpg', alt: 'Capítulo IV, primera página sobre la historia de España desde la Antigüedad hasta el descubrimiento de América', pie: 'Página 8 de 21: capítulo IV, Historia (parte 1)' },
-      { src: '/fotos/archivo/pagina-21.jpg', alt: 'Capítulo IV, segunda página sobre la historia de España desde los Austrias hasta el Movimiento Nacional', pie: 'Página 9 de 21: capítulo IV, Historia (parte 2)' },
-      { src: '/fotos/archivo/pagina-22.jpg', alt: 'Capítulo V, sobre la sociedad y el carácter español', pie: 'Página 10 de 21: capítulo V, Sociedad — El carácter español' },
-      { src: '/fotos/archivo/pagina-23.jpg', alt: 'Capítulo VI, primera página sobre el patrimonio artístico español desde Altamira hasta el arte musulmán', pie: 'Página 11 de 21: capítulo VI, España, un tesoro artístico (parte 1)' },
-      { src: '/fotos/archivo/pagina-24.jpg', alt: 'Capítulo VI, segunda página sobre el románico, el gótico, El Escorial y el Museo del Prado', pie: 'Página 12 de 21: capítulo VI, España, un tesoro artístico (parte 2)' },
-      { src: '/fotos/archivo/pagina-25.jpg', alt: 'Capítulo VI, conclusión sobre Gaudí, la generación de pintores modernos y la música española', pie: 'Página 13 de 21: capítulo VI, España, un tesoro artístico (parte 3)' },
-      { src: '/fotos/archivo/pagina-26.jpg', alt: 'Capítulo VII, primera página sobre el sistema educativo español', pie: 'Página 14 de 21: capítulo VII, Educación y cultura (parte 1)' },
-      { src: '/fotos/archivo/pagina-27.jpg', alt: 'Capítulo VII, cierre sobre los cursos para extranjeros y la producción editorial española', pie: 'Página 15 de 21: capítulo VII, Educación y cultura (parte 2)' },
-      { src: '/fotos/archivo/pagina-28.jpg', alt: 'Capítulo VIII, primera página sobre la estructura política y las Leyes Fundamentales', pie: 'Página 16 de 21: capítulo VIII, Estructura política (parte 1)' },
-      { src: '/fotos/archivo/pagina-29.jpg', alt: 'Capítulo VIII, cierre sobre las Cortes y el derecho al voto', pie: 'Página 17 de 21: capítulo VIII, Estructura política (parte 2)' },
-      { src: '/fotos/archivo/pagina-30.jpg', alt: 'Capítulo IX, primera página sobre minería e industria españolas', pie: 'Página 18 de 21: capítulo IX, Minería e industria (parte 1)' },
-      { src: '/fotos/archivo/pagina-31.jpg', alt: 'Capítulo IX, cierre con las cifras del comercio exterior español de 1969', pie: 'Página 19 de 21: capítulo IX, Minería e industria (parte 2)' },
-      { src: '/fotos/archivo/pagina-32.jpg', alt: 'Capítulo X, sobre la política exterior española y la aspiración europea', pie: 'Página 20 de 21: capítulo X, Política exterior' },
-      { src: '/fotos/archivo/pagina-33.jpg', alt: 'Conclusión del ensayo, con la referencia al lema Plus Ultra', pie: 'Página 21 de 21: conclusión' },
-    ],
-    secciones: [
       {
-        paginaRef: 1,
-        titulo: 'Portada institucional',
+        src: '/fotos/archivo/pagina-13.jpg',
+        alt: 'Portada del ensayo sobre España, con el título y la cláusula sobre autoría y reproducción',
+        titulo: 'Portada',
+        referencia: 'Página 13 de 33 del expediente',
         original: `THE UNITED STATES NAVAL WAR COLLEGE
 
 NAVAL COMMAND COLLEGE
@@ -271,8 +104,10 @@ permiso específico del autor y del Presidente del Naval War College en cada cas
         ],
       },
       {
-        paginaRef: 2,
+        src: '/fotos/archivo/pagina-14.jpg',
+        alt: 'Segunda portada del ensayo, con espacio en blanco para firma y fecha del autor',
         titulo: 'Portada con cláusula de autoría',
+        referencia: 'Página 14 de 33 del expediente',
         original: `Naval War College
 Newport, R.I.
 
@@ -326,8 +161,10 @@ i`,
         ],
       },
       {
-        paginaRef: 3,
+        src: '/fotos/archivo/pagina-15.jpg',
+        alt: 'Índice del ensayo con los diez capítulos y la conclusión',
         titulo: 'Índice',
+        referencia: 'Página 15 de 33 del expediente',
         original: `TABLE OF CONTENTS
 
 CHAPTER.                                                     PAGE
@@ -365,8 +202,10 @@ CONCLUSIÓN ................................................... 17`,
         ],
       },
       {
-        paginaRef: 4,
+        src: '/fotos/archivo/pagina-16.jpg',
+        alt: 'Prólogo del ensayo describiendo a España como un continente en miniatura',
         titulo: 'Prólogo',
+        referencia: 'Página 16 de 33 del expediente',
         original: `FORWARD
 
 It is not easy to speak about Spain.  It is an ancient land whose
@@ -391,13 +230,13 @@ regiones - bosques y estepas, montañas escarpadas, costas bordeadas de acantila
 y entre sus diferentes pueblos - diversos en raza, lengua y costumbres. Todo este mundo complejo y colorido es ESPAÑA.
 
 ii`,
-        notas: [
-          { texto: 'Sin incidencias de lectura registradas.' },
-        ],
+        notas: [],
       },
       {
-        paginaRef: 5,
-        titulo: 'Capítulo I — Geografía',
+        src: '/fotos/archivo/pagina-17.jpg',
+        alt: 'Capítulo I, sobre la geografía de España y la península ibérica',
+        titulo: 'Capítulo I · Geografía',
+        referencia: 'Página 17 de 33 del expediente',
         original: `CHAPTER I. - GEOGRAPHY
 
 The Iberian Peninsula, - Spain and Portugal - takes the form of a
@@ -450,8 +289,10 @@ Cataluña, las Provincias Vascas y Valencia tienen la mayor densidad de poblaci�
         ],
       },
       {
-        paginaRef: 6,
-        titulo: 'Capítulo II — Orografía',
+        src: '/fotos/archivo/pagina-18.jpg',
+        alt: 'Capítulo II, sobre la orografía y las playas de España',
+        titulo: 'Capítulo II · Orografía',
+        referencia: 'Página 18 de 33 del expediente',
         original: `CHAPTER II. - OROGRAPHY
 
 The Central plateau is 120,000 sq. miles and has an average
@@ -486,8 +327,10 @@ de numerosos turistas que contribuyen a difundir el nombre de España por todo e
         ],
       },
       {
-        paginaRef: 7,
-        titulo: 'Capítulo III — Clima',
+        src: '/fotos/archivo/pagina-19.jpg',
+        alt: 'Capítulo III, sobre el clima de las distintas regiones españolas',
+        titulo: 'Capítulo III · Clima',
+        referencia: 'Página 19 de 33 del expediente',
         original: `CHAPTER III. - CLIMATE
 
 The climate of Spain is as varied as its scenery.  In these latitudes, the weather should be mild and temperate but the abruptly changing geography and certain marine currents cause wide diversities in climate.  For this reason, Spains knows all four seasons, although there is always some region where the climate is mild, the sun warm and the temperature, even in summer, is pleasnt and temperate.
@@ -509,8 +352,10 @@ En invierno, Alicante, Murcia y Almería tienen un clima excepcional, con temper
         ],
       },
       {
-        paginaRef: 8,
-        titulo: 'Capítulo IV — Historia',
+        src: '/fotos/archivo/pagina-20.jpg',
+        alt: 'Capítulo IV, primera página sobre la historia de España desde la Antigüedad hasta el descubrimiento de América',
+        titulo: 'Capítulo IV · Historia (1 de 2)',
+        referencia: 'Página 20 de 33 del expediente',
         original: `CHAPTER IV. - HISTORY
 
 To resume in a few paragraphs the whole history of Spain, - about 2,000 years -, is really a hard problem.  Nevertheless, I shall attempt to give an idea of the varied events, the most characteristic of them which in a wide way, may we call basic and fundamental.
@@ -521,17 +366,7 @@ Romans, Visogoths, and Arabs, remained in Spain for long period and produced rac
 
 The Roman Era began with the glory of Spanish unification.  During the reign of Fernando and Isabel, not only was the country joined together religiously, politically, and territorially, but one of the transcendental events of history took place:  The New World was discovered. With only a few men and three small ships, Spain, began the conquest, conversion, exploration and colonization of the New World.
 
-4
-
-Following the above mentioned author, John A. Crow, in the des-cription of events that brought Spain at the top of its glory, we may say that "the principal resource of Spain was then, as it always had been, the vital energy, the boundless determination, the incredible thrust and will of its people".  Under Carlos I as Emperor, Spain became the greatest power in Europe and America.  His son, Felipe II was able to maintain the political strength, but during the rule of the last King of Austria, Carlos II, the decline as a European power began.
-
-The House of Bourbon started a new era in which there were many benefits in the life of the people and the whole country came into a closer contact with the rest of the European culture.
-
-During the Contemporaneus Era, Spain gained by the new ideas coming from the French Revolution.  This event, together with the Napoleonic invasion, brought to Spain a new sort of liberal, political idea, which the people tried to assimilate with goodwill, but little success.  The 19th Century was the one in which Spain lost its overseas possessions and, at home, serious problems of succession to the throne.
-
-The Republican period is followed by the National Movement which restored peace and prosperity to Spain.
-
-5`,
+4`,
         traduccion: `CAPÍTULO IV. - HISTORIA
 
 Resumir en unos pocos párrafos toda la historia de España, - unos 2.000 años -, es realmente un problema difícil. Sin embargo, intentaré dar una idea de los variados acontecimientos, de los más característicos de ellos que, en un sentido amplio, podemos llamar básicos y fundamentales.
@@ -542,9 +377,26 @@ Romanos, visigodos y árabes permanecieron en España durante largo período y p
 
 La era romana comenzó con la gloria de la unificación española. Durante el reinado de Fernando e Isabel, no solo quedó el país unido religiosa, política y territorialmente, sino que tuvo lugar uno de los acontecimientos trascendentales de la historia: se descubrió el Nuevo Mundo. Con solo unos pocos hombres y tres pequeñas naves, España comenzó la conquista, conversión, exploración y colonización del Nuevo Mundo.
 
-4
+4`,
+        notas: [
+          { texto: 'Lectura del original. La transcripción conserva las formas visibles «Visogoths» y «a while series».' },
+        ],
+      },
+      {
+        src: '/fotos/archivo/pagina-21.jpg',
+        alt: 'Capítulo IV, segunda página sobre la historia de España desde los Austrias hasta el Movimiento Nacional',
+        titulo: 'Capítulo IV · Historia (2 de 2)',
+        referencia: 'Página 21 de 33 del expediente',
+        original: `Following the above mentioned author, John A. Crow, in the des-cription of events that brought Spain at the top of its glory, we may say that "the principal resource of Spain was then, as it always had been, the vital energy, the boundless determination, the incredible thrust and will of its people".  Under Carlos I as Emperor, Spain became the greatest power in Europe and America.  His son, Felipe II was able to maintain the political strength, but during the rule of the last King of Austria, Carlos II, the decline as a European power began.
 
-Siguiendo al autor antes mencionado, John A. Crow, en la descripción de los acontecimientos que llevaron a España a la cima de su gloria, podemos decir que «el principal recurso de España era entonces, como siempre lo había sido, la energía vital, la determinación sin límites, el increíble impulso y voluntad de su pueblo». Bajo Carlos I como Emperador, España se convirtió en la mayor potencia de Europa y América. Su hijo Felipe II pudo mantener la fortaleza política, pero durante el gobierno del último rey de Austria, Carlos II, comenzó el declive como potencia europea.
+The House of Bourbon started a new era in which there were many benefits in the life of the people and the whole country came into a closer contact with the rest of the European culture.
+
+During the Contemporaneus Era, Spain gained by the new ideas coming from the French Revolution.  This event, together with the Napoleonic invasion, brought to Spain a new sort of liberal, political idea, which the people tried to assimilate with goodwill, but little success.  The 19th Century was the one in which Spain lost its overseas possessions and, at home, serious problems of succession to the throne.
+
+The Republican period is followed by the National Movement which restored peace and prosperity to Spain.
+
+5`,
+        traduccion: `Siguiendo al autor antes mencionado, John A. Crow, en la descripción de los acontecimientos que llevaron a España a la cima de su gloria, podemos decir que «el principal recurso de España era entonces, como siempre lo había sido, la energía vital, la determinación sin límites, el increíble impulso y voluntad de su pueblo». Bajo Carlos I como Emperador, España se convirtió en la mayor potencia de Europa y América. Su hijo Felipe II pudo mantener la fortaleza política, pero durante el gobierno del último rey de Austria, Carlos II, comenzó el declive como potencia europea.
 
 La casa de Borbón inició una nueva era en la que hubo muchos beneficios en la vida del pueblo y todo el país entró en un contacto más estrecho con el resto de la cultura europea.
 
@@ -554,13 +406,14 @@ Al período republicano le sigue el Movimiento Nacional, que restauró la paz y 
 
 5`,
         notas: [
-          { texto: 'Lectura del original. La transcripción conserva las formas visibles «Visogoths» y «a while series» (página 20).' },
-          { texto: 'Decisión de traducción. El error visible «Contemporaneus» se normaliza como «Edad Contemporánea» (página 21).' },
+          { texto: 'Decisión de traducción. El error visible «Contemporaneus» se normaliza como «Edad Contemporánea».' },
         ],
       },
       {
-        paginaRef: 10,
-        titulo: 'Capítulo V — Sociedad: el carácter español',
+        src: '/fotos/archivo/pagina-22.jpg',
+        alt: 'Capítulo V, sobre la sociedad y el carácter español',
+        titulo: 'Capítulo V · Sociedad',
+        referencia: 'Página 22 de 33 del expediente',
         original: `CHAPTER V. - SOCIETY - THE SPANISH CHARACTER
 
 The Spanish character is historically associated with a deep religious feeling, a firm ethical and traditional base, an unbelievable individualism and a special concept of honor that has marked the personal shape on the people.
@@ -579,13 +432,13 @@ La teoría española de la existencia hace que la vida quede subordinada al logr
 Sin embargo, cada región tiene sus propias peculiaridades, que establecen diferencias entre las personas que las habitan. Por ejemplo, no hay nada en común entre gallegos y catalanes. Incluso hablan lenguas diferentes. Esto realza la vitalidad de los sentimientos locales y regionales, que siguen vivos después de siglos. Pero tales características no perturban la idea de una España como «una unidad de destino en lo universal», pues todas las regiones han contribuido al embellecimiento de España y de su historia.
 
 6`,
-        notas: [
-          { texto: 'Sin incidencias de lectura registradas.' },
-        ],
+        notas: [],
       },
       {
-        paginaRef: 11,
-        titulo: 'Capítulo VI — España, un tesoro artístico',
+        src: '/fotos/archivo/pagina-23.jpg',
+        alt: 'Capítulo VI, primera página sobre el patrimonio artístico español desde Altamira hasta el arte musulmán',
+        titulo: 'Capítulo VI · Arte (1 de 3)',
+        referencia: 'Página 23 de 33 del expediente',
         original: `CHAPTER VI. - SPAIN, A TREASURE-HOUSE OF ART
 
 Spain is a great museum where there are to be seen every facet of artistic endeavor.  From the prehistoric painting on the walls and roofs of the Altimira Caves, (Santander) down to the works of Picasso, Spain has never ceased to produce numerous and varied works of art.
@@ -600,9 +453,40 @@ The long centuries, during which Arabs and Christians lived side by side, produc
 
 The Way of Santiago was the most important cultural development
 
-7
+7`,
+        traduccion: `CAPÍTULO VI. - ESPAÑA, UN TESORO ARTÍSTICO
 
-of the Middle Age.  From Roncesvalles to Compostela, the Romanesque
+España es un gran museo donde pueden verse todas las facetas del empeño artístico. Desde la pintura prehistórica de las paredes y techos de las cuevas de Altamira, (Santander), hasta las obras de Picasso, España nunca ha dejado de producir numerosas y variadas obras de arte.
+
+Todo el país está literalmente cubierto de castillos, palacios, monasterios y catedrales de inusual valor artístico. En ellos hay valiosas colecciones de esculturas, pinturas, joyas y tapices. Los restos romanos comienzan con el asombroso acueducto de Segovia y se extienden por Mérida y Tarragona hasta las ruinas de la antigua Itálica; puentes, arcos y calzadas del período romano pueden verse por todo el país, muchos de ellos en un estado de conservación muy bueno.
+
+Algunas ciudades españolas son representativas de un estilo particular, de una forma artística específica. Córdoba y Granada albergan las obras maestras del arte musulmán, y en sus torres, mezquitas y palacios puede leerse toda la brillante historia del Califato y del Reino de Granada.
+
+Sevilla ofrece, contra el blanco fondo de sus edificios, la gracia de la Giralda, que, junto con la Mezquita de Córdoba y la Alhambra de Granada, forman el más famoso conjunto de arte oriental en España.
+
+Los largos siglos durante los cuales árabes y cristianos vivieron lado a lado produjeron el estilo cristiano puramente hispano-morisco, mudéjar o mozárabe, del que se encuentran por doquier ejemplos magníficos.
+
+El Camino de Santiago fue el desarrollo cultural más importante
+
+7`,
+        notas: [
+          { texto: 'Lectura del original. La transcripción conserva «Altimira», «Italiza», «Granda», «archs», «eatern» y «magnificant».' },
+          { texto: 'Decisión de traducción. Las identificaciones evidentes se normalizan como «Altamira», «Itálica» y «Granada», y se corrigen los errores ingleses equivalentes en español.' },
+          { texto: 'Continuidad entre páginas. La frase final continúa en la página 24; no se completa artificialmente en esta lámina.' },
+          { texto: 'Contexto histórico. La asociación entre mudéjar y mozárabe se conserva como formulación del autor, sin convertirla en una explicación histórico-artística de la edición.' },
+          {
+            texto: 'Dato cultural. Altamira fue el primer lugar del mundo donde se identificó arte rupestre del Paleolítico superior. Marcelino Sanz de Sautuola publicó el hallazgo en 1880, pero su interpretación no fue reconocida ampliamente hasta 1902.',
+            fuenteTexto: 'Museo Nacional de Altamira',
+            fuenteUrl: 'https://www.cultura.gob.es/mnaltamira/ca/cueva-altamira/descubrimiento.html',
+          },
+        ],
+      },
+      {
+        src: '/fotos/archivo/pagina-24.jpg',
+        alt: 'Capítulo VI, segunda página sobre el románico, el gótico, El Escorial y el Museo del Prado',
+        titulo: 'Capítulo VI · Arte (2 de 3)',
+        referencia: 'Página 24 de 33 del expediente',
+        original: `of the Middle Age.  From Roncesvalles to Compostela, the Romanesque
 
 left its imprint on the churches and sculptures along the route,
 
@@ -652,9 +536,39 @@ broke all the rules and was the forerunner of daring developments in
 
 technique.
 
-8
+8`,
+        traduccion: `de la Edad Media. Desde Roncesvalles hasta Compostela, el románico dejó su impronta en las iglesias y esculturas a lo largo de la ruta, alcanzando su culminación con la Puerta Santa de la Catedral de Santiago.
 
-Towards the end of the 19th Century, a deep preoccupation with
+Al mismo tiempo, en la región pirenaico-catalana había por todas partes murales románicos, que formaban una gran colección y que puede verse hoy en Barcelona.
+
+En su gran expansión, el gótico cubrió la Península de muchos monumentos diferentes, tales como las catedrales de Toledo, León, Burgos y Segovia.
+
+El Renacimiento en España produjo una serie de variaciones interesantes que pueden verse en los monumentos del período. Una de ellas es el estilo herreriano, sobrio y grandioso, cuyo principal ejemplo es El Escorial, erigido por orden de Felipe II para conmemorar la victoria de San Quintín, en 1557, sobre Enrique II, rey de Francia. El Escorial en sí mismo ha llegado a ser la representación de una época y una manera de vivir.
+
+Salamanca, por otra parte, conserva los mejores ejemplos del ornamentado plateresco, que da a la ciudad el aspecto de estar decorada con encaje de oro.
+
+El Museo del Prado de Madrid, uno de los mayores tesoros artísticos del mundo, contiene la mejor colección de pintura española, además de las obras de El Greco, Zurbarán, Velázquez, Murillo y Ribera.
+
+Debe hacerse mención especial de las obras de Goya, cuya influencia genial aún se siente hoy en el arte. Su colosal obra de toda una vida rompió todas las reglas y fue precursora de audaces desarrollos en técnica.
+
+8`,
+        notas: [
+          { texto: 'Continuidad entre páginas. La página comienza a mitad de oración; continúa «The Way of Santiago was the most important cultural development» de la página 23.' },
+          { texto: 'Decisión de traducción. Grafías fuente: «Pirnean», «differents», «Leon», «Zurnaran» y «Velazquez». En la traducción se normalizan Pirenaico, diferentes, León, Zurbarán y Velázquez.' },
+          { texto: 'Decisión de traducción. «treasure-houses» se traduce como «tesoros artísticos» para evitar la calca «casas del tesoro».' },
+          {
+            texto: 'Dato cultural. La «Holy Door» del texto es la Puerta Santa o del Perdón de la Catedral de Santiago. Solo se abre durante los Años Santos Compostelanos, cuando el 25 de julio, festividad de Santiago Apóstol, cae en domingo.',
+            fuenteTexto: 'Catedral de Santiago',
+            fuenteUrl: 'https://catedraldesantiago.es/visitas/',
+          },
+        ],
+      },
+      {
+        src: '/fotos/archivo/pagina-25.jpg',
+        alt: 'Capítulo VI, conclusión sobre Gaudí, la generación de pintores modernos y la música española',
+        titulo: 'Capítulo VI · Arte (3 de 3)',
+        referencia: 'Página 25 de 33 del expediente',
+        original: `Towards the end of the 19th Century, a deep preoccupation with
 
 all aspects of art, gave birth to a complex world in which the most
 
@@ -691,60 +605,21 @@ the Zarzuela, a type of popular light opera, with spoken parts, in
 which the Spanish character is successfully represented.
 
 9`,
-        traduccion: `CAPÍTULO VI. - ESPAÑA, UN TESORO ARTÍSTICO
-
-España es un gran museo donde pueden verse todas las facetas del empeño artístico. Desde la pintura prehistórica de las paredes y techos de las cuevas de Altamira, (Santander), hasta las obras de Picasso, España nunca ha dejado de producir numerosas y variadas obras de arte.
-
-Todo el país está literalmente cubierto de castillos, palacios, monasterios y catedrales de inusual valor artístico. En ellos hay valiosas colecciones de esculturas, pinturas, joyas y tapices. Los restos romanos comienzan con el asombroso acueducto de Segovia y se extienden por Mérida y Tarragona hasta las ruinas de la antigua Itálica; puentes, arcos y calzadas del período romano pueden verse por todo el país, muchos de ellos en un estado de conservación muy bueno.
-
-Algunas ciudades españolas son representativas de un estilo particular, de una forma artística específica. Córdoba y Granada albergan las obras maestras del arte musulmán, y en sus torres, mezquitas y palacios puede leerse toda la brillante historia del Califato y del Reino de Granada.
-
-Sevilla ofrece, contra el blanco fondo de sus edificios, la gracia de la Giralda, que, junto con la Mezquita de Córdoba y la Alhambra de Granada, forman el más famoso conjunto de arte oriental en España.
-
-Los largos siglos durante los cuales árabes y cristianos vivieron lado a lado produjeron el estilo cristiano puramente hispano-morisco, mudéjar o mozárabe, del que se encuentran por doquier ejemplos magníficos.
-
-El Camino de Santiago fue el desarrollo cultural más importante
-
-7
-
-de la Edad Media. Desde Roncesvalles hasta Compostela, el románico dejó su impronta en las iglesias y esculturas a lo largo de la ruta, alcanzando su culminación con la Puerta Santa de la Catedral de Santiago.
-
-Al mismo tiempo, en la región pirenaico-catalana había por todas partes murales románicos, que formaban una gran colección y que puede verse hoy en Barcelona.
-
-En su gran expansión, el gótico cubrió la Península de muchos monumentos diferentes, tales como las catedrales de Toledo, León, Burgos y Segovia.
-
-El Renacimiento en España produjo una serie de variaciones interesantes que pueden verse en los monumentos del período. Una de ellas es el estilo herreriano, sobrio y grandioso, cuyo principal ejemplo es El Escorial, erigido por orden de Felipe II para conmemorar la victoria de San Quintín, en 1557, sobre Enrique II, rey de Francia. El Escorial en sí mismo ha llegado a ser la representación de una época y una manera de vivir.
-
-Salamanca, por otra parte, conserva los mejores ejemplos del ornamentado plateresco, que da a la ciudad el aspecto de estar decorada con encaje de oro.
-
-El Museo del Prado de Madrid, uno de los mayores tesoros artísticos del mundo, contiene la mejor colección de pintura española, además de las obras de El Greco, Zurbarán, Velázquez, Murillo y Ribera.
-
-Debe hacerse mención especial de las obras de Goya, cuya influencia genial aún se siente hoy en el arte. Su colosal obra de toda una vida rompió todas las reglas y fue precursora de audaces desarrollos en técnica.
-
-8
-
-Hacia finales del siglo XIX, una profunda preocupación por todos los aspectos del arte dio nacimiento a un mundo complejo en el que las más diversas tendencias hallaron partidarios. Gaudí creó una arquitectura ligera y alegre que es hoy fuente de admiración. Sorolla señaló al mundo el sol y las aguas azules de la región mediterránea, mientras Gutiérrez Solana buscaba en las sombras otro rostro de España. A través del gran cuerpo de su obra, Picasso, Juan Gris, Miró y Dalí devolvieron a España su posición rectora en el mundo del arte. Muchos nombres están asociados con los desarrollos más recientes en arte y arquitectura, particularmente el Valle de los Caídos - un Memorial de la Guerra Civil - que añade un toque final a la gran lista de monumentos españoles.
+        traduccion: `Hacia finales del siglo XIX, una profunda preocupación por todos los aspectos del arte dio nacimiento a un mundo complejo en el que las más diversas tendencias hallaron partidarios. Gaudí creó una arquitectura ligera y alegre que es hoy fuente de admiración. Sorolla señaló al mundo el sol y las aguas azules de la región mediterránea, mientras Gutiérrez Solana buscaba en las sombras otro rostro de España. A través del gran cuerpo de su obra, Picasso, Juan Gris, Miró y Dalí devolvieron a España su posición rectora en el mundo del arte. Muchos nombres están asociados con los desarrollos más recientes en arte y arquitectura, particularmente el Valle de los Caídos - un Memorial de la Guerra Civil - que añade un toque final a la gran lista de monumentos españoles.
 
 En música, España ha producido algunos buenos compositores. Entre los primeros, Tomás Luis de Victoria destaca en los temas corales y religiosos. En los tiempos modernos, Granados, Albéniz, Falla, Turina, Halffter y Rodrigo forman la élite. Un género singularmente español es la zarzuela, un tipo de ópera ligera popular, con partes habladas, en la que el carácter español está representado con éxito.
 
 9`,
         notas: [
-          { texto: 'Lectura del original. La transcripción conserva «Altimira», «Italiza», «Granda», «archs», «eatern» y «magnificant» (página 23).' },
-          { texto: 'Decisión de traducción. Las identificaciones evidentes se normalizan como «Altamira», «Itálica» y «Granada», y se corrigen los errores ingleses equivalentes en español (página 23).' },
-          { texto: 'Continuidad entre páginas. La frase final de la página 23 continúa en la página 24; no se completa artificialmente en esa lámina.' },
-          { texto: 'Contexto histórico. La asociación entre mudéjar y mozárabe se conserva como formulación del autor, sin convertirla en una explicación histórico-artística de la edición (página 23).' },
-          { texto: 'Dato cultural. Altamira fue el primer lugar del mundo donde se identificó arte rupestre del Paleolítico superior. Marcelino Sanz de Sautuola publicó el hallazgo en 1880, pero su interpretación no fue reconocida ampliamente hasta 1902.', fuenteTexto: 'Museo Nacional de Altamira', fuenteUrl: 'https://www.cultura.gob.es/mnaltamira/ca/cueva-altamira/descubrimiento.html' },
-          { texto: 'Continuidad entre páginas. La página 24 comienza a mitad de oración; continúa «The Way of Santiago was the most important cultural development» de la página 23.' },
-          { texto: 'Decisión de traducción. Grafías fuente en la página 24: «Pirnean», «differents», «Leon», «Zurnaran» y «Velazquez». En la traducción se normalizan Pirenaico, diferentes, León, Zurbarán y Velázquez.' },
-          { texto: 'Decisión de traducción. «treasure-houses» se traduce como «tesoros artísticos» para evitar la calca «casas del tesoro» (página 24).' },
-          { texto: 'Dato cultural. La «Holy Door» del texto es la Puerta Santa o del Perdón de la Catedral de Santiago. Solo se abre durante los Años Santos Compostelanos, cuando el 25 de julio, festividad de Santiago Apóstol, cae en domingo.', fuenteTexto: 'Catedral de Santiago', fuenteUrl: 'https://catedraldesantiago.es/visitas/' },
-          { texto: 'Decisión de traducción. Grafías fuente normalizadas en la traducción de la página 25: «Gaudi», «Gutierrez», «Juan de Gris», «Miro», «Dali», «Tomas» y «Albeniz».' },
-          { texto: 'Decisión de traducción. «Valley of Fallen - a Civil War Memorial -» se conserva como formulación histórica del documento; cualquier contextualización debe ir fuera de la traducción (página 25).' },
+          { texto: 'Decisión de traducción. Grafías fuente normalizadas en traducción: «Gaudi», «Gutierrez», «Juan de Gris», «Miro», «Dali», «Tomas» y «Albeniz».' },
+          { texto: 'Decisión de traducción. «Valley of Fallen - a Civil War Memorial -» se conserva como formulación histórica del documento; cualquier contextualización debe ir fuera de la traducción.' },
         ],
       },
       {
-        paginaRef: 14,
-        titulo: 'Capítulo VII — Educación y cultura',
+        src: '/fotos/archivo/pagina-26.jpg',
+        alt: 'Capítulo VII, primera página sobre el sistema educativo español',
+        titulo: 'Capítulo VII · Educación y cultura (1 de 2)',
+        referencia: 'Página 26 de 33 del expediente',
         original: `CHAPTER VII. - EDUCATION AND CULTURE
 
 The new system of studies, comprises the following stages: basic,
@@ -795,17 +670,7 @@ Another of the most interesting cultural achievements is the Summer
 
 University and the courses for foreigners which are followed by people
 
-10
-
-from many different countries, specially for students from Latin-
-
-America, Portugal, the Philippines, African countries, and the Arab
-
-world.  To give an idea of the Spanish output of books, the figure of
-
-35 million is very significant; most of them were shipped to America.
-
-11`,
+10`,
         traduccion: `CAPÍTULO VII. - EDUCACIÓN Y CULTURA
 
 El nuevo sistema de estudios comprende las etapas siguientes: enseñanza general básica (entre las edades de 6 y 13 años); bachillerato secundario (entre 14 y 16); un curso de iniciación para la Universidad; un primer ciclo de Universidad para obtener un diploma; un segundo ciclo para obtener un título; un tercer ciclo para obtener la especialización y, finalmente, el doctorado. Además, la formación profesional (para la cual las Universidades Laborales y las Escuelas Profesionales son de la mayor importancia) y la formación técnica están también disponibles. En España hay asimismo 164 Escuelas de Formación del Profesorado; 12 ciudades tienen universidades, mientras otras ocho ciudades poseen una o más facultades.
@@ -816,23 +681,41 @@ El Instituto de Cultura Hispánica ha realizado una gran labor; está especialme
 
 Otro de los logros culturales más interesantes es la Universidad de Verano y los cursos para extranjeros, a los que asisten personas
 
-10
-
-de muchos países diferentes, especialmente estudiantes de Latinoamérica, Portugal, Filipinas, países africanos y el mundo árabe. Para dar una idea de la producción española de libros, la cifra de 35 millones es muy significativa; la mayoría de ellos se enviaron a América.
-
-11`,
+10`,
         notas: [
-          { texto: 'Continuidad entre páginas. La oración final de la página 26 continúa en la página 27.' },
-          { texto: 'Decisión de traducción. Grafía fuente en la página 26: «bacalaureate» y «Espana». La traducción normaliza «bachillerato» y «España».' },
-          { texto: 'Nota editorial. Las cifras y la descripción del sistema educativo son históricas y no deben actualizarse (página 26).' },
-          { texto: 'Continuidad entre páginas. La página 27 continúa directamente la frase de la página 26: «…cursos para extranjeros, a los que asisten personas de muchos países diferentes…».' },
-          { texto: 'Decisión de traducción. El original corta «Latin-America» entre líneas en la página 27; la traducción recompone «Latinoamérica».' },
-          { texto: 'Lectura del original. «America» no se precisa en el original de la página 27.' },
+          { texto: 'Continuidad entre páginas. La oración final continúa en la página 27.' },
+          { texto: 'Decisión de traducción. Grafía fuente: «bacalaureate» y «Espana». La traducción normaliza «bachillerato» y «España».' },
+          { texto: 'Nota editorial. Las cifras y la descripción del sistema educativo son históricas y no deben actualizarse.' },
         ],
       },
       {
-        paginaRef: 16,
-        titulo: 'Capítulo VIII — Estructura política',
+        src: '/fotos/archivo/pagina-27.jpg',
+        alt: 'Capítulo VII, cierre sobre los cursos para extranjeros y la producción editorial española',
+        titulo: 'Capítulo VII · Educación y cultura (2 de 2)',
+        referencia: 'Página 27 de 33 del expediente',
+        original: `from many different countries, specially for students from Latin-
+
+America, Portugal, the Philippines, African countries, and the Arab
+
+world.  To give an idea of the Spanish output of books, the figure of
+
+35 million is very significant; most of them were shipped to America.
+
+11`,
+        traduccion: `de muchos países diferentes, especialmente estudiantes de Latinoamérica, Portugal, Filipinas, países africanos y el mundo árabe. Para dar una idea de la producción española de libros, la cifra de 35 millones es muy significativa; la mayoría de ellos se enviaron a América.
+
+11`,
+        notas: [
+          { texto: 'Continuidad entre páginas. Continúa directamente la frase de la página 26: «…cursos para extranjeros, a los que asisten personas de muchos países diferentes…».' },
+          { texto: 'Decisión de traducción. El original corta «Latin-America» entre líneas; la traducción recompone «Latinoamérica».' },
+          { texto: 'Lectura del original. «America» no se precisa en el original.' },
+        ],
+      },
+      {
+        src: '/fotos/archivo/pagina-28.jpg',
+        alt: 'Capítulo VIII, primera página sobre la estructura política y las Leyes Fundamentales',
+        titulo: 'Capítulo VIII · Estructura política (1 de 2)',
+        referencia: 'Página 28 de 33 del expediente',
         original: `CHAPTER VIII. - POLITICAL STRUCTURE
 
 Spain is a Catholic, Social and Representative State, which in
@@ -883,9 +766,31 @@ sector representing the family as a unity.  A seat in the Cortes is
 
 also held by a certain number of personalities, by reason of their public
 
-12
+12`,
+        traduccion: `CAPÍTULO VIII. - ESTRUCTURA POLÍTICA
 
-office.  A small group of deputies are designated by the Head of State.
+España es un Estado Católico, Social y Representativo, que, de acuerdo con su tradición, se constituye en Reino, según se define por la ley y fue aprobado por referéndum popular en 1947. Desde 1936, la jefatura vitalicia del Estado ha sido ejercida por el Generalísimo Franco, quien, de acuerdo con la Ley de Sucesión, ha nombrado como su sucesor al príncipe Juan Carlos de Borbón, quien será por tanto el futuro Rey de España.
+
+El Jefe del Estado es asistido por el Gobierno, compuesto por un Vicepresidente y 18 Ministros.
+
+La Constitución española está formada por el conjunto de las llamadas Leyes Fundamentales, todas las cuales han sido aprobadas y solo pueden ser modificadas o derogadas por el referéndum de toda la nación.
+
+Entre estas Leyes están el «Fuero de los Españoles», o declaración de derechos individuales; el Fuero del Trabajo, que establece los principios jurídicos que han de regir el sistema de trabajo en España, de acuerdo con la justicia social; la Ley conocida como los Principios Fundamentales del Movimiento, que define las ideas esenciales que inspiran las acciones del Estado español.
+
+La participación de la nación en el gobierno se lleva a cabo por medio de las Cortes o Parlamento, según el sistema de representación de democracia orgánica. Las Cortes tienen un sector que representa a los Sindicatos, otro a los Municipios de las 50 provincias y el tercer sector representa a la familia como una unidad. Un escaño en las Cortes es también ocupado por cierto número de personalidades, por razón de su cargo público
+
+12`,
+        notas: [
+          { texto: 'Continuidad entre páginas. La página acaba a mitad de la unidad «by reason of their public office», que se recompone con la página 29.' },
+          { texto: 'Decisión de traducción. Grafías fuente: «Generalisimo», «Borbon» y «Espanoles»; la traducción normaliza las tildes.' },
+        ],
+      },
+      {
+        src: '/fotos/archivo/pagina-29.jpg',
+        alt: 'Capítulo VIII, cierre sobre las Cortes y el derecho al voto',
+        titulo: 'Capítulo VIII · Estructura política (2 de 2)',
+        referencia: 'Página 29 de 33 del expediente',
+        original: `office.  A small group of deputies are designated by the Head of State.
 
 There are also a National Council of the Movement, a Council of
 
@@ -906,21 +811,7 @@ All Spaniards over the age of 21 are entitled to vote, without
 discrimination as to sex.
 
 13`,
-        traduccion: `CAPÍTULO VIII. - ESTRUCTURA POLÍTICA
-
-España es un Estado Católico, Social y Representativo, que, de acuerdo con su tradición, se constituye en Reino, según se define por la ley y fue aprobado por referéndum popular en 1947. Desde 1936, la jefatura vitalicia del Estado ha sido ejercida por el Generalísimo Franco, quien, de acuerdo con la Ley de Sucesión, ha nombrado como su sucesor al príncipe Juan Carlos de Borbón, quien será por tanto el futuro Rey de España.
-
-El Jefe del Estado es asistido por el Gobierno, compuesto por un Vicepresidente y 18 Ministros.
-
-La Constitución española está formada por el conjunto de las llamadas Leyes Fundamentales, todas las cuales han sido aprobadas y solo pueden ser modificadas o derogadas por el referéndum de toda la nación.
-
-Entre estas Leyes están el «Fuero de los Españoles», o declaración de derechos individuales; el Fuero del Trabajo, que establece los principios jurídicos que han de regir el sistema de trabajo en España, de acuerdo con la justicia social; la Ley conocida como los Principios Fundamentales del Movimiento, que define las ideas esenciales que inspiran las acciones del Estado español.
-
-La participación de la nación en el gobierno se lleva a cabo por medio de las Cortes o Parlamento, según el sistema de representación de democracia orgánica. Las Cortes tienen un sector que representa a los Sindicatos, otro a los Municipios de las 50 provincias y el tercer sector representa a la familia como una unidad. Un escaño en las Cortes es también ocupado por cierto número de personalidades, por razón de su cargo público
-
-12
-
-Un pequeño grupo de diputados es designado por el Jefe del Estado.
+        traduccion: `Un pequeño grupo de diputados es designado por el Jefe del Estado.
 
 Existen asimismo un Consejo Nacional del Movimiento, un Consejo del Reino, un Consejo de Estado, un Tribunal Supremo de Justicia y otros organismos de larga tradición constitucional.
 
@@ -930,15 +821,15 @@ Todos los españoles mayores de 21 años tienen derecho a votar, sin discriminac
 
 13`,
         notas: [
-          { texto: 'Continuidad entre páginas. La página 28 acaba a mitad de la unidad «by reason of their public office», que se recompone con la página 29.' },
-          { texto: 'Decisión de traducción. Grafías fuente en la página 28: «Generalisimo», «Borbon» y «Espanoles»; la traducción normaliza las tildes.' },
-          { texto: 'Decisión de traducción. La traducción de la página 29 presupone la continuidad del final de la anterior: «…por razón de su cargo público. Un pequeño grupo…».' },
-          { texto: 'Descripción material. La comparación con un tribunal de garantías es una afirmación del original (página 29).' },
+          { texto: 'Decisión de traducción. La traducción de esta página presupone la continuidad del final de la anterior: «…por razón de su cargo público. Un pequeño grupo…».' },
+          { texto: 'Descripción material. La comparación con un tribunal de garantías es una afirmación del original.' },
         ],
       },
       {
-        paginaRef: 18,
-        titulo: 'Capítulo IX — Minería e industria',
+        src: '/fotos/archivo/pagina-30.jpg',
+        alt: 'Capítulo IX, primera página sobre minería e industria españolas',
+        titulo: 'Capítulo IX · Minería e industria (1 de 2)',
+        referencia: 'Página 30 de 33 del expediente',
         original: `CHAPTER IX. - MINING AND INDUSTRY
 
 Iron, lead, zinc, and mercury are well represented in the Spanish
@@ -989,9 +880,31 @@ industries have been developed very rapidly.
 
 Spain exports large quantities of very high quality goods, but is
 
-14
+14`,
+        traduccion: `CAPÍTULO IX. - MINERÍA E INDUSTRIA
 
-obliged to buy abroad others which the country lacks, at least in
+El hierro, el plomo, el zinc y el mercurio están bien representados en el suelo español, pero el país sufre escasez de minerales energéticos (carbón y petróleo). Por ello España lleva más de 40 años esforzándose por resolver este problema mediante el uso del «carbón blanco». Los yacimientos nacionales de oro, cobre, plata, plomo, estaño y hierro se explotan desde hace unos 3.000 años a. C. En tiempos antiguos, las minas ibéricas fueron renombradas, pero hoy están casi agotadas en lo que se refiere a metales preciosos.
+
+Tradicionalmente, una de las principales industrias españolas ha sido el textil. En tiempos anteriores se concentraba en Castilla, pero durante los dos últimos siglos se ha concentrado principalmente en Cataluña. La lana, el algodón y la seda se trabajan en muchas fábricas de hilado y estampado. Las principales zonas industriales de España son: Asturias (donde hay ricas minas y destacadas siderurgias), las Provincias Vascongadas y Santander, con fundiciones, acerías, fabricantes de maquinaria pesada, productos químicos y subproductos lácteos; Cataluña, con fabricantes de automóviles, locomotoras y otras industrias pesadas, además de textiles; y la Zona Central en torno a Madrid, con industrias metalúrgicas, químicas y cerámicas, entre otras. La industria alimentaria está dispersa por todo el país; harina en las zonas interiores, aceitunas en Andalucía; conservas vegetales en Galicia y Andalucía; cultivo de vino en Cataluña, La Rioja, La Mancha y Andalucía, etc.
+
+En los últimos años, las industrias del automóvil y de los aparatos eléctricos domésticos se han desarrollado muy rápidamente.
+
+España exporta grandes cantidades de productos de muy alta calidad, pero se ve obligada
+
+14`,
+        notas: [
+          { texto: 'Continuidad entre páginas. La oración final continúa en la página 31.' },
+          { texto: 'Decisión de traducción. Grafías fuente: «renown», «Basques Provinces», «inlands» y «Andalussia». La traducción normaliza Andalucía y mantiene el sentido de las restantes.' },
+          { texto: 'Decisión de traducción. «white coal» se vierte literalmente como «carbón blanco»; es una expresión histórica que requiere explicación contextual separada.' },
+          { texto: 'Descripción material. Las afirmaciones sobre minería e industria corresponden a la fecha del texto, no a datos actuales.' },
+        ],
+      },
+      {
+        src: '/fotos/archivo/pagina-31.jpg',
+        alt: 'Capítulo IX, cierre con las cifras del comercio exterior español de 1969',
+        titulo: 'Capítulo IX · Minería e industria (2 de 2)',
+        referencia: 'Página 31 de 33 del expediente',
+        original: `obliged to buy abroad others which the country lacks, at least in
 
 sufficient quantities to cover national needs, such as petroleum, coal,
 
@@ -1004,33 +917,19 @@ Spanish foreign trade, in 1969 was:  Imports - 269,305.4 and exports -
 133,022.5 millions of pesetas.
 
 15`,
-        traduccion: `CAPÍTULO IX. - MINERÍA E INDUSTRIA
-
-El hierro, el plomo, el zinc y el mercurio están bien representados en el suelo español, pero el país sufre escasez de minerales energéticos (carbón y petróleo). Por ello España lleva más de 40 años esforzándose por resolver este problema mediante el uso del «carbón blanco». Los yacimientos nacionales de oro, cobre, plata, plomo, estaño y hierro se explotan desde hace unos 3.000 años a. C. En tiempos antiguos, las minas ibéricas fueron renombradas, pero hoy están casi agotadas en lo que se refiere a metales preciosos.
-
-Tradicionalmente, una de las principales industrias españolas ha sido el textil. En tiempos anteriores se concentraba en Castilla, pero durante los dos últimos siglos se ha concentrado principalmente en Cataluña. La lana, el algodón y la seda se trabajan en muchas fábricas de hilado y estampado. Las principales zonas industriales de España son: Asturias (donde hay ricas minas y destacadas siderurgias), las Provincias Vascongadas y Santander, con fundiciones, acerías, fabricantes de maquinaria pesada, productos químicos y subproductos lácteos; Cataluña, con fabricantes de automóviles, locomotoras y otras industrias pesadas, además de textiles; y la Zona Central en torno a Madrid, con industrias metalúrgicas, químicas y cerámicas, entre otras. La industria alimentaria está dispersa por todo el país; harina en las zonas interiores, aceitunas en Andalucía; conservas vegetales en Galicia y Andalucía; cultivo de vino en Cataluña, La Rioja, La Mancha y Andalucía, etc.
-
-En los últimos años, las industrias del automóvil y de los aparatos eléctricos domésticos se han desarrollado muy rápidamente.
-
-España exporta grandes cantidades de productos de muy alta calidad, pero se ve obligada
-
-14
-
-a comprar en el extranjero otros que el país no posee, al menos en cantidades suficientes para cubrir las necesidades nacionales, tales como petróleo, carbón, maquinaria, etc., y exporta productos tales como maquinaria, aceite de oliva, minerales combustibles, barcos, automóviles, camiones y tractores. El comercio exterior español, en 1969, fue: importaciones - 269.305,4 y exportaciones - 133.022,5 millones de pesetas.
+        traduccion: `a comprar en el extranjero otros que el país no posee, al menos en cantidades suficientes para cubrir las necesidades nacionales, tales como petróleo, carbón, maquinaria, etc., y exporta productos tales como maquinaria, aceite de oliva, minerales combustibles, barcos, automóviles, camiones y tractores. El comercio exterior español, en 1969, fue: importaciones - 269.305,4 y exportaciones - 133.022,5 millones de pesetas.
 
 15`,
         notas: [
-          { texto: 'Continuidad entre páginas. La oración final de la página 30 continúa en la página 31.' },
-          { texto: 'Decisión de traducción. Grafías fuente en la página 30: «renown», «Basques Provinces», «inlands» y «Andalussia». La traducción normaliza Andalucía y mantiene el sentido de las restantes.' },
-          { texto: 'Decisión de traducción. «white coal» se vierte literalmente como «carbón blanco»; es una expresión histórica que requiere explicación contextual separada (página 30).' },
-          { texto: 'Descripción material. Las afirmaciones sobre minería e industria corresponden a la fecha del texto, no a datos actuales (página 30).' },
-          { texto: 'Continuidad entre páginas. La página 31 continúa la oración de la página 30: «España exporta grandes cantidades de productos de muy alta calidad, pero se ve obligada a comprar…».' },
-          { texto: 'Decisión de traducción. Las cifras se conservan exactamente en la transcripción; la traducción usa formato numérico español sin alterar su valor (página 31).' },
+          { texto: 'Continuidad entre páginas. Continúa la oración de la página 30: «España exporta grandes cantidades de productos de muy alta calidad, pero se ve obligada a comprar…».' },
+          { texto: 'Decisión de traducción. Las cifras se conservan exactamente en la transcripción; la traducción usa formato numérico español sin alterar su valor.' },
         ],
       },
       {
-        paginaRef: 20,
-        titulo: 'Capítulo X — Política exterior',
+        src: '/fotos/archivo/pagina-32.jpg',
+        alt: 'Capítulo X, sobre la política exterior española y la aspiración europea',
+        titulo: 'Capítulo X · Política exterior',
+        referencia: 'Página 32 de 33 del expediente',
         original: `CHAPTER X. - FOREIGN POLICY
 
 "Europe is needing a united, stable and prosperous Spain, so in the
@@ -1098,8 +997,10 @@ La estrecha relación familiar entre los países iberoamericanos y España queda
         ],
       },
       {
-        paginaRef: 21,
+        src: '/fotos/archivo/pagina-33.jpg',
+        alt: 'Conclusión del ensayo, con la referencia al lema Plus Ultra',
         titulo: 'Conclusión',
+        referencia: 'Página 33 de 33 del expediente',
         original: `CONCLUSION
 
 Spain is a land with a long history open to all, and wishing to
@@ -1126,9 +1027,146 @@ Y sabe también que «Noblesse oblige».
 17`,
         notas: [
           { texto: 'Decisión de traducción. El original usa «legend»; se traduce como «lema» por referencia a «PLUS ULTRA» en el escudo de armas.' },
-          { texto: 'Dato cultural. «Plus Ultra» significa «más allá». Fue el lema personal de Carlos V y aparece unido a las columnas de Hércules. Patrimonio Nacional atribuye la creación del emblema en 1517 a Luigi Marliani.', fuenteTexto: 'Patrimonio Nacional', fuenteUrl: 'https://www.patrimonionacional.es/real-armeria/silla-de-montar-de-acero-de-carlos-v' },
-          { texto: 'Dato cultural. El lema sigue formando parte del escudo oficial de España: la ley de 1981 coloca «Plus» y «Ultra» en las cintas que rodean sus dos columnas.', fuenteTexto: 'BOE, Ley 33/1981', fuenteUrl: 'https://www.boe.es/eli/es/l/1981/10/05/33/con' },
-          { texto: 'Dato cultural. «Noblesse oblige» significa literalmente «la nobleza obliga»: es la idea de que un rango o una posición privilegiada conlleva la obligación de actuar con honor, generosidad y responsabilidad.', fuenteTexto: 'Merriam-Webster Dictionary', fuenteUrl: 'https://www.merriam-webster.com/dictionary/noblesse%20oblige' },
+          {
+            texto: 'Dato cultural. «Plus Ultra» significa «más allá». Fue el lema personal de Carlos V y aparece unido a las columnas de Hércules. Patrimonio Nacional atribuye la creación del emblema en 1517 a Luigi Marliani.',
+            fuenteTexto: 'Patrimonio Nacional',
+            fuenteUrl: 'https://www.patrimonionacional.es/real-armeria/silla-de-montar-de-acero-de-carlos-v',
+          },
+          {
+            texto: 'Dato cultural. El lema sigue formando parte del escudo oficial de España: la ley de 1981 coloca «Plus» y «Ultra» en las cintas que rodean sus dos columnas.',
+            fuenteTexto: 'BOE, Ley 33/1981',
+            fuenteUrl: 'https://www.boe.es/eli/es/l/1981/10/05/33/con',
+          },
+          {
+            texto: 'Dato cultural. «Noblesse oblige» significa literalmente «la nobleza obliga»: es la idea de que un rango o una posición privilegiada conlleva la obligación de actuar con honor, generosidad y responsabilidad.',
+            fuenteTexto: 'Merriam-Webster Dictionary',
+            fuenteUrl: 'https://www.merriam-webster.com/dictionary/noblesse%20oblige',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'carta-bienvenida-1972',
+    titulo: 'Carta de bienvenida del Naval Command College',
+    pieza: 'Carta de bienvenida de 1972',
+    fecha: '30 de junio de 1972',
+    fechaOrden: '1972-06-30',
+    resumen: 'Carta oficial del director del Naval Command College dando la bienvenida a Tomás como miembro de la promoción 1973 y explicando los preparativos para la mudanza familiar a Newport.',
+    tipoDocumento: TIPO_CORRESPONDENCIA,
+    contexto: 'Primer documento cronológico del expediente: la carta con la que el Naval Command College recibe formalmente a Tomás como alumno de la promoción 1972-73, firmada por su director T. H. Nugent Jr. Marca el punto de partida de la relación de Tomás con Newport y de la extensa red de compañeros que mantendría por correspondencia durante casi una década.',
+    personas: ['Tomás Gómez Arroyo', 'T. H. Nugent Jr.', 'K. L. Wright'],
+    credito: CREDITO,
+    derechos: DERECHOS,
+    fechaConsulta: FECHA_CONSULTA,
+    fuenteTexto: FUENTE_TEXTO,
+    paginas: [
+      {
+        src: '/fotos/archivo/pagina-07.jpg',
+        alt: 'Primera página de la carta de bienvenida del director del Naval Command College a Tomás',
+        titulo: 'Primera hoja',
+        referencia: 'Página 7 de 33 del expediente',
+        original: `30 JUN 1972
+
+Dear Commander Arroyo,
+
+     It is my pleasure as Director of the Naval Command College
+to welcome you as a member of the NCC Class of 1973. Enclosed
+is a General Information pamphlet concerning the College that
+I hope will prove to be useful in planning for your visit to
+the United States. A copy of the Curriculum and several
+brochures will be sent to you when they become available. They
+will be more specific and will be helpful in acquainting you
+with the nature of the studies you will pursue while you are
+here at NCC.
+
+     We hope that circumstances will permit your family to be
+with you this coming year in Newport. Our experience has
+shown that officers who have their families with them have a
+much more enjoyable visit in the United States. We realize
+that housing will be a major concern to you and your bring
+your family. No unusual difficulty is anticipated in obtaining
+permanent housing for you, although temporary housing may have
+to be utilized until the popular Newport summer season is over
+about 4 September. Since temporary housing is expensive and
+in short supply, you might wish to consider having your family
+join you shortly after classes begin. In any event, please do
+not let housing arrangements discourage you from bringing your
+family as we look forward to having them with us.
+
+     Commander K. L. Wright, a member of my staff, has been
+assigned as your Military Sponsor. He will soon write to you
+and will be prepared to aid you in all possible ways, both in
+preparing for your trip and after your arrival in Newport.
+Please let him know of any problems or unanswered questions,
+no matter how small they may seem.`,
+        traduccion: `30 JUN 1972
+
+Estimado comandante Arroyo:
+
+     Me complace, como Director del Naval Command College, darle la bienvenida
+como miembro de la promoción NCC de 1973. Se adjunta un folleto de Información
+General sobre el College que espero resulte útil para planificar su visita a los
+Estados Unidos. Le serán enviados un ejemplar del plan de estudios y varios
+folletos cuando estén disponibles. Serán más específicos y le ayudarán a
+familiarizarse con la naturaleza de los estudios que realizará mientras esté
+aquí, en el NCC.
+
+     Esperamos que las circunstancias permitan a su familia estar con usted el
+próximo año en Newport. Nuestra experiencia ha demostrado que los oficiales que
+tienen a sus familias consigo disfrutan mucho más de su estancia en los Estados
+Unidos. Somos conscientes de que el alojamiento será una preocupación importante
+para usted y para que traiga a su familia. No se prevé dificultad inusual para
+conseguir alojamiento permanente, aunque quizá haya que utilizar alojamiento
+temporal hasta que termine la concurrida temporada de verano de Newport, hacia
+el 4 de septiembre. Dado que es caro y escaso, quizá desee que su familia se
+reúna con usted poco después de comenzar las clases. En cualquier caso, no
+permita que el alojamiento lo disuada de traer a su familia, pues esperamos con ilusión tenerlos con nosotros.
+
+     El comandante K. L. Wright ha sido designado como su patrocinador militar.
+Le escribirá pronto y estará preparado para ayudarle antes del viaje y tras su
+llegada a Newport. Hágale saber cualquier problema o pregunta que haya quedado sin respuesta, por pequeño que pueda parecer.`,
+        notas: [
+          { texto: 'Lectura del original. La frase sobre alojamiento es defectuosa en el original.' },
+        ],
+      },
+      {
+        src: '/fotos/archivo/pagina-08.jpg',
+        alt: 'Segunda página de la carta, firmada por el capitán T. H. Nugent Jr.',
+        titulo: 'Segunda hoja',
+        referencia: 'Página 8 de 33 del expediente',
+        original: `I am looking forward to welcoming you to Newport in person. In
+the meantime, please feel free to write to me or your sponsor.
+
+                         Sincerely,
+                         T. H. NUGENT, JR.
+                         Captain, U. S. Navy
+                         Director, Naval Command College
+
+Enclosure
+
+Commander Tomas Gomez ARROYO, Spanish Navy
+c/o Chief, Navy Section
+Joint U. S. Military Group -
+Military Assistance Advisory Group
+APO New York 09285`,
+        traduccion: `Espero darle personalmente la bienvenida a Newport. Mientras tanto, no
+dude en escribirme a mí o a su patrocinador.
+
+                         Atentamente,
+                         T. H. NUGENT, JR.
+                         Capitán, Armada de los EE. UU.
+                         Director, Naval Command College
+
+Adjunto
+
+Comandante Tomas Gomez ARROYO, Armada Española
+a/c del Jefe de la Sección Naval
+Grupo Militar Conjunto de los EE. UU. -
+Grupo Asesor de Asistencia Militar
+APO New York 09285`,
+        notas: [
+          { texto: 'Continuidad entre páginas. El número impreso 2 confirma continuidad.' },
         ],
       },
     ],
@@ -1147,24 +1185,12 @@ Y sabe también que «Noblesse oblige».
     derechos: DERECHOS,
     fechaConsulta: FECHA_CONSULTA,
     fuenteTexto: FUENTE_TEXTO,
-    documentoUrl: DOCUMENTO_URL,
-    documentoTamano: DOCUMENTO_TAMANO,
     paginas: [
       {
         src: '/fotos/archivo/pagina-05.jpg',
         alt: 'Primera página de la evaluación de graduación de Tomás en el Naval Command College',
-        pie: 'Página 1 de 2: evaluación de graduación, descripción del curso 1972-73',
-      },
-      {
-        src: '/fotos/archivo/pagina-06.jpg',
-        alt: 'Segunda página de la evaluación, con la firma de Stansfield Turner',
-        pie: 'Página 2 de 2: evaluación de graduación, firma de Stansfield Turner',
-      },
-    ],
-    secciones: [
-      {
-        paginaRef: 1,
-        titulo: 'Evaluación de graduación, página 1',
+        titulo: 'Primera hoja',
+        referencia: 'Página 5 de 33 del expediente',
         original: `Dear Admiral Pita da Veiga,
 
      The students of the Naval Command College (NCC), Class of
@@ -1214,12 +1240,18 @@ Paralelamente, durante su estancia en el War College, los alumnos viajaron exten
         notas: [
           { texto: 'Lectura del original. Anotación: [lectura dudosa: Ser 1846 / 30 Jul 73].' },
           { texto: 'Lectura del original. Se conservan las irregularidades del original.' },
-          { texto: 'Contexto institucional. El Current Strategy Forum citado en la evaluación tiene su origen en unas mesas redondas celebradas por primera vez en el Naval War College en mayo de 1949. Reunía a invitados civiles y militares para discutir la estrategia futura con los oficiales alumnos.', fuenteTexto: 'U.S. Naval War College', fuenteUrl: 'https://usnwc.edu/News-and-Events/Conferences-and-Symposia/Current-Strategy-Forum' },
+          {
+            texto: 'Contexto institucional. El Current Strategy Forum citado en la evaluación tiene su origen en unas mesas redondas celebradas por primera vez en el Naval War College en mayo de 1949. Reunía a invitados civiles y militares para discutir la estrategia futura con los oficiales alumnos.',
+            fuenteTexto: 'U.S. Naval War College',
+            fuenteUrl: 'https://usnwc.edu/News-and-Events/Conferences-and-Symposia/Current-Strategy-Forum',
+          },
         ],
       },
       {
-        paginaRef: 2,
-        titulo: 'Evaluación de graduación, página 2',
+        src: '/fotos/archivo/pagina-06.jpg',
+        alt: 'Segunda página de la evaluación, con la firma de Stansfield Turner',
+        titulo: 'Segunda hoja',
+        referencia: 'Página 6 de 33 del expediente',
         original: `Captain Arroyo has had a distinguished year at the Naval War
 College as a result of his excellent professional and personal contri-
 bution. Early in the academic year, the presentation of his country
@@ -1295,7 +1327,11 @@ REDACTADO POR: CDR K. L. WRIGHT, JR. #54:cba) 5 de julio de 1973`,
         notas: [
           { texto: 'Descripción material. Stansfield Turner firma; K. L. Wright Jr. figura como redactor.' },
           { texto: 'Descripción material. No se reproduce firma manuscrita no visible.' },
-          { texto: 'Dato biográfico. Stansfield Turner presidía el Naval War College cuando Tomás terminó el curso. Años después fue Director de la Inteligencia Central de los Estados Unidos entre 1977 y 1981. En este ejemplar aparece su bloque de firma mecanografiado, pero el propio documento identifica a K. L. Wright Jr. como redactor material.', fuenteTexto: 'U.S. Naval War College', fuenteUrl: 'https://usnwc.edu/News-and-Events/News/Former-Naval-War-College-president-Admiral-Stansfield-Turner-passes-away' },
+          {
+            texto: 'Dato biográfico. Stansfield Turner presidía el Naval War College cuando Tomás terminó el curso. Años después fue Director de la Inteligencia Central de los Estados Unidos entre 1977 y 1981. En este ejemplar aparece su bloque de firma mecanografiado, pero el propio documento identifica a K. L. Wright Jr. como redactor material.',
+            fuenteTexto: 'U.S. Naval War College',
+            fuenteUrl: 'https://usnwc.edu/News-and-Events/News/Former-Naval-War-College-president-Admiral-Stansfield-Turner-passes-away',
+          },
         ],
       },
     ],
@@ -1314,19 +1350,12 @@ REDACTADO POR: CDR K. L. WRIGHT, JR. #54:cba) 5 de julio de 1973`,
     derechos: DERECHOS,
     fechaConsulta: FECHA_CONSULTA,
     fuenteTexto: FUENTE_TEXTO,
-    documentoUrl: DOCUMENTO_URL,
-    documentoTamano: DOCUMENTO_TAMANO,
     paginas: [
       {
         src: '/fotos/archivo/pagina-09.jpg',
         alt: 'Carta de Tomás desde Cartagena describiendo su nuevo destino como comodoro',
-        pie: 'Página única: carta desde Cartagena, octubre de 1974',
-      },
-    ],
-    secciones: [
-      {
-        paginaRef: 1,
-        titulo: 'Carta desde Cartagena, octubre de 1974',
+        titulo: 'Carta completa',
+        referencia: 'Página 9 de 33 del expediente',
         original: `Jefe de la 21 Escuadrilla
 de
 Destructores
@@ -1399,7 +1428,11 @@ Cartagena, October, 1.974
         notas: [
           { texto: 'Nota editorial. V.A. no se desarrolla.' },
           { texto: 'Lectura del original. Se conservan irregularidades del inglés.' },
-          { texto: 'Dato histórico. Cartagena era mucho más que el lugar desde donde se envió la carta. Su Arsenal se convirtió en cabecera del departamento marítimo de Levante en el siglo XVIII y sigue siendo la base de apoyo logístico de la Armada para el Mediterráneo español.', fuenteTexto: 'Armada Española, Arsenal de Cartagena', fuenteUrl: 'https://armada.defensa.gob.es/ArmadaPortal/page/Portal/ArmadaEspannola/conocenosorganizacion/prefLang-es/04Apoyofuerza--02jal--05Arsenales--03arsenalcartagena' },
+          {
+            texto: 'Dato histórico. Cartagena era mucho más que el lugar desde donde se envió la carta. Su Arsenal se convirtió en cabecera del departamento marítimo de Levante en el siglo XVIII y sigue siendo la base de apoyo logístico de la Armada para el Mediterráneo español.',
+            fuenteTexto: 'Armada Española, Arsenal de Cartagena',
+            fuenteUrl: 'https://armada.defensa.gob.es/ArmadaPortal/page/Portal/ArmadaEspannola/conocenosorganizacion/prefLang-es/04Apoyofuerza--02jal--05Arsenales--03arsenalcartagena',
+          },
         ],
       },
     ],
@@ -1418,24 +1451,12 @@ Cartagena, October, 1.974
     derechos: DERECHOS,
     fechaConsulta: FECHA_CONSULTA,
     fuenteTexto: FUENTE_TEXTO,
-    documentoUrl: DOCUMENTO_URL,
-    documentoTamano: DOCUMENTO_TAMANO,
     paginas: [
       {
         src: '/fotos/archivo/pagina-10.jpg',
         alt: 'Primera página de la carta de Año Nuevo de 1976 desde Santiago de Chile',
-        pie: 'Página 1 de 2: carta desde Santiago, 14 de enero de 1976',
-      },
-      {
-        src: '/fotos/archivo/pagina-11.jpg',
-        alt: 'Segunda página de la carta, con la despedida y una nota manuscrita de agradecimiento',
-        pie: 'Página 2 de 2: carta desde Santiago, 14 de enero de 1976',
-      },
-    ],
-    secciones: [
-      {
-        paginaRef: 1,
-        titulo: 'Carta desde Santiago, 14 de enero de 1976 (página 1)',
+        titulo: 'Primera hoja',
+        referencia: 'Página 10 de 33 del expediente',
         original: `El Agregado Naval, Militar y Aéreo
 a la Embajada de España en
 Santiago de Chile
@@ -1485,12 +1506,18 @@ Aprovechamos esta oportunidad para desear lo mejor a nuestros buenos amigos esta
         notas: [
           { texto: 'Continuidad entre páginas. La carta continúa en la página 11.' },
           { texto: 'Nota editorial. C.S.F. no se desarrolla.' },
-          { texto: 'Dato cultural. El «Bicentennial» que menciona es el bicentenario de la independencia estadounidense celebrado en 1976, doscientos años después de que el Congreso Continental adoptara la Declaración de Independencia el 4 de julio de 1776.', fuenteTexto: 'U.S. National Archives', fuenteUrl: 'https://www.archives.gov/milestone-documents/declaration-of-independence' },
+          {
+            texto: 'Dato cultural. El «Bicentennial» que menciona es el bicentenario de la independencia estadounidense celebrado en 1976, doscientos años después de que el Congreso Continental adoptara la Declaración de Independencia el 4 de julio de 1776.',
+            fuenteTexto: 'U.S. National Archives',
+            fuenteUrl: 'https://www.archives.gov/milestone-documents/declaration-of-independence',
+          },
         ],
       },
       {
-        paginaRef: 2,
-        titulo: 'Carta desde Santiago, 14 de enero de 1976 (página 2)',
+        src: '/fotos/archivo/pagina-11.jpg',
+        alt: 'Segunda página de la carta, con la despedida y una nota manuscrita de agradecimiento',
+        titulo: 'Segunda hoja',
+        referencia: 'Página 11 de 33 del expediente',
         original: `blems to be discussed, and we are longing for visiting our friends from
     New England, but... Anyway, we will be there, in spirit.
 
@@ -1525,7 +1552,7 @@ Muchas gracias a la persona del equipo que va a traducir esta carta al inglés. 
 
 Tomás`,
         notas: [
-          { texto: 'Decisión de traducción. La traducción inicia la frase cortada en la página 10.' },
+          { texto: 'Decisión de traducción. La traducción inicia la frase cortada en p. 10.' },
           { texto: 'Nota editorial. La nota manuscrita solicita traducir al inglés una carta ya escrita en inglés.' },
         ],
       },
@@ -1545,19 +1572,12 @@ Tomás`,
     derechos: DERECHOS,
     fechaConsulta: FECHA_CONSULTA,
     fuenteTexto: FUENTE_TEXTO,
-    documentoUrl: DOCUMENTO_URL,
-    documentoTamano: DOCUMENTO_TAMANO,
     paginas: [
       {
         src: '/fotos/archivo/pagina-03.jpg',
         alt: 'Carta de Año Nuevo de 1977 desde Santiago de Chile',
-        pie: 'Página única: carta desde Santiago, 7 de enero de 1977',
-      },
-    ],
-    secciones: [
-      {
-        paginaRef: 1,
-        titulo: 'Carta desde Santiago, 7 de enero de 1977',
+        titulo: 'Carta completa',
+        referencia: 'Página 3 de 33 del expediente',
         original: `El Agregado Naval, Militar y Aéreo
 a la Embajada de España en
 Santiago de Chile
@@ -1618,7 +1638,11 @@ PROMOCIÓN 1972-73.`,
         notas: [
           { texto: 'Lectura del original. Se conservan «prefered», «get marry» y «Newsport».' },
           { texto: 'Lectura del original. Anotación superior derecha: [ilegible].' },
-          { texto: 'Contexto institucional. La reunión del N.C.C. no era solo un encuentro escolar. El Naval Command College se creó en 1956 para reunir en Newport a oficiales superiores de marinas extranjeras y construir relaciones profesionales duraderas. Las cartas muestran que aquella red seguía viva años después del curso.', fuenteTexto: 'U.S. Naval War College', fuenteUrl: 'https://usnwc.edu/naval-command-college/index' },
+          {
+            texto: 'Contexto institucional. La reunión del N.C.C. no era solo un encuentro escolar. El Naval Command College se creó en 1956 para reunir en Newport a oficiales superiores de marinas extranjeras y construir relaciones profesionales duraderas. Las cartas muestran que aquella red seguía viva años después del curso.',
+            fuenteTexto: 'U.S. Naval War College',
+            fuenteUrl: 'https://usnwc.edu/naval-command-college/index',
+          },
         ],
       },
     ],
@@ -1637,19 +1661,12 @@ PROMOCIÓN 1972-73.`,
     derechos: DERECHOS,
     fechaConsulta: FECHA_CONSULTA,
     fuenteTexto: FUENTE_TEXTO,
-    documentoUrl: DOCUMENTO_URL,
-    documentoTamano: DOCUMENTO_TAMANO,
     paginas: [
       {
         src: '/fotos/archivo/pagina-04.jpg',
         alt: 'Carta de fin de año de 1977 desde Santiago de Chile, con la anécdota del USS Kitty Hawk',
-        pie: 'Página única: carta desde Santiago, 21 de diciembre de 1977',
-      },
-    ],
-    secciones: [
-      {
-        paginaRef: 1,
-        titulo: 'Carta desde Santiago, 21 de diciembre de 1977',
+        titulo: 'Carta completa',
+        referencia: 'Página 4 de 33 del expediente',
         original: `El Agregado Naval, Militar y Aéreo
 a la Embajada de España en
 Santiago de Chile
@@ -1738,24 +1755,12 @@ TOMAS GOMEZ ARROYO.-
     derechos: DERECHOS,
     fechaConsulta: FECHA_CONSULTA,
     fuenteTexto: FUENTE_TEXTO,
-    documentoUrl: DOCUMENTO_URL,
-    documentoTamano: DOCUMENTO_TAMANO,
     paginas: [
       {
         src: '/fotos/archivo/pagina-01.jpg',
         alt: 'Copia de archivo sin firma anunciando el ascenso de Tomás a contralmirante',
-        pie: 'Página 1 de 2: copia de archivo del aviso de ascenso',
-      },
-      {
-        src: '/fotos/archivo/pagina-02.jpg',
-        alt: 'Ejemplar con membrete oficial y firma manuscrita del aviso de ascenso',
-        pie: 'Página 2 de 2: ejemplar firmado del aviso de ascenso',
-      },
-    ],
-    secciones: [
-      {
-        paginaRef: 1,
-        titulo: 'Ascenso a contralmirante — copia de archivo',
+        titulo: 'Copia de archivo sin firma',
+        referencia: 'Página 1 de 33 del expediente',
         original: `                                                    January 1979
 
 From:   RADM Tomas G. ARROYO, Spanish Navy
@@ -1807,12 +1812,18 @@ Departamento de Personal», en el Cuartel General de la Armada.
           { texto: 'Descripción material. Copia mecanografiada o minuta, sin membrete ni firma autógrafa visible.' },
           { texto: 'Decisión de traducción. En la dirección el original escribe «Personnel», pero en el cuerpo escribe «Personal»; la transcripción conserva ambas formas y la traducción normaliza el nombre del departamento.' },
           { texto: 'Nota editorial. La marca \'73 remite a la promoción del Naval Command College, no al año de esta carta.' },
-          { texto: 'Dato histórico. El ascenso no acababa de producirse cuando escribió esta carta: el BOE lo había formalizado el 1 de julio de 1978, seis meses antes. El mismo decreto lo nombró Director de Reclutamiento y Dotaciones, el destino que comunica aquí a sus compañeros.', fuenteTexto: 'BOE, 1 de julio de 1978', fuenteUrl: 'https://www.boe.es/diario_boe/txt.php?id=BOE-A-1978-16995' },
+          {
+            texto: 'Dato histórico. El ascenso no acababa de producirse cuando escribió esta carta: el BOE lo había formalizado el 1 de julio de 1978, seis meses antes. El mismo decreto lo nombró Director de Reclutamiento y Dotaciones, el destino que comunica aquí a sus compañeros.',
+            fuenteTexto: 'BOE, 1 de julio de 1978',
+            fuenteUrl: 'https://www.boe.es/diario_boe/txt.php?id=BOE-A-1978-16995',
+          },
         ],
       },
       {
-        paginaRef: 2,
-        titulo: 'Ascenso a contralmirante — ejemplar firmado',
+        src: '/fotos/archivo/pagina-02.jpg',
+        alt: 'Ejemplar con membrete oficial y firma manuscrita del aviso de ascenso',
+        titulo: 'Ejemplar firmado con membrete',
+        referencia: 'Página 2 de 33 del expediente',
         original: `MINISTERIO DE DEFENSA               Madrid, 11th January, 1979
 CUARTEL GENERAL DE LA ARMADA
 DIRECTOR DE RECLUTAMIENTO Y DOTACIONES
@@ -1885,19 +1896,12 @@ Dotaciones del Departamento de Personal», en el Cuartel General de la Armada.
     derechos: DERECHOS,
     fechaConsulta: FECHA_CONSULTA,
     fuenteTexto: FUENTE_TEXTO,
-    documentoUrl: DOCUMENTO_URL,
-    documentoTamano: DOCUMENTO_TAMANO,
     paginas: [
       {
         src: '/fotos/archivo/pagina-12.jpg',
         alt: 'Carta desde El Ferrol del Caudillo anunciando la muerte del padre de Tomás y su nuevo destino',
-        pie: 'Página única: carta desde El Ferrol, 21 de enero de 1981',
-      },
-    ],
-    secciones: [
-      {
-        paginaRef: 1,
-        titulo: 'Carta desde El Ferrol del Caudillo, 21 de enero de 1981',
+        titulo: 'Carta completa',
+        referencia: 'Página 12 de 33 del expediente',
         original: `EL CONTRALMIRANTE JEFE
 DEL
 MANDO DE ESCOLTAS
@@ -1968,7 +1972,11 @@ Newport, Rhode Island 02840
           { texto: 'Nota editorial. «During» es una adición manuscrita.' },
           { texto: 'Lectura del original. Tras Antonio: [lectura dudosa: which].' },
           { texto: 'Nota editorial. No se infiere causa de fallecimiento.' },
-          { texto: 'Dato histórico. El nombramiento que figura en el membrete era reciente: el BOE había designado a Tomás Jefe del Mando de Escoltas el 22 de diciembre de 1980, pocas semanas antes de esta carta.', fuenteTexto: 'BOE, 22 de diciembre de 1980', fuenteUrl: 'https://www.boe.es/diario_boe/txt.php?id=BOE-A-1980-27934' },
+          {
+            texto: 'Dato histórico. El nombramiento que figura en el membrete era reciente: el BOE había designado a Tomás Jefe del Mando de Escoltas el 22 de diciembre de 1980, pocas semanas antes de esta carta del 14 de enero de 1981.',
+            fuenteTexto: 'BOE, 22 de diciembre de 1980',
+            fuenteUrl: 'https://www.boe.es/diario_boe/txt.php?id=BOE-A-1980-27934',
+          },
         ],
       },
     ],

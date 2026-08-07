@@ -1,0 +1,16 @@
+{
+  // Configuración de Cloudflare Pages para el sitio de las Memorias.
+  // Define las conexiones que necesitan las funciones del Libro de visitas:
+  // sin esto, /api/publicaciones no encuentra la base de datos y responde 500.
+  "name": "tomasgomezarroyo",
+  "compatibility_date": "2026-08-07",
+  "pages_build_output_dir": "dist",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "memorias-libro-visitas",
+      "database_id": "dc104e3e-af68-4362-b6f0-e171386a775d",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

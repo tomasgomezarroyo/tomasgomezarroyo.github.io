@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import { documentos } from '../data/archivo';
+---
+<Base titulo="Archivo" descripcion="Cartas y documentos originales de Tomás Gómez Arroyo, con su traducción al español página por página." conBarco={true}>
+  <main class="flota">
+    <header>
+      <p class="etiqueta">En sus propias palabras, y en las de quienes escribieron sobre él</p>
+      <h1 class="display">Archivo</h1>
+      <p class="intro">Documentos originales del archivo personal de Tomás Gómez Arroyo: correspondencia y su ensayo académico sobre España, escritos durante y después de su paso por el U.S. Naval War College (1972-1973). Cada documento se muestra en su idioma original, página por página, junto a su traducción fiel al español.</p>
+    </header>
+
+    <div class="fichas">
+      {documentos.map((d) => (
+        <article class="ficha">
+          <a href={`/archivo/${d.slug}`} class="marco-foto" aria-label={`Abrir ${d.titulo}`}>
+            <img src={d.paginas[0].src} alt={d.paginas[0].alt} loading="lazy" decoding="async" />
+            <span class="cantidad">{d.paginas.length} {d.paginas.length === 1 ? 'página' : 'páginas'}</span>
+          </a>
+          <h2><a href={`/archivo/${d.slug}`}>{d.titulo}</a></h2>
+          <p class="fecha">{d.fecha}</p>
+          <p class="nota">{d.resumen}</p>
+          <p class="acciones">
+            <a class="boton-ficha" href={`/archivo/${d.slug}`}>Leer original y traducción</a>
+          </p>
+        </article>
+      ))}
+    </div>
+  </main>
+</Base>
+
+<style>
+  .flota { max-width: 62rem; margin: 0 auto; padding: 5.5rem 1.4rem 3rem; }
+  header { text-align: center; margin-bottom: 3rem; }
+  h1 { font-size: clamp(2.1rem, 6vw, 3rem); margin-top: 0.5rem; }
+  .intro { max-width: 42rem; margin: 1.2rem auto 0; color: var(--tinta); }
+  .fichas { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 2.8rem 2.2rem; }
+  .ficha { display: flex; flex-direction: column; }
+  .marco-foto {
+    position: relative;
+    display: block;
+    border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
+    padding: 6px;
+    background: var(--papel-2);
+    box-shadow: 0 1px 8px rgb(0 0 0 / 0.08);
+  }
+  .cantidad {
+    position: absolute;
+    right: 0.65rem;
+    bottom: 0.65rem;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--oro-claro);
+    border-radius: 2rem;
+    background: rgb(14 26 40 / 0.9);
+    color: var(--papel);
+    font: 600 0.78rem/1.2 var(--f-cuerpo);
+  }
+  .marco-foto img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: top; }
+  h2 { font-family: var(--f-display); font-weight: 600; font-size: 1.4rem; margin-top: 0.9rem; }
+  h2 a { text-decoration: none; }
+  .fecha { margin-top: 0.2rem; font-weight: 600; color: var(--marino); font-size: 0.92rem; }
+  .nota { margin-top: 0.5rem; font-size: 0.98rem; }
+  .acciones { margin-top: auto; padding-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; }
+  .acciones a { min-height: 2.75rem; display: inline-flex; align-items: center; font-size: 0.92rem; }
+  .acciones .boton-ficha {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--marino);
+    background: var(--marino);
+    color: var(--papel);
+    text-decoration: none;
+  }
+  .acciones .boton-ficha:hover { background: var(--oro); border-color: var(--oro); color: var(--papel); }
+</style>

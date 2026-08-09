@@ -9,8 +9,8 @@ import indice from '../generado/indice.json';
         <p class="sello">Memorias escritas entre 1991 y 1995</p>
         <img
           class="retrato"
-          src="/fotos/familia/tomas-provisional-portada-color.jpg"
-          alt="Tomás Gómez Arroyo, ya Vicealmirante, con prismáticos. Fotografía familiar provisional; fecha y ocasión por confirmar."
+          src="/fotos/familia/tomas-y-vivi-gala-portada.jpg"
+          alt="Tomás Gómez Arroyo y su esposa María Victoria «Vivi» Soutullo, juntos y de la mano. Él viste uniforme de gala con banda y condecoraciones; detrás, la bandera de España. Fotografía familiar; fecha y ocasión por confirmar."
         />
         <h1 id="titulo-libro">Memorias<br />de<br />Tomás<br />Gómez&nbsp;Arroyo</h1>
         <div class="filete-ancla" aria-hidden="true">⚓</div>
@@ -85,14 +85,15 @@ import indice from '../generado/indice.json';
   .retrato {
     display: block;
     margin: 1.1rem auto 0;
-    width: clamp(6.5rem, 22vw, 9.5rem);
-    aspect-ratio: 3 / 4;
+    width: clamp(9rem, 34vw, 14.5rem);
+    aspect-ratio: 139 / 180;
     object-fit: cover;
-    object-position: 50% 20%;
+    object-position: 50% 30%;
     border: 1px solid var(--oro-claro);
     outline: 1px solid color-mix(in srgb, var(--oro-claro) 40%, transparent);
     outline-offset: 3px;
-    filter: sepia(0.35) saturate(0.85) brightness(1.02);
+    /* Sepia leve: en esta fotografía el color cuenta (la banda, su vestido azul). */
+    filter: sepia(0.12) saturate(0.95) brightness(1.02);
   }
   h1 {
     font-family: var(--f-display);

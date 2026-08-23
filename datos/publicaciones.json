@@ -1,0 +1,61 @@
+{
+  "publicaciones": [
+    {
+      "id": "pub_233a6533111d4334a9e9e53d63e85acf",
+      "tipo": "mensaje",
+      "nombre": "Victoria Gomez Soutullo",
+      "comentario": "Me encanta leer las memorias de mi padre\r\nMe estoy enterando de cosas de la guerra civil que no sabía",
+      "pieFoto": "",
+      "fechaFoto": "",
+      "lugar": "",
+      "personas": "",
+      "contexto": "",
+      "procedencia": "",
+      "capitulo": "",
+      "ciudad": "Aranjuez",
+      "pais": "España",
+      "tieneFoto": false,
+      "fotoUrl": null,
+      "creadoEn": "2026-08-23T17:41:57.627Z",
+      "respuestas": []
+    },
+    {
+      "id": "pub_e0fc72b8cec04ae1b4fecdc449aed126",
+      "tipo": "mensaje",
+      "nombre": "Milate",
+      "comentario": "Paz y amor a todos los amigos y familiares.",
+      "pieFoto": "",
+      "fechaFoto": "",
+      "lugar": "",
+      "personas": "",
+      "contexto": "",
+      "procedencia": "",
+      "capitulo": "",
+      "ciudad": "Las Palmas de Gran Canaria",
+      "pais": "España",
+      "tieneFoto": false,
+      "fotoUrl": null,
+      "creadoEn": "2026-08-21T21:31:49.756Z",
+      "respuestas": []
+    },
+    {
+      "id": "pub_b9d7d432be2744b086c12607c6fd33f4",
+      "tipo": "mensaje",
+      "nombre": "Tomás Gómez Fuenzalida (Nieto)",
+      "comentario": "Espero que disfruten este memorial tanto como hemos disfrutado Miguel y yo haciéndolo.",
+      "pieFoto": "",
+      "fechaFoto": "",
+      "lugar": "",
+      "personas": "",
+      "contexto": "",
+      "procedencia": "",
+      "capitulo": "",
+      "ciudad": "Oporto",
+      "pais": "Portugal",
+      "tieneFoto": false,
+      "fotoUrl": null,
+      "creadoEn": "2026-08-07T22:04:29.941Z",
+      "respuestas": []
+    }
+  ]
+}

@@ -1,0 +1,447 @@
+---
+import Base from '../layouts/Base.astro';
+import { fotosFamiliaresPublicables, mediaFamiliar } from '../data/archivo-familiar';
+
+const fotosTomas = fotosFamiliaresPublicables.filter((f) => f.categoria === 'tomas');
+const fotosEspana91 = fotosFamiliaresPublicables.filter((f) => f.categoria === 'espana-91');
+---
+<Base titulo="El álbum familiar" descripcion="El álbum de fotografías, audios y vídeos familiares de Tomás Gómez Arroyo." conBarco={true}>
+  <main class="detalle-buque">
+    <nav class="migas" aria-label="Ruta">
+      <a href="/">Memorias</a>
+    </nav>
+    <header>
+      <p class="etiqueta">El archivo familiar</p>
+      <h1 class="display">El álbum familiar</h1>
+      <p class="intro">Fotografías, audios y vídeos del álbum familiar. Pulse una miniatura y luego «Ampliar fotografía» para acercarse y recorrer los detalles.</p>
+    </header>
+
+    <nav class="carpetas" aria-label="Carpetas del álbum" data-carpetas>
+      <button type="button" class="activa" data-carpeta="tomas">Tomás y Vivi</button>
+      <button type="button" data-carpeta="espana-91">España 91</button>
+      <button type="button" data-carpeta="audios-videos">Audios y vídeos</button>
+    </nav>
+
+    <section data-panel="tomas">
+      {fotosTomas.length ? (
+        <section class="galeria" aria-label="Fotografías de Tomás y Vivi" data-galeria>
+          <div class="marco-imagen">
+            <button class="imagen-principal" type="button" aria-label="Ampliar la fotografía" data-ampliar>
+              <img src={fotosTomas[0].src} alt={fotosTomas[0].alt} data-principal />
+              <span class="abrir-lupa">Ampliar fotografía</span>
+            </button>
+            <button type="button" class="flecha flecha-izq" data-anterior aria-label="Fotografía anterior">‹</button>
+            <button type="button" class="flecha flecha-der" data-siguiente aria-label="Fotografía siguiente">›</button>
+          </div>
+          <div class="pie-activo" aria-live="polite">
+            <p class="contador" data-contador>Fotografía 1 de {fotosTomas.length}</p>
+            <p data-pie>{fotosTomas[0].pie}</p>
+            <p class="referencia" data-referencia>{fotosTomas[0].procedencia}</p>
+          </div>
+          <div class="miniaturas" role="list" aria-label="Seleccionar fotografía">
+            {fotosTomas.map((img, i) => (
+              <button
+                type="button"
+                role="listitem"
+                class={i === 0 ? 'activa' : ''}
+                aria-label={`Mostrar imagen ${i + 1} de ${fotosTomas.length}: ${img.alt}`}
+                data-miniatura
+                data-src={img.src}
+                data-alt={img.alt}
+                data-pie={img.pie}
+                data-referencia={img.procedencia}
+              ><img src={img.src} alt="" loading="lazy" /><span>Foto {i + 1}</span></button>
+            ))}
+          </div>
+          <p class="ayuda">Elija una foto y pulse «Ampliar fotografía». Dentro de la lupa puede acercarse hasta cinco veces y arrastrar la imagen para recorrer sus detalles.</p>
+
+          <dialog data-visor aria-label="Fotografía ampliada">
+            <button class="cerrar" type="button" aria-label="Cerrar la fotografía ampliada" data-cerrar>Cerrar ✕</button>
+            <button type="button" class="flecha flecha-visor flecha-izq" data-visor-anterior aria-label="Fotografía anterior">‹</button>
+            <button type="button" class="flecha flecha-visor flecha-der" data-visor-siguiente aria-label="Fotografía siguiente">›</button>
+            <div class="lienzo" data-lienzo><img src="" alt="" data-visor-img draggable="false" /></div>
+            <div class="controles" role="group" aria-label="Controles de ampliación">
+              <button type="button" data-menos aria-label="Alejar">− Alejar</button>
+              <button type="button" data-restablecer aria-label="Ajustar el zoom al tamaño de pantalla">Ajustar</button>
+              <output data-zoom aria-live="polite">100 %</output>
+              <button type="button" data-mas aria-label="Acercar">+ Acercar</button>
+              <a data-original href={fotosTomas[0]?.src} target="_blank" rel="noopener" aria-label="Ver la fotografía a tamaño original en una pestaña nueva">↗ Tamaño original</a>
+            </div>
+          </dialog>
+        </section>
+      ) : (
+        <section class="pendiente"><h2>Espacio reservado</h2><p>Aún no hay fotografías en esta carpeta.</p></section>
+      )}
+    </section>
+
+    <section data-panel="espana-91" hidden>
+      {fotosEspana91.length ? (
+        <section class="galeria" aria-label="Fotografías de España 91" data-galeria>
+          <div class="marco-imagen">
+            <button class="imagen-principal" type="button" aria-label="Ampliar la fotografía" data-ampliar>
+              <img src={fotosEspana91[0].src} alt={fotosEspana91[0].alt} data-principal />
+              <span class="abrir-lupa">Ampliar fotografía</span>
+            </button>
+            <button type="button" class="flecha flecha-izq" data-anterior aria-label="Fotografía anterior">‹</button>
+            <button type="button" class="flecha flecha-der" data-siguiente aria-label="Fotografía siguiente">›</button>
+          </div>
+          <div class="pie-activo" aria-live="polite">
+            <p class="contador" data-contador>Fotografía 1 de {fotosEspana91.length}</p>
+            <p data-pie>{fotosEspana91[0].pie}</p>
+            <p class="referencia" data-referencia>{fotosEspana91[0].procedencia}</p>
+          </div>
+          <div class="miniaturas" role="list" aria-label="Seleccionar fotografía">
+            {fotosEspana91.map((img, i) => (
+              <button
+                type="button"
+                role="listitem"
+                class={i === 0 ? 'activa' : ''}
+                aria-label={`Mostrar imagen ${i + 1} de ${fotosEspana91.length}: ${img.alt}`}
+                data-miniatura
+                data-src={img.src}
+                data-alt={img.alt}
+                data-pie={img.pie}
+                data-referencia={img.procedencia}
+              ><img src={img.src} alt="" loading="lazy" /><span>Foto {i + 1}</span></button>
+            ))}
+          </div>
+          <p class="ayuda">Elija una foto y pulse «Ampliar fotografía». Dentro de la lupa puede acercarse hasta cinco veces y arrastrar la imagen para recorrer sus detalles.</p>
+
+          <dialog data-visor aria-label="Fotografía ampliada">
+            <button class="cerrar" type="button" aria-label="Cerrar la fotografía ampliada" data-cerrar>Cerrar ✕</button>
+            <button type="button" class="flecha flecha-visor flecha-izq" data-visor-anterior aria-label="Fotografía anterior">‹</button>
+            <button type="button" class="flecha flecha-visor flecha-der" data-visor-siguiente aria-label="Fotografía siguiente">›</button>
+            <div class="lienzo" data-lienzo><img src="" alt="" data-visor-img draggable="false" /></div>
+            <div class="controles" role="group" aria-label="Controles de ampliación">
+              <button type="button" data-menos aria-label="Alejar">− Alejar</button>
+              <button type="button" data-restablecer aria-label="Ajustar el zoom al tamaño de pantalla">Ajustar</button>
+              <output data-zoom aria-live="polite">100 %</output>
+              <button type="button" data-mas aria-label="Acercar">+ Acercar</button>
+              <a data-original href={fotosEspana91[0]?.src} target="_blank" rel="noopener" aria-label="Ver la fotografía a tamaño original en una pestaña nueva">↗ Tamaño original</a>
+            </div>
+          </dialog>
+        </section>
+      ) : (
+        <section class="pendiente"><h2>Espacio reservado</h2><p>Carpeta para las fotografías de la reunión familiar de 1991 en España. Aún no se ha incorporado ninguna.</p></section>
+      )}
+    </section>
+
+    <section data-panel="audios-videos" hidden>
+      {mediaFamiliar.length ? (
+        <ul class="lista-media">
+          {mediaFamiliar.map((m) => (
+            <li data-media-item>
+              <h3>{m.titulo}</h3>
+              {m.tipo === 'video'
+                ? <video controls preload="metadata" src={m.src} data-media-player>Su navegador no puede reproducir este vídeo.</video>
+                : <audio controls preload="metadata" src={m.src} data-media-player>Su navegador no puede reproducir este audio.</audio>}
+              <div class="controles-tiempo" role="group" aria-label={`Elegir el punto de reproducción de ${m.titulo}`}>
+                <button type="button" data-salto="-10" aria-label="Retroceder 10 segundos">− 10 s</button>
+                <label>
+                  <span>Ir al minuto</span>
+                  <input type="number" min="0" step="1" value="0" inputmode="numeric" data-minutos aria-label="Minutos" />
+                </label>
+                <label>
+                  <span>segundo</span>
+                  <input type="number" min="0" max="59" step="1" value="0" inputmode="numeric" data-segundos aria-label="Segundos" />
+                </label>
+                <button type="button" data-ir>Ir a ese punto</button>
+                <button type="button" data-salto="10" aria-label="Adelantar 10 segundos">+ 10 s</button>
+                <output data-estado-tiempo aria-live="polite"></output>
+              </div>
+              <p>{m.descripcion} <span class="referencia">{m.fecha}</span></p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <section class="pendiente"><h2>Espacio reservado</h2><p>Aún no hay audios ni vídeos en esta carpeta.</p></section>
+      )}
+    </section>
+
+    <nav class="acciones" aria-label="Continuar leyendo">
+      <a href="/">Volver al índice</a>
+    </nav>
+  </main>
+</Base>
+
+<style>
+  .detalle-buque { max-width: 54rem; margin: 0 auto; padding: 5.8rem 1.4rem 3rem; }
+  .migas { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1rem; }
+  .migas a, .acciones a { min-height: 2.75rem; display: inline-flex; align-items: center; }
+  header { text-align: center; max-width: 40rem; margin: 1.2rem auto 2.2rem; }
+  h1 { font-size: clamp(2.2rem, 7vw, 3.5rem); margin: 0.3rem 0 0.8rem; }
+  .intro { color: var(--tinta); }
+
+  .carpetas { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.5rem; margin: 0 auto 2.2rem; }
+  .carpetas button {
+    min-height: 2.75rem;
+    padding: 0.4rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
+    background: var(--papel-2);
+    color: var(--marino);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .carpetas button.activa { background: var(--marino); color: var(--papel); border-color: var(--marino); }
+
+  .lista-media { list-style: none; margin: 0 auto; max-width: 40rem; padding: 0; display: flex; flex-direction: column; gap: 2.4rem; }
+  .lista-media h3 { font-family: var(--f-display); color: var(--marino); margin: 0 0 0.6rem; }
+  .lista-media video, .lista-media audio { width: 100%; display: block; }
+  .lista-media p { margin-top: 0.6rem; }
+  .lista-media .referencia { display: block; margin-top: 0.2rem; font-size: 0.88rem; color: var(--bruma); }
+  .controles-tiempo { margin-top: 0.7rem; display: flex; flex-wrap: wrap; align-items: end; gap: 0.55rem; }
+  .controles-tiempo button { min-height: 44px; padding: 0.5rem 0.9rem; border: 1px solid var(--oro); background: var(--papel-2); color: var(--marino); font-weight: 700; cursor: pointer; }
+  .controles-tiempo button:hover, .controles-tiempo button:focus-visible { background: var(--marino); color: var(--papel); }
+  .controles-tiempo label { display: grid; gap: 0.18rem; color: var(--bruma); font-size: 0.78rem; font-weight: 700; }
+  .controles-tiempo input { width: 5.1rem; min-height: 44px; padding: 0.45rem 0.55rem; border: 1px solid color-mix(in srgb, var(--oro) 65%, transparent); background: #fffdf6; color: var(--tinta); font: inherit; font-size: 1rem; }
+  .controles-tiempo output { flex-basis: 100%; min-height: 1.3em; color: var(--bruma); font-size: 0.86rem; }
+
+  .galeria { max-width: 48rem; margin: 0 auto; }
+  .marco-imagen { position: relative; }
+  .imagen-principal { position: relative; width: 100%; padding: 7px; border: 1px solid var(--oro); background: var(--papel-2); cursor: zoom-in; }
+  .imagen-principal img { display: block; width: 100%; max-height: 62vh; object-fit: contain; background: #101820; }
+  .abrir-lupa {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border: 1px solid var(--oro-claro);
+    background: rgb(14 26 40 / 0.92);
+    color: var(--papel);
+    font: 600 13px/1.2 var(--f-cuerpo);
+  }
+  .flecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--oro-claro);
+    border-radius: 50%;
+    background: rgb(14 26 40 / 0.85);
+    color: var(--papel);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .flecha:hover, .flecha:focus-visible { background: rgb(14 26 40 / 0.98); }
+  .flecha-izq { left: 0.5rem; }
+  .flecha-der { right: 0.5rem; }
+  .flecha-visor { top: 50%; }
+  .pie-activo { margin: 0.8rem auto 1rem; text-align: center; max-width: 42rem; }
+  .contador { margin-bottom: 0.25rem; font-weight: 700; color: var(--marino); }
+  .referencia { margin-top: 0.25rem; font-size: 0.9rem; color: var(--bruma); }
+  .miniaturas { display: flex; gap: 0.65rem; overflow-x: auto; padding: 0.4rem 0.2rem 0.8rem; }
+  .miniaturas button { flex: 0 0 104px; min-height: 92px; padding: 4px; border: 2px solid transparent; background: var(--papel-2); color: var(--marino); cursor: pointer; }
+  .miniaturas button.activa { border-color: var(--oro); }
+  .miniaturas img { display: block; width: 100%; height: 68px; object-fit: cover; }
+  .miniaturas span { display: block; padding-top: 0.15rem; font-size: 12px; font-weight: 700; }
+  .ayuda { font-size: 0.92rem; color: var(--bruma); text-align: center; }
+  .pendiente { margin: 2rem auto; max-width: 38rem; padding: 2rem; border: 1px solid var(--oro); background: var(--papel-2); text-align: center; }
+  .pendiente h2 { font-family: var(--f-display); color: var(--marino); margin-bottom: 0.6rem; }
+  .acciones { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--oro); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.8rem 1.4rem; }
+
+  dialog { width: min(94vw, 70rem); max-height: 90vh; margin: auto; border: 1px solid var(--oro); background: #05080c; overflow: hidden; }
+  dialog::backdrop { background: rgb(8 14 22 / 0.94); }
+  .lienzo { height: min(78vh, 48rem); overflow: hidden; touch-action: none; display: grid; place-items: center; }
+  .lienzo img { max-width: 100%; max-height: 100%; transform-origin: center; user-select: none; cursor: zoom-in; will-change: transform; }
+  .lienzo img.ampliada { cursor: grab; }
+  .lienzo img.arrastrando { cursor: grabbing; }
+  .cerrar { position: absolute; right: 0.6rem; top: 0.6rem; z-index: 3; min-width: 84px; height: 44px; min-height: 44px; font-size: 14px; padding: 0 0.75rem; border: 1px solid var(--oro-claro); border-radius: 2rem; background: var(--noche); color: var(--papel); cursor: pointer; }
+  .controles { position: absolute; left: 50%; bottom: 0.8rem; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
+  .controles button,
+  .controles a { min-width: 88px; height: 44px; min-height: 44px; padding: 0 12px; border-radius: 22px; border: 1px solid var(--oro-claro); background: var(--noche); color: var(--papel); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 13px; }
+  .controles output { min-width: 64px; height: 44px; min-height: 44px; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; color: var(--papel); font-weight: 700; }
+
+  @media (max-width: 620px) {
+    .abrir-lupa { inset: auto 0.7rem 0.7rem auto; }
+    .flecha { width: 40px; height: 40px; min-height: 40px; font-size: 20px; }
+    .flecha-izq { left: 0.3rem; }
+    .flecha-der { right: 0.3rem; }
+    .controles { width: calc(100% - 1rem); justify-content: center; gap: 0.3rem; }
+    .controles button,
+    .controles a { min-width: 0; flex: 1 1 auto; padding-inline: 6px; font-size: 12px; }
+    .controles output { min-width: 52px; font-size: 13px; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-carpetas] button').forEach((boton) => {
+    boton.addEventListener('click', () => {
+      const carpeta = (boton as HTMLElement).dataset.carpeta;
+      document.querySelectorAll('[data-carpetas] button').forEach((b) => b.classList.remove('activa'));
+      boton.classList.add('activa');
+      document.querySelectorAll('[data-panel]').forEach((panel) => {
+        (panel as HTMLElement).hidden = (panel as HTMLElement).dataset.panel !== carpeta;
+      });
+    });
+  });
+
+  const formatoTiempo = (segundos: number) => {
+    const total = Math.max(0, Math.floor(segundos));
+    return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`;
+  };
+
+  document.querySelectorAll('[data-media-item]').forEach((item) => {
+    const reproductor = item.querySelector('[data-media-player]') as HTMLMediaElement | null;
+    const minutos = item.querySelector('[data-minutos]') as HTMLInputElement | null;
+    const segundos = item.querySelector('[data-segundos]') as HTMLInputElement | null;
+    const estado = item.querySelector('[data-estado-tiempo]') as HTMLOutputElement | null;
+    if (!reproductor || !minutos || !segundos || !estado) return;
+
+    const irA = (destino: number) => {
+      const aplicar = () => {
+        const limite = Number.isFinite(reproductor.duration) ? reproductor.duration : destino;
+        reproductor.currentTime = Math.max(0, Math.min(destino, limite));
+        estado.value = `Punto seleccionado: ${formatoTiempo(reproductor.currentTime)}`;
+      };
+      if (reproductor.readyState >= 1) aplicar();
+      else reproductor.addEventListener('loadedmetadata', aplicar, { once: true });
+    };
+
+    item.querySelectorAll('[data-salto]').forEach((boton) => {
+      boton.addEventListener('click', () => {
+        const salto = Number((boton as HTMLElement).dataset.salto || 0);
+        irA(reproductor.currentTime + salto);
+      });
+    });
+
+    item.querySelector('[data-ir]')?.addEventListener('click', () => {
+      const minuto = Math.max(0, Number.parseInt(minutos.value || '0', 10) || 0);
+      const segundo = Math.max(0, Math.min(59, Number.parseInt(segundos.value || '0', 10) || 0));
+      segundos.value = String(segundo);
+      irA((minuto * 60) + segundo);
+    });
+  });
+
+  document.querySelectorAll('[data-galeria]').forEach((galeria) => {
+    const principal = galeria.querySelector('[data-principal]') as HTMLImageElement;
+    const pie = galeria.querySelector('[data-pie]') as HTMLElement;
+    const referencia = galeria.querySelector('[data-referencia]') as HTMLElement;
+    const contador = galeria.querySelector('[data-contador]') as HTMLElement;
+    const miniaturas = Array.from(galeria.querySelectorAll('[data-miniatura]')) as HTMLButtonElement[];
+    const visor = galeria.querySelector('[data-visor]') as HTMLDialogElement;
+    const lienzo = galeria.querySelector('[data-lienzo]') as HTMLElement;
+    const visorImg = galeria.querySelector('[data-visor-img]') as HTMLImageElement;
+    const salidaZoom = galeria.querySelector('[data-zoom]') as HTMLOutputElement;
+    const original = galeria.querySelector('[data-original]') as HTMLAnchorElement;
+    let indiceActivo = 0;
+    let escala = 1;
+    let desplazamientoX = 0;
+    let desplazamientoY = 0;
+    let arrastrando = false;
+    let inicioX = 0;
+    let inicioY = 0;
+
+    const limitarDesplazamiento = () => {
+      const maxX = lienzo.clientWidth * Math.max(0, escala - 1) / 2;
+      const maxY = lienzo.clientHeight * Math.max(0, escala - 1) / 2;
+      desplazamientoX = Math.max(-maxX, Math.min(maxX, desplazamientoX));
+      desplazamientoY = Math.max(-maxY, Math.min(maxY, desplazamientoY));
+    };
+
+    const aplicar = () => {
+      if (escala <= 1) {
+        escala = 1;
+        desplazamientoX = 0;
+        desplazamientoY = 0;
+      }
+      limitarDesplazamiento();
+      visorImg.style.transform = `translate3d(${desplazamientoX}px, ${desplazamientoY}px, 0) scale(${escala})`;
+      visorImg.classList.toggle('ampliada', escala > 1);
+      salidaZoom.textContent = `${Math.round(escala * 100)} %`;
+    };
+
+    const restablecer = () => {
+      escala = 1;
+      desplazamientoX = 0;
+      desplazamientoY = 0;
+      aplicar();
+    };
+
+    const activar = (indice: number) => {
+      if (!miniaturas.length) return;
+      indiceActivo = (indice + miniaturas.length) % miniaturas.length;
+      const boton = miniaturas[indiceActivo];
+      miniaturas.forEach((b) => b.classList.remove('activa'));
+      boton.classList.add('activa');
+      boton.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+      principal.src = boton.dataset.src || '';
+      principal.alt = boton.dataset.alt || '';
+      pie.textContent = boton.dataset.pie || '';
+      referencia.textContent = boton.dataset.referencia || '';
+      contador.textContent = `Fotografía ${indiceActivo + 1} de ${miniaturas.length}`;
+      original.href = boton.dataset.src || '';
+      if (visor.open) {
+        visorImg.src = boton.dataset.src || '';
+        visorImg.alt = boton.dataset.alt || '';
+        restablecer();
+      }
+    };
+
+    miniaturas.forEach((boton, indice) => boton.addEventListener('click', () => activar(indice)));
+    galeria.querySelector('[data-anterior]')?.addEventListener('click', () => activar(indiceActivo - 1));
+    galeria.querySelector('[data-siguiente]')?.addEventListener('click', () => activar(indiceActivo + 1));
+    galeria.querySelector('[data-visor-anterior]')?.addEventListener('click', () => activar(indiceActivo - 1));
+    galeria.querySelector('[data-visor-siguiente]')?.addEventListener('click', () => activar(indiceActivo + 1));
+
+    galeria.querySelector('[data-ampliar]')?.addEventListener('click', () => {
+      visorImg.src = principal.src;
+      visorImg.alt = principal.alt;
+      original.href = principal.src;
+      restablecer();
+      visor.showModal();
+    });
+    galeria.querySelector('[data-cerrar]')?.addEventListener('click', () => visor.close());
+    galeria.querySelector('[data-mas]')?.addEventListener('click', () => { escala = Math.min(5, escala * 1.5); aplicar(); });
+    galeria.querySelector('[data-menos]')?.addEventListener('click', () => { escala = Math.max(1, escala / 1.5); aplicar(); });
+    galeria.querySelector('[data-restablecer]')?.addEventListener('click', restablecer);
+    visor.addEventListener('click', (e) => { if (e.target === visor) visor.close(); });
+    visor.addEventListener('keydown', (e) => {
+      if (e.key === '+' || e.key === '=') { escala = Math.min(5, escala * 1.5); aplicar(); }
+      if (e.key === '-') { escala = Math.max(1, escala / 1.5); aplicar(); }
+      if (e.key === '0') restablecer();
+      if (e.key === 'ArrowLeft') activar(indiceActivo - 1);
+      if (e.key === 'ArrowRight') activar(indiceActivo + 1);
+    });
+
+    lienzo.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      escala = Math.max(1, Math.min(5, escala * (e.deltaY < 0 ? 1.2 : 1 / 1.2)));
+      aplicar();
+    }, { passive: false });
+
+    visorImg.addEventListener('dblclick', () => {
+      escala = escala > 1 ? 1 : 2;
+      aplicar();
+    });
+    visorImg.addEventListener('pointerdown', (e) => {
+      if (escala <= 1) return;
+      arrastrando = true;
+      inicioX = e.clientX - desplazamientoX;
+      inicioY = e.clientY - desplazamientoY;
+      visorImg.classList.add('arrastrando');
+      visorImg.setPointerCapture(e.pointerId);
+    });
+    visorImg.addEventListener('pointermove', (e) => {
+      if (!arrastrando) return;
+      desplazamientoX = e.clientX - inicioX;
+      desplazamientoY = e.clientY - inicioY;
+      aplicar();
+    });
+    const terminarArrastre = () => {
+      arrastrando = false;
+      visorImg.classList.remove('arrastrando');
+    };
+    visorImg.addEventListener('pointerup', terminarArrastre);
+    visorImg.addEventListener('pointercancel', terminarArrastre);
+  });
+</script>

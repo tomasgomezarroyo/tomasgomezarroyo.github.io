@@ -22,7 +22,10 @@ const {
 const tituloCompleto = titulo === 'Memorias de Tomás Gómez Arroyo'
   ? titulo
   : `${titulo} · Memorias de Tomás Gómez Arroyo`;
-const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.dev').toString();
+const siteUrl = (import.meta.env.PUBLIC_SITE_URL || 'https://tomasgomezarroyo.pages.dev').replace(/\/+$/, '');
+const apiOrigin = (import.meta.env.PUBLIC_API_ORIGIN || '').replace(/\/+$/, '');
+const canonicalPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '') || '/';
+const canonical = new URL(canonicalPath, `${siteUrl}/`).toString();
 ---
 <!doctype html>
 <html lang="es">
@@ -37,6 +40,7 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
   <meta property="og:description" content={descripcion} />
   <meta property="og:type" content="book" />
   <meta property="og:url" content={canonical} />
+  <meta name="api-origin" content={apiOrigin} />
   <script is:inline>
     try {
       if (localStorage.getItem('memorias-tamano') === 'grande') {
@@ -51,15 +55,23 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
   <header id="cabecera-sitio">
     <a class="marca-sitio" href="/" aria-label="Ir a la portada de las Memorias de Tomás Gómez Arroyo">
       <span aria-hidden="true">⚓</span>
-      <span>Memorias de Tomás Gómez Arroyo</span>
+      <span class="marca-larga">Memorias de Tomás Gómez Arroyo</span>
+      <span class="marca-corta">Memorias</span>
     </a>
-    <nav aria-label="Navegación principal">
+    <a class="libro-movil" href="/libro-de-visitas">Libro de visitas</a>
+    <button type="button" id="abrir-menu-movil" aria-expanded="false" aria-controls="navegacion-principal">
+      <span aria-hidden="true">☰</span>
+      <span>Menú</span>
+    </button>
+    <nav id="navegacion-principal" aria-label="Navegación principal">
       <a href="/">Inicio</a>
-      <a class="enlace-indice" href="/#titulo-indice">Índice</a>
+      <a class="enlace-indice" href="/#titulo-indice">Memorias</a>
       <a href="/buques">Buques</a>
       <a href="/lugares">Lugares</a>
       <a href="/prensa">Prensa</a>
       <a href="/archivo">Archivo</a>
+      <a href="/familia">Familia</a>
+      <a href="/buscar" aria-label="Buscar una palabra o frase en las memorias">Buscar</a>
       <a href="/libro-de-visitas" aria-label="Libro de visitas y colaboraciones">Libro de visitas</a>
       <button type="button" data-tamano-global aria-pressed="false" aria-label="Activar letra grande">
         <span aria-hidden="true">A+</span>
@@ -67,6 +79,34 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
       </button>
     </nav>
   </header>
+
+  <script is:inline>
+    (() => {
+      const cabecera = document.getElementById('cabecera-sitio');
+      const botonMenu = document.getElementById('abrir-menu-movil');
+      const navegacion = document.getElementById('navegacion-principal');
+      if (!cabecera || !botonMenu || !navegacion) return;
+      const cerrar = () => {
+        cabecera.removeAttribute('data-menu-abierto');
+        botonMenu.setAttribute('aria-expanded', 'false');
+      };
+      botonMenu.addEventListener('click', () => {
+        const abrir = !cabecera.hasAttribute('data-menu-abierto');
+        cabecera.toggleAttribute('data-menu-abierto', abrir);
+        botonMenu.setAttribute('aria-expanded', String(abrir));
+      });
+      navegacion.querySelectorAll('a').forEach((enlace) => enlace.addEventListener('click', cerrar));
+      document.addEventListener('keydown', (evento) => {
+        if (evento.key === 'Escape') {
+          cerrar();
+          botonMenu.focus();
+        }
+      });
+      document.addEventListener('pointerdown', (evento) => {
+        if (!cabecera.contains(evento.target)) cerrar();
+      });
+    })();
+  </script>
 
   {conBarco && (
     <div id="horizonte" aria-hidden="true">
@@ -104,12 +144,246 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
     actualizarTamanoGlobal();
   </script>
 
-  <div id="musica-fondo">
-    <audio id="audio-fondo" src="/audio/leyenda-del-beso-intermedio-1930.mp3" preload="auto"></audio>
-    <button type="button" id="boton-play" aria-pressed="false" aria-label="Reproducir música de fondo: La leyenda del beso" title="Reproducir música de fondo">▶</button>
-    <button type="button" id="boton-mute" aria-pressed="false" aria-label="Silenciar la música de fondo" title="Silenciar">🔊</button>
-    <input type="range" id="volumen-musica" min="0" max="100" step="5" value="60" aria-label="Volumen de la música de fondo" title="Volumen" />
-  </div>
+  <audio id="narrador-global" preload="metadata"></audio>
+
+  <aside id="barra-narracion" hidden aria-label="Reproductor de la narración">
+    <div class="controles-capitulos" aria-label="Controles de capítulos">
+      <button type="button" id="boton-capitulo-anterior" aria-label="Escuchar el capítulo anterior" title="Capítulo anterior">⏮</button>
+      <button type="button" id="boton-narrador-flotante" aria-pressed="false" aria-label="Continuar la narración">▶</button>
+      <button type="button" id="boton-capitulo-siguiente" aria-label="Escuchar el capítulo siguiente" title="Capítulo siguiente">⏭</button>
+    </div>
+    <div class="narrador-recorrido">
+      <div class="narrador-datos">
+        <span class="narrador-identidad">
+          <span class="narrador-tipo">Narración</span>
+          <span id="titulo-narracion">Capítulo en curso</span>
+        </span>
+        <span class="narrador-tiempos">
+          <output id="tiempo-narracion-actual">0:00</output>
+          <span aria-hidden="true"> / </span>
+          <output id="tiempo-narracion-restante">−0:00</output>
+        </span>
+      </div>
+      <input id="progreso-narracion" type="range" min="0" max="0" step="0.1" value="0" aria-label="Posición de la narración" />
+    </div>
+  </aside>
+
+  <script>
+    (() => {
+      const audio = document.getElementById('narrador-global') as HTMLAudioElement | null;
+      if (!audio) return;
+
+      const CLAVE_SRC = 'memorias-narracion-src';
+      const CLAVE_ESTADO = 'memorias-narracion-estado';
+      const CLAVE_POSICION = 'memorias-narracion-posicion';
+      const CLAVE_SIGUIENTE = 'memorias-narracion-siguiente';
+      const CLAVE_TITULO = 'memorias-narracion-titulo';
+      const CLAVE_VELOCIDAD = 'memorias-velocidad-narracion';
+      const barra = document.getElementById('barra-narracion') as HTMLElement | null;
+      const boton = document.getElementById('boton-narrador-flotante') as HTMLButtonElement | null;
+      const botonAnterior = document.getElementById('boton-capitulo-anterior') as HTMLButtonElement | null;
+      const botonSiguiente = document.getElementById('boton-capitulo-siguiente') as HTMLButtonElement | null;
+      const tituloNarracion = document.getElementById('titulo-narracion');
+      const progreso = document.getElementById('progreso-narracion') as HTMLInputElement | null;
+      const tiempoActual = document.getElementById('tiempo-narracion-actual') as HTMLOutputElement | null;
+      const tiempoRestante = document.getElementById('tiempo-narracion-restante') as HTMLOutputElement | null;
+
+      const leer = (clave: string, alternativa = '') => {
+        try { return sessionStorage.getItem(clave) || alternativa; } catch { return alternativa; }
+      };
+      const escribir = (clave: string, valor: string) => {
+        try { sessionStorage.setItem(clave, valor); } catch {}
+      };
+      const formatoTiempo = (valor: number) => {
+        if (!Number.isFinite(valor) || valor < 0) return '0:00';
+        const total = Math.floor(valor);
+        return String(Math.floor(total / 60)) + ':' + String(total % 60).padStart(2, '0');
+      };
+      const actualizarTiempo = () => {
+        const duracion = Number.isFinite(audio.duration) ? audio.duration : 0;
+        const actual = Number.isFinite(audio.currentTime) ? audio.currentTime : 0;
+        if (progreso) {
+          progreso.max = String(duracion);
+          progreso.value = String(Math.min(actual, duracion || actual));
+          progreso.setAttribute('aria-valuetext', formatoTiempo(actual) + ' de ' + formatoTiempo(duracion));
+        }
+        if (tiempoActual) tiempoActual.value = formatoTiempo(actual);
+        if (tiempoRestante) tiempoRestante.value = '−' + formatoTiempo(Math.max(0, duracion - actual));
+      };
+      const actualizarControl = () => {
+        const tieneNarracion = Boolean(leer(CLAVE_SRC));
+        if (barra) barra.hidden = !tieneNarracion;
+        if (tieneNarracion) document.documentElement.dataset.narracion = 'activa';
+        else delete document.documentElement.dataset.narracion;
+        const titulo = leer(CLAVE_TITULO, 'Capítulo en curso');
+        if (tituloNarracion) tituloNarracion.textContent = titulo;
+        if (boton) {
+          const sonando = tieneNarracion && leer(CLAVE_ESTADO, 'pausada') === 'sonando';
+          boton.setAttribute('aria-pressed', String(sonando));
+          boton.setAttribute('aria-label', (sonando ? 'Pausar la narración: ' : 'Continuar la narración: ') + titulo);
+          boton.title = titulo;
+          boton.textContent = sonando ? '⏸' : '▶';
+        }
+        const indice = indiceCapituloActual();
+        const anterior = indice > 0 ? capitulosNarrados[indice - 1] : undefined;
+        const siguiente = indice >= 0 ? capitulosNarrados[indice + 1] : undefined;
+        if (botonAnterior) {
+          botonAnterior.disabled = !anterior;
+          botonAnterior.setAttribute('aria-label', anterior ? `Escuchar ${anterior.titulo}` : 'No hay un capítulo anterior');
+          botonAnterior.title = anterior ? `Anterior: ${anterior.titulo}` : 'No hay un capítulo anterior';
+        }
+        if (botonSiguiente) {
+          botonSiguiente.disabled = !siguiente;
+          botonSiguiente.setAttribute('aria-label', siguiente ? `Escuchar ${siguiente.titulo}` : 'No hay un capítulo siguiente');
+          botonSiguiente.title = siguiente ? `Siguiente: ${siguiente.titulo}` : 'No hay un capítulo siguiente';
+        }
+        actualizarTiempo();
+      };
+      const notificar = () => {
+        actualizarControl();
+        document.dispatchEvent(new CustomEvent('memorias:narracion-estado', {
+          detail: { src: audio.currentSrc || audio.src, estado: leer(CLAVE_ESTADO, 'pausada') },
+        }));
+      };
+      const guardarPosicion = () => {
+        if (Number.isFinite(audio.currentTime) && audio.currentTime >= 0) {
+          escribir(CLAVE_POSICION, String(audio.currentTime));
+        }
+      };
+      const restaurarPosicion = () => {
+        const posicion = Number(leer(CLAVE_POSICION, '0'));
+        if (Number.isFinite(posicion) && posicion > 0 && posicion < audio.duration) {
+          audio.currentTime = posicion;
+        }
+        actualizarTiempo();
+      };
+
+      try {
+        const velocidad = Number(localStorage.getItem(CLAVE_VELOCIDAD) || '1');
+        if (Number.isFinite(velocidad) && velocidad > 0) audio.playbackRate = velocidad;
+      } catch {}
+
+      boton?.addEventListener('click', () => {
+        if (leer(CLAVE_ESTADO, 'pausada') === 'sonando') {
+          escribir(CLAVE_ESTADO, 'pausada');
+          audio.pause();
+        } else {
+          escribir(CLAVE_ESTADO, 'sonando');
+          audio.play().catch(() => {});
+        }
+        actualizarControl();
+      });
+      progreso?.addEventListener('input', () => {
+        const destino = Number(progreso.value);
+        if (!Number.isFinite(destino) || audio.readyState < 1) return;
+        audio.currentTime = Math.max(0, Math.min(destino, audio.duration || destino));
+        guardarPosicion();
+        actualizarTiempo();
+      });
+      document.addEventListener('memorias:narracion-cambio', actualizarControl);
+      audio.addEventListener('loadedmetadata', restaurarPosicion);
+      audio.addEventListener('durationchange', actualizarTiempo);
+      audio.addEventListener('timeupdate', () => {
+        guardarPosicion();
+        actualizarTiempo();
+      });
+      audio.addEventListener('play', notificar);
+      audio.addEventListener('pause', notificar);
+      const capitulosNarrados = [
+        { slug: 'prologo', titulo: 'Prólogo' },
+        { slug: 'capitulo-primero', titulo: 'Capítulo Primero' },
+        { slug: 'capitulo-segundo', titulo: 'Capítulo Segundo' },
+        { slug: 'capitulo-tercero', titulo: 'Capítulo Tercero' },
+        { slug: 'capitulo-cuarto', titulo: 'Capítulo Cuarto' },
+        { slug: 'capitulo-quinto', titulo: 'Capítulo Quinto' },
+        { slug: 'capitulo-sexto', titulo: 'Capítulo Sexto' },
+        { slug: 'capitulo-septimo', titulo: 'Capítulo Séptimo' },
+        { slug: 'capitulo-octavo', titulo: 'Capítulo Octavo' },
+        { slug: 'capitulo-noveno', titulo: 'Capítulo Noveno' },
+        { slug: 'capitulo-decimo', titulo: 'Capítulo Décimo' },
+      ];
+      const indiceCapituloActual = () => {
+        const ruta = new URL(leer(CLAVE_SRC) || audio.currentSrc || audio.src, location.href).pathname;
+        const slug = ruta.split('/').pop()?.replace(/\.mp3$/, '') || '';
+        return capitulosNarrados.findIndex((capitulo) => capitulo.slug === slug);
+      };
+      const cargarCapitulo = (indice: number, reproducir: boolean) => {
+        const capitulo = capitulosNarrados[indice];
+        if (!capitulo) return;
+        const siguiente = capitulosNarrados[indice + 1];
+        const versionAudio = capitulo.slug === 'capitulo-segundo' ? '?v=20260823' : '';
+        const nuevoSrc = `/media/narracion/${capitulo.slug}.mp3${versionAudio}`;
+        escribir(CLAVE_SRC, nuevoSrc);
+        escribir(CLAVE_TITULO, capitulo.titulo);
+        escribir(CLAVE_SIGUIENTE, siguiente ? `/capitulo/${siguiente.slug}` : '');
+        escribir(CLAVE_POSICION, '0');
+        escribir(CLAVE_ESTADO, reproducir ? 'sonando' : 'pausada');
+        audio.src = nuevoSrc;
+        audio.load();
+        notificar();
+        if (reproducir) {
+          audio.play().catch(() => {
+            const reanudar = () => audio.play().catch(() => {});
+            addEventListener('pointerdown', reanudar, { once: true, capture: true });
+          });
+        }
+      };
+      const cambiarCapitulo = (desplazamiento: number) => {
+        const indice = indiceCapituloActual();
+        const destino = indice + desplazamiento;
+        if (indice < 0 || !capitulosNarrados[destino]) return;
+        cargarCapitulo(destino, leer(CLAVE_ESTADO, 'pausada') === 'sonando');
+      };
+      botonAnterior?.addEventListener('click', () => cambiarCapitulo(-1));
+      botonSiguiente?.addEventListener('click', () => cambiarCapitulo(1));
+      audio.addEventListener('ended', () => {
+        const indice = indiceCapituloActual();
+        if (indice < 0 || !capitulosNarrados[indice + 1]) {
+          escribir(CLAVE_ESTADO, 'pausada');
+          escribir(CLAVE_POSICION, '0');
+          notificar();
+          return;
+        }
+        cargarCapitulo(indice + 1, true);
+      });
+      addEventListener('pagehide', guardarPosicion);
+
+      let src = leer(CLAVE_SRC);
+      if (src) {
+        const urlGuardada = new URL(src, location.href);
+        if (urlGuardada.pathname.endsWith('/capitulo-segundo.mp3') && urlGuardada.searchParams.get('v') !== '20260823') {
+          src = '/media/narracion/capitulo-segundo.mp3?v=20260823';
+          escribir(CLAVE_SRC, src);
+          escribir(CLAVE_POSICION, '0');
+        }
+      }
+      actualizarControl();
+      if (!src) return;
+      audio.src = src;
+
+      if (leer(CLAVE_ESTADO) === 'sonando') {
+        const reanudar = () => {
+          if (leer(CLAVE_ESTADO) !== 'sonando') return;
+          audio.play().catch(() => {});
+        };
+        audio.play().catch(() => {
+          addEventListener('pointerdown', reanudar, { once: true, capture: true });
+        });
+      }
+    })();
+  </script>
+  <aside id="control-audio" aria-label="Controles de audio">
+    <div class="canal-audio" id="canal-musica">
+      <span class="audio-etiqueta">Música</span>
+      <div class="audio-acciones">
+        <audio id="audio-fondo" src="/audio/leyenda-del-beso-intermedio-1930.mp3" preload="auto"></audio>
+        <button type="button" id="boton-play" aria-pressed="false" aria-label="Reproducir música de fondo: La leyenda del beso" title="Reproducir música de fondo">▶</button>
+        <button type="button" id="boton-mute" aria-pressed="false" aria-label="Silenciar la música de fondo" title="Silenciar">🔊</button>
+        <input type="range" id="volumen-musica" min="0" max="100" step="5" value="60" aria-label="Volumen de la música de fondo" title="Volumen" />
+      </div>
+    </div>
+
+  </aside>
 
   <script>
     (() => {
@@ -240,12 +514,87 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
       <a href="/lugares">Los lugares</a>
       <a href="/prensa">Prensa</a>
       <a href="/archivo">Archivo</a>
+      <a href="/familia">Familia</a>
       <a href="/libro-de-visitas">Libro de visitas</a>
       <a href="/epilogo">Epílogo</a>
       <a href="/sobre-esta-edicion">Sobre esta edición</a>
+      <a href="/buscar">Buscar en las memorias</a>
     </nav>
     <p class="etiqueta">Memorias de Tomás Gómez Arroyo</p>
   </footer>
+
+  {/*
+    Invitación al Libro de visitas. Aparece una sola vez en la vida del
+    navegador, tras cinco minutos de lectura acumulada, y nunca en el propio
+    libro. No es un modal: no bloquea la página ni roba el foco.
+  */}
+  <aside id="invitacion-libro" hidden aria-labelledby="invitacion-titulo">
+    <button type="button" id="cerrar-invitacion" aria-label="Cerrar la invitación">×</button>
+    <p class="etiqueta">Libro de visitas</p>
+    <p id="invitacion-titulo">¿Le has dejado ya un recuerdo?</p>
+    <p class="cuerpo-invitacion">Si conociste a Tomás, si la lectura te ha traído algo, o si tienes una fotografía, hay un libro esperando tu firma.</p>
+    <a href="/libro-de-visitas">Ver el libro</a>
+  </aside>
+
+  <script>
+    (() => {
+      const CLAVE_VISTA = 'memorias-invitacion-libro-v1';
+      const CLAVE_TIEMPO = 'memorias-tiempo-lectura-v1';
+      const UMBRAL = 5 * 60 * 1000;
+      const tarjeta = document.getElementById('invitacion-libro');
+      if (!tarjeta) return;
+      // En el propio libro la invitación no tiene sentido.
+      if (location.pathname.startsWith('/libro-de-visitas')) return;
+      try {
+        if (localStorage.getItem(CLAVE_VISTA)) return;
+      } catch {
+        return; // Sin almacenamiento no podemos garantizar que salga una sola vez.
+      }
+
+      const leer = () => {
+        try { return Number(localStorage.getItem(CLAVE_TIEMPO) || 0) || 0; } catch { return 0; }
+      };
+      let acumulado = leer();
+      let desde = Date.now();
+      let temporizador;
+
+      const guardar = () => {
+        acumulado += Date.now() - desde;
+        desde = Date.now();
+        try { localStorage.setItem(CLAVE_TIEMPO, String(acumulado)); } catch {}
+      };
+
+      const mostrar = () => {
+        try { localStorage.setItem(CLAVE_VISTA, '1'); } catch {}
+        tarjeta.hidden = false;
+        // Con setTimeout y no requestAnimationFrame: si la pestaña no está
+        // componiendo, rAF no llega a ejecutarse y la tarjeta se quedaría
+        // invisible para siempre, ya habiendo gastado su única aparición.
+        setTimeout(() => tarjeta.classList.add('visible'), 30);
+      };
+
+      const programar = () => {
+        clearTimeout(temporizador);
+        const restante = UMBRAL - acumulado;
+        if (restante <= 0) { mostrar(); return; }
+        temporizador = setTimeout(() => { guardar(); mostrar(); }, restante);
+      };
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) { guardar(); clearTimeout(temporizador); }
+        else { desde = Date.now(); programar(); }
+      });
+      addEventListener('pagehide', guardar);
+      programar();
+
+      const cerrar = () => {
+        tarjeta.classList.remove('visible');
+        setTimeout(() => { tarjeta.hidden = true; }, 320);
+      };
+      document.getElementById('cerrar-invitacion')?.addEventListener('click', cerrar);
+      tarjeta.querySelector('a')?.addEventListener('click', cerrar);
+    })();
+  </script>
 
   {conBarco && (
     <script>
@@ -278,54 +627,173 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
   }
   .saltar:focus { transform: translateY(0); }
 
-  #musica-fondo {
+  #control-audio {
     position: fixed;
-    right: 0.9rem;
-    bottom: 0.9rem;
+    left: 0.55rem;
+    bottom: 0.55rem;
     z-index: 200;
+    width: max-content;
+    max-width: calc(100vw - 1.1rem);
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--oro) 62%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--papel) 96%, transparent);
+    box-shadow: 0 2px 9px rgb(0 0 0 / 0.13);
+    backdrop-filter: blur(8px);
+  }
+  #canal-musica {
+    min-height: 3rem;
     display: flex;
     align-items: center;
-    gap: 0.3rem;
-    padding: 0.35rem 0.7rem;
-    border: 1px solid var(--oro-claro);
-    border-radius: 2.5rem;
-    background: color-mix(in srgb, var(--papel) 94%, transparent);
-    box-shadow: 0 2px 10px rgb(0 0 0 / 0.18);
-    backdrop-filter: blur(6px);
+    gap: 0.12rem;
+    padding: 0.12rem 0.32rem;
   }
+  .audio-etiqueta {
+    margin-inline: 0.18rem 0.12rem;
+    color: var(--marino);
+    font: 700 0.63rem/1 var(--f-cuerpo);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+  .audio-acciones { display: flex; align-items: center; gap: 0.06rem; }
   #boton-play,
-  #boton-mute {
-    min-height: 2.9rem;
-    min-width: 2.9rem;
+  #boton-mute,
+  #boton-narrador-flotante {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border: 1px solid transparent;
-    border-radius: 50%;
+    border-radius: 999px;
     background: transparent;
     color: var(--marino);
-    font-size: 1.15rem;
-    line-height: 1;
+    font: 700 0.78rem/1 var(--f-cuerpo);
     cursor: pointer;
   }
   #boton-play:hover, #boton-play:focus-visible,
-  #boton-mute:hover, #boton-mute:focus-visible {
-    background: color-mix(in srgb, var(--oro-claro) 35%, transparent);
+  #boton-mute:hover, #boton-mute:focus-visible,
+  #boton-narrador-flotante:hover, #boton-narrador-flotante:focus-visible {
+    background: color-mix(in srgb, var(--oro-claro) 28%, transparent);
+    border-color: color-mix(in srgb, var(--oro) 50%, transparent);
   }
-  #boton-play[aria-pressed='true'] { background: var(--marino); color: var(--papel); }
+  #boton-play[aria-pressed='true'],
+  #boton-narrador-flotante[aria-pressed='true'] {
+    background: var(--marino);
+    color: var(--papel);
+  }
   #boton-mute[aria-pressed='true'] { color: var(--bruma); }
   #volumen-musica {
-    width: 5.5rem;
-    height: 2.9rem;
+    width: 0;
+    height: 2.75rem;
+    margin: 0;
+    opacity: 0;
+    accent-color: var(--marino);
+    cursor: pointer;
+    pointer-events: none;
+    transition: width 160ms ease, opacity 120ms ease;
+  }
+  #canal-musica:hover #volumen-musica,
+  #canal-musica:focus-within #volumen-musica {
+    width: 3.8rem;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #barra-narracion {
+    position: fixed;
+    top: 3.65rem;
+    left: 50%;
+    z-index: 90;
+    width: min(64rem, calc(100vw - 1rem));
+    min-height: 3.5rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.34rem 0.65rem;
+    border: 1px solid color-mix(in srgb, var(--oro) 65%, transparent);
+    border-radius: 1.15rem;
+    background: color-mix(in srgb, var(--papel) 97%, transparent);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.14);
+    backdrop-filter: blur(10px);
+    transform: translateX(-50%);
+  }
+  #barra-narracion[hidden] { display: none; }
+  .controles-capitulos {
+    display: flex;
+    align-items: center;
+    gap: 0.08rem;
+  }
+  #boton-capitulo-anterior,
+  #boton-capitulo-siguiente { color: var(--bruma); }
+  #boton-capitulo-anterior:disabled,
+  #boton-capitulo-siguiente:disabled {
+    opacity: 0.3;
+    cursor: default;
+    background: transparent;
+    border-color: transparent;
+  }
+  .narrador-recorrido { min-width: 0; display: grid; gap: 0.12rem; }
+  .narrador-datos {
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    color: var(--bruma);
+    font-size: 0.72rem;
+    line-height: 1.1;
+  }
+  .narrador-identidad {
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .narrador-tipo {
+    color: var(--marino);
+    font-weight: 750;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.09em;
+  }
+  #titulo-narracion { overflow: hidden; text-overflow: ellipsis; }
+  .narrador-tiempos { flex: 0 0 auto; font-variant-numeric: tabular-nums; }
+  #progreso-narracion {
+    width: 100%;
+    height: 1.25rem;
+    margin: 0;
     accent-color: var(--marino);
     cursor: pointer;
   }
-  @media (max-width: 480px) {
-    #musica-fondo { right: 0.6rem; bottom: 0.6rem; padding: 0.3rem 0.5rem; gap: 0.15rem; }
-    #boton-play, #boton-mute { min-height: 2.6rem; min-width: 2.6rem; font-size: 1.05rem; }
-    #volumen-musica { width: 4.2rem; }
-  }
+  html[data-narracion='activa'] #contenido { padding-top: 3.6rem; }
+  html[data-narracion='activa'] #horizonte { opacity: 0; }
 
+  #cabecera-sitio nav button { border-radius: 0.8rem; }
+
+  @media (max-width: 480px) {
+    #control-audio { left: 0.35rem; bottom: 0.35rem; max-width: calc(100vw - 0.7rem); }
+    #canal-musica { padding-inline: 0.22rem; }
+    .audio-etiqueta { margin-inline: 0.08rem 0.04rem; font-size: 0.58rem; letter-spacing: 0.05em; }
+    #canal-musica:hover #volumen-musica,
+    #canal-musica:focus-within #volumen-musica { width: 3rem; }
+
+    #barra-narracion {
+      top: 3.55rem;
+      width: calc(100vw - 0.7rem);
+      min-height: 3.35rem;
+      gap: 0.4rem;
+      padding: 0.28rem 0.45rem;
+      border-radius: 0.95rem;
+    }
+    .narrador-datos { gap: 0.4rem; font-size: 0.67rem; }
+    .narrador-identidad { gap: 0.2rem; }
+    .narrador-tipo { letter-spacing: 0.05em; }
+    html[data-narracion='activa'] #contenido { padding-top: 3.45rem; }
+  }
   #cabecera-sitio {
     position: fixed;
     inset: 0 0 auto 0;
@@ -341,6 +809,9 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
     box-shadow: 0 2px 12px rgb(0 0 0 / 0.08);
     backdrop-filter: blur(10px);
   }
+  .marca-corta,
+  .libro-movil,
+  #abrir-menu-movil { display: none; }
   .marca-sitio {
     min-height: 2.75rem;
     display: inline-flex;
@@ -426,26 +897,148 @@ const canonical = new URL(Astro.url.pathname, 'https://tomasgomezarroyo.pages.de
     text-decoration: none;
   }
 
-  @media (max-width: 720px) {
-    #cabecera-sitio { justify-content: center; }
-    .marca-sitio { display: none; }
-    #cabecera-sitio nav { width: 100%; justify-content: space-between; }
-    #cabecera-sitio nav .enlace-indice { display: none; }
-    /* En px, no rem: el botón de letra grande no debe inflar la propia navegación
-       hasta desbordar la pantalla (misma regla que los controles de galería). */
+  @media (max-width: 1320px) {
+    #cabecera-sitio {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 0.28rem;
+      padding-inline: 0.45rem;
+    }
+    .marca-sitio {
+      min-width: 0;
+      gap: 0.25rem;
+      padding-inline: 0.2rem;
+      font-size: 1rem;
+    }
+    .marca-larga { display: none; }
+    .marca-corta { display: inline; overflow: hidden; text-overflow: ellipsis; }
+    .libro-movil,
+    #abrir-menu-movil {
+      min-height: 2.75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.35rem 0.55rem;
+      border: 1px solid transparent;
+      border-radius: 0.72rem;
+      background: transparent;
+      color: var(--marino);
+      font: 650 0.82rem/1.05 var(--f-cuerpo);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .libro-movil {
+      border-color: color-mix(in srgb, var(--oro) 58%, transparent);
+      background: var(--papel-2);
+    }
+    #abrir-menu-movil { gap: 0.28rem; cursor: pointer; }
+    #abrir-menu-movil[aria-expanded='true'] {
+      background: var(--marino);
+      color: var(--papel);
+    }
+    #cabecera-sitio nav {
+      position: absolute;
+      inset: 100% 0 auto;
+      display: none;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.35rem;
+      padding: 0.65rem;
+      border-bottom: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
+      background: color-mix(in srgb, var(--papel) 98%, transparent);
+      box-shadow: 0 0.8rem 1.4rem rgb(0 0 0 / 0.14);
+      backdrop-filter: blur(12px);
+    }
+    #cabecera-sitio[data-menu-abierto] nav { display: grid; }
     #cabecera-sitio nav a,
     #cabecera-sitio nav button {
-      flex: 1 1 auto;
-      min-width: 0;
-      padding-inline: 4px;
-      font-size: 13px;
-      min-height: 44px;
+      width: 100%;
+      min-height: 2.75rem;
+      padding: 0.55rem 0.7rem;
+      border-color: color-mix(in srgb, var(--oro) 30%, transparent);
+      border-radius: 0.62rem;
+      background: var(--papel-2);
+      font-size: 0.92rem;
     }
+    #cabecera-sitio nav a[href='/libro-de-visitas'] { display: none; }
   }
 
-  @media (max-width: 390px) {
-    #cabecera-sitio nav a,
-    #cabecera-sitio nav button { font-size: 12px; }
-    #cabecera-sitio nav button .texto-boton { display: none; }
+  @media (max-width: 360px) {
+    .marca-sitio { font-size: 0.92rem; }
+    .libro-movil, #abrir-menu-movil { padding-inline: 0.4rem; font-size: 0.76rem; }
+  }
+
+  /* Invitación al Libro de visitas: una tarjeta que se posa en una esquina,
+     no un modal. Se puede seguir leyendo con ella en pantalla. */
+  #invitacion-libro {
+    position: fixed;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    z-index: 60;
+    width: min(19rem, calc(100vw - 2.2rem));
+    padding: 1.1rem 1.2rem 1.2rem;
+    border: 1px solid var(--oro);
+    background: var(--noche);
+    color: var(--papel);
+    box-shadow: 0 1.2rem 2.6rem rgb(8 14 22 / 0.42);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+  #invitacion-libro.visible { opacity: 1; transform: translateY(0); }
+  #invitacion-libro[hidden] { display: none; }
+  #invitacion-libro .etiqueta { color: var(--oro-claro); }
+  #invitacion-titulo {
+    margin: 0.35rem 0 0.5rem;
+    font: 600 1.5rem/1.2 var(--f-display);
+    color: var(--papel);
+  }
+  #invitacion-libro .cuerpo-invitacion {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: color-mix(in srgb, var(--papel) 80%, transparent);
+  }
+  #invitacion-libro a {
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 0.5rem 1.1rem;
+    border: 1px solid var(--oro-claro);
+    background: var(--oro-claro);
+    color: var(--noche);
+    font: 650 0.85rem/1.2 var(--f-cuerpo);
+    text-decoration: none;
+  }
+  #invitacion-libro a:hover { background: var(--papel); border-color: var(--papel); }
+  #cerrar-invitacion {
+    position: absolute;
+    top: 0.3rem;
+    right: 0.3rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    background: transparent;
+    color: color-mix(in srgb, var(--papel) 70%, transparent);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  #cerrar-invitacion:hover { color: var(--papel); }
+
+  @media (prefers-reduced-motion: reduce) {
+    #invitacion-libro { transition: none; transform: none; }
+  }
+
+  @media (max-width: 760px) {
+    #invitacion-libro { bottom: 4.2rem; }
+  }
+
+  @media (max-width: 520px) {
+    #invitacion-libro { right: 0.6rem; left: 0.6rem; width: auto; }
+  }
+
+  @media print {
+    #invitacion-libro { display: none !important; }
   }
 </style>

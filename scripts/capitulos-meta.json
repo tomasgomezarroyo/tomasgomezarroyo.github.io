@@ -15,6 +15,20 @@
           "credito": "Fotografía anónima. Dominio público, vía Wikimedia Commons.",
           "galeria": "lugares/las-palmas-de-gran-canaria",
           "pos": 2
+        },
+        {
+          "archivo": "familia/1991-aprox_tomas_las-canteras_escribiendo_01.jpg",
+          "pie": "Tomás Gómez Arroyo escribiendo en el paseo de la Playa de Las Canteras, la misma escena que describe al abrir sus memorias.",
+          "credito": "",
+          "galeria": "familia",
+          "pos": 1
+        },
+        {
+          "archivo": "familia/sfecha_vivi_retrato-ultimos-anos_01.jpg",
+          "pie": "Vivi (María Victoria Soutullo San Emeterio) en sus últimos años. Versión restaurada digitalmente a partir del original de archivo. (identificación/fecha pendiente de confirmar por la familia)",
+          "credito": "Restauración digital del original",
+          "galeria": "familia",
+          "pos": 4
         }
       ]
     },
@@ -68,6 +82,41 @@
           "credito": "Fotografía: Casaú, vía Todoavante.es.",
           "galeria": "buques/vulcano",
           "pos": 20
+        },
+        {
+          "archivo": "familia/1938-06-08_tomas-matias-reina_las-palmas_marineros-voluntarios_01.jpg",
+          "pie": "Tomás, marinero voluntario, junto a Matías Reina, quien fue durante muchos años práctico del puerto de La Luz y Las Palmas.",
+          "credito": "",
+          "galeria": "familia",
+          "pos": 2
+        },
+        {
+          "archivo": "familia/1938-aprox_tomas_marinero_retrato_01.jpg",
+          "pie": "Tomás ya transformado en marinero, tras el alistamiento voluntario de 1938. (identificación/fecha pendiente de confirmar por la familia)",
+          "credito": "",
+          "galeria": "familia",
+          "pos": 5
+        },
+        {
+          "archivo": "familia/sfecha_anita-maria_retrato_restaurada_01.jpg",
+          "pie": "Anita María, la hermana mayor de Tomás, fallecida de bronconeumonía el día en que cumplía seis años. Versión restaurada digitalmente.",
+          "credito": "Restauración digital del original",
+          "galeria": "familia",
+          "pos": 1
+        },
+        {
+          "archivo": "familia/1938-aprox_dotacion-rey-jaime-i_01.jpg",
+          "pie": "Dotación del crucero auxiliar Rey Jaime I en cubierta. (identificación/fecha pendiente de confirmar por la familia)",
+          "credito": "",
+          "galeria": "familia",
+          "pos": 50
+        },
+        {
+          "archivo": "familia/sfecha_bailes-las-palmas_01.jpg",
+          "pie": "Bailes de la época en el Gabinete Literario, el Club Náutico o el Hotel Metrópol, de los que Tomás guardaba fotografías. (identificación/fecha pendiente de confirmar por la familia)",
+          "credito": "",
+          "galeria": "familia",
+          "pos": 45
         }
       ]
     },
@@ -81,11 +130,24 @@
       "resumen": "Los primeros días traumáticos en la Escuela Naval Militar de San Fernando, los toques de corneta y los instructores alemanes que no pasaban una.",
       "fotos": [
         {
+          "archivo": "familia/1940-aprox_otto-reise-batallon_01.jpg",
+          "tipo": "caricatura",
+          "pie": "Otto Reise, «el tarrito de veneno», en una caricatura inspirada en el recuerdo y la descripción de Tomás.",
+          "credito": "Recreación contemporánea; no es una imagen histórica.",
+          "despues_de": "salpicadas de ¡carrera mar!"
+        },
+        {
           "archivo": "lugares/presidio-cuatro-torres-san-fernando-1911.png",
           "pie": "El arsenal de La Carraca, en San Fernando, a comienzos de siglo. En este entorno de piedra vieja y salitre funcionaba la Escuela Naval de sus años de cadete.",
           "credito": "Dominio público, vía Wikimedia Commons.",
           "galeria": "lugares/san-fernando-arsenal-carraca",
           "pos": 3
+        },
+        {
+          "archivo": "familia/1939-aprox_tomas-pepin-bernal-clavijo_escuela-naval_01.jpg",
+          "pie": "Tomás Gómez Arroyo (centro), con Pepín Bernal y Tomás Clavijo, compañeros de la Escuela Naval, hacia 1939. La fotografía reúne a los tres protagonistas del recuerdo, aunque no corresponde a la escena a bordo.",
+          "credito": "Archivo familiar.",
+          "despues_de": "¡Lástima que se perdieran tan bellas costumbres...!"
         }
       ]
     },
@@ -97,7 +159,38 @@
       "periodo": "1941 – 1943",
       "lugares": "San Fernando, Cádiz",
       "resumen": "El ascenso a Guardiamarina de Segunda, las dos anclas cruzadas bajo la corona, y la cómoda zona templada de la promoción.",
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "buques/neptuno-27.jpg",
+          "pie": "El minador Neptuno, a bordo del cual Tomás recorrió buena parte de los puertos españoles durante su curso de guardiamarina.",
+          "credito": "Imagen aportada por la familia; autor y fecha pendientes de identificar.",
+          "galeria": "buques/neptuno",
+          "tipo": "fotografía del buque",
+          "despues_de": "estuvimos embarcados en el minador \"Neptuno\""
+        },
+        {
+          "archivo": "buques/neptuno-f02.jpg",
+          "pie": "El viejo minador Neptuno navegando, ya con el numeral F-02 visible en el casco.",
+          "credito": "Imagen aportada por la familia; autor y fecha pendientes de identificar.",
+          "galeria": "buques/neptuno",
+          "tipo": "fotografía del buque",
+          "despues_de": "publicando una foto del viejo minador \"Neptuno\""
+        },
+        {
+          "archivo": "familia/1943-04_desfile-victoria-madrid_bandera_01.jpg",
+          "pie": "Desfile de la Victoria, Madrid, abril de 1943: Tomás portando la bandera.",
+          "credito": "",
+          "galeria": "familia",
+          "pos": 49
+        },
+        {
+          "archivo": "familia/1943-04_desfile-victoria-madrid_02.jpg",
+          "pie": "Desfile de la Victoria, Madrid, abril de 1943.",
+          "credito": "",
+          "galeria": "familia",
+          "pos": 49
+        }
+      ],
       "enlaces": [
         {
           "buscar": "se cerró definitivamente las antiguas instalaciones de San Fernando",
@@ -116,7 +209,23 @@
       "periodo": "1943",
       "lugares": "Marín, Pontevedra",
       "resumen": "La entrega de despachos en la nueva Escuela Naval de Marín, el 15 de agosto de 1943, tras una borrascosa noche de viejos camaradas.",
-      "fotos": []
+      "fotos": [
+        {
+          "archivo": "buques/triton-29.jpg",
+          "pie": "El Tritón (29), después F-22, cañonero-minador de la clase Eolo y primer destino de Tomás como alférez de navío. Entró en servicio en octubre de 1943, adscrito al Departamento Marítimo de Ferrol.",
+          "credito": "Imagen aportada por la familia; autor pendiente de identificar.",
+          "galeria": "buques/triton",
+          "tipo": "fotografía del buque",
+          "despues_de": "yo lo hice en el minador \"Tritón\""
+        },
+        {
+          "archivo": "familia/1945_tomas-alferez-navio_retrato_01.jpg",
+          "pie": "Tomás Gómez Arroyo, alférez de navío.",
+          "credito": "Archivo familiar.",
+          "galeria": "familia",
+          "despues_de": "aquellos primeros días en el \"Tritón\""
+        }
+      ]
     },
     {
       "slug": "capitulo-quinto",
@@ -133,6 +242,12 @@
           "credito": "Foto: Vicente Martín (Photo Carte), Kutxa Fundazioa Fototeka, CC BY-NC 4.0.",
           "galeria": "lugares/portugalete",
           "pos": 3
+        },
+        {
+          "archivo": "lugares/1943-1950-cafe-urquin-servicio.jpg",
+          "pie": "Celestino López de Castro posa con parte del servicio del Café Urquín perfectamente uniformado. En este local Tomás pidió a Vivi que lo aceptase como novio formal.",
+          "credito": "Fotografía: J. Pintos, vía Faro de Vigo. Reproducida con autorización.",
+          "despues_de": "le pedí que me aceptase como novio formal"
         }
       ],
       "enlaces": [
@@ -142,6 +257,16 @@
           "pie": "El monumento a la Cofradía de Churruca, con el puente colgante de Portugalete al fondo, 1943.",
           "credito": "Foto: Vicente Martín (Photo Carte), Kutxa Fundazioa Fototeka, CC BY-NC 4.0.",
           "galeria": "lugares/portugalete"
+        }
+      ],
+      "referencias": [
+        {
+          "titulo": "El Urquín, un local de cine que se anticipó a su tiempo",
+          "resumen": "El reportaje reconstruye el restaurante, salón de baile y café que marcó la vida social de la Pontevedra de posguerra e incluye una fotografía del servicio del establecimiento.",
+          "fuente": "Rafael López Torre · Faro de Vigo · 20 de marzo de 2022",
+          "url": "https://www.farodevigo.es/opinion/2022/03/20/urquin-local-cine-anticipo-tiempo-64046632.html",
+          "enlace": "Ver la fotografía y el reportaje",
+          "despues_de": "le pedí que me aceptase como novio formal"
         }
       ]
     },
@@ -185,6 +310,20 @@
           "pie": "El compositor Reveriano Soutullo, autor de La leyenda del beso y La del Soto del Parral. Vivi, la novia de estas páginas, era su hija.",
           "credito": "Dominio público, vía Wikimedia Commons.",
           "pos": 16
+        },
+        {
+          "archivo": "familia/1946_tomas-teniente-navio_retrato-gala_01.jpg",
+          "pie": "Retrato de gala de Tomás con los galones de teniente de navío.",
+          "credito": "",
+          "galeria": "familia",
+          "pos": 10
+        },
+        {
+          "archivo": "familia/1946-08_regata-san-gines_patron-campeon_01.jpg",
+          "pie": "Tomás, patrón campeón de la Primera Regata de Vela Latina de San Ginés.",
+          "credito": "",
+          "galeria": "familia",
+          "pos": 38
         }
       ]
     },
@@ -210,6 +349,20 @@
           "credito": "Dominio público, vía Wikimedia Commons.",
           "galeria": "lugares/madrid",
           "pos": 10
+        },
+        {
+          "archivo": "familia/sfecha_vivi_retrato-estudio-bosch_01.jpg",
+          "pie": "Retrato de estudio de Vivi de joven, firmado «Bosch». (identificación/fecha pendiente de confirmar por la familia)",
+          "credito": "",
+          "galeria": "familia",
+          "pos": 16
+        },
+        {
+          "archivo": "familia/1947-11-19_boda-tomas-vivi_madrid_01.jpg",
+          "pie": "La boda de Tomás y Vivi, 24 de noviembre de 1947, en Madrid.",
+          "credito": "",
+          "galeria": "familia",
+          "pos": 17
         }
       ]
     },
@@ -293,4 +446,3 @@
     }
   ]
 }
-

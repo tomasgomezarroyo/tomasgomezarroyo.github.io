@@ -82,9 +82,6 @@ const titulosCapitulos = Object.fromEntries(indice.map((c) => [c.slug, c.titulo]
     )}
 
     <nav class="acciones" aria-label="Continuar leyendo">
-      <span class="episodios">
-        {lugar.caps.map((cap) => <a href={`/capitulo/${cap}`}>Leer el episodio relacionado</a>)}
-      </span>
       <a href="/lugares">Volver a todos los lugares</a>
     </nav>
   </main>

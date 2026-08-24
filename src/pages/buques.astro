@@ -22,7 +22,7 @@ import { buques } from '../data/buques';
           <h2><a href={`/buques/${b.slug}`}>{b.nombre}</a></h2>
           <p class="tipo etiqueta">{b.tipo} · {b.anos}</p>
           <p class="nota">{b.nota}</p>
-          <p class="acciones"><a class="boton-ficha" href={`/buques/${b.slug}`}>{b.imagenes.length ? 'Abrir galería y lupa' : 'Ver ficha pendiente'}</a><a href={`/capitulo/${b.cap}`}>Leer el episodio</a></p>
+          <p class="acciones"><a class="boton-ficha" href={`/buques/${b.slug}`}>{b.imagenes.length ? 'Abrir galería y lupa' : 'Ver ficha pendiente'}</a><a href={b.cap === 'epilogo' ? '/epilogo' : `/capitulo/${b.cap}`}>Leer el episodio</a></p>
         </article>
       ))}
     </div>

@@ -1172,6 +1172,187 @@ APO New York 09285`,
     ],
   },
   {
+    slug: 'clase-1972-1973',
+    titulo: 'Cuadros de la promoción del Naval Command College',
+    pieza: 'Dos cuadros conmemorativos de la promoción 1972-1973',
+    fecha: '1972-1973',
+    fechaOrden: '1973-06-01',
+    resumen: 'Dos cuadros conmemorativos de la promoción del Naval Command College 1972-1973, con la fotografía y el nombre de cada oficial extranjero de la clase, entre ellos «CAPT Tomas Gomez ARROYO, Spanish Navy».',
+    tipoDocumento: 'Cuadro conmemorativo de promoción, U.S. Naval War College',
+    contexto: 'La misma promoción 1972-1973 documentada por la carta de bienvenida y la evaluación de graduación de este expediente. Estos dos cuadros — uno con mapamundi y otro solo con los retratos — reúnen a los 32 oficiales extranjeros del curso, con su rango, apellido y armada de origen. Confirman visualmente la presencia de Tomás en la promoción, con retrato incluido.',
+    personas: ['Tomás Gómez Arroyo'],
+    credito: CREDITO,
+    derechos: DERECHOS,
+    fechaConsulta: FECHA_CONSULTA,
+    fuenteTexto: FUENTE_TEXTO,
+    paginas: [
+      {
+        src: '/fotos/archivo/pagina-34.jpg',
+        alt: 'Cuadro conmemorativo con mapamundi de la promoción 1972-1973 del Naval Command College',
+        titulo: 'Cuadro con mapamundi',
+        referencia: 'Página adicional del expediente (fuera de la numeración de 33 páginas del ensayo y la correspondencia)',
+        original: `THE UNITED STATES NAVAL WAR COLLEGE
+CLASS OF NAVAL COMMAND COLLEGE 1972 – 1973
+
+CDR Songsit Kittipeerachol, Royal Thai Navy
+CDR Raif Naldemir, Turkish Navy
+CAPT Vien Bui Cuu, Vietnamese Navy
+CDR Robert E. Klee, U.S. Navy
+CAPT Mauricio Malle Vicini, Venezuelan Navy
+CDR Carl-Gustaf Hammarskjold, Royal Swedish Navy
+CAPT Tomas Gomez Arroyo, Spanish Navy
+CDR E.M.C. Walker, Royal Navy
+CAPT Vasco A.M. Rodrigues, Portuguese Navy
+CAPT Reynaldo M. Alcarez, Philippine Navy
+CDR Oscar Anderson Noriega, Peruvian Navy
+CDR Fasahat H. Syed, Pakistan Navy
+CDR Birger Dalen, Royal Norwegian Navy
+CDR Raheem A.O. Adegbite, Nigerian Navy
+Jan Catharinus Schuller, Royal Netherlands Navy
+CAPT Vidal Preciado Ruiz, Mexican Navy
+CDR Nicholas E. Peterson, Royal Malaysian Navy
+CAPT Kim Tae Yong, Republic of Korea Navy
+CAPT Hiroshi Nagata, Japanese Maritime Self-Defense Force
+CDR Aldo Facco, Italian Navy
+CDR Ahmad A.P-Ghajar, Imperial Iranian Navy
+CDR Hector Mario Vergnaud, Argentine Navy
+CDR Fred John Mifflin, Canadian Armed Forces
+CAPT Liu Chih-Chung, Chinese Navy
+CDR (s.g.) Sven Egil Thiede, Royal Danish Navy
+CDR Felix Marte Espinosa, Dominican Navy
+CDR Constantine Zografakis, Hellenic Navy
+LCOL Sukarjono, Indonesian Navy
+CDR Ian W. Knox, Royal Australian Navy
+CDR Domingos P.C.B. Ferreira, Brazilian Navy
+CDR Kifle Worku, Imperial Ethiopian Navy
+CDR Alfred Werner, Federal German Navy`,
+        traduccion: `EL COLEGIO DE GUERRA NAVAL DE LOS ESTADOS UNIDOS
+PROMOCIÓN DEL NAVAL COMMAND COLLEGE 1972 – 1973
+
+Cte. Songsit Kittipeerachol, Armada Real Tailandesa
+Cte. Raif Naldemir, Armada Turca
+Cap. Vien Bui Cuu, Armada de Vietnam
+Cte. Robert E. Klee, Armada de los EE. UU.
+Cap. Mauricio Malle Vicini, Armada de Venezuela
+Cte. Carl-Gustaf Hammarskjold, Armada Real Sueca
+Cap. Tomás Gómez Arroyo, Armada Española
+Cte. E.M.C. Walker, Marina Real Británica
+Cap. Vasco A.M. Rodrigues, Armada Portuguesa
+Cap. Reynaldo M. Alcarez, Armada Filipina
+Cte. Oscar Anderson Noriega, Armada Peruana
+Cte. Fasahat H. Syed, Armada de Pakistán
+Cte. Birger Dalen, Armada Real Noruega
+Cte. Raheem A.O. Adegbite, Armada Nigeriana
+Jan Catharinus Schuller, Armada Real de los Países Bajos
+Cap. Vidal Preciado Ruiz, Armada Mexicana
+Cte. Nicholas E. Peterson, Armada Real Malasia
+Cap. Kim Tae Yong, Armada de la República de Corea
+Cap. Hiroshi Nagata, Fuerza Marítima de Autodefensa de Japón
+Cte. Aldo Facco, Armada Italiana
+Cte. Ahmad A.P-Ghajar, Armada Imperial Iraní
+Cte. Hector Mario Vergnaud, Armada Argentina
+Cte. Fred John Mifflin, Fuerzas Armadas Canadienses
+Cap. Liu Chih-Chung, Armada China
+Cte. (s.g.) Sven Egil Thiede, Armada Real Danesa
+Cte. Felix Marte Espinosa, Armada Dominicana
+Cte. Constantine Zografakis, Armada Helénica
+Tte. Cnel. Sukarjono, Armada Indonesia
+Cte. Ian W. Knox, Armada Real Australiana
+Cte. Domingos P.C.B. Ferreira, Armada Brasileña
+Cte. Kifle Worku, Armada Imperial Etíope
+Cte. Alfred Werner, Armada Federal Alemana`,
+        notas: [
+          { texto: 'El original imprime los nombres sin tildes, como es habitual en documentación estadounidense de la época: «Tomas Gomez Arroyo». Se conservan así en la lectura del original y se restituyen en la traducción.' },
+          { texto: 'Orden de lectura: de izquierda a derecha y de arriba abajo según la disposición de las fichas alrededor del mapamundi, no es un orden alfabético ni jerárquico declarado por la fuente.' },
+        ],
+      },
+      {
+        src: '/fotos/archivo/pagina-35.jpg',
+        alt: 'Cuadro de retratos individuales de la promoción 1972-1973 del Naval Command College, con Tomás Gómez Arroyo en la segunda fila',
+        titulo: 'Cuadro de retratos',
+        referencia: 'Página adicional del expediente (fuera de la numeración de 33 páginas del ensayo y la correspondencia)',
+        original: `NAVAL WAR COLLEGE          NAVAL COMMAND COLLEGE          1972 – 1973
+
+CAPT LIU, Chih-Chung, Chinese Navy
+CAPT Vasco Antonio Martins RODRIGUES, Portuguese Navy
+CAPT Vidal PRECIADO Ruiz, Mexican Navy
+CAPT Aldo FACCO, Italian Navy
+CAPT Reynaldo M. ALCAREZ, Philippine Navy
+CAPT KIM Tae Yong, Republic of Korea Navy
+CAPT Hiroshi NAGATA, Japanese Maritime Self-Defense Force
+CAPT VIEN Bui Cuu, Vietnamese Navy
+
+CAPT Tomas Gomez ARROYO, Spanish Navy
+CAPT Mauricio MALLE Vicini, Venezuelan Navy
+CAPT Ahmad Ali PARVARESH-GHAJAR, Imperial Iranian Navy
+CAPT Alfred WERNER, Federal German Navy
+CDR E.M.C. WALKER, Royal Navy
+CDR Hector Mario VERGNAUD, Argentine Navy
+CDR Birger DALEN, Royal Norwegian Navy
+CDR Robert E. KLEE, United States Navy
+
+CDR Ian W. KNOX, Royal Australian Navy
+CDR (s.g.) Sven Egil THIEDE, Royal Danish Navy
+CDR Constantine ZOGRAFAKIS, Hellenic Navy
+CDR Fred John MIFFLIN, Canadian Armed Forces
+LCOL SUKARJONO, Indonesian Navy
+CDR Oscar ANDERSON Noriega, Peruvian Navy
+CDR Fasahat H. SYED, Pakistan Navy
+CDR Carl-Gustaf HAMMARSKJOLD, Royal Swedish Navy
+
+CDR Domingos Pacifico Castello Branco FERREIRA, Brazilian Navy
+CDR KIFLE Worku, Imperial Ethiopian Navy
+CDR Raif NALDEMIR, Turkish Navy
+CDR SONGSIT Kittipeerachol, Royal Thai Navy
+CDR Jan Catharinus SCHULLER, Royal Netherlands Navy
+CDR Felix MARTE Espinosa, Dominican Navy
+CDR Nicholas E. PETERSON, Royal Malaysian Navy
+CDR Raheem Adisa Oladapo ADEGBITE, Nigerian Navy`,
+        traduccion: `COLEGIO DE GUERRA NAVAL          NAVAL COMMAND COLLEGE          1972 – 1973
+
+Cap. LIU, Chih-Chung, Armada China
+Cap. Vasco Antonio Martins RODRIGUES, Armada Portuguesa
+Cap. Vidal PRECIADO Ruiz, Armada Mexicana
+Cap. Aldo FACCO, Armada Italiana
+Cap. Reynaldo M. ALCAREZ, Armada Filipina
+Cap. KIM Tae Yong, Armada de la República de Corea
+Cap. Hiroshi NAGATA, Fuerza Marítima de Autodefensa de Japón
+Cap. VIEN Bui Cuu, Armada de Vietnam
+
+Cap. Tomás Gómez Arroyo, Armada Española
+Cap. Mauricio MALLE Vicini, Armada de Venezuela
+Cap. Ahmad Ali PARVARESH-GHAJAR, Armada Imperial Iraní
+Cap. Alfred WERNER, Armada Federal Alemana
+Cte. E.M.C. WALKER, Marina Real Británica
+Cte. Hector Mario VERGNAUD, Armada Argentina
+Cte. Birger DALEN, Armada Real Noruega
+Cte. Robert E. KLEE, Armada de los Estados Unidos
+
+Cte. Ian W. KNOX, Armada Real Australiana
+Cte. (s.g.) Sven Egil THIEDE, Armada Real Danesa
+Cte. Constantine ZOGRAFAKIS, Armada Helénica
+Cte. Fred John MIFFLIN, Fuerzas Armadas Canadienses
+Tte. Cnel. SUKARJONO, Armada Indonesia
+Cte. Oscar ANDERSON Noriega, Armada Peruana
+Cte. Fasahat H. SYED, Armada de Pakistán
+Cte. Carl-Gustaf HAMMARSKJOLD, Armada Real Sueca
+
+Cte. Domingos Pacifico Castello Branco FERREIRA, Armada Brasileña
+Cte. KIFLE Worku, Armada Imperial Etíope
+Cte. Raif NALDEMIR, Armada Turca
+Cte. SONGSIT Kittipeerachol, Armada Real Tailandesa
+Cte. Jan Catharinus SCHULLER, Armada Real de los Países Bajos
+Cte. Felix MARTE Espinosa, Armada Dominicana
+Cte. Nicholas E. PETERSON, Armada Real Malasia
+Cte. Raheem Adisa Oladapo ADEGBITE, Armada Nigeriana`,
+        notas: [
+          { texto: 'Tomás aparece en la segunda fila, primero por la izquierda: «CAPT Tomas Gomez ARROYO, Spanish Navy».' },
+          { texto: 'Se transcriben los ocho grupos de ocho tal como están dispuestos en el cuadro, de arriba a abajo y de izquierda a derecha.' },
+        ],
+      },
+    ],
+  },
+  {
     slug: 'evaluacion-graduacion-1973',
     titulo: 'Evaluación de graduación del Naval Command College',
     pieza: 'Evaluación académica de 1973',

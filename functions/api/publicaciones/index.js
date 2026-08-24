@@ -3,10 +3,15 @@ import {
   extensionSegura,
   json,
   nuevoId,
+  nuevoTokenAutor,
   publicacionPublica,
+  sha256,
   textoLimpio,
   validarTurnstile,
 } from '../../_lib/comun.js';
+import { corsPreflight } from '../../_lib/comun.js';
+
+export function onRequestOptions() { return corsPreflight(); }
 
 const MAX_ORIGINAL = 15 * 1024 * 1024;
 const MAX_VISTA = 3 * 1024 * 1024;
@@ -47,7 +52,6 @@ export async function onRequestGet({ env }) {
 }
 
 export async function onRequestPost({ request, env }) {
-  if (await excedeLimite(request, 'publicar', 5, 3600)) return json({ error: 'limite' }, 429);
   const longitud = Number(request.headers.get('content-length'));
   if (Number.isFinite(longitud) && longitud > MAX_SOLICITUD) return json({ error: 'tamano' }, 413);
 
@@ -71,14 +75,24 @@ export async function onRequestPost({ request, env }) {
   const personas = textoLimpio(datos.get('personas'), 500);
   const contexto = textoLimpio(datos.get('contexto'), 1500);
   const procedencia = textoLimpio(datos.get('procedencia'), 300);
+  const capitulo = textoLimpio(datos.get('capitulo'), 40);
+  const ciudad = textoLimpio(datos.get('ciudad'), 80);
+  const pais = textoLimpio(datos.get('pais'), 80);
   const fotoVista = datos.get('fotoVista');
   const fotoOriginal = datos.get('fotoOriginal');
   const tieneFoto = fotoVista instanceof File && fotoVista.size > 0;
 
   if (nombre.length < 2) return json({ error: 'nombre' }, 400);
-  if (!tieneFoto && comentario.length < 2) return json({ error: 'comentario' }, 400);
+  if (comentario.length < 2) return json({ error: 'comentario' }, 400);
   if (tieneFoto && pieFoto.length < 3) return json({ error: 'pieFoto' }, 400);
   if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ error: 'email' }, 400);
+  const grupoLimite = tieneFoto ? 'publicar-foto-v2' : 'publicar-mensaje-v2';
+  const limite = tieneFoto ? 10 : 15;
+  if (await excedeLimite(request, grupoLimite, limite, 3600)) return json({ error: 'limite' }, 429);
+
+  if (tieneFoto && !env.PHOTOS) {
+    return json({ error: 'almacenamiento' }, 503);
+  }
 
   if (tieneFoto) {
     if (fotoVista.size > MAX_VISTA || extensionSegura(await fotoVista.arrayBuffer()) !== 'jpg') {
@@ -90,6 +104,8 @@ export async function onRequestPost({ request, env }) {
   }
 
   const id = nuevoId('pub');
+  const tokenAutor = nuevoTokenAutor();
+  const tokenAutorHash = await sha256(tokenAutor);
   const ahora = new Date().toISOString();
   let claveVista = null;
   let claveOriginal = null;
@@ -115,12 +131,13 @@ export async function onRequestPost({ request, env }) {
     await env.DB.prepare(`
       INSERT INTO publicaciones (
         id, tipo, nombre, email, comentario, pie_foto, fecha_foto, lugar, personas,
-        contexto, procedencia, foto_original_key, foto_vista_key, estado, creado_en, actualizado_en
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'visible', ?, ?)
+        contexto, procedencia, capitulo, ciudad, pais, foto_original_key, foto_vista_key,
+        autor_token_hash, estado, creado_en, actualizado_en
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'visible', ?, ?)
     `).bind(
       id, tieneFoto ? 'fotografia' : 'mensaje', nombre, email || null, comentario,
-      pieFoto, fechaFoto, lugar, personas, contexto, procedencia,
-      claveOriginal, claveVista, ahora, ahora,
+      pieFoto, fechaFoto, lugar, personas, contexto, procedencia, capitulo, ciudad, pais,
+      claveOriginal, claveVista, tokenAutorHash, ahora, ahora,
     ).run();
 
     return json({ ok: true, publicacion: {
@@ -134,11 +151,14 @@ export async function onRequestPost({ request, env }) {
       personas,
       contexto,
       procedencia,
+      capitulo,
+      ciudad,
+      pais,
       tieneFoto,
       fotoUrl: tieneFoto ? `/fotos/${id}` : null,
       creadoEn: ahora,
       respuestas: [],
-    } }, 201);
+    }, tokenAutor }, 201);
   } catch (error) {
     console.error('No se pudo publicar', error);
     if (claveVista) await env.PHOTOS.delete(claveVista).catch(() => {});

@@ -1,7 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
+import { epocas } from '../data/epocas';
 
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAEJN8XA8m68gWA9w';
+const epocasElegibles = epocas.filter((e) => e.slug !== 'sin-epoca');
+
+// El guion del cliente vive en /public y no puede importar de src: la lista de
+// épocas viaja en este bloque.
+const datosCliente = {
+  epocas: epocasElegibles.map((e) => ({ slug: e.slug, titulo: e.titulo, periodo: e.periodo, capitulo: e.capitulo || '' })),
+};
 ---
 <Base
   titulo="Libro de visitas y colaboraciones"
@@ -10,22 +18,92 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
   claseBody="pagina-libro-visitas"
 >
   <main class="libro" data-libro-visitas data-turnstile-sitekey={turnstileSiteKey}>
-    <header class="portada-libro">
-      <p class="etiqueta">Una memoria que continúa</p>
-      <h1 class="display">Libro de visitas</h1>
-      <p class="introduccion">Este archivo familiar también se construye con quienes lo visitan. Aquí puedes dejar un mensaje, compartir un recuerdo, aportar información o una fotografía, señalar una corrección o expresar tu agradecimiento a quienes conservaron y transmitieron esta historia.</p>
-      <p class="introduccion secundaria">Cada comentario y cada colaboración ayudan a mantener viva la memoria y a enriquecerla para quienes lleguen después.</p>
-      <div class="acciones-portada">
-        <a class="boton primario" href="#dejar-mensaje">Dejar un mensaje</a>
-        <button class="boton secundario" type="button" data-abrir-foto>Aportar una fotografía</button>
-      </div>
-    </header>
+    <section class="cubierta">
+      <div class="cubierta-interior">
+        <header class="portada-libro">
+          <p class="etiqueta">Libro de visitas</p>
+          <p class="continuara">CONTINUARÁ…</p>
+          <h1 class="display">La historia sigue escribiéndose.</h1>
+          <p class="introduccion">Deja un recuerdo, corrige un dato o aporta una fotografía. Cada voz ayuda a completar las memorias de Tomás.</p>
+        </header>
 
-    <section class="mesa-escritura" id="dejar-mensaje" aria-labelledby="titulo-mensaje">
+        <div class="acciones-portada">
+          <a class="boton primario" href="#firmar">Dejar un recuerdo</a>
+          <button class="boton fantasma" type="button" data-abrir-foto>Aportar una fotografía</button>
+        </div>
+
+        <div class="actividad-portada">
+          <p class="bitacora" data-bitacora aria-live="polite"></p>
+          <section class="lugares" data-lugares hidden aria-labelledby="titulo-lugares">
+            <h2 id="titulo-lugares">Se ha firmado desde</h2>
+            <ul data-lista-lugares></ul>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="preguntas" aria-labelledby="titulo-preguntas">
+      <h2 class="display" id="titulo-preguntas">¿Qué quieres compartir?</h2>
+      <p class="pie-preguntas">Elige una puerta para empezar. Todas conducen al mismo libro.</p>
+      <ul class="tarjetas">
+        <li>
+          <button type="button" data-pregunta="conoci">
+            <span class="verbo" aria-hidden="true">LO CONOCÍ</span>
+            <span class="titulo-tarjeta">Quiero contar un recuerdo</span>
+            <span class="detalle">Eres familiar suyo, navegaste con él, coincidiste en un destino o compartiste alguna etapa de su vida.</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-pregunta="lei">
+            <span class="verbo" aria-hidden="true">LEÍ</span>
+            <span class="titulo-tarjeta">Quiero dejar unas palabras</span>
+            <span class="detalle">La lectura te trajo un recuerdo o quieres escribir a la familia.</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-pregunta="aporto">
+            <span class="verbo" aria-hidden="true">APORTO</span>
+            <span class="titulo-tarjeta">Tengo una foto o un dato</span>
+            <span class="detalle">Una imagen, una fecha, un nombre o una corrección para las memorias.</span>
+          </button>
+        </li>
+      </ul>
+    </section>
+    <section class="participaciones" aria-labelledby="titulo-participaciones">
+      <header class="encabezado-participaciones">
+        <div>
+          <p class="etiqueta">Voces que ya llegaron</p>
+          <h2 class="display" id="titulo-participaciones">Firmas y recuerdos recientes</h2>
+        </div>
+        <p class="contador" data-contador aria-live="polite"></p>
+      </header>
+
+      <div class="filtros" data-filtros hidden>
+        <label for="filtro-epoca">Ver solo</label>
+        <select id="filtro-epoca" data-filtro-epoca>
+          <option value="">Todas las firmas</option>
+        </select>
+      </div>
+
+      <div class="avisos-restauracion" data-avisos-restauracion></div>
+      <div class="verificacion-acciones" data-verificacion-acciones aria-label="Protección antibots">
+        <div class="cf-turnstile" data-turnstile-acciones data-sitekey={turnstileSiteKey} data-theme="light" data-appearance="interaction-only"></div>
+      </div>
+      <p class="cargando" data-estado-lista role="status">Abriendo el libro de visitas...</p>
+      <div class="lista-participaciones" data-lista></div>
+      <div class="estado-vacio" data-vacio hidden>
+        <span aria-hidden="true">✦</span>
+        <h3>La primera página está en blanco</h3>
+        <p>Puedes ser la primera persona en dejar unas palabras.</p>
+        <a class="boton secundario" href="#firmar">Escribir el primer mensaje</a>
+      </div>
+    </section>
+
+    <section class="mesa-escritura" id="firmar" aria-labelledby="titulo-mensaje">
       <div class="encabezado-seccion">
         <p class="etiqueta">Escribir en el libro</p>
-        <h2 class="display" id="titulo-mensaje">Deja unas palabras</h2>
-        <p>Un recuerdo, una opinión, una corrección o simplemente un agradecimiento.</p>
+        <h2 class="display" id="titulo-mensaje">Deja tu firma</h2>
+        <p>Un recuerdo, una anécdota, una corrección o simplemente un agradecimiento.</p>
       </div>
 
       <form class="formulario-mensaje" data-form-mensaje>
@@ -38,6 +116,34 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
           <textarea id="mensaje-texto" name="comentario" rows="5" maxlength="3000" required placeholder="Escribe aquí con libertad y respeto..."></textarea>
           <span class="ayuda">Tu mensaje aparecerá inmediatamente.</span>
         </div>
+        <div class="rejilla-anclaje">
+          <div class="campo">
+            <label for="mensaje-epoca">¿Se relaciona con alguna época? <span>opcional</span></label>
+            <select id="mensaje-epoca" name="capitulo">
+              <option value="">No se relaciona con una época concreta</option>
+              {epocasElegibles.map((e) => (
+                <option value={e.slug}>{e.titulo}{e.periodo ? ` · ${e.periodo}` : ''}</option>
+              ))}
+            </select>
+            <span class="ayuda">Tu recuerdo aparecerá también al final de ese capítulo.</span>
+          </div>
+          <div class="campo campo-lugar">
+            <label for="mensaje-ciudad">¿Desde dónde escribes? <span>opcional</span></label>
+            <div class="par-lugar">
+              <input id="mensaje-ciudad" name="ciudad" type="text" maxlength="80" autocomplete="address-level2" placeholder="Ciudad" aria-label="Tu ciudad" />
+              <input id="mensaje-pais" name="pais" type="text" maxlength="80" autocomplete="country-name" placeholder="País" aria-label="Tu país" />
+            </div>
+            <span class="ayuda">Aparecerá junto a tu firma y en la lista de lugares.</span>
+          </div>
+        </div>
+        <div class="aporte-alternativo">
+          <span class="marca-foto" aria-hidden="true">▣</span>
+          <div>
+            <h3>¿Quieres acompañar el mensaje con una fotografía?</h3>
+            <p>Adjúntala y añade fecha, lugar o contexto. Tu nombre y este mensaje se copiarán en la ficha.</p>
+          </div>
+          <button class="enlace-accion" type="button" data-abrir-foto>Adjuntar una fotografía</button>
+        </div>
         <div class="campo-trampa" aria-hidden="true">
           <label for="mensaje-web">No completar</label>
           <input id="mensaje-web" name="website" type="text" tabindex="-1" autocomplete="off" />
@@ -47,52 +153,20 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
         </div>
         <div class="pie-formulario">
           <p class="estado-formulario" data-estado-mensaje role="status"></p>
-          <button class="boton primario" type="submit">Publicar mensaje</button>
+          <button class="boton primario" type="submit">Firmar el libro</button>
         </div>
       </form>
 
-      <div class="aporte-alternativo">
-        <span class="marca-foto" aria-hidden="true">▣</span>
-        <div>
-          <h3>¿Tienes una fotografía?</h3>
-          <p>Puedes publicarla ahora y acompañarla con fecha, lugar y contexto.</p>
-        </div>
-        <button class="enlace-accion" type="button" data-abrir-foto>Aportar una fotografía</button>
-      </div>
-    </section>
-
-    <section class="participaciones" aria-labelledby="titulo-participaciones">
-      <header class="encabezado-participaciones">
-        <div>
-          <p class="etiqueta">Páginas compartidas</p>
-          <h2 class="display" id="titulo-participaciones">Mensajes y recuerdos</h2>
-        </div>
-        <p class="contador" data-contador aria-live="polite"></p>
-      </header>
-
-      <div class="avisos-restauracion" data-avisos-restauracion></div>
-      <div class="verificacion-acciones" data-verificacion-acciones>
-        <div>
-          <strong>Verificación para conversar</strong>
-          <span>Completa este control antes de responder o denunciar una publicación.</span>
-        </div>
-        <div class="cf-turnstile" data-turnstile-acciones data-sitekey={turnstileSiteKey} data-theme="light"></div>
-      </div>
-      <p class="cargando" data-estado-lista role="status">Abriendo el libro de visitas...</p>
-      <div class="lista-participaciones" data-lista></div>
-      <div class="estado-vacio" data-vacio hidden>
-        <span aria-hidden="true">✦</span>
-        <h3>La primera página está en blanco</h3>
-        <p>Puedes ser la primera persona en dejar unas palabras.</p>
-        <a class="boton secundario" href="#dejar-mensaje">Escribir el primer mensaje</a>
-      </div>
     </section>
 
     <aside class="otros-documentos">
       <p class="etiqueta">Otros materiales</p>
       <h2 class="display">¿Quieres compartir una carta, un audio o un documento?</h2>
       <p>Por seguridad, el Libro de visitas recibe únicamente fotografías. Para aportar otro tipo de material, escríbenos y cuéntanos brevemente qué deseas compartir.</p>
-      <a class="boton primario" href="mailto:tomgomezf@gmail.com?subject=Aporte%20para%20el%20archivo%20familiar">Escribir a tomgomezf@gmail.com</a>
+      <div class="correo-protegido">
+        <button class="boton primario" type="button" data-mostrar-correo aria-controls="correo-aportes" aria-expanded="false">Mostrar correo</button>
+        <p class="correo-visible" id="correo-aportes" data-correo-visible aria-live="polite" hidden></p>
+      </div>
     </aside>
   </main>
 
@@ -104,7 +178,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
     <form class="formulario-foto" data-form-foto>
       <header>
         <h2 class="display" id="titulo-aporte-foto">Aportar una fotografía</h2>
-        <p>Lo que sepas ayuda. Solo la fotografía, el pie de foto y tu nombre son obligatorios.</p>
+        <p>Lo que sepas ayuda. La fotografía, el pie de foto, tu nombre y tu mensaje son obligatorios.</p>
       </header>
 
       <div class="selector-foto" data-selector-foto>
@@ -161,11 +235,29 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
         </div>
         <div class="campo">
           <label for="foto-email">Tu correo <span>privado y opcional</span></label>
-          <input id="foto-email" name="email" type="email" maxlength="160" autocomplete="email" />
+          <input id="foto-email" name="email" type="email" maxlength="160" autocomplete="email" placeholder="tu@correo.com" />
+          <span class="ayuda">Solo lo usaremos si necesitamos aclarar algún dato. No se publica.</span>
+        </div>
+        <div class="campo">
+          <label for="foto-epoca">Época relacionada <span>opcional</span></label>
+          <select id="foto-epoca" name="capitulo">
+            <option value="">No se relaciona con una época concreta</option>
+            {epocasElegibles.map((e) => (
+              <option value={e.slug}>{e.titulo}{e.periodo ? ` · ${e.periodo}` : ''}</option>
+            ))}
+          </select>
+        </div>
+        <div class="campo">
+          <label for="foto-ciudad">Tu ciudad <span>opcional</span></label>
+          <input id="foto-ciudad" name="ciudad" type="text" maxlength="80" autocomplete="address-level2" placeholder="Oporto" />
+        </div>
+        <div class="campo">
+          <label for="foto-pais">Tu país <span>opcional</span></label>
+          <input id="foto-pais" name="pais" type="text" maxlength="80" autocomplete="country-name" placeholder="Portugal" />
         </div>
         <div class="campo ancho-completo">
-          <label for="foto-comentario">Mensaje que acompaña el aporte <span>opcional</span></label>
-          <textarea id="foto-comentario" name="comentario" rows="3" maxlength="3000"></textarea>
+          <label for="foto-comentario">Tu mensaje <span>obligatorio</span></label>
+          <textarea id="foto-comentario" name="comentario" rows="3" maxlength="3000" required placeholder="Escribe aquí con libertad y respeto..."></textarea>
         </div>
       </div>
 
@@ -198,24 +290,119 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
     <p>No pudimos abrir el Libro de visitas. Comprueba tu conexión y vuelve a intentarlo.</p>
   </template>
 
+  <script type="application/json" data-datos-libro set:html={JSON.stringify(datosCliente)}></script>
+
   <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script is:inline type="module" src="/js/libro-visitas.js"></script>
 </Base>
 
 <style>
-  .libro { max-width: 70rem; margin: 0 auto; padding: 6.5rem 1.35rem 4rem; }
-  .portada-libro { text-align: center; padding: 0 0 2.6rem; margin-bottom: 3rem; border-bottom: 1px solid var(--oro); }
-  h1 { font-size: clamp(2.1rem, 6vw, 3rem); margin: 0.5rem 0 1.2rem; }
-  .introduccion { max-width: 40rem; margin: 0 auto; font-size: 1.02rem; line-height: 1.7; }
-  .introduccion.secundaria { margin-top: 0.9rem; color: var(--bruma); font-size: 0.96rem; }
-  .acciones-portada { margin-top: 1.8rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; }
-  .boton { min-height: 2.9rem; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--marino); border-radius: 0; padding: 0.55rem 1rem; font: 650 0.86rem/1.2 var(--f-cuerpo); text-decoration: none; cursor: pointer; }
+  .libro { padding: 0 0 4rem; }
+
+  /* --- Cubierta: la carta de navegación, único tramo oscuro del sitio --- */
+  .cubierta {
+    background: var(--noche);
+    color: var(--papel);
+    padding: 6.5rem 1.35rem 3.2rem;
+    border-bottom: 1px solid var(--oro);
+  }
+  .cubierta-interior { max-width: 62rem; margin: 0 auto; }
+  .portada-libro { text-align: center; margin-bottom: 2.2rem; }
+  .cubierta .etiqueta { color: var(--oro-claro); }
+  h1 { font-size: clamp(2.1rem, 6vw, 3.2rem); margin: 0.5rem 0 1rem; color: var(--papel); }
+  .introduccion { max-width: 38rem; margin: 0 auto; font-size: 1.02rem; line-height: 1.7; color: color-mix(in srgb, var(--papel) 84%, transparent); }
+  /* Los lugares de los lectores, en la misma voz tipográfica que los rótulos
+     de la carta: versalitas espaciadas, como los nombres de puerto. */
+  .lugares {
+    margin: 1.8rem auto 0;
+    padding-top: 1.4rem;
+    border-top: 1px solid color-mix(in srgb, var(--oro-claro) 32%, transparent);
+    text-align: center;
+  }
+  .lugares[hidden] { display: none; }
+  .lugares h2 {
+    margin: 0 0 0.8rem;
+    color: var(--oro-claro);
+    font: 500 0.78rem/1 var(--f-cuerpo);
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.18em;
+  }
+  .lugares ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem 0;
+  }
+  .lugares :global(li) {
+    color: color-mix(in srgb, var(--papel) 90%, transparent);
+    font-size: 0.95rem;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.1em;
+  }
+  .lugares :global(li + li)::before {
+    content: '·';
+    margin: 0 0.75rem;
+    color: color-mix(in srgb, var(--oro-claro) 65%, transparent);
+  }
+
+  .bitacora {
+    margin: 1.6rem auto 0;
+    text-align: center;
+    color: var(--oro-claro);
+    font-size: 0.92rem;
+    letter-spacing: 0.02em;
+    min-height: 1.2rem;
+  }
+  .bitacora:empty { min-height: 0; }
+  .acciones-portada { margin-top: 1.6rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; }
+  .cubierta .boton.primario { background: var(--oro-claro); border-color: var(--oro-claro); color: var(--noche); }
+  .cubierta .boton.primario:hover { background: var(--papel); border-color: var(--papel); }
+  .boton.fantasma { background: transparent; border-color: color-mix(in srgb, var(--oro-claro) 70%, transparent); color: var(--papel); }
+  .boton.fantasma:hover { background: color-mix(in srgb, var(--oro-claro) 16%, transparent); }
+
+  .boton { min-height: 2.9rem; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--marino); border-radius: 0; padding: 0.55rem 1.1rem; font: 650 0.86rem/1.2 var(--f-cuerpo); text-decoration: none; cursor: pointer; }
   .boton.primario { background: var(--marino); color: var(--papel); }
   .boton.primario:hover { background: var(--oro); border-color: var(--oro); color: var(--papel); }
   .boton.secundario { background: transparent; color: var(--marino); }
   .boton.secundario:hover { background: var(--papel-2); color: var(--oro); border-color: var(--oro); }
 
-  .mesa-escritura { display: grid; grid-template-columns: minmax(14rem, 0.55fr) minmax(0, 1.45fr); gap: clamp(2rem, 6vw, 5rem); padding: 5.5rem clamp(1rem, 4vw, 3.2rem); }
+  /* --- Tres puertas de entrada --- */
+  .preguntas { max-width: 62rem; margin: 0 auto; padding: 3.6rem clamp(1rem, 4vw, 3.2rem) 1rem; text-align: center; }
+  .preguntas h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
+  .pie-preguntas { color: var(--bruma); font-size: 0.92rem; margin-top: 0.4rem; }
+  .tarjetas { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+  .tarjetas button {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    gap: 0.4rem;
+    text-align: left;
+    padding: 1.5rem 1.4rem;
+    border: 1px solid color-mix(in srgb, var(--oro) 45%, transparent);
+    background: var(--papel-2);
+    color: var(--tinta);
+    cursor: pointer;
+    transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+  }
+  .tarjetas button:hover,
+  .tarjetas button:focus-visible {
+    border-color: var(--marino);
+    background: color-mix(in srgb, #fff 42%, var(--papel));
+    transform: translateY(-2px);
+  }
+  .numero { color: var(--oro); font: 600 0.95rem/1 var(--f-display); letter-spacing: 0.16em; }
+  .titulo-tarjeta { font: 600 1.35rem/1.2 var(--f-display); color: var(--marino); }
+  .detalle { color: var(--bruma); font-size: 0.9rem; line-height: 1.5; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tarjetas button { transition: none; }
+    .tarjetas button:hover, .tarjetas button:focus-visible { transform: none; }
+  }
+
+  .mesa-escritura { max-width: 70rem; margin: 0 auto; display: grid; grid-template-columns: minmax(14rem, 0.55fr) minmax(0, 1.45fr); gap: clamp(2rem, 6vw, 5rem); padding: 4rem clamp(1rem, 4vw, 3.2rem); border-top: 1px solid color-mix(in srgb, var(--oro) 45%, transparent); }
   .encabezado-seccion { align-self: start; position: sticky; top: 6rem; }
   .encabezado-seccion h2, .encabezado-participaciones h2 { font-size: clamp(2.1rem, 5vw, 3.4rem); margin: 0.35rem 0 0.8rem; }
   .encabezado-seccion > p:last-child { color: var(--bruma); font-size: 0.96rem; }
@@ -224,10 +411,13 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
   .campo + .campo { margin-top: 1rem; }
   .campo label { color: var(--marino); font-weight: 700; font-size: 0.87rem; }
   .campo label span { color: var(--bruma); font-weight: 500; font-size: 0.76rem; }
-  input, textarea { width: 100%; border: 1px solid color-mix(in srgb, var(--marino) 35%, transparent); border-radius: 0; background: #fffdf7; color: var(--tinta); padding: 0.72rem 0.78rem; line-height: 1.5; }
+  input, textarea, select { width: 100%; border: 1px solid color-mix(in srgb, var(--marino) 35%, transparent); border-radius: 0; background: #fffdf7; color: var(--tinta); padding: 0.72rem 0.78rem; line-height: 1.5; font: inherit; }
   textarea { resize: vertical; }
-  input:focus, textarea:focus { border-color: var(--oro); outline: 3px solid color-mix(in srgb, var(--oro-claro) 42%, transparent); outline-offset: 0; }
+  input:focus, textarea:focus, select:focus { border-color: var(--oro); outline: 3px solid color-mix(in srgb, var(--oro-claro) 42%, transparent); outline-offset: 0; }
   .campo-texto { margin-top: 1rem; }
+  .rejilla-anclaje { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+  .rejilla-anclaje .campo + .campo { margin-top: 0; }
+  .par-lugar { display: grid; grid-template-columns: 1.3fr 1fr; gap: 0.5rem; }
   .ayuda { color: var(--bruma); font-size: 0.76rem; }
   .campo-trampa { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
   .verificacion { min-height: 4rem; margin-top: 1rem; }
@@ -235,15 +425,19 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
   .estado-formulario { margin-right: auto; color: var(--bruma); font-size: 0.82rem; line-height: 1.45; }
   .estado-formulario.error { color: #8b2f27; }
   .estado-formulario.exito { color: #355c45; }
-  .aporte-alternativo { grid-column: 2; display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; padding: 1.2rem 1.4rem; border: 1px solid color-mix(in srgb, var(--oro) 35%, transparent); border-top: 0; }
+  .aporte-alternativo { display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; margin-top: 1rem; padding: 1.2rem 1.4rem; border: 1px solid color-mix(in srgb, var(--oro) 35%, transparent); background: color-mix(in srgb, var(--papel-2) 55%, transparent); }
   .marca-foto { font-size: 1.8rem; color: var(--oro); }
   .aporte-alternativo h3 { font: 600 1.25rem/1.2 var(--f-display); color: var(--marino); }
   .aporte-alternativo p { color: var(--bruma); font-size: 0.83rem; }
   .enlace-accion { border: 0; background: none; color: var(--marino); font: 700 0.82rem var(--f-cuerpo); text-decoration: underline; text-underline-offset: 0.25em; cursor: pointer; }
 
-  .participaciones { padding: 4.5rem clamp(1rem, 4vw, 3.2rem); border-top: 1px solid color-mix(in srgb, var(--oro) 45%, transparent); }
-  .encabezado-participaciones { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2.6rem; }
+  .participaciones { max-width: 70rem; margin: 0 auto; padding: 3rem clamp(1rem, 4vw, 3.2rem); }
+  .encabezado-participaciones { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 1.4rem; }
   .contador { color: var(--oro); font-variant-numeric: tabular-nums; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .filtros { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 2rem; padding-bottom: 1.2rem; border-bottom: 1px solid color-mix(in srgb, var(--oro) 32%, transparent); }
+  .filtros[hidden] { display: none; }
+  .filtros label { color: var(--marino); font-weight: 700; font-size: 0.84rem; white-space: nowrap; }
+  .filtros select { max-width: 26rem; }
   .cargando { color: var(--bruma); }
   .lista-participaciones { display: grid; gap: 1.2rem; }
   .estado-vacio { text-align: center; border: 1px dashed var(--oro-claro); padding: 3.5rem 1.5rem; }
@@ -251,23 +445,15 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
   .estado-vacio h3 { font: 600 1.8rem var(--f-display); color: var(--marino); margin: 0.4rem 0; }
   .estado-vacio p { color: var(--bruma); margin-bottom: 1.2rem; }
   :global(.entrada-libro) { display: flex; gap: 0.9rem; align-items: flex-start; border-top: 1px solid color-mix(in srgb, var(--oro) 48%, transparent); padding-top: 1.5rem; }
-  :global(.entrada-avatar) {
-    flex: 0 0 auto;
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    border: 1px solid var(--oro);
-    border-radius: 50%;
-    background: var(--papel-2);
-    color: var(--marino);
-    font: 600 20px/1 var(--f-display);
-  }
+  :global(.entrada-avatar) { flex: 0 0 auto; width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--oro); border-radius: 50%; background: var(--papel-2); color: var(--marino); font: 600 20px/1 var(--f-display); }
   :global(.entrada-cuerpo) { min-width: 0; flex: 1 1 auto; }
   :global(.entrada-cabecera) { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.7rem; }
   :global(.entrada-autor) { font: 600 1.18rem/1.3 var(--f-display); color: var(--marino); }
+  :global(.entrada-puerto) { color: var(--bruma); font-size: 0.86rem; font-style: italic; }
   :global(.entrada-fecha) { color: var(--bruma); font-size: 0.78rem; }
   :global(.entrada-tipo) { padding: 0.1rem 0.45rem; border: 1px solid var(--oro-claro); border-radius: 2rem; color: var(--oro); font-size: 0.68rem; font-variant-caps: all-small-caps; letter-spacing: 0.09em; }
+  :global(.entrada-epoca) { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.45rem; color: var(--marino); font-size: 0.78rem; text-decoration: none; border-bottom: 1px solid var(--oro-claro); }
+  :global(.entrada-epoca:hover) { color: var(--oro); }
   :global(.entrada-texto) { margin-top: 0.45rem; white-space: pre-wrap; overflow-wrap: anywhere; }
   :global(.foto-aporte) { margin: 1rem 0 0; }
   :global(.foto-aporte button) { display: block; width: 100%; border: 0; padding: 0; background: var(--papel-2); cursor: zoom-in; }
@@ -275,44 +461,48 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
   :global(.foto-aporte figcaption) { padding: 0.8rem 0 0; font-size: 0.94rem; font-style: italic; }
   :global(.metadatos-foto) { display: flex; flex-wrap: wrap; gap: 0.35rem 1.2rem; margin-top: 0.6rem; color: var(--bruma); font-size: 0.78rem; }
   :global(.contexto-foto) { margin-top: 0.8rem; padding: 0.7rem 0.9rem; border-left: 2px solid var(--oro-claro); background: color-mix(in srgb, var(--papel-2) 60%, transparent); font-size: 0.88rem; }
-  :global(.acciones-entrada) { display: flex; gap: 1rem; margin-top: 1rem; }
+  :global(.acciones-entrada) { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; margin-top: 1rem; }
   :global(.accion-texto) { min-height: 2.5rem; border: 0; background: none; color: var(--marino); font: 700 0.75rem var(--f-cuerpo); text-decoration: underline; text-underline-offset: 0.25em; cursor: pointer; }
+  :global(.accion-texto.editar) { color: #355c45; }
+  :global(.accion-texto.eliminar) { color: #8b2f27; }
   :global(.accion-texto.denunciar) { color: #73514c; margin-left: auto; }
   :global(.respuestas) { margin-top: 1.1rem; padding-left: clamp(0.9rem, 3vw, 1.6rem); border-left: 2px solid color-mix(in srgb, var(--oro-claro) 65%, transparent); display: grid; gap: 1.1rem; }
   :global(.respuesta) { display: flex; gap: 0.7rem; align-items: flex-start; }
-  :global(.respuesta-avatar) {
-    flex: 0 0 auto;
-    width: 34px;
-    height: 34px;
-    display: grid;
-    place-items: center;
-    border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
-    border-radius: 50%;
-    background: var(--papel-2);
-    color: var(--marino);
-    font: 600 15px/1 var(--f-display);
-  }
+  :global(.respuesta-avatar) { flex: 0 0 auto; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent); border-radius: 50%; background: var(--papel-2); color: var(--marino); font: 600 15px/1 var(--f-display); }
+  :global(.respuesta-cuerpo) { min-width: 0; flex: 1 1 auto; }
   :global(.respuesta-cabecera) { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.6rem; }
   :global(.respuesta-autor) { font: 600 1rem/1.3 var(--f-display); color: var(--marino); }
   :global(.respuesta-fecha) { color: var(--bruma); font-size: 0.72rem; }
   :global(.respuesta-texto) { margin-top: 0.25rem; font-size: 0.92rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+  :global(.acciones-respuesta) { display: flex; gap: 0.75rem; margin-top: 0.35rem; }
+  :global(.acciones-respuesta .accion-texto) { min-height: 2rem; font-size: 0.69rem; }
   :global(.form-respuesta) { display: grid; grid-template-columns: minmax(8rem, 0.35fr) 1fr auto; gap: 0.5rem; margin-top: 0.8rem; padding-left: clamp(0.9rem, 3vw, 1.6rem); }
   :global(.form-respuesta[hidden]) { display: none; }
   :global(.form-respuesta input) { min-width: 0; }
   :global(.form-respuesta button) { min-height: 2.75rem; padding: 0.4rem 0.8rem; border: 1px solid var(--marino); background: var(--marino); color: var(--papel); cursor: pointer; }
+  :global(.form-edicion) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem 1rem; margin-top: 1rem; padding: 1rem; border: 1px solid color-mix(in srgb, var(--oro) 42%, transparent); background: color-mix(in srgb, var(--papel-2) 68%, transparent); }
+  :global(.form-edicion[hidden]) { display: none; }
+  :global(.titulo-edicion), :global(.form-edicion .estado-edicion), :global(.form-edicion .controles-edicion), :global(.campo-edicion-ancho) { grid-column: 1 / -1; }
+  :global(.titulo-edicion) { color: var(--marino); font: 600 1.05rem var(--f-display); }
+  :global(.campo-edicion) { display: grid; gap: 0.3rem; color: var(--marino); font-size: 0.78rem; font-weight: 700; }
+  :global(.campo-edicion input), :global(.campo-edicion textarea) { width: 100%; border: 1px solid color-mix(in srgb, var(--marino) 35%, transparent); border-radius: 0; background: #fffdf7; color: var(--tinta); padding: 0.65rem 0.7rem; font: inherit; font-weight: 400; }
+  :global(.campo-edicion input:focus), :global(.campo-edicion textarea:focus) { border-color: var(--oro); outline: 3px solid color-mix(in srgb, var(--oro-claro) 42%, transparent); }
+  :global(.estado-edicion) { min-height: 1.2rem; color: #8b2f27; font-size: 0.76rem; }
+  :global(.controles-edicion) { display: flex; justify-content: flex-end; gap: 0.6rem; }
   :global(.publicacion-oculta) { padding: 1.2rem; border: 1px dashed var(--oro); background: var(--papel-2); }
   :global(.publicacion-oculta p) { margin-bottom: 0.7rem; }
   .avisos-restauracion { display: grid; gap: 0.6rem; margin-bottom: 1rem; }
   :global(.aviso-restaurar) { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.8rem 1rem; border: 1px solid var(--oro-claro); background: var(--papel-2); font-size: 0.82rem; }
-  .verificacion-acciones { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0 0 1.5rem; padding: 0.75rem 1rem; border: 1px solid color-mix(in srgb, var(--oro-claro) 70%, transparent); background: color-mix(in srgb, var(--papel-2) 62%, transparent); }
-  .verificacion-acciones > div:first-child { display: grid; gap: 0.15rem; }
-  .verificacion-acciones strong { color: var(--marino); font-size: 0.82rem; }
-  .verificacion-acciones span { color: var(--bruma); font-size: 0.75rem; }
+  .verificacion-acciones { min-height: 0; margin: 0; }
 
-  .otros-documentos { margin: 3rem clamp(1rem, 4vw, 3.2rem) 0; padding: clamp(1.6rem, 4vw, 3rem); border: 1px solid var(--oro); text-align: center; background: var(--noche); color: var(--papel); }
+  .otros-documentos { max-width: 64rem; margin: 3rem auto 0; padding: clamp(1.6rem, 4vw, 3rem); border: 1px solid var(--oro); text-align: center; background: var(--noche); color: var(--papel); }
   .otros-documentos h2 { color: var(--papel); font-size: clamp(1.8rem, 4vw, 2.8rem); margin: 0.4rem auto 0.8rem; max-width: 48rem; }
   .otros-documentos > p:not(.etiqueta) { max-width: 43rem; margin: 0 auto 1.3rem; color: color-mix(in srgb, var(--papel) 82%, transparent); }
+  .otros-documentos .etiqueta { color: var(--oro-claro); }
   .otros-documentos .boton { border-color: var(--oro-claro); background: var(--papel); color: var(--marino); }
+  .correo-protegido { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+  .correo-visible { margin: 0; padding: 0.65rem 1rem; border: 1px solid color-mix(in srgb, var(--oro-claro) 72%, transparent); color: var(--papel); font-weight: 600; letter-spacing: 0.04em; }
+  .correo-visible[hidden] { display: none; }
 
   dialog { color: var(--tinta); }
   dialog::backdrop { background: rgb(14 26 40 / 0.74); backdrop-filter: blur(3px); }
@@ -348,23 +538,25 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
   .visor-aporte p { max-width: 50rem; margin: 0.8rem auto 0; font-style: italic; text-align: center; }
 
   @media (max-width: 760px) {
-    .libro { padding-inline: 0; }
-    .portada-libro { padding-inline: 1.2rem; }
+    .cubierta { padding-inline: 1.2rem; }
     .mesa-escritura { grid-template-columns: 1fr; padding-inline: 1.2rem; }
     .encabezado-seccion { position: static; }
-    .aporte-alternativo { grid-column: 1; grid-template-columns: auto 1fr; }
+    .aporte-alternativo { grid-template-columns: auto 1fr; }
     .aporte-alternativo .enlace-accion { grid-column: 2; justify-self: start; }
     .participaciones { padding-inline: 1.2rem; }
-    .verificacion-acciones { align-items: start; flex-direction: column; }
+    .rejilla-anclaje { grid-template-columns: 1fr; }
     :global(.entrada-libro) { gap: 0.65rem; }
     :global(.entrada-avatar) { width: 38px; height: 38px; font-size: 17px; }
     :global(.form-respuesta) { grid-template-columns: 1fr; }
+    :global(.form-edicion) { grid-template-columns: 1fr; }
+    :global(.form-edicion .campo-edicion) { grid-column: 1; }
   }
 
   @media (max-width: 520px) {
-    h1 { font-size: clamp(2.7rem, 15vw, 4.1rem); }
     .encabezado-participaciones { display: block; }
     .contador { margin-top: 0.5rem; }
+    .filtros { display: block; }
+    .filtros select { max-width: none; margin-top: 0.4rem; }
     .pie-formulario { align-items: stretch; flex-direction: column; }
     .pie-formulario .estado-formulario { margin: 0; }
     .rejilla-campos { grid-template-columns: 1fr; }
@@ -373,5 +565,203 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAA
     .aporte-alternativo .enlace-accion { grid-column: 1; justify-self: center; }
     .dialogo-foto { width: 100vw; max-height: 100vh; height: 100vh; border: 0; }
     :global(.aviso-restaurar) { align-items: stretch; flex-direction: column; }
+  }
+
+  /* --- Identidad viva: mesa de escritura --- */
+  .libro {
+    --escritorio: #263b35;
+    --escritorio-profundo: #172923;
+    --papel-carta: #f1e8d6;
+    --tinta-carta: #172c38;
+    --laton: #b89555;
+    --sello: #75443f;
+    min-height: 100vh;
+    background:
+      repeating-linear-gradient(90deg, rgb(255 255 255 / 0.012) 0 1px, transparent 1px 5px),
+      linear-gradient(145deg, var(--escritorio) 0%, #20352f 58%, var(--escritorio-profundo) 100%);
+    color: var(--papel-carta);
+  }
+
+  .cubierta {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(5.5rem, 10vw, 8rem) clamp(1.2rem, 5vw, 4rem) 3.4rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--laton) 62%, transparent);
+    background: transparent;
+  }
+  .cubierta::after {
+    content: '';
+    position: absolute;
+    inset: auto -8vw -10rem auto;
+    width: 28rem;
+    height: 28rem;
+    border: 1px solid color-mix(in srgb, var(--laton) 16%, transparent);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 4rem color-mix(in srgb, var(--laton) 4%, transparent),
+      0 0 0 8rem color-mix(in srgb, var(--laton) 3%, transparent);
+    pointer-events: none;
+  }
+  .cubierta-interior { position: relative; z-index: 1; max-width: 70rem; }
+  .portada-libro { max-width: 49rem; margin: 0; text-align: left; }
+  .cubierta .etiqueta { color: var(--laton); }
+  .continuara {
+    margin: 1.1rem 0 0;
+    color: var(--laton);
+    font: 600 clamp(1rem, 2.4vw, 1.35rem)/1 var(--f-display);
+    letter-spacing: 0.22em;
+  }
+  .cubierta h1 {
+    max-width: 46rem;
+    margin: 0.65rem 0 1rem;
+    color: var(--papel-carta);
+    font-size: clamp(2.6rem, 7vw, 5.3rem);
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+  .introduccion {
+    max-width: 42rem;
+    margin: 0;
+    color: color-mix(in srgb, var(--papel-carta) 84%, transparent);
+    font-size: clamp(1rem, 2vw, 1.16rem);
+    line-height: 1.7;
+  }
+  .acciones-portada { justify-content: flex-start; margin-top: 1.8rem; }
+  .cubierta .boton.primario,
+  .libro .boton.primario { border-color: var(--sello); background: var(--sello); color: #fff8ec; }
+  .cubierta .boton.primario:hover,
+  .libro .boton.primario:hover { border-color: var(--laton); background: var(--laton); color: var(--escritorio-profundo); }
+  .boton.fantasma { border-color: color-mix(in srgb, var(--laton) 78%, transparent); color: var(--papel-carta); }
+  .boton.fantasma:hover { background: color-mix(in srgb, var(--laton) 14%, transparent); }
+
+  .actividad-portada {
+    max-width: 49rem;
+    margin-top: 2.4rem;
+    padding: 1.15rem 1.35rem;
+    border-left: 3px solid var(--laton);
+    background: color-mix(in srgb, var(--escritorio-profundo) 62%, transparent);
+  }
+  .bitacora { min-height: 0; margin: 0; text-align: left; color: var(--papel-carta); }
+  .lugares { margin: 1rem 0 0; padding-top: 1rem; text-align: left; }
+  .lugares h2 { color: var(--laton); }
+  .lugares ul { justify-content: flex-start; }
+  .lugares :global(li) { color: color-mix(in srgb, var(--papel-carta) 90%, transparent); }
+  .lugares :global(li + li)::before { color: var(--laton); }
+
+  .preguntas {
+    max-width: 70rem;
+    padding: 3.2rem clamp(1.2rem, 5vw, 4rem) 1.5rem;
+    text-align: left;
+  }
+  .preguntas h2 { color: var(--papel-carta); }
+  .pie-preguntas { color: color-mix(in srgb, var(--papel-carta) 72%, transparent); }
+  .tarjetas { gap: 1.1rem; }
+  .tarjetas button {
+    border-color: color-mix(in srgb, var(--laton) 72%, transparent);
+    background: var(--papel-carta);
+    color: var(--tinta-carta);
+    box-shadow: 0 1rem 2rem rgb(8 20 16 / 0.18);
+  }
+  .tarjetas button:hover,
+  .tarjetas button:focus-visible {
+    border-color: var(--sello);
+    background: #fff9ed;
+  }
+  .verbo {
+    color: var(--sello);
+    font: 750 0.72rem/1 var(--f-cuerpo);
+    letter-spacing: 0.16em;
+  }
+  .titulo-tarjeta { color: var(--tinta-carta); }
+  .detalle { color: color-mix(in srgb, var(--tinta-carta) 72%, transparent); }
+
+  .mesa-escritura {
+    max-width: 70rem;
+    border-top-color: color-mix(in srgb, var(--laton) 45%, transparent);
+    padding: 3.5rem clamp(1.2rem, 5vw, 4rem) 4rem;
+  }
+  .encabezado-seccion .etiqueta,
+  .encabezado-participaciones .etiqueta { color: var(--laton); }
+  .encabezado-seccion h2,
+  .encabezado-participaciones h2 { color: var(--papel-carta); }
+  .encabezado-seccion > p:last-child { color: color-mix(in srgb, var(--papel-carta) 74%, transparent); }
+  .formulario-mensaje {
+    border-color: color-mix(in srgb, var(--laton) 70%, transparent);
+    background: var(--papel-carta);
+    box-shadow: 0 1.8rem 3.6rem rgb(8 20 16 / 0.24);
+    color: var(--tinta-carta);
+  }
+  .formulario-mensaje .campo label,
+  .formulario-mensaje .aporte-alternativo h3,
+  .formulario-mensaje .enlace-accion { color: var(--tinta-carta); }
+  .formulario-mensaje .ayuda,
+  .formulario-mensaje .aporte-alternativo p,
+  .formulario-mensaje .estado-formulario { color: color-mix(in srgb, var(--tinta-carta) 66%, transparent); }
+
+  .participaciones {
+    max-width: 70rem;
+    border-top: 1px solid color-mix(in srgb, var(--laton) 45%, transparent);
+    padding: 4rem clamp(1.2rem, 5vw, 4rem);
+  }
+  .contador { color: var(--laton); }
+  .filtros { border-bottom-color: color-mix(in srgb, var(--laton) 42%, transparent); }
+  .filtros label { color: var(--papel-carta); }
+  .cargando { color: color-mix(in srgb, var(--papel-carta) 72%, transparent); }
+  .lista-participaciones { gap: 1.35rem; }
+  :global(.entrada-libro) {
+    border: 1px solid color-mix(in srgb, var(--laton) 48%, transparent);
+    background: var(--papel-carta);
+    color: var(--tinta-carta);
+    padding: clamp(1.2rem, 3vw, 1.7rem);
+    box-shadow: 0 1rem 2.2rem rgb(8 20 16 / 0.16);
+  }
+  :global(.entrada-avatar),
+  :global(.respuesta-avatar) { background: #fff9ed; color: var(--tinta-carta); border-color: var(--laton); }
+  :global(.entrada-autor),
+  :global(.respuesta-autor),
+  :global(.entrada-epoca),
+  :global(.accion-texto),
+  :global(.titulo-edicion),
+  :global(.campo-edicion) { color: var(--tinta-carta); }
+  :global(.entrada-puerto),
+  :global(.entrada-fecha),
+  :global(.respuesta-fecha),
+  :global(.metadatos-foto) { color: color-mix(in srgb, var(--tinta-carta) 62%, transparent); }
+  .estado-vacio {
+    border-color: var(--laton);
+    background: color-mix(in srgb, var(--escritorio-profundo) 48%, transparent);
+  }
+  .estado-vacio h3 { color: var(--papel-carta); }
+  .estado-vacio p { color: color-mix(in srgb, var(--papel-carta) 72%, transparent); }
+  .estado-vacio .boton.secundario { border-color: var(--laton); color: var(--papel-carta); }
+
+  .otros-documentos {
+    border-color: var(--laton);
+    background: var(--escritorio-profundo);
+  }
+
+  @keyframes abrir-libro {
+    from { opacity: 0; transform: translateY(0.7rem); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .portada-libro,
+  .acciones-portada,
+  .actividad-portada { animation: abrir-libro 500ms ease-out both; }
+  .acciones-portada { animation-delay: 90ms; }
+  .actividad-portada { animation-delay: 160ms; }
+
+  @media (max-width: 760px) {
+    .cubierta { padding-inline: 1.2rem; }
+    .cubierta h1 { font-size: clamp(2.6rem, 13vw, 4.2rem); }
+    .actividad-portada { padding-inline: 1rem; }
+    .preguntas,
+    .mesa-escritura,
+    .participaciones { padding-inline: 1.2rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .portada-libro,
+    .acciones-portada,
+    .actividad-portada { animation: none; }
   }
 </style>

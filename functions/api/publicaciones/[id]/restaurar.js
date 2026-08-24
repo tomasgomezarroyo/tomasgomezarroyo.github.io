@@ -1,4 +1,6 @@
-import { json, sha256 } from '../../../_lib/comun.js';
+import { corsPreflight, json, sha256 } from '../../../_lib/comun.js';
+
+export function onRequestOptions() { return corsPreflight(); }
 
 export async function onRequestPost({ request, env, params }) {
   let datos;

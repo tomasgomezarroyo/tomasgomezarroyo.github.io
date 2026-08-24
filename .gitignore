@@ -1,5 +1,9 @@
 node_modules/
+dist-github/
+__pycache__/
+*.pyc
 dist/
+dist-espejo/
 .dev.vars
 .env
 .env.*

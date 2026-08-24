@@ -2,10 +2,19 @@ export const RESPUESTAS_JSON = {
   'content-type': 'application/json; charset=utf-8',
   'cache-control': 'no-store',
   'x-content-type-options': 'nosniff',
+  'access-control-allow-origin': 'https://tomcontable.github.io',
+  'access-control-allow-methods': 'GET, POST, PATCH, DELETE, OPTIONS',
+  'access-control-allow-headers': 'content-type, accept',
+  'access-control-max-age': '86400',
+  'vary': 'Origin',
 };
 
 export function json(datos, estado = 200) {
   return new Response(JSON.stringify(datos), { status: estado, headers: RESPUESTAS_JSON });
+}
+
+export function corsPreflight() {
+  return new Response(null, { status: 204, headers: RESPUESTAS_JSON });
 }
 
 export function textoLimpio(valor, maximo = 2000) {
@@ -32,6 +41,25 @@ function base64Url(bytes) {
   let binario = '';
   for (const byte of bytes) binario += String.fromCharCode(byte);
   return btoa(binario).replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '');
+}
+
+export function nuevoTokenAutor() {
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  return base64Url(bytes);
+}
+
+export async function tokenAutorValido(token, hashEsperado) {
+  const valor = String(token || '');
+  const esperado = String(hashEsperado || '');
+  if (!valor || valor.length > 200 || !esperado) return false;
+  const actual = await sha256(valor);
+  if (actual.length !== esperado.length) return false;
+  let diferencia = 0;
+  for (let i = 0; i < actual.length; i += 1) {
+    diferencia |= actual.charCodeAt(i) ^ esperado.charCodeAt(i);
+  }
+  return diferencia === 0;
 }
 
 export function vencimientoAdministracion(dias = 45) {
@@ -71,7 +99,7 @@ export async function excedeLimite(request, grupo, limite, ventanaSegundos) {
   try {
     const ip = request.headers.get('CF-Connecting-IP') || 'local';
     const claveIp = (await sha256(ip)).slice(0, 24);
-    const clave = new Request(`https://limite.memoria.local/${grupo}/${claveIp}`);
+    const clave = new Request(`https://limite-v2.memoria.local/${grupo}/${claveIp}`);
     const cache = caches.default;
     const anterior = await cache.match(clave);
     const cantidad = anterior ? Number.parseInt(await anterior.text(), 10) || 0 : 0;
@@ -129,6 +157,9 @@ export function publicacionPublica(fila, respuestas = []) {
     personas: fila.personas,
     contexto: fila.contexto,
     procedencia: fila.procedencia,
+    capitulo: fila.capitulo || '',
+    ciudad: fila.ciudad || '',
+    pais: fila.pais || '',
     tieneFoto: Boolean(fila.foto_vista_key),
     fotoUrl: fila.foto_vista_key ? `/fotos/${fila.id}` : null,
     creadoEn: fila.creado_en,

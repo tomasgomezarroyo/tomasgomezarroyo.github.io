@@ -1,4 +1,7 @@
-import { firmaAdministracionValida, json } from '../../../_lib/comun.js';
+import { corsPreflight, firmaAdministracionValida, json } from '../../../_lib/comun.js';
+
+export function onRequestOptions() { return corsPreflight(); }
+
 
 export async function onRequestGet({ request, env, params }) {
   const token = new URL(request.url).searchParams.get('token') || '';

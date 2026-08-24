@@ -1,4 +1,6 @@
 const raiz = document.querySelector('[data-administracion]');
+const apiOrigin = (document.querySelector('meta[name="api-origin"]')?.getAttribute('content') || '').replace(/\/+$/, '');
+const apiUrl = (url) => /^https?:\/\//i.test(url) ? url : `${apiOrigin}${url}`;
 
 if (raiz) {
   const parametros = new URLSearchParams(window.location.search);
@@ -65,7 +67,7 @@ if (raiz) {
     bloqueFoto.hidden = !publicacion.fotoUrl;
     if (publicacion.fotoUrl) {
       const imagen = raiz.querySelector('[data-foto-privada]');
-      imagen.src = publicacion.fotoUrl;
+      imagen.src = apiUrl(publicacion.fotoUrl);
       imagen.alt = `Fotografía aportada por ${texto(publicacion.nombre) || 'una persona visitante'}`;
       raiz.querySelector('[data-pie-foto]').textContent = texto(publicacion.pieFoto) || 'Fotografía aportada al archivo familiar.';
     }
@@ -123,7 +125,7 @@ if (raiz) {
       return;
     }
     try {
-      const respuesta = await fetch(`/api/administracion/publicacion/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}&exp=${encodeURIComponent(exp)}`, { headers: { Accept: 'application/json' } });
+      const respuesta = await fetch(apiUrl(`/api/administracion/publicacion/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}&exp=${encodeURIComponent(exp)}`), { headers: { Accept: 'application/json' } });
       if (respuesta.status === 403) throw new Error('Este enlace privado no es válido o ha dejado de estar disponible. Solicita un nuevo aviso si necesitas revisar la publicación.');
       if (respuesta.status === 404) throw new Error('No encontramos esta colaboración. Puede que el enlace corresponda a un aporte que ya no está disponible.');
       if (!respuesta.ok) throw new Error('No fue posible cargar la colaboración ahora. Inténtalo de nuevo en unos minutos.');
@@ -145,7 +147,7 @@ if (raiz) {
     estadoAccion.className = 'estado-accion';
     estadoAccion.textContent = accion === 'retirar' ? 'Retirando la publicación…' : 'Restaurando la publicación…';
     try {
-      const respuesta = await fetch(`/api/administracion/publicacion/${encodeURIComponent(id)}/estado`, {
+      const respuesta = await fetch(apiUrl(`/api/administracion/publicacion/${encodeURIComponent(id)}/estado`), {
         method: 'POST',
         headers: { 'content-type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({ token, exp, accion }),

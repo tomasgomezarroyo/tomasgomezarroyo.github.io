@@ -1,0 +1,140 @@
+---
+/**
+ * Ventana de solo lectura a los recuerdos que los lectores han anclado a este
+ * capítulo. No es una sección de comentarios: no se escribe ni se responde
+ * aquí. Muestra una muestra y lleva al Libro de visitas, que es donde vive la
+ * conversación entera. Así el capítulo no crece sin fin por debajo del texto.
+ */
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+---
+<aside class="recuerdos" data-recuerdos data-epoca={slug} aria-labelledby={`titulo-recuerdos-${slug}`} hidden>
+  <p class="etiqueta">Las voces de los lectores</p>
+  <h2 id={`titulo-recuerdos-${slug}`}>Lo que otros recuerdan de esta época</h2>
+  <div class="muestra" data-muestra></div>
+  <p class="invitacion" data-invitacion></p>
+  <a class="boton-recuerdos" data-enlace href={`/libro-de-visitas?epoca=${slug}#firmar`}>Escribir un recuerdo</a>
+</aside>
+
+<style>
+  .recuerdos {
+    margin: 4rem 0 0;
+    padding: 1.8rem clamp(1.1rem, 4vw, 2.2rem) 2rem;
+    border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
+    background: var(--papel-2);
+  }
+  .recuerdos[hidden] { display: none; }
+  .recuerdos h2 {
+    font: 600 clamp(1.5rem, 3.6vw, 2rem)/1.2 var(--f-display);
+    color: var(--marino);
+    margin: 0.3rem 0 1.2rem;
+  }
+  .muestra { display: grid; gap: 1.3rem; }
+  .muestra:empty { display: none; }
+  :global(.recuerdo) {
+    display: grid;
+    gap: 0.3rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--oro-claro);
+  }
+  :global(.recuerdo blockquote) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-style: normal;
+    line-height: 1.6;
+    color: var(--tinta);
+    overflow-wrap: anywhere;
+  }
+  :global(.recuerdo .firma) {
+    color: var(--bruma);
+    font-size: 0.84rem;
+  }
+  :global(.recuerdo .firma strong) {
+    color: var(--marino);
+    font-weight: 700;
+  }
+  .invitacion {
+    margin: 1.3rem 0 0;
+    color: var(--bruma);
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+  .boton-recuerdos {
+    min-height: 2.9rem;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1.1rem;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid var(--marino);
+    background: var(--marino);
+    color: var(--papel);
+    font: 650 0.86rem/1.2 var(--f-cuerpo);
+    text-decoration: none;
+  }
+  .boton-recuerdos:hover { background: var(--oro); border-color: var(--oro); }
+
+  @media print {
+    .recuerdos { display: none !important; }
+  }
+</style>
+
+<script>
+  (async () => {
+    const bloque = document.querySelector('[data-recuerdos]') as HTMLElement | null;
+    if (!bloque) return;
+    const epoca = bloque.dataset.epoca;
+    const muestra = bloque.querySelector('[data-muestra]') as HTMLElement;
+    const invitacion = bloque.querySelector('[data-invitacion]') as HTMLElement;
+    const enlace = bloque.querySelector('[data-enlace]') as HTMLAnchorElement;
+
+    let publicaciones: any[] = [];
+    try {
+      const apiOrigin = (document.querySelector('meta[name="api-origin"]')?.getAttribute('content') || '').replace(/\/+$/, '');
+      const respuesta = await fetch(`${apiOrigin}/api/publicaciones`);
+      if (!respuesta.ok) return;
+      publicaciones = (await respuesta.json()).publicaciones || [];
+    } catch {
+      return; // Sin conexión con el libro, el capítulo se lee igual.
+    }
+
+    const propias = publicaciones.filter((p) => p.capitulo === epoca && p.comentario);
+    const total = propias.length;
+
+    propias.slice(0, 3).forEach((p) => {
+      const item = document.createElement('article');
+      item.className = 'recuerdo';
+      const cita = document.createElement('blockquote');
+      const texto = String(p.comentario);
+      cita.textContent = texto.length > 320 ? `${texto.slice(0, 320).trimEnd()}…` : texto;
+      const firma = document.createElement('p');
+      firma.className = 'firma';
+      const nombre = document.createElement('strong');
+      nombre.textContent = p.nombre;
+      firma.append(nombre);
+      if (p.puerto) firma.append(document.createTextNode(`, desde ${p.puerto}`));
+      item.append(cita, firma);
+      muestra.append(item);
+    });
+
+    if (total === 0) {
+      invitacion.textContent = 'Todavía nadie ha escrito sobre esta época. Si viviste algo de lo que se cuenta aquí, o si la lectura te ha traído un recuerdo, puedes ser la primera persona en dejarlo.';
+      enlace.textContent = 'Dejar el primer recuerdo';
+    } else {
+      invitacion.textContent = total === 1
+        ? 'Una persona ha escrito anécdotas o recuerdos sobre este capítulo.'
+        : `${total} personas han escrito anécdotas o recuerdos sobre este capítulo.`;
+      if (total > 3) {
+        const ver = document.createElement('a');
+        ver.href = enlace.getAttribute('href')!.replace('#firmar', '');
+        ver.textContent = ' Leerlos todos';
+        invitacion.append(ver);
+      }
+      enlace.textContent = 'Añadir el tuyo';
+    }
+
+    bloque.hidden = false;
+  })();
+</script>

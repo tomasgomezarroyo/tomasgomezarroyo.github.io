@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:github": "npm run build && python scripts/preparar_github.py",
     "preview": "astro preview"
   },
   "dependencies": {

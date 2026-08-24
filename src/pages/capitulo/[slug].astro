@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
+import RecuerdosCapitulo from '../../components/RecuerdosCapitulo.astro';
 import indice from '../../generado/indice.json';
+import narracionDisponible from '../../generado/narracion.json';
 
 export async function getStaticPaths() {
   return indice.map((c) => ({ params: { slug: c.slug } }));
@@ -11,6 +13,11 @@ const cap = indice.find((c) => c.slug === slug);
 const i = indice.findIndex((c) => c.slug === slug);
 const anterior = i > 0 ? indice[i - 1] : null;
 const siguiente = i < indice.length - 1 ? indice[i + 1] : null;
+
+const tieneAudio = narracionDisponible.includes(slug);
+const versionAudio = slug === 'capitulo-segundo' ? '?v=20260823' : '';
+const audioSrc = `/media/narracion/${slug}.mp3${versionAudio}`;
+const siguienteConAudio = siguiente && narracionDisponible.includes(siguiente.slug) ? siguiente : null;
 
 const fragmentos = import.meta.glob('../../generado/*.html', {
   query: '?raw',
@@ -23,10 +30,35 @@ const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
 <Base titulo={cap.titulo} descripcion={cap.resumen} conBarco={true}>
   <main class="capitulo">
     <nav class="herramientas-lectura" aria-label="Herramientas de lectura">
-      <a href="/">Índice</a>
-      <span class="posicion">Parte {i + 1} de {indice.length}</span>
-      <button type="button" id="continuar-lectura" hidden>Continuar donde me quedé</button>
-      <button type="button" id="imprimir-capitulo">Imprimir</button>
+      <div class="fila-superior">
+        <a href="/">Memorias</a>
+        <span class="posicion">Parte {i + 1} de {indice.length}</span>
+        <button type="button" id="continuar-lectura" hidden>Continuar donde me quedé</button>
+        <button type="button" id="imprimir-capitulo">Imprimir</button>
+      </div>
+      {tieneAudio && (
+        <div class="fila-inferior">
+          <button
+            type="button"
+            id="reproducir-narracion"
+            data-audio={audioSrc}
+            data-titulo={cap.titulo}
+            data-siguiente={siguienteConAudio ? `/capitulo/${siguienteConAudio.slug}` : ''}
+          >
+            ▶ Escuchar
+          </button>
+          <label class="control-velocidad">
+            Velocidad
+            <select id="velocidad-narracion" aria-label="Velocidad de lectura">
+              <option value="1">1×</option>
+              <option value="1.2">1,2×</option>
+              <option value="1.5">1,5×</option>
+              <option value="2">2×</option>
+            </select>
+          </label>
+
+        </div>
+      )}
     </nav>
     <header>
       <p class="etiqueta">{cap.periodo} · {cap.lugares}</p>
@@ -67,6 +99,8 @@ const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
       </div>
     </dialog>
 
+    <RecuerdosCapitulo slug={slug} />
+
     <nav class="rumbos" aria-label="Capítulos vecinos">
       {anterior
         ? <a rel="prev" href={`/capitulo/${anterior.slug}`}><span class="etiqueta">Anterior</span><span>{anterior.titulo}</span></a>
@@ -91,14 +125,21 @@ const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
     margin: 0 auto 2rem;
     padding: 0.35rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.35rem 0.6rem;
+    gap: 0.15rem;
     background: color-mix(in srgb, var(--papel) 94%, transparent);
     border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
     box-shadow: 0 2px 10px rgb(0 0 0 / 0.06);
     backdrop-filter: blur(8px);
+  }
+  .fila-superior,
+  .fila-inferior {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.6rem;
   }
   .herramientas-lectura a,
   .herramientas-lectura button {
@@ -118,6 +159,26 @@ const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
   .herramientas-lectura .posicion {
     color: var(--bruma);
     font-size: 0.84rem;
+  }
+  .control-velocidad {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.65rem;
+    color: var(--marino);
+    font-size: 0.88rem;
+  }
+  .control-velocidad select {
+    min-height: 2.2rem;
+    border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent);
+    background: var(--papel);
+    color: var(--marino);
+    font-size: 0.88rem;
+    padding: 0.1rem 0.3rem;
+  }
+  #reproducir-narracion.reproduciendo {
+    text-decoration-color: var(--marino);
+    font-weight: 600;
   }
   header { text-align: center; margin-bottom: 2.5rem; }
   h1 { font-size: clamp(2.1rem, 6vw, 3.1rem); margin-top: 0.6rem; }
@@ -150,6 +211,20 @@ const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
     text-align: left;
     hyphens: none;
   }
+  .texto :global(p.pasaje-encontrado) {
+    scroll-margin-top: 9rem;
+    margin-inline: -0.75rem;
+    padding: 0.65rem 0.75rem;
+    border-left: 3px solid var(--oro);
+    background: color-mix(in srgb, var(--oro-claro) 18%, transparent);
+  }
+  .texto :global(mark.coincidencia-busqueda) {
+    padding: 0.03em 0.16em;
+    background: color-mix(in srgb, var(--oro-claro) 82%, var(--papel));
+    color: var(--marino);
+    font-weight: 700;
+  }
+
   .texto :global(p:first-of-type)::first-letter {
     font-family: var(--f-display);
     font-weight: 600;
@@ -165,6 +240,53 @@ const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
     border-left: 2px solid var(--oro);
     font-style: italic;
     color: color-mix(in srgb, var(--tinta) 82%, var(--bruma));
+  }
+
+  .texto :global(.referencia-documental) {
+    margin: 2rem 0 2.6rem;
+    padding: 1.15rem 1.25rem 1.25rem;
+    border: 1px solid color-mix(in srgb, var(--oro) 58%, transparent);
+    border-left: 4px solid var(--oro);
+    background: var(--papel-2);
+  }
+  .texto :global(.referencia-etiqueta) {
+    color: var(--oro-oscuro);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+  .texto :global(.referencia-documental h3) {
+    margin: 0.35rem 0 0.45rem;
+    color: var(--marino);
+    font: 600 clamp(1.35rem, 4vw, 1.75rem)/1.15 var(--f-display);
+  }
+  .texto :global(.referencia-resumen) {
+    color: var(--tinta);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  .texto :global(.referencia-fuente) {
+    margin-top: 0.65rem;
+    color: var(--bruma);
+    font-size: 0.78rem;
+  }
+  .texto :global(.referencia-documental a) {
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0.85rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--marino);
+    border-radius: 0.65rem;
+    color: var(--marino);
+    font-size: 0.84rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .texto :global(.referencia-documental a:hover) {
+    background: var(--marino);
+    color: var(--papel);
   }
 
   .texto :global(figure.lamina) {
@@ -483,7 +605,136 @@ const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
     print();
   });
 
+  // ---- Narración persistente: sólo el botón cambia la intención de sonar/pausar ----
+  const narrador = document.getElementById('narrador-global') as HTMLAudioElement | null;
+  const botonNarracion = document.getElementById('reproducir-narracion') as HTMLButtonElement | null;
+  const selectVelocidad = document.getElementById('velocidad-narracion') as HTMLSelectElement | null;
+  const claveVelocidad = 'memorias-velocidad-narracion';
+  const claveSrc = 'memorias-narracion-src';
+  const claveEstado = 'memorias-narracion-estado';
+  const clavePosicionNarracion = 'memorias-narracion-posicion';
+  const claveSiguiente = 'memorias-narracion-siguiente';
+  const claveTituloNarracion = 'memorias-narracion-titulo';
+
+  if (narrador && botonNarracion) {
+    const audioDelCapitulo = botonNarracion.dataset.audio || '';
+    const rutaAudio = (valor: string) => {
+      try {
+        const url = new URL(valor, location.href);
+        return url.pathname + url.search;
+      } catch { return ''; }
+    };
+    const rutaActual = () => rutaAudio(narrador.currentSrc || narrador.src);
+    const leerEstado = () => {
+      try { return sessionStorage.getItem(claveEstado) || 'pausada'; } catch { return 'pausada'; }
+    };
+    const escribirSesion = (clave: string, valor: string) => {
+      try { sessionStorage.setItem(clave, valor); } catch {}
+    };
+    const esEsteCapitulo = () => rutaActual() === rutaAudio(audioDelCapitulo);
+
+    const actualizarBoton = () => {
+      const debeSonar = esEsteCapitulo() && leerEstado() === 'sonando';
+      botonNarracion.textContent = debeSonar ? '⏸ Pausar' : '▶ Escuchar';
+      botonNarracion.classList.toggle('reproduciendo', debeSonar);
+      botonNarracion.setAttribute('aria-pressed', String(debeSonar));
+    };
+
+    try {
+      const guardada = localStorage.getItem(claveVelocidad);
+      if (guardada) {
+        narrador.playbackRate = Number(guardada);
+        if (selectVelocidad) selectVelocidad.value = guardada;
+      }
+    } catch {}
+
+    selectVelocidad?.addEventListener('change', () => {
+      const v = Number(selectVelocidad.value);
+      narrador.playbackRate = v;
+      try { localStorage.setItem(claveVelocidad, selectVelocidad.value); } catch {}
+    });
+
+    botonNarracion.addEventListener('click', () => {
+      if (esEsteCapitulo() && leerEstado() === 'sonando') {
+        escribirSesion(claveEstado, 'pausada');
+        narrador.pause();
+        document.dispatchEvent(new CustomEvent('memorias:narracion-cambio'));
+        actualizarBoton();
+        return;
+      }
+
+      if (!esEsteCapitulo()) {
+        narrador.pause();
+        narrador.src = audioDelCapitulo;
+        narrador.load();
+        escribirSesion(claveSrc, audioDelCapitulo);
+        escribirSesion(clavePosicionNarracion, '0');
+      }
+      escribirSesion(claveSiguiente, botonNarracion.dataset.siguiente || '');
+      escribirSesion(claveTituloNarracion, botonNarracion.dataset.titulo || 'Capítulo en curso');
+      escribirSesion(claveEstado, 'sonando');
+      narrador.play().catch(() => {});
+      document.dispatchEvent(new CustomEvent('memorias:narracion-cambio'));
+      actualizarBoton();
+    });
+
+    narrador.addEventListener('play', actualizarBoton);
+    narrador.addEventListener('pause', actualizarBoton);
+    narrador.addEventListener('ended', actualizarBoton);
+    document.addEventListener('memorias:narracion-estado', actualizarBoton);
+    actualizarBoton();
+
+    const parametros = new URLSearchParams(location.search);
+    if (parametros.get('leer') === '1') {
+      history.replaceState(null, '', location.pathname);
+    }
+  }
   const visor = document.getElementById('visor') as HTMLDialogElement;
+  // Si llegamos desde el buscador, mostramos y marcamos el párrafo exacto.
+  const parametrosBusqueda = new URLSearchParams(location.search);
+  const terminoBusqueda = parametrosBusqueda.get('buscar')?.trim() || '';
+  const numeroParrafo = Number(parametrosBusqueda.get('parrafo'));
+  const parrafosBusqueda = Array.from(document.querySelectorAll<HTMLElement>('.texto p'));
+  if (terminoBusqueda.length >= 2 && Number.isInteger(numeroParrafo) && parrafosBusqueda[numeroParrafo]) {
+    const destino = parrafosBusqueda[numeroParrafo];
+    destino.classList.add('pasaje-encontrado');
+    destino.tabIndex = -1;
+
+    const normalizarBusqueda = (texto: string) => texto
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .toLocaleLowerCase('es');
+    const consultaNormalizada = normalizarBusqueda(terminoBusqueda);
+    const caminante = document.createTreeWalker(destino, NodeFilter.SHOW_TEXT);
+    const nodos: Text[] = [];
+    while (caminante.nextNode()) nodos.push(caminante.currentNode as Text);
+
+    for (const nodo of nodos) {
+      const texto = nodo.data;
+      const textoNormalizado = normalizarBusqueda(texto);
+      let inicio = 0;
+      let coincidencia = textoNormalizado.indexOf(consultaNormalizada, inicio);
+      if (coincidencia < 0) continue;
+      const fragmento = document.createDocumentFragment();
+      while (coincidencia >= 0) {
+        fragmento.append(texto.slice(inicio, coincidencia));
+        const marca = document.createElement('mark');
+        marca.className = 'coincidencia-busqueda';
+        marca.textContent = texto.slice(coincidencia, coincidencia + terminoBusqueda.length);
+        fragmento.append(marca);
+        inicio = coincidencia + terminoBusqueda.length;
+        coincidencia = textoNormalizado.indexOf(consultaNormalizada, inicio);
+      }
+      fragmento.append(texto.slice(inicio));
+      nodo.replaceWith(fragmento);
+    }
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      destino.scrollIntoView({ block: 'center' });
+      destino.focus({ preventScroll: true });
+    }));
+  }
+
   const lienzo = document.getElementById('visor-lienzo') as HTMLElement;
   const vimg = document.getElementById('visor-img') as HTMLImageElement;
   const ayuda = document.getElementById('visor-ayuda') as HTMLElement;

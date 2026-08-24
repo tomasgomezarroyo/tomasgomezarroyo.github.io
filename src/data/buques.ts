@@ -369,6 +369,44 @@ export const buques: Buque[] = [
     ],
   },
   {
+    slug: 'neptuno',
+    nombre: 'Neptuno',
+    tipo: 'Minador',
+    anos: '1941 – 1943',
+    nota: 'Buque escuela de hecho durante el curso embarcado de Tomás como guardiamarina. A bordo recorrió buena parte de los puertos españoles, con un recuerdo especial de los del norte.',
+    cap: 'capitulo-tercero',
+    imagenes: [
+      {
+        src: '/fotos/buques/neptuno-27.jpg',
+        alt: 'El minador Neptuno visto de costado, con el numeral 27 en la proa',
+        pie: 'El minador Neptuno visto de costado, con el numeral 27 en la proa.',
+        referencia: 'Imagen aportada por la familia, procedente de una reproducción comercial; autor y fecha pendientes de identificar.',
+      },
+      {
+        src: '/fotos/buques/neptuno-f02.jpg',
+        alt: 'El minador Neptuno navegando, con el numeral F-02 pintado en el casco',
+        pie: 'El Neptuno navegando, ya con el numeral F-02 pintado en el casco.',
+        referencia: 'Imagen aportada por la familia; autor y fecha pendientes de identificar.',
+      },
+    ],
+  },
+  {
+    slug: 'triton',
+    nombre: 'Tritón',
+    tipo: 'Cañonero-minador · Clase Eolo',
+    anos: '1943 – 1945',
+    nota: 'Primer destino de Tomás como alférez de navío. El Tritón (29), después F-22, entró en servicio en octubre de 1943 y quedó adscrito al Departamento Marítimo de Ferrol.',
+    cap: 'capitulo-cuarto',
+    imagenes: [
+      {
+        src: '/fotos/buques/triton-29.jpg',
+        alt: 'El cañonero-minador Tritón visto de costado, con el numeral 29 en la proa',
+        pie: 'El Tritón, primer destino de Tomás como alférez de navío, con el numeral 29 en la proa; más tarde llevaría el numeral F-22.',
+        referencia: 'Imagen aportada por la familia. Identificación y fecha de entrada en servicio contrastadas con la Revista General de Marina; autor de la fotografía pendiente de identificar.',
+      },
+    ],
+  },
+  {
     slug: 'marte',
     nombre: 'Marte',
     tipo: 'Minador',
@@ -404,6 +442,12 @@ export const buques: Buque[] = [
     nota: 'Destino de Tomás en la División Naval del Mediterráneo. La segunda vista es del Císcar, buque gemelo, y se muestra solo como comparación de clase.',
     cap: 'capitulo-octavo',
     imagenes: [
+      {
+        src: '/fotos/familia/1944_destructor-churruca_sevilla_01.jpg',
+        alt: 'El destructor Churruca atracado en Sevilla, junto a la Torre del Oro, con la bandera pintada en el casco',
+        pie: 'El Churruca atracado en Sevilla, junto a la Torre del Oro; llevaba la bandera pintada en el casco por la Segunda Guerra Mundial. Fotografía del álbum familiar (1944).',
+        referencia: '',
+      },
       {
         src: '/fotos/buques/churruca-principios-1950s.jpg',
         alt: 'Destructor Churruca a principios de los años 50',
@@ -524,6 +568,54 @@ export const buques: Buque[] = [
         alt: 'El crucero Almirante Cervera, buque gemelo del Miguel de Cervantes, con tripulación en cubierta',
         pie: 'El Almirante Cervera con tripulación visible en cubierta y humareda densa de la chimenea. Imagen comparativa, no es el barco exacto de Tomás.',
         referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
+      },
+    ],
+  },
+  {
+    slug: 'la-descubierta',
+    nombre: 'La Descubierta',
+    tipo: 'Buque de la Armada (tipo por confirmar)',
+    anos: '1964',
+    nota: 'Buque de Tomás en 1964, en la etapa posterior a los capítulos escritos por él mismo (ver el Epílogo). Tipo exacto de buque pendiente de confirmar.',
+    cap: 'epilogo',
+    imagenes: [
+      {
+        src: '/fotos/familia/1964_la-descubierta_01.jpg',
+        alt: 'Tomás con el buque La Descubierta',
+        pie: 'Tomás con La Descubierta, 1964. Fotografía del álbum familiar.',
+        referencia: '',
+      },
+    ],
+  },
+  {
+    slug: 'destructor-liniers',
+    nombre: 'Liniers',
+    tipo: 'Destructor (tipo/clase por confirmar)',
+    anos: '1982',
+    nota: 'Buque de la etapa posterior a los capítulos escritos por Tomás (ver el Epílogo). Clase y detalles exactos pendientes de confirmar.',
+    cap: 'epilogo',
+    imagenes: [
+      {
+        src: '/fotos/familia/1982-12-15_destructor-liniers_01.jpg',
+        alt: 'Tomás con el destructor Liniers',
+        pie: 'Tomás con el destructor Liniers, 15 de diciembre de 1982. Fotografía del álbum familiar.',
+        referencia: '',
+      },
+    ],
+  },
+  {
+    slug: 'juan-sebastian-elcano',
+    nombre: 'Juan Sebastián Elcano',
+    tipo: 'Buque escuela, goleta de cuatro palos',
+    anos: '1984',
+    nota: 'El célebre buque escuela de la Armada Española, en un encuentro con Tomás en la etapa posterior a los capítulos escritos por él mismo (ver el Epílogo).',
+    cap: 'epilogo',
+    imagenes: [
+      {
+        src: '/fotos/familia/1984-01-18_juan-sebastian-elcano_01.jpg',
+        alt: 'Tomás con el buque escuela Juan Sebastián Elcano',
+        pie: 'Tomás con el Juan Sebastián Elcano, 18 de enero de 1984. Fotografía del álbum familiar.',
+        referencia: '',
       },
     ],
   },

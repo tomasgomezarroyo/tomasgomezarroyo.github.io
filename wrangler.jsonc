@@ -1,10 +1,13 @@
 {
-  // Configuración de Cloudflare Pages para el sitio de las Memorias.
-  // Define las conexiones que necesitan las funciones del Libro de visitas:
-  // sin esto, /api/publicaciones no encuentra la base de datos y responde 500.
+  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "tomasgomezarroyo",
   "compatibility_date": "2026-08-07",
-  "pages_build_output_dir": "dist",
+  "pages_build_output_dir": "./dist",
+  "vars": {
+    "ENTORNO": "produccion",
+    "ADMIN_EMAIL": "tomgomezf@gmail.com",
+    "EMAIL_FROM": "hola@tomcontable.cl"
+  },
   "d1_databases": [
     {
       "binding": "DB",
@@ -12,5 +15,34 @@
       "database_id": "dc104e3e-af68-4362-b6f0-e171386a775d",
       "migrations_dir": "migrations"
     }
-  ]
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PHOTOS",
+      "bucket_name": "memorias-aportes-fotograficos"
+    }
+  ],
+  "env": {
+    "production": {
+      "vars": {
+        "ENTORNO": "produccion",
+        "ADMIN_EMAIL": "tomgomezf@gmail.com",
+        "EMAIL_FROM": "hola@tomcontable.cl"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "memorias-libro-visitas",
+          "database_id": "dc104e3e-af68-4362-b6f0-e171386a775d",
+          "migrations_dir": "migrations"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "PHOTOS",
+          "bucket_name": "memorias-aportes-fotograficos"
+        }
+      ]
+    }
+  }
 }

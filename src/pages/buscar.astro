@@ -1,0 +1,189 @@
+---
+import Base from '../layouts/Base.astro';
+import indice from '../generado/indice.json';
+
+const fragmentos = import.meta.glob('../generado/*.html', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+
+const decodificar = (texto: string) => texto
+  .replace(/&#(\d+);/g, (_, codigo) => String.fromCodePoint(Number(codigo)))
+  .replace(/&#x([0-9a-f]+);/gi, (_, codigo) => String.fromCodePoint(parseInt(codigo, 16)))
+  .replace(/&nbsp;/g, ' ')
+  .replace(/&amp;/g, '&')
+  .replace(/&quot;/g, '"')
+  .replace(/&#39;|&apos;/g, "'")
+  .replace(/&lt;/g, '<')
+  .replace(/&gt;/g, '>');
+
+const limpiar = (html: string) => decodificar(
+  html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+);
+
+const documentos = indice.flatMap((capitulo) => {
+  const cuerpo = fragmentos['../generado/' + capitulo.slug + '.html'] as string;
+  if (!cuerpo) return [];
+  return Array.from(cuerpo.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi))
+    .map((coincidencia, parrafo) => ({
+      slug: capitulo.slug,
+      titulo: capitulo.titulo,
+      periodo: capitulo.periodo,
+      parrafo,
+      texto: limpiar(coincidencia[1]),
+    }))
+    .filter((entrada) => entrada.texto.length > 0);
+});
+const datosBusqueda = JSON.stringify(documentos).replace(/</g, '\\u003c');
+---
+
+<Base titulo="Buscar en las memorias" descripcion="Busca una palabra o una frase y encuentra el párrafo exacto dentro de las memorias de Tomás Gómez Arroyo.">
+  <main class="pagina-busqueda">
+    <header>
+      <p class="etiqueta">Consulta del manuscrito</p>
+      <h1>Encuentra un recuerdo</h1>
+      <p>Escribe una palabra o una frase. Verás cada pasaje donde aparece y podrás ir directamente al párrafo.</p>
+    </header>
+
+    <form id="formulario-busqueda" role="search">
+      <label for="termino-busqueda">Palabra o frase</label>
+      <div class="campo-busqueda">
+        <input id="termino-busqueda" name="q" type="search" autocomplete="off" enterkeyhint="search" placeholder="Por ejemplo: cubierta" aria-describedby="ayuda-busqueda" />
+        <button type="submit">Buscar</button>
+      </div>
+      <p id="ayuda-busqueda">
+        También puedes probar con
+        <button type="button" class="ejemplo" data-ejemplo="cubierta">cubierta</button>,
+        <button type="button" class="ejemplo" data-ejemplo="Canarias">Canarias</button>
+        o una frase completa.
+      </p>
+    </form>
+
+    <section class="zona-resultados" aria-labelledby="resumen-busqueda">
+      <p id="resumen-busqueda" tabindex="-1">Escribe al menos dos letras para comenzar.</p>
+      <ol id="resultados-busqueda"></ol>
+    </section>
+  </main>
+
+  <script id="datos-busqueda" type="application/json" set:html={datosBusqueda}></script>
+
+  <script>
+    type EntradaBusqueda = {
+      slug: string;
+      titulo: string;
+      periodo?: string;
+      parrafo: number;
+      texto: string;
+    };
+
+    const datos = JSON.parse(document.getElementById('datos-busqueda')?.textContent || '[]') as EntradaBusqueda[];
+    const formulario = document.getElementById('formulario-busqueda') as HTMLFormElement;
+    const campo = document.getElementById('termino-busqueda') as HTMLInputElement;
+    const resumen = document.getElementById('resumen-busqueda') as HTMLParagraphElement;
+    const lista = document.getElementById('resultados-busqueda') as HTMLOListElement;
+    const MAXIMO = 80;
+
+    const normalizar = (texto: string) => texto.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLocaleLowerCase('es');
+    const escapar = (texto: string) => texto.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] || c));
+
+    const fragmento = (texto: string, termino: string) => {
+      const indice = normalizar(texto).indexOf(normalizar(termino));
+      const inicio = Math.max(0, indice - 78);
+      const fin = Math.min(texto.length, indice + termino.length + 110);
+      return (inicio ? '…' : '')
+        + escapar(texto.slice(inicio, indice))
+        + '<mark>' + escapar(texto.slice(indice, indice + termino.length)) + '</mark>'
+        + escapar(texto.slice(indice + termino.length, fin))
+        + (fin < texto.length ? '…' : '');
+    };
+
+    const buscar = (valor: string, moverFoco = false) => {
+      const termino = valor.trim();
+      campo.value = termino;
+      lista.replaceChildren();
+      if (termino.length < 2) {
+        resumen.textContent = 'Escribe al menos dos letras para comenzar.';
+        return;
+      }
+
+      const consulta = normalizar(termino);
+      const encontrados = datos.filter((entrada) => normalizar(entrada.texto).includes(consulta));
+      resumen.textContent = encontrados.length === 1 ? 'Se encontró un pasaje.' : 'Se encontraron ' + encontrados.length + ' pasajes.';
+      if (encontrados.length > MAXIMO) resumen.textContent += ' Se muestran los primeros ' + MAXIMO + '; escribe algo más preciso para reducirlos.';
+
+      for (const entrada of encontrados.slice(0, MAXIMO)) {
+        const elemento = document.createElement('li');
+        const enlace = document.createElement('a');
+        enlace.href = '/capitulo/' + encodeURIComponent(entrada.slug) + '?buscar=' + encodeURIComponent(termino) + '&parrafo=' + entrada.parrafo;
+        enlace.innerHTML = '<span class="resultado-capitulo">' + escapar(entrada.titulo) + '</span>'
+          + (entrada.periodo ? '<span class="resultado-periodo">' + escapar(entrada.periodo) + '</span>' : '')
+          + '<span class="resultado-fragmento">' + fragmento(entrada.texto, termino) + '</span>'
+          + '<span class="resultado-accion">Ir al pasaje <span aria-hidden="true">→</span></span>';
+        elemento.append(enlace);
+        lista.append(elemento);
+      }
+
+      if (!encontrados.length) {
+        const vacio = document.createElement('li');
+        vacio.className = 'sin-resultados';
+        vacio.textContent = 'No aparece esa expresión en las memorias. Prueba con una palabra más corta o revisa la escritura.';
+        lista.append(vacio);
+      }
+
+      const url = new URL(location.href);
+      url.searchParams.set('q', termino);
+      history.replaceState(null, '', url);
+      if (moverFoco) resumen.focus();
+    };
+
+    formulario.addEventListener('submit', (evento) => {
+      evento.preventDefault();
+      buscar(campo.value, true);
+    });
+    document.querySelectorAll<HTMLButtonElement>('[data-ejemplo]').forEach((boton) => {
+      boton.addEventListener('click', () => buscar(boton.dataset.ejemplo || '', true));
+    });
+    const inicial = new URLSearchParams(location.search).get('q') || '';
+    if (inicial) buscar(inicial);
+    else campo.focus();
+  </script>
+</Base>
+
+<style>
+  .pagina-busqueda { width: min(60rem, calc(100% - 2rem)); margin: 0 auto; padding: clamp(2.5rem, 7vw, 5.5rem) 0 5rem; }
+  header { max-width: 48rem; margin: 0 auto 2.2rem; text-align: center; }
+  header .etiqueta { color: var(--oro-oscuro); }
+  h1 { margin: 0.45rem 0 0.75rem; font: 600 clamp(2.7rem, 8vw, 5.3rem)/0.98 var(--f-display); color: var(--marino); }
+  header > p:last-child { max-width: 42rem; margin: 0 auto; color: var(--bruma); font-size: 1.06rem; line-height: 1.7; }
+  #formulario-busqueda { position: relative; padding: clamp(1.1rem, 3vw, 1.65rem); border: 1px solid color-mix(in srgb, var(--oro) 65%, transparent); background: var(--papel-2); box-shadow: 0 0.7rem 2rem rgb(17 30 47 / 0.08); }
+  #formulario-busqueda::before { content: '⌕'; position: absolute; top: -1.15rem; left: 1.2rem; display: grid; width: 2.3rem; height: 2.3rem; place-items: center; border: 1px solid var(--oro); border-radius: 50%; background: var(--papel); color: var(--marino); font-size: 1.45rem; }
+  #formulario-busqueda > label { display: block; margin-bottom: 0.5rem; color: var(--marino); font-weight: 700; }
+  .campo-busqueda { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.55rem; }
+  input[type='search'] { min-width: 0; min-height: 3.4rem; padding: 0.75rem 1rem; border: 1px solid color-mix(in srgb, var(--marino) 35%, var(--oro)); border-radius: 0.65rem; background: var(--papel); color: var(--tinta); font: 500 1.08rem/1.3 var(--f-cuerpo); }
+  input[type='search']:focus { outline: 3px solid color-mix(in srgb, var(--oro-claro) 55%, transparent); outline-offset: 2px; border-color: var(--marino); }
+  .campo-busqueda button { min-height: 3.4rem; padding: 0.75rem 1.35rem; border: 1px solid var(--marino); border-radius: 0.65rem; background: var(--marino); color: var(--papel); font: 700 0.95rem/1 var(--f-cuerpo); cursor: pointer; }
+  #ayuda-busqueda { margin: 0.8rem 0 0; color: var(--bruma); font-size: 0.87rem; }
+  .ejemplo { padding: 0; border: 0; border-bottom: 1px solid var(--oro); background: transparent; color: var(--marino); font: inherit; cursor: pointer; }
+  .zona-resultados { margin-top: 2.2rem; }
+  #resumen-busqueda { margin: 0 0 0.9rem; color: var(--marino); font-weight: 700; }
+  #resumen-busqueda:focus { outline: none; }
+  #resultados-busqueda { margin: 0; padding: 0; list-style: none; border-top: 1px solid color-mix(in srgb, var(--oro) 55%, transparent); }
+  #resultados-busqueda li { border-bottom: 1px solid color-mix(in srgb, var(--oro) 45%, transparent); }
+  #resultados-busqueda a { display: grid; grid-template-columns: minmax(9rem, .28fr) minmax(0, 1fr) auto; grid-template-areas: 'capitulo fragmento accion' 'periodo fragmento accion'; gap: .15rem 1.2rem; align-items: center; padding: 1.15rem .8rem; color: var(--tinta); text-decoration: none; }
+  #resultados-busqueda a:hover, #resultados-busqueda a:focus-visible { background: color-mix(in srgb, var(--oro-claro) 16%, transparent); }
+  .resultado-capitulo { grid-area: capitulo; color: var(--marino); font: 600 1.18rem/1.15 var(--f-display); }
+  .resultado-periodo { grid-area: periodo; color: var(--oro-oscuro); font-size: .68rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+  .resultado-fragmento { grid-area: fragmento; line-height: 1.58; }
+  .resultado-fragmento mark { padding: .03em .16em; background: color-mix(in srgb, var(--oro-claro) 72%, var(--papel)); color: var(--marino); font-weight: 700; }
+  .resultado-accion { grid-area: accion; color: var(--marino); font-size: .78rem; font-weight: 700; white-space: nowrap; }
+  .sin-resultados { padding: 1.2rem; background: var(--papel-2); color: var(--bruma); line-height: 1.6; }
+  @media (max-width: 680px) {
+    .pagina-busqueda { width: min(100% - 1.2rem, 60rem); padding-top: 2rem; }
+    h1 { font-size: clamp(2.45rem, 14vw, 4rem); }
+    .campo-busqueda { grid-template-columns: 1fr; }
+    .campo-busqueda button { width: 100%; }
+    #resultados-busqueda a { grid-template-columns: 1fr auto; grid-template-areas: 'capitulo accion' 'periodo accion' 'fragmento fragmento'; gap: .25rem .65rem; padding: 1rem .45rem; }
+    .resultado-fragmento { margin-top: .4rem; }
+  }
+</style>

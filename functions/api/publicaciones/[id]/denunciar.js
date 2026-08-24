@@ -8,12 +8,15 @@ import {
   validarTurnstile,
   vencimientoAdministracion,
 } from '../../../_lib/comun.js';
+import { corsPreflight } from '../../../_lib/comun.js';
+
+export function onRequestOptions() { return corsPreflight(); }
 
 async function enviarAviso(request, env, publicacion) {
   if (!env.BREVO_API_KEY) return;
   const exp = vencimientoAdministracion();
   const firma = await firmaAdministracion(publicacion.id, env.ADMIN_SECRET, exp);
-  const origen = new URL(request.url).origin;
+  const origen = (env.SITIO_PUBLICO || 'https://tomcontable.github.io').replace(/\/+$/, '');
   const revision = `${origen}/administracion?id=${encodeURIComponent(publicacion.id)}&token=${encodeURIComponent(firma)}&exp=${encodeURIComponent(exp)}`;
   const contieneFoto = Boolean(publicacion.foto_vista_key);
   const resumen = publicacion.pie_foto || publicacion.comentario || '(Sin texto)';
@@ -46,14 +49,13 @@ async function enviarAviso(request, env, publicacion) {
 }
 
 export async function onRequestPost({ request, env, params, waitUntil }) {
-  if (await excedeLimite(request, 'denunciar', 4, 3600)) return json({ error: 'limite' }, 429);
-
   let datos;
   try { datos = await request.json(); } catch { return json({ error: 'formato' }, 400); }
   if (!datos || typeof datos !== 'object' || Array.isArray(datos)) return json({ error: 'formato' }, 400);
   if (!(await validarTurnstile(request, env, datos['cf-turnstile-response']))) {
     return json({ error: 'verificacion' }, 403);
   }
+  if (await excedeLimite(request, 'denunciar', 4, 3600)) return json({ error: 'limite' }, 429);
 
   const publicacion = await env.DB.prepare(`
     SELECT id, nombre, comentario, pie_foto, foto_vista_key, estado

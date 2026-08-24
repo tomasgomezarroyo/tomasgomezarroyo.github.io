@@ -16,5 +16,20 @@ export async function onRequestGet({ request, env, params }) {
     'content-type': 'image/jpeg',
     'cache-control': 'private, no-store',
     'x-content-type-options': 'nosniff',
+    'access-control-allow-origin': 'https://tomcontable.github.io',
+    'access-control-allow-methods': 'GET, OPTIONS',
+    'access-control-allow-headers': 'accept',
   } });
+}
+
+export function onRequestOptions() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'access-control-allow-origin': 'https://tomcontable.github.io',
+      'access-control-allow-methods': 'GET, OPTIONS',
+      'access-control-allow-headers': 'accept',
+      'access-control-max-age': '86400',
+    },
+  });
 }

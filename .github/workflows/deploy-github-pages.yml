@@ -1,0 +1,51 @@
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  PUBLIC_SITE_URL: https://tomcontable.github.io
+  PUBLIC_API_ORIGIN: https://tomasgomezarroyo.pages.dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Obtener código
+        uses: actions/checkout@v4
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Construir sitio para GitHub Pages
+        run: npm run build:github
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+      - name: Subir artefacto
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist-github
+      - name: Publicar
+        id: deployment
+        uses: actions/deploy-pages@v4

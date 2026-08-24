@@ -1,4 +1,7 @@
-import { firmaAdministracionValida, json } from '../../../../_lib/comun.js';
+import { corsPreflight, firmaAdministracionValida, json } from '../../../../_lib/comun.js';
+
+export function onRequestOptions() { return corsPreflight(); }
+
 
 export async function onRequestPost({ request, env, params }) {
   let datos;
@@ -14,7 +17,7 @@ export async function onRequestPost({ request, env, params }) {
     const resultados = await env.DB.batch([
       env.DB.prepare(`
         UPDATE publicaciones SET estado = 'visible', actualizado_en = ?
-        WHERE id = ? AND estado = 'oculta'
+        WHERE id = ? AND estado IN ('oculta', 'retirada')
       `).bind(ahora, params.id),
       env.DB.prepare(`
         UPDATE denuncias SET restaurada_en = ?

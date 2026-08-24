@@ -162,6 +162,26 @@ def preparar_fotos(fotos, bloques, slug):
     return sorted(preparadas, key=lambda f: f["pos"])
 
 
+def preparar_referencias(referencias, bloques, slug):
+    """Resuelve el párrafo tras el que debe aparecer cada fuente documental."""
+    preparadas = []
+    for original in referencias:
+        referencia = dict(original)
+        ancla = referencia.get("despues_de")
+        coincidencias = [
+            i for i, (_, contenido) in enumerate(bloques)
+            if ancla and ancla.casefold() in contenido.casefold()
+        ]
+        if len(coincidencias) != 1:
+            raise ValueError(
+                f"{slug}: la ancla de referencia {ancla!r} produjo "
+                f"{len(coincidencias)} coincidencias; debe producir una"
+            )
+        referencia["pos"] = coincidencias[0] + 1
+        preparadas.append(referencia)
+    return sorted(preparadas, key=lambda referencia: referencia["pos"])
+
+
 def slug_foto(archivo):
     """Identificador estable para una foto, a partir de su nombre de archivo."""
     base = os.path.splitext(os.path.basename(archivo.replace("\\", "/")))[0]
@@ -173,6 +193,7 @@ def figura(f, capitulo_slug):
     pie = htmllib.escape(f["pie"], quote=False)
     credito = htmllib.escape(f["credito"], quote=False)
     alt = htmllib.escape(f["pie"].split(".")[0], quote=True)
+    tipo = htmllib.escape(f.get("tipo", "fotografía"), quote=True)
     ancho, alto = dimensiones(f["archivo"])
     ficha = FICHAS.get(f["archivo"])
     attr_ficha = ""
@@ -185,7 +206,12 @@ def figura(f, capitulo_slug):
     galeria = f.get("galeria")
     if galeria:
         href = "/" + galeria.strip("/")
-        sustantivo = "este buque" if galeria.startswith("buques/") else "este lugar"
+        if galeria.startswith("buques/"):
+            sustantivo = "este buque"
+        elif galeria == "familia":
+            sustantivo = "este archivo familiar"
+        else:
+            sustantivo = "este lugar"
         # "volver" y "foto" le dicen a la página de galería adónde regresar exactamente
         # (el capítulo y la foto concreta), para que el lector no pierda su sitio.
         query = f"?volver={capitulo_slug}&foto={foto_id}"
@@ -195,7 +221,7 @@ def figura(f, capitulo_slug):
         )
     return (
         f'<figure class="lamina" id="{foto_id}"{attr_ficha}>'
-        f'<button type="button" class="abre-visor" aria-label="Ampliar fotografía: {alt}">'
+        f'<button type="button" class="abre-visor" aria-label="Ampliar {tipo}: {alt}">'
         f'<img src="{src}" width="{ancho}" height="{alto}" alt="{alt}" loading="lazy" decoding="async" />'
         f"</button>"
         f'<figcaption>{pie} <span class="credito">{credito}</span></figcaption>'
@@ -204,6 +230,25 @@ def figura(f, capitulo_slug):
     )
 
 
+
+
+def referencia_documental(referencia):
+    """Tarjeta enlazada a una fuente externa sin copiar sus imágenes ni su texto."""
+    titulo = htmllib.escape(referencia["titulo"], quote=False)
+    resumen = htmllib.escape(referencia["resumen"], quote=False)
+    fuente = htmllib.escape(referencia["fuente"], quote=False)
+    url = htmllib.escape(referencia["url"], quote=True)
+    enlace = htmllib.escape(referencia.get("enlace", "Consultar la fuente"), quote=False)
+    return (
+        '<aside class="referencia-documental" aria-label="Fuente documental relacionada">'
+        '<div class="referencia-etiqueta">Para ampliar este recuerdo</div>'
+        f'<h3>{titulo}</h3>'
+        f'<div class="referencia-resumen">{resumen}</div>'
+        f'<div class="referencia-fuente">{fuente}</div>'
+        f'<a href="{url}" target="_blank" rel="noopener noreferrer">'
+        f'{enlace} <span aria-hidden="true">&nearr;</span></a>'
+        '</aside>'
+    )
 indice = []
 for meta in META:
     corregido = os.path.join(CORREGIDOS, meta["archivo"] + ".md")
@@ -217,19 +262,27 @@ for meta in META:
 
     bloques = md_a_bloques(md)
     fotos = preparar_fotos(meta.get("fotos", []), bloques, meta["slug"])
+    referencias = preparar_referencias(meta.get("referencias", []), bloques, meta["slug"])
     enlaces_por_bloque = preparar_enlaces(meta.get("enlaces", []), bloques, meta["slug"])
 
     # repartir fotos: en su posición pedida (índice de párrafo) o al final
     piezas = []
     fot_idx = 0
+    ref_idx = 0
     for i, (tag, contenido) in enumerate(bloques):
         while fot_idx < len(fotos) and fotos[fot_idx].get("pos", 999) <= i:
             piezas.append(figura(fotos[fot_idx], meta["slug"]))
             fot_idx += 1
+        while ref_idx < len(referencias) and referencias[ref_idx].get("pos", 999) <= i:
+            piezas.append(referencia_documental(referencias[ref_idx]))
+            ref_idx += 1
         piezas.append(f"<{tag}>{inline(contenido, enlaces_por_bloque.get(i))}</{tag}>")
     while fot_idx < len(fotos):
         piezas.append(figura(fotos[fot_idx], meta["slug"]))
         fot_idx += 1
+    while ref_idx < len(referencias):
+        piezas.append(referencia_documental(referencias[ref_idx]))
+        ref_idx += 1
 
     with open(os.path.join(SALIDA, meta["slug"] + ".html"), "w", encoding="utf-8") as f:
         f.write("\n".join(piezas))

@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
-const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://tomasgomezarroyo.pages.dev').replace(/\/+$/, '');
+const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://tomasgomezarroyo.github.io').replace(/\/+$/, '');
 
 export default defineConfig({
   site: siteUrl,

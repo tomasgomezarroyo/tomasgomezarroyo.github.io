@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PUBLIC_SITE_URL: https://tomcontable.github.io
+  PUBLIC_SITE_URL: https://tomasgomezarroyo.github.io
   PUBLIC_API_ORIGIN: https://tomasgomezarroyo.pages.dev
 
 jobs:

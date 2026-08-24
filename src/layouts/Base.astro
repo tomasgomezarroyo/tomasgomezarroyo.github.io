@@ -22,7 +22,7 @@ const {
 const tituloCompleto = titulo === 'Memorias de Tomás Gómez Arroyo'
   ? titulo
   : `${titulo} · Memorias de Tomás Gómez Arroyo`;
-const siteUrl = (import.meta.env.PUBLIC_SITE_URL || 'https://tomasgomezarroyo.pages.dev').replace(/\/+$/, '');
+const siteUrl = (import.meta.env.PUBLIC_SITE_URL || 'https://tomasgomezarroyo.github.io').replace(/\/+$/, '');
 const apiOrigin = (import.meta.env.PUBLIC_API_ORIGIN || '').replace(/\/+$/, '');
 const canonicalPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '') || '/';
 const canonical = new URL(canonicalPath, `${siteUrl}/`).toString();

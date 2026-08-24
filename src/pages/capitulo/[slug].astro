@@ -15,7 +15,9 @@ const anterior = i > 0 ? indice[i - 1] : null;
 const siguiente = i < indice.length - 1 ? indice[i + 1] : null;
 
 const tieneAudio = narracionDisponible.includes(slug);
-const versionAudio = slug === 'capitulo-segundo' ? '?v=20260823' : '';
+const versionAudio = slug === 'capitulo-primero' || slug === 'capitulo-octavo'
+  ? '?v=20260824'
+  : slug === 'capitulo-segundo' ? '?v=20260823' : '';
 const audioSrc = `/media/narracion/${slug}.mp3${versionAudio}`;
 const siguienteConAudio = siguiente && narracionDisponible.includes(siguiente.slug) ? siguiente : null;
 

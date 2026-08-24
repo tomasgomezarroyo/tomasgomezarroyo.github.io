@@ -20,6 +20,7 @@ RAIZ = Path(__file__).resolve().parent.parent / "src" / "generado"
 def normalizar_para_voz(texto: str) -> str:
     """Expande tratamientos solo en el guion de narración."""
     sustituciones = (
+        (r"\bE\s*\.\s*N\s*\.\s*M\s*\.", "Escuela Naval Militar"),
         (r"\bRey Jaime I\b", "Rey Jaime primero"),
         (r"\bD\.ª(?=\s+[A-ZÁÉÍÓÚÜÑ])", "doña"),
         (r"\bD\.(?=\s+[A-ZÁÉÍÓÚÜÑ])", "don"),

@@ -17,6 +17,19 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent / "src" / "generado"
 
 
+def normalizar_para_voz(texto: str) -> str:
+    """Expande tratamientos solo en el guion de narración."""
+    sustituciones = (
+        (r"\bD\.ª(?=\s+[A-ZÁÉÍÓÚÜÑ])", "doña"),
+        (r"\bD\.(?=\s+[A-ZÁÉÍÓÚÜÑ])", "don"),
+        (r"\bSra\.(?=\s+[A-ZÁÉÍÓÚÜÑ])", "señora"),
+        (r"\bSr\.(?=\s+[A-ZÁÉÍÓÚÜÑ])", "señor"),
+    )
+    for patron, reemplazo in sustituciones:
+        texto = re.sub(patron, reemplazo, texto)
+    return texto
+
+
 class ExtractorNarrativo(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -53,7 +66,7 @@ class ExtractorNarrativo(HTMLParser):
                 texto = "".join(self._buffer)
                 texto = re.sub(r"\s+", " ", texto).strip()
                 if texto:
-                    self.parrafos.append(texto)
+                    self.parrafos.append(normalizar_para_voz(texto))
                 self._buffer = []
 
     def handle_data(self, data):

@@ -311,8 +311,9 @@ const canonical = new URL(canonicalPath, `${siteUrl}/`).toString();
         const capitulo = capitulosNarrados[indice];
         if (!capitulo) return;
         const siguiente = capitulosNarrados[indice + 1];
-        const versionAudio = capitulo.slug === 'capitulo-primero' || capitulo.slug === 'capitulo-octavo'
-          ? '?v=20260824'
+        const versionAudio = capitulo.slug === 'capitulo-primero'
+          ? '?v=20260824b'
+          : capitulo.slug === 'capitulo-octavo' ? '?v=20260824'
           : capitulo.slug === 'capitulo-segundo' ? '?v=20260823' : '';
         const nuevoSrc = `/media/narracion/${capitulo.slug}.mp3${versionAudio}`;
         escribir(CLAVE_SRC, nuevoSrc);

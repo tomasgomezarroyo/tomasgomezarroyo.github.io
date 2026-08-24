@@ -311,7 +311,9 @@ const canonical = new URL(canonicalPath, `${siteUrl}/`).toString();
         const capitulo = capitulosNarrados[indice];
         if (!capitulo) return;
         const siguiente = capitulosNarrados[indice + 1];
-        const versionAudio = capitulo.slug === 'capitulo-segundo' ? '?v=20260823' : '';
+        const versionAudio = capitulo.slug === 'capitulo-primero' || capitulo.slug === 'capitulo-octavo'
+          ? '?v=20260824'
+          : capitulo.slug === 'capitulo-segundo' ? '?v=20260823' : '';
         const nuevoSrc = `/media/narracion/${capitulo.slug}.mp3${versionAudio}`;
         escribir(CLAVE_SRC, nuevoSrc);
         escribir(CLAVE_TITULO, capitulo.titulo);
@@ -351,8 +353,15 @@ const canonical = new URL(canonicalPath, `${siteUrl}/`).toString();
       let src = leer(CLAVE_SRC);
       if (src) {
         const urlGuardada = new URL(src, location.href);
-        if (urlGuardada.pathname.endsWith('/capitulo-segundo.mp3') && urlGuardada.searchParams.get('v') !== '20260823') {
-          src = '/media/narracion/capitulo-segundo.mp3?v=20260823';
+        const versionesAudio: Record<string, string> = {
+          'capitulo-primero': '20260824',
+          'capitulo-segundo': '20260823',
+          'capitulo-octavo': '20260824',
+        };
+        const slugGuardado = urlGuardada.pathname.split('/').pop()?.replace(/\.mp3$/, '') || '';
+        const versionEsperada = versionesAudio[slugGuardado];
+        if (versionEsperada && urlGuardada.searchParams.get('v') !== versionEsperada) {
+          src = `/media/narracion/${slugGuardado}.mp3?v=${versionEsperada}`;
           escribir(CLAVE_SRC, src);
           escribir(CLAVE_POSICION, '0');
         }

@@ -75,12 +75,10 @@ def md_a_bloques(md):
     return bloques
 
 
-def inline(texto, enlaces_bloque=None):
+def inline(texto):
     t = htmllib.escape(texto, quote=False)
     t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
     t = re.sub(r"\*(.+?)\*", r"<em>\1</em>", t)
-    for enlace in enlaces_bloque or []:
-        t = envolver_enlace(t, enlace)
     return t
 
 
@@ -261,9 +259,14 @@ for meta in META:
         md, es_corregido = desde_original(original)
 
     bloques = md_a_bloques(md)
-    fotos = preparar_fotos(meta.get("fotos", []), bloques, meta["slug"])
+    fotos_directas = list(meta.get("fotos", []))
+    for enlace in meta.get("enlaces", []):
+        foto = dict(enlace)
+        foto["despues_de"] = foto.pop("buscar")
+        fotos_directas.append(foto)
+    fotos = preparar_fotos(fotos_directas, bloques, meta["slug"])
     referencias = preparar_referencias(meta.get("referencias", []), bloques, meta["slug"])
-    enlaces_por_bloque = preparar_enlaces(meta.get("enlaces", []), bloques, meta["slug"])
+
 
     # repartir fotos: en su posición pedida (índice de párrafo) o al final
     piezas = []
@@ -276,7 +279,7 @@ for meta in META:
         while ref_idx < len(referencias) and referencias[ref_idx].get("pos", 999) <= i:
             piezas.append(referencia_documental(referencias[ref_idx]))
             ref_idx += 1
-        piezas.append(f"<{tag}>{inline(contenido, enlaces_por_bloque.get(i))}</{tag}>")
+        piezas.append(f"<{tag}>{inline(contenido)}</{tag}>")
     while fot_idx < len(fotos):
         piezas.append(figura(fotos[fot_idx], meta["slug"]))
         fot_idx += 1

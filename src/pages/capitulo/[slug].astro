@@ -28,7 +28,6 @@ const fragmentos = import.meta.glob('../../generado/*.html', {
   eager: true,
 });
 const cuerpo = fragmentos[`../../generado/${slug}.html`];
-const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
 ---
 <Base titulo={cap.titulo} descripcion={cap.resumen} conBarco={true}>
   <main class="capitulo">
@@ -72,9 +71,6 @@ const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
 
     {cap.aviso && <aside class="aviso-contenido" aria-label="Aviso sobre el contenido">{cap.aviso}</aside>}
 
-    {tieneEnlacesDeTexto && (
-      <p class="ayuda-enlaces">Las palabras marcadas así <span class="icono-foto" aria-hidden="true">📷</span> se pueden pulsar: abren una fotografía sin cambiar de página.</p>
-    )}
 
     <div class="texto" set:html={cuerpo} />
 
@@ -196,14 +192,6 @@ const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
     margin: 0 0 2rem;
     padding: 0.9rem 1.1rem;
     border-left: 3px solid var(--oro);
-    background: var(--papel-2);
-    color: var(--tinta);
-    font-size: 0.94rem;
-  }
-  .ayuda-enlaces {
-    margin: 0 0 2rem;
-    padding: 0.75rem 1.1rem;
-    border-left: 3px solid var(--marino);
     background: var(--papel-2);
     color: var(--tinta);
     font-size: 0.94rem;
@@ -495,33 +483,7 @@ const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
   #ficha-historia { font-size: 0.94rem; line-height: 1.6; }
   #ficha-credito { margin-top: 0.9rem; font-size: 0.85rem; color: var(--bruma); }
   #ficha-galeria { display: inline-block; margin-top: 0.7rem; font-size: 0.88rem; font-weight: 600; }
-  .texto :global(.enlace-foto) {
-    font: inherit;
-    color: var(--marino);
-    background: color-mix(in srgb, var(--oro-claro) 18%, transparent);
-    border: none;
-    border-radius: 0.2rem;
-    padding: 0.05em 0.2em;
-    margin: 0 0.05em;
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration-color: var(--oro);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.15em;
-    font-weight: 600;
-  }
-  .texto :global(.enlace-foto .icono-foto) {
-    display: inline-block;
-    margin-left: 0.2em;
-    font-size: 0.85em;
-    text-decoration: none;
-  }
-  .texto :global(.enlace-foto:hover),
-  .texto :global(.enlace-foto:focus-visible) {
-    color: var(--papel);
-    background: var(--marino);
-    text-decoration-color: var(--oro-claro);
-  }
+
   #visor-cerrar {
     position: absolute;
     top: -0.2rem;
@@ -945,35 +907,7 @@ const tieneEnlacesDeTexto = cuerpo.includes('enlace-foto');
     });
   });
 
-  // Palabras del propio texto que llevan directo a una foto (sin lámina aparte).
-  // Al cerrar el visor el lector queda exactamente donde estaba leyendo, porque
-  // nunca se cambió de página.
-  document.querySelectorAll('.enlace-foto').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const datos = (btn as HTMLElement).dataset;
-      if (!datos.src || !visor) return;
-      vimg.src = datos.src;
-      vimg.alt = datos.alt || '';
-      original.href = datos.src;
-      ajustarLienzo();
-      if (panel && ftitulo && fdatos && fhistoria && fcredito) {
-        ftitulo.textContent = '';
-        fdatos.innerHTML = '';
-        fhistoria.textContent = datos.pie || '';
-        fcredito.textContent = datos.credito || '';
-        if (fgaleria) {
-          if (datos.galeria) {
-            fgaleria.href = datos.galeria;
-            fgaleria.hidden = false;
-          } else {
-            fgaleria.hidden = true;
-          }
-        }
-        panel.hidden = false;
-      }
-      visor.showModal();
-    });
-  });
+
 
   document.getElementById('visor-cerrar')?.addEventListener('click', () => visor.close());
   visor?.addEventListener('click', (e) => {

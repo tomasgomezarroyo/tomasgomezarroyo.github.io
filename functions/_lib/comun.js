@@ -2,7 +2,7 @@ export const RESPUESTAS_JSON = {
   'content-type': 'application/json; charset=utf-8',
   'cache-control': 'no-store',
   'x-content-type-options': 'nosniff',
-  'access-control-allow-origin': 'https://tomcontable.github.io',
+  'access-control-allow-origin': 'https://tomasgomezarroyo.github.io',
   'access-control-allow-methods': 'GET, POST, PATCH, DELETE, OPTIONS',
   'access-control-allow-headers': 'content-type, accept',
   'access-control-max-age': '86400',

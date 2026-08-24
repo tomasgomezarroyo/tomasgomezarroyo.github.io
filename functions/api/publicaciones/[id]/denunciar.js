@@ -16,7 +16,7 @@ async function enviarAviso(request, env, publicacion) {
   if (!env.BREVO_API_KEY) return;
   const exp = vencimientoAdministracion();
   const firma = await firmaAdministracion(publicacion.id, env.ADMIN_SECRET, exp);
-  const origen = (env.SITIO_PUBLICO || 'https://tomcontable.github.io').replace(/\/+$/, '');
+  const origen = (env.SITIO_PUBLICO || 'https://tomasgomezarroyo.github.io').replace(/\/+$/, '');
   const revision = `${origen}/administracion?id=${encodeURIComponent(publicacion.id)}&token=${encodeURIComponent(firma)}&exp=${encodeURIComponent(exp)}`;
   const contieneFoto = Boolean(publicacion.foto_vista_key);
   const resumen = publicacion.pie_foto || publicacion.comentario || '(Sin texto)';

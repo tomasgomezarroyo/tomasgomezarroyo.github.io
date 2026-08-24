@@ -1,4 +1,4 @@
-const SITIO_PUBLICO = 'https://tomcontable.github.io';
+const SITIO_PUBLICO = 'https://tomasgomezarroyo.github.io';
 const RUTAS_BACKEND = ['/api/', '/fotos/', '/media/'];
 
 function esRutaBackend(pathname) {

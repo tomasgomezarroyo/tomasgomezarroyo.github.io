@@ -314,7 +314,9 @@ const canonical = new URL(canonicalPath, `${siteUrl}/`).toString();
         const versionAudio = capitulo.slug === 'capitulo-primero'
           ? '?v=20260824b'
           : capitulo.slug === 'capitulo-octavo' ? '?v=20260824'
-          : ['capitulo-segundo', 'capitulo-tercero', 'capitulo-cuarto', 'capitulo-quinto', 'capitulo-sexto'].includes(capitulo.slug)
+          : capitulo.slug === 'capitulo-quinto'
+          ? '?v=20260825b'
+          : ['capitulo-segundo', 'capitulo-tercero', 'capitulo-cuarto', 'capitulo-sexto'].includes(capitulo.slug)
             ? '?v=20260825'
             : '';
         const nuevoSrc = `/media/narracion/${capitulo.slug}.mp3${versionAudio}`;
@@ -361,7 +363,7 @@ const canonical = new URL(canonicalPath, `${siteUrl}/`).toString();
           'capitulo-segundo': '20260825',
           'capitulo-tercero': '20260825',
           'capitulo-cuarto': '20260825',
-          'capitulo-quinto': '20260825',
+          'capitulo-quinto': '20260825b',
           'capitulo-sexto': '20260825',
           'capitulo-octavo': '20260824',
         };

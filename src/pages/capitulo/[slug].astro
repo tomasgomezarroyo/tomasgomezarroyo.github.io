@@ -18,7 +18,9 @@ const tieneAudio = narracionDisponible.includes(slug);
 const versionAudio = slug === 'capitulo-primero'
   ? '?v=20260824b'
   : slug === 'capitulo-octavo' ? '?v=20260824'
-  : ['capitulo-segundo', 'capitulo-tercero', 'capitulo-cuarto', 'capitulo-quinto', 'capitulo-sexto'].includes(slug)
+  : slug === 'capitulo-quinto'
+  ? '?v=20260825b'
+  : ['capitulo-segundo', 'capitulo-tercero', 'capitulo-cuarto', 'capitulo-sexto'].includes(slug)
     ? '?v=20260825'
     : '';
 const audioSrc = `/media/narracion/${slug}.mp3${versionAudio}`;

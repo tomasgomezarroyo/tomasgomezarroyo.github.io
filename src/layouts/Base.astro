@@ -314,7 +314,9 @@ const canonical = new URL(canonicalPath, `${siteUrl}/`).toString();
         const versionAudio = capitulo.slug === 'capitulo-primero'
           ? '?v=20260824b'
           : capitulo.slug === 'capitulo-octavo' ? '?v=20260824'
-          : capitulo.slug === 'capitulo-segundo' ? '?v=20260823' : '';
+          : ['capitulo-segundo', 'capitulo-tercero', 'capitulo-cuarto', 'capitulo-quinto', 'capitulo-sexto'].includes(capitulo.slug)
+            ? '?v=20260825'
+            : '';
         const nuevoSrc = `/media/narracion/${capitulo.slug}.mp3${versionAudio}`;
         escribir(CLAVE_SRC, nuevoSrc);
         escribir(CLAVE_TITULO, capitulo.titulo);
@@ -356,7 +358,11 @@ const canonical = new URL(canonicalPath, `${siteUrl}/`).toString();
         const urlGuardada = new URL(src, location.href);
         const versionesAudio: Record<string, string> = {
           'capitulo-primero': '20260824b',
-          'capitulo-segundo': '20260823',
+          'capitulo-segundo': '20260825',
+          'capitulo-tercero': '20260825',
+          'capitulo-cuarto': '20260825',
+          'capitulo-quinto': '20260825',
+          'capitulo-sexto': '20260825',
           'capitulo-octavo': '20260824',
         };
         const slugGuardado = urlGuardada.pathname.split('/').pop()?.replace(/\.mp3$/, '') || '';

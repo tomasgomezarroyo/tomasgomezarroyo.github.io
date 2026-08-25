@@ -562,7 +562,7 @@ export const mediaFamiliar: MediaFamiliar[] = [
   {
     id: 'oda-a-vivi',
     tipo: 'audio',
-    src: '/media/familia/oda-a-vivi.mp3',
+    src: '/media/familia/oda-a-vivi.mp3?v=20260825-remaster',
     titulo: 'Oda a Vivi',
     descripcion: 'Tomás recitando una poesía dedicada a Vivi.',
     personas: ['Tomás Gómez Arroyo'],

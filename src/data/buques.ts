@@ -214,8 +214,8 @@ export const buques: Buque[] = [
       },
       {
         src: '/fotos/buques/jose-luis-diez-antes-1938.jpg',
-        alt: 'El José Luis Díez antes del combate de 1938',
-        pie: 'El buque en puerto, en una imagen anterior a los hechos de diciembre de 1938, con la tripulación en cubierta de gala y botes atracados al costado.',
+        alt: 'El José Luis Díez en puerto antes de los hechos de diciembre de 1938',
+        pie: 'El buque en puerto, en una imagen anterior a los hechos de diciembre de 1938. Dos marineros son visibles en cubierta.',
         referencia: 'Referencia: Gibraltar National Archives (crédito confirmado; misma fotografía reproducida también por Casa de la Memoria La Sauceda), vía infogibraltar.com.',
       },
       {
@@ -226,8 +226,8 @@ export const buques: Buque[] = [
       },
       {
         src: '/fotos/buques/jose-luis-diez-cubierta-tripulacion-bne.jpg',
-        alt: 'El José Luis Díez con la tripulación formada en cubierta y embarcaciones menores al costado',
-        pie: 'El buque con la tripulación formada en cubierta y varias embarcaciones menores atracadas al costado. Sin fecha exacta, probablemente diciembre de 1938, el mismo episodio que las demás fotos de este lote.',
+        alt: 'Vista del José Luis Díez',
+        pie: 'Vista del buque. Sin fecha exacta, probablemente diciembre de 1938, el mismo episodio que las demás fotos de este lote.',
         referencia: 'Foto: Biblioteca Nacional de España, vía infogibraltar.com (portal oficial del Gobierno de Gibraltar); la BNE declara CC BY 4.0 para material en acceso abierto, pendiente de confirmar la condición exacta de este ítem en bnedigital.bne.es.',
       },
       {
@@ -261,27 +261,21 @@ export const buques: Buque[] = [
         referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
       },
       {
-        src: '/fotos/buques/jose-luis-diez-casau-perfil-a.jpg',
-        alt: 'Perfil de estribor del José Luis Díez fondeado',
-        pie: 'Perfil de estribor del buque fondeado, con las siglas "J.D" en el casco. Sin fecha exacta.',
-        referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
-      },
-      {
-        src: '/fotos/buques/jose-luis-diez-casau-navegando.jpg',
-        alt: 'El José Luis Díez navegando, levantando ola de proa',
-        pie: 'El buque navegando en mar abierta, levantando ola de proa. A diferencia de las demás fotos, aquí está en movimiento, no fondeado. Sin fecha exacta.',
-        referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
-      },
-      {
-        src: '/fotos/buques/jose-luis-diez-casau-fortaleza.jpg',
+        src: '/fotos/buques/jose-luis-diez-casau-perfil-a.jpg?v=20260828',
         alt: 'El José Luis Díez fondeado ante una costa con una fortaleza en lo alto',
         pie: 'El buque fondeado ante una costa con una fortaleza o castillo en lo alto de la colina; puerto no identificado con certeza. Sin fecha exacta.',
         referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
       },
       {
-        src: '/fotos/buques/jose-luis-diez-casau-dos-buques.jpg',
-        alt: 'El José Luis Díez amarrado junto a otro buque de su misma clase',
-        pie: 'El buque amarrado junto a otro destructor de su misma clase, con el nombre pintado en el casco visible. Sin fecha exacta.',
+        src: '/fotos/buques/jose-luis-diez-casau-navegando.jpg?v=20260828',
+        alt: 'El José Luis Díez navegando, levantando ola de proa',
+        pie: 'El buque navegando en mar abierta, levantando ola de proa. A diferencia de las demás fotos, aquí está en movimiento, no fondeado. Sin fecha exacta.',
+        referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
+      },
+      {
+        src: '/fotos/buques/jose-luis-diez-casau-dos-buques.jpg?v=20260828',
+        alt: 'El José Luis Díez encallado en Gibraltar',
+        pie: 'El José Luis Díez encallado en Gibraltar. Sin fecha exacta.',
         referencia: 'Foto: Archivo Casaú, vía Región de Murcia Digital (regmurcia.com); pendiente de confirmar condiciones exactas de reproducción.',
       },
       {
@@ -291,7 +285,7 @@ export const buques: Buque[] = [
         referencia: 'Referencia: blog cosasdehistoriayarte.blogspot.com; derechos pendientes de confirmación.',
       },
       {
-        src: '/fotos/buques/jose-luis-diez-empavesado-puerto-norte.jpg',
+        src: '/fotos/buques/jose-luis-diez-empavesado-puerto-norte.jpg?v=20260828',
         alt: 'El José Luis Díez empavesado con banderines de fiesta en un puerto del norte de España',
         pie: 'El buque atracado y empavesado con banderines de fiesta, con las siglas "DZ" visibles en el costado, en un puerto de aspecto cantábrico. Sin fecha exacta.',
         referencia: 'Referencia: blog cosasdehistoriayarte.blogspot.com; derechos pendientes de confirmación.',
@@ -400,8 +394,8 @@ export const buques: Buque[] = [
     imagenes: [
       {
         src: '/fotos/buques/triton-29.jpg',
-        alt: 'El cañonero-minador Tritón visto de costado, con el numeral 29 en la proa',
-        pie: 'El Tritón, primer destino de Tomás como alférez de navío, con el numeral 29 en la proa; más tarde llevaría el numeral F-22.',
+        alt: 'El cañonero-minador Tritón visto de costado, con el numeral 29',
+        pie: 'El Tritón, primer destino de Tomás como alférez de navío, con el numeral 29; más tarde llevaría el numeral F-22.',
         referencia: 'Imagen aportada por la familia. Identificación y fecha de entrada en servicio contrastadas con la Revista General de Marina; autor de la fotografía pendiente de identificar.',
       },
     ],

@@ -378,8 +378,8 @@ export const buques: Buque[] = [
     imagenes: [
       {
         src: '/fotos/buques/neptuno-27.jpg',
-        alt: 'El minador Neptuno visto de costado, con el numeral 27 en la proa',
-        pie: 'El minador Neptuno visto de costado, con el numeral 27 en la proa.',
+        alt: 'El minador Neptuno visto de costado, con el numeral 27',
+        pie: 'El minador Neptuno visto de costado, con el numeral 27.',
         referencia: 'Imagen aportada por la familia, procedente de una reproducción comercial; autor y fecha pendientes de identificar.',
       },
       {
